@@ -1,0 +1,306 @@
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { Smartphone, SmartphoneColor, SmartphoneVariant } from '@/types';
+import { formatPKR } from '@/data/smartphones';
+import { PhoneImageWithFallback } from './PhoneImageWithFallback';
+import {
+  ShieldCheck,
+  Star,
+  Check,
+  Cpu,
+  Battery,
+  Camera,
+  Layers,
+  ArrowRight,
+  ShoppingCart,
+  Zap,
+  CreditCard,
+  Sparkles,
+} from 'lucide-react';
+
+interface PhoneCardProps {
+  phone: Smartphone;
+  isComparing?: boolean;
+  onToggleCompare?: (phone: Smartphone) => void;
+  onAddToCart?: (
+    phone: Smartphone,
+    variant: SmartphoneVariant,
+    color: SmartphoneColor
+  ) => void;
+  onQuickBuy?: (
+    phone: Smartphone,
+    variant: SmartphoneVariant,
+    color: SmartphoneColor
+  ) => void;
+}
+
+export const PhoneCard = React.memo(function PhoneCard({
+  phone,
+  isComparing = false,
+  onToggleCompare,
+  onAddToCart,
+  onQuickBuy,
+}: PhoneCardProps) {
+  // Default to first in-stock color if available, else first color
+  const firstInStockIdx = phone.colors.findIndex((c) => c.inStock);
+  const [selectedColorIndex, setSelectedColorIndex] = useState(
+    firstInStockIdx !== -1 ? firstInStockIdx : 0
+  );
+  const [isHovered, setIsHovered] = useState(false);
+  const activeColor = phone.colors[selectedColorIndex] || phone.colors[0];
+  const primaryVariant = phone.variants.find((v) => v.inStock) || phone.variants[0];
+
+  const isSelectionInStock = Boolean(
+    phone.inStock && (activeColor.inStock ?? true) && (primaryVariant?.inStock ?? true)
+  );
+  const savingsPKR = phone.originalPricePKR - phone.basePricePKR;
+  const emiPerMonth = Math.round(phone.basePricePKR / 12);
+
+  return (
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative flex flex-col justify-between bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-cyan-400 hover:ring-4 hover:ring-cyan-500/10 hover:-translate-y-2 transition-all duration-300 cv-auto gpu-accelerated"
+    >
+      {/* Top Badges & Compare Toggle */}
+      <div>
+        <div className="flex items-center justify-between gap-2 mb-2.5">
+          <div className="flex flex-wrap items-center gap-1.5">
+            {!phone.inStock ? (
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
+                Out of Stock
+              </span>
+            ) : (
+              phone.specs.ptaStatus === 'PTA Approved' && (
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/70 shadow-xs">
+                  <ShieldCheck className="w-3.5 h-3.5 stroke-[2.2]" />
+                  PTA Approved
+                </span>
+              )
+            )}
+            {phone.discountPercent > 0 && (
+              <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-50 text-rose-600 border border-rose-200/70 shadow-xs group-hover:scale-105 transition-transform">
+                <Sparkles className="w-2.5 h-2.5 text-rose-500 fill-rose-500" />
+                -{phone.discountPercent}%
+              </span>
+            )}
+          </div>
+
+          {/* Compare Toggle Button */}
+          {onToggleCompare && (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                onToggleCompare(phone);
+              }}
+              title="Add to Compare"
+              className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all cursor-pointer btn-press ${
+                isComparing
+                  ? 'bg-cyan-600 text-white shadow-sm ring-2 ring-cyan-400'
+                  : 'bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" />
+              <span>{isComparing ? 'Comparing' : 'Compare'}</span>
+            </button>
+          )}
+        </div>
+
+        {/* Product Image Canvas with Interactive Hover Zoom & Lift */}
+        <Link
+          href={`/product/${phone.slug}`}
+          className="block relative w-full h-48 sm:h-52 my-1.5 bg-gradient-to-b from-slate-50/90 to-white rounded-2xl p-3 overflow-hidden"
+        >
+          <div className="w-full h-full flex items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-1.5">
+            <PhoneImageWithFallback
+              src={activeColor.image}
+              alt={`${phone.name} - ${activeColor.name}`}
+              brand={phone.brand}
+              className="w-full h-full object-contain filter drop-shadow-sm group-hover:drop-shadow-xl transition-all duration-500"
+            />
+          </div>
+        </Link>
+
+        {/* Color Variant Swatches with Tactile Pop */}
+        <div className="flex items-center gap-2 my-2.5">
+          <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+            Colors:
+          </span>
+          <div className="flex items-center gap-1.5">
+            {phone.colors.map((color, idx) => {
+              const isColorInStock = color.inStock ?? true;
+              const isSelected = selectedColorIndex === idx;
+              return (
+                <button
+                  key={color.name}
+                  onClick={() => setSelectedColorIndex(idx)}
+                  title={`${color.name} ${!isColorInStock ? '(Out of Stock)' : ''}`}
+                  className={`relative w-4 h-4 rounded-full border transition-all duration-200 cursor-pointer ${
+                    isSelected
+                      ? 'ring-2 ring-cyan-500 ring-offset-2 scale-125 shadow-md'
+                      : 'border-slate-300 hover:scale-130 hover:border-slate-400'
+                  } ${!isColorInStock ? 'opacity-40' : ''}`}
+                  style={{ backgroundColor: color.hex }}
+                >
+                  {!isColorInStock && (
+                    <span className="absolute inset-0 flex items-center justify-center text-[9px] text-rose-600 font-black">
+                      ×
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+          <div className="ml-auto flex items-center gap-1 max-w-[110px]">
+            <span className="text-[11px] text-slate-500 font-medium truncate group-hover:text-slate-700 transition-colors">
+              {activeColor.name}
+            </span>
+            {activeColor.inStock === false && (
+              <span className="text-[9px] font-bold text-rose-600 bg-rose-50 px-1 py-0.2 rounded border border-rose-200">
+                OOS
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Brand & Name */}
+        <div className="mt-1">
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-cyan-700">
+            {phone.brand}
+          </span>
+          <Link href={`/product/${phone.slug}`}>
+            <h3 className="text-sm sm:text-base font-extrabold text-slate-950 group-hover:text-cyan-700 transition-colors line-clamp-1 mt-0.5">
+              {phone.name}
+            </h3>
+          </Link>
+          <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+            {phone.tagline}
+          </p>
+        </div>
+
+        {/* Key Specs Micro-Chips */}
+        <div className="grid grid-cols-2 gap-1.5 mt-2.5 pt-2.5 border-t border-slate-100 text-[11px] text-slate-600">
+          <div className="flex items-center gap-1.5 truncate group-hover:text-slate-800 transition-colors">
+            <Cpu className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+            <span className="truncate">{phone.specs.chipsetBrand}</span>
+          </div>
+          <div className="flex items-center gap-1.5 truncate group-hover:text-slate-800 transition-colors">
+            <Battery className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+            <span className="truncate">{phone.keyHighlights.battery.split(' ')[0]} mAh</span>
+          </div>
+          <div className="flex items-center gap-1.5 truncate group-hover:text-slate-800 transition-colors">
+            <Camera className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+            <span className="truncate">
+              {phone.specs.mainCamera.toLowerCase().includes('no')
+                ? 'No Camera'
+                : phone.specs.mainCamera.includes('MP')
+                ? `${phone.specs.mainCamera.split(' ')[0]} MP`
+                : phone.specs.mainCamera}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 truncate group-hover:text-slate-800 transition-colors">
+            <Layers className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+            <span className="truncate">{primaryVariant.ram} / {primaryVariant.storage}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Pricing, Stock Status & Dual Conversion Action Buttons */}
+      <div className="mt-3 pt-3 border-t border-slate-100">
+        {/* Price & Star Rating */}
+        <div className="flex items-baseline justify-between">
+          <div>
+            <div className="text-lg sm:text-xl font-black text-slate-950 group-hover:text-cyan-900 transition-colors">
+              {formatPKR(phone.basePricePKR)}
+            </div>
+            {phone.originalPricePKR > phone.basePricePKR && (
+              <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                <span className="line-through">{formatPKR(phone.originalPricePKR)}</span>
+                <span className="text-emerald-700 font-bold text-[11px]">
+                  Save {formatPKR(savingsPKR)}
+                </span>
+              </div>
+            )}
+          </div>
+
+          <div className="flex items-center gap-1 text-xs text-amber-500 font-bold">
+            <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
+            <span>{phone.rating}</span>
+            <span className="text-[11px] text-slate-400 font-normal">({phone.reviewCount})</span>
+          </div>
+        </div>
+
+        {/* 0% EMI Installment Badge */}
+        <div className="mt-2 py-1 px-2.5 rounded-xl bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 transition-colors flex items-center justify-between text-[11px] text-slate-600">
+          <span className="flex items-center gap-1 font-medium">
+            <CreditCard className="w-3 h-3 text-cyan-600" />
+            <span>0% Installment:</span>
+          </span>
+          <span className="font-extrabold text-cyan-700">
+            {formatPKR(emiPerMonth)}/mo
+          </span>
+        </div>
+
+        {/* Live Stock Status Indicator with Dual Pulse Wave */}
+        <div className="mt-2.5 flex items-center justify-between text-[11px]">
+          {isSelectionInStock ? (
+            <span className="inline-flex items-center gap-1.5 text-emerald-700 font-semibold">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+              </span>
+              <span>In Stock • Ready to Ship</span>
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1.5 text-rose-600 font-semibold">
+              <span className="h-2 w-2 rounded-full bg-rose-500" />
+              <span>Out of Stock</span>
+            </span>
+          )}
+          <span className="text-slate-400 font-medium">Open-Parcel COD</span>
+        </div>
+
+        {/* Dual Conversion Buttons with Tactile Hover Scale & Shimmer */}
+        <div className="grid grid-cols-12 gap-2 mt-3">
+          {/* Quick Buy Button (Electric Cyan with Shimmer & Tap Feedback) */}
+          <button
+            onClick={() => {
+              if (isSelectionInStock && onQuickBuy) {
+                onQuickBuy(phone, primaryVariant, activeColor);
+              }
+            }}
+            disabled={!isSelectionInStock}
+            className={`group/btn col-span-8 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-black transition-all btn-shimmer btn-press ${
+              isSelectionInStock
+                ? 'bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-md shadow-cyan-500/25 hover:shadow-lg hover:shadow-cyan-400/40 cursor-pointer'
+                : 'bg-slate-200 text-slate-400 cursor-not-allowed border border-slate-300'
+            }`}
+          >
+            <Zap className="w-3.5 h-3.5 fill-slate-950 stroke-slate-950 group-hover/btn:rotate-12 transition-transform duration-300" />
+            <span>{isSelectionInStock ? 'Quick Buy' : 'Out of Stock'}</span>
+          </button>
+
+          {/* Add to Cart Button (Deep Slate with Scale Bounce) */}
+          <button
+            onClick={() => {
+              if (isSelectionInStock && onAddToCart) {
+                onAddToCart(phone, primaryVariant, activeColor);
+              }
+            }}
+            disabled={!isSelectionInStock}
+            title="Add to Cart"
+            className={`group/cart col-span-4 flex items-center justify-center py-2.5 px-2 rounded-xl text-xs font-bold transition-all btn-press ${
+              isSelectionInStock
+                ? 'bg-slate-950 hover:bg-slate-800 text-white cursor-pointer shadow-md shadow-slate-950/20 hover:shadow-lg hover:shadow-slate-950/30'
+                : 'bg-slate-100 text-slate-300 cursor-not-allowed'
+            }`}
+          >
+            <ShoppingCart className="w-4 h-4 text-cyan-400 group-hover/cart:scale-120 transition-transform duration-200" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+});
