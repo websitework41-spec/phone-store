@@ -92,7 +92,7 @@ export function CatalogBannerS24Ultra({ onSelectBrand }: BannerProps) {
               onClick={() => onSelectBrand && onSelectBrand('Samsung')}
               className="btn-press inline-flex items-center gap-2 px-5 py-3 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 hover:border-cyan-400/60 transition-all cursor-pointer shadow-xs"
             >
-              <span>All 19 Samsung Phones</span>
+              <span>All 25 Samsung Phones</span>
             </button>
           </div>
         </div>

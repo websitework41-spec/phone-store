@@ -28,9 +28,9 @@ function getSmartAssistantResponse(query: string): string {
 
   if (q.includes('redmi') || q.includes('xiaomi')) {
     return `⚡ **Top Xiaomi & Redmi Picks**:
-1. [**Xiaomi Redmi 10C**](/product/xiaomi-redmi-10c): Rs. 23,999 (Budget Champion, 5000mAh battery)
-2. [**Xiaomi Redmi 14C**](/product/xiaomi-redmi-14c): Rs. 29,999 (120Hz display, 50MP AI camera)
-3. [**Xiaomi Redmi 15C**](/product/xiaomi-redmi-15c): Rs. 42,999 (Helio G81-Ultra, 120Hz)
+1. [**Xiaomi Redmi 14C**](/product/xiaomi-redmi-14c): Rs. 29,999 (120Hz display, 50MP AI camera)
+2. [**Xiaomi Redmi 15C**](/product/xiaomi-redmi-15c): Rs. 42,999 (Helio G81-Ultra, 120Hz)
+3. [**Xiaomi Redmi 10C**](/product/xiaomi-redmi-10c): Rs. 47,499 (128GB In-Stock, Snapdragon 680, 5000mAh)
 4. [**Xiaomi Redmi Note 15 Pro Plus**](/product/xiaomi-redmi-note-15-pro-plus): Rs. 109,999 (200MP OIS, 6500mAh)
 - **Warranty**: 1-Year Official Xiaomi / Airlink Pakistan Warranty.`;
   }
@@ -46,36 +46,33 @@ function getSmartAssistantResponse(query: string): string {
   // 2. Budget brackets
   if (q.includes('25') || q.includes('25k') || q.includes('under 25000') || q.includes('under 25,000') || q.includes('under 25')) {
     return `💰 **Best Phones Under Rs. 25,000**:
-1. [**Xiaomi Redmi 10C**](/product/xiaomi-redmi-10c): Rs. 23,999 (Snapdragon 680, 5000mAh, 50MP camera)
-2. [**OnePlus Nord N100**](/product/oneplus-nord-n100): Rs. 23,999 (90Hz display, 5000mAh, 18W fast charging)
-3. [**Huawei Y6s**](/product/huawei-y6s-2019): Rs. 18,699
-4. [**Google Pixel**](/product/google-pixel): Rs. 17,499
+1. [**OnePlus Nord N100**](/product/oneplus-nord-n100): Rs. 23,999 (90Hz display, 5000mAh, 18W fast charging)
+2. [**Huawei Y6s**](/product/huawei-y6s-2019): Rs. 18,699
+3. [**Google Pixel**](/product/google-pixel): Rs. 17,499
 All models are 100% PTA Approved with Open-Parcel Delivery!`;
   }
 
   if (q.includes('30') || q.includes('30k') || q.includes('under 30000') || q.includes('under 30,000')) {
     return `💰 **Best Phones Under Rs. 30,000**:
-1. [**Xiaomi Redmi 10C**](/product/xiaomi-redmi-10c): Rs. 23,999 (Snapdragon 680, 5000mAh)
-2. [**Xiaomi Redmi 14C**](/product/xiaomi-redmi-14c): Rs. 29,999 (6.88" 120Hz display, 50MP AI camera)
-3. [**Huawei Y7p**](/product/huawei-y7p): Rs. 25,799
-4. [**Huawei Y8p**](/product/huawei-y8p): Rs. 28,000`;
+1. [**Xiaomi Redmi 14C**](/product/xiaomi-redmi-14c): Rs. 29,999 (6.88" 120Hz display, 50MP AI camera)
+2. [**Huawei Y7p**](/product/huawei-y7p): Rs. 25,799
+3. [**Huawei Y8p**](/product/huawei-y8p): Rs. 28,000`;
   }
 
   if (q.includes('35') || q.includes('35k') || q.includes('under 35000') || q.includes('under 35,000')) {
     return `💰 **Best Phones Under Rs. 35,000**:
-1. [**Xiaomi Redmi 10C**](/product/xiaomi-redmi-10c): Rs. 23,999 (Snapdragon 680, 5000mAh)
-2. [**Xiaomi Redmi 14C**](/product/xiaomi-redmi-14c): Rs. 29,999 (120Hz screen, 50MP camera)
-3. [**Infinix Hot 60i**](/product/infinix-hot-60i): Rs. 31,999
-4. [**Infinix Hot 50**](/product/infinix-hot-50): Rs. 33,999 (Helio G100)
-5. [**Samsung Galaxy A07**](/product/samsung-galaxy-a07): Rs. 34,999 (5000mAh battery)`;
+1. [**Xiaomi Redmi 14C**](/product/xiaomi-redmi-14c): Rs. 29,999 (120Hz screen, 50MP camera)
+2. [**Infinix Hot 60i**](/product/infinix-hot-60i): Rs. 31,999
+3. [**Infinix Hot 50**](/product/infinix-hot-50): Rs. 33,999 (Helio G100)
+4. [**Samsung Galaxy A07**](/product/samsung-galaxy-a07): Rs. 34,999 (5000mAh battery)`;
   }
 
   if (q.includes('40') || q.includes('40k') || q.includes('under 40000') || q.includes('under 40,000')) {
     return `💰 **Best Phones Under Rs. 40,000**:
 1. [**Samsung Galaxy A07**](/product/samsung-galaxy-a07): Rs. 34,999 (5000mAh, 50MP Dual Camera, 6.7" Display)
 2. [**Infinix Hot 50**](/product/infinix-hot-50): Rs. 33,999 (120Hz FHD+, Helio G100, 5000mAh)
-3. [**Xiaomi Redmi 14C**](/product/xiaomi-redmi-14c): Rs. 29,999 (6.88" 120Hz display, 50MP AI camera)
-4. [**Xiaomi Redmi 10C**](/product/xiaomi-redmi-10c): Rs. 23,999 (Snapdragon 680, 5000mAh, 50MP)
+3. [**Infinix Hot 60i**](/product/infinix-hot-60i): Rs. 31,999 (Smooth display, long battery life)
+4. [**Xiaomi Redmi 14C**](/product/xiaomi-redmi-14c): Rs. 29,999 (6.88" 120Hz display, 50MP AI camera)
 5. [**Oppo A54s**](/product/oppo-a54s): Rs. 35,999 (5000mAh, AI Triple Camera)
 6. [**Sony Xperia L4**](/product/sony-xperia-l4): Rs. 36,999 (Triple Camera, 21:9 CinemaWide)
 All models include 1-Year Official Brand Warranty and Open-Parcel Doorstep Inspection!`;
@@ -84,9 +81,10 @@ All models include 1-Year Official Brand Warranty and Open-Parcel Doorstep Inspe
   if (q.includes('50') || q.includes('50k') || q.includes('under 50000') || q.includes('under 50,000')) {
     return `💰 **Best Phones Under Rs. 50,000**:
 1. [**Tecno Spark 40**](/product/tecno-spark-40): Rs. 49,999 (50MP AI Camera, 5000mAh)
-2. [**Xiaomi Redmi 15C**](/product/xiaomi-redmi-15c): Rs. 42,999 (120Hz, 50MP AI Dual Camera)
-3. [**Sony Xperia L4**](/product/sony-xperia-l4): Rs. 36,999
-4. [**Samsung Galaxy A07**](/product/samsung-galaxy-a07): Rs. 34,999`;
+2. [**Xiaomi Redmi 10C**](/product/xiaomi-redmi-10c): Rs. 47,499 (Snapdragon 680, 50MP camera)
+3. [**Xiaomi Redmi 15C**](/product/xiaomi-redmi-15c): Rs. 42,999 (120Hz, 50MP AI Dual Camera)
+4. [**Sony Xperia L4**](/product/sony-xperia-l4): Rs. 36,999
+5. [**Samsung Galaxy A07**](/product/samsung-galaxy-a07): Rs. 34,999`;
   }
 
   if (q.includes('60') || q.includes('60k') || q.includes('under 60000') || q.includes('under 60,000')) {

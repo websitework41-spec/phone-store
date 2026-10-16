@@ -237,7 +237,7 @@ export function Footer() {
             <ul className="space-y-2 text-slate-400">
               <li>
                 <Link href="/?brand=Samsung#catalog" className="hover:text-cyan-400 transition-colors">
-                  Samsung Galaxy (19)
+                  Samsung Galaxy (25)
                 </Link>
               </li>
               <li>
@@ -429,7 +429,7 @@ export function Footer() {
         {/* Bottom Legal & Copyright Bar */}
         <div className="mt-6 pt-6 border-t border-slate-850 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500 text-center sm:text-left">
           <div>
-            © {new Date().getFullYear()} VoltPhone PK. All rights reserved. Registered NTN &amp; SECP Compliant Pakistani Marketplace.
+            {`© ${new Date().getFullYear()} VoltPhone PK. All rights reserved. Registered NTN & SECP Compliant Pakistani Marketplace.`}
           </div>
           <div className="flex items-center gap-3">
             <span>Prices synchronized live with official distributor stock</span>

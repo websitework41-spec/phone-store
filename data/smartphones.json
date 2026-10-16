@@ -420,7 +420,7 @@
     "keyHighlights": {
       "display": "6.9 inches AMOLED",
       "processor": "Octa Core Processor",
-      "camera": "200.0 MP + 50.0 MP + 50.0 MP + 10.0 MP",
+      "camera": "200 MP + 50 MP + 50 MP + 10 MP",
       "battery": "5000 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -430,7 +430,7 @@
       "displayType": "AMOLED",
       "processor": "Octa Core Processor",
       "chipsetBrand": "Qualcomm Snapdragon",
-      "mainCamera": "200.0 MP + 50.0 MP + 50.0 MP + 10.0 MP",
+      "mainCamera": "200 MP + 50 MP + 50 MP + 10 MP",
       "selfieCamera": "12.0 MP",
       "battery": "5000 mAh",
       "charging": "25W Super Fast Charging",
@@ -618,7 +618,7 @@
     "keyHighlights": {
       "display": "171.1mm (6.7\") AMOLED",
       "processor": "Deca-Core",
-      "camera": "50.0 MP + 12.0 MP + 8.0 MP",
+      "camera": "50 MP + 12 MP + 8 MP",
       "battery": "4900 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -628,7 +628,7 @@
       "displayType": "AMOLED",
       "processor": "Deca-Core",
       "chipsetBrand": "Qualcomm Snapdragon",
-      "mainCamera": "50.0 MP + 12.0 MP + 8.0 MP",
+      "mainCamera": "50 MP + 12 MP + 8 MP",
       "selfieCamera": "12.0 MP",
       "battery": "4900 mAh",
       "charging": "25W Super Fast Charging",
@@ -2253,7 +2253,7 @@
     "keyHighlights": {
       "display": "159.3mm (6.3 Dynamic AMOLED 2X",
       "processor": "Deca-Core",
-      "camera": "50.0 MP + 10.0 MP + 12.0 MP",
+      "camera": "50 MP + 10 MP + 12 MP",
       "battery": "4300 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -2263,7 +2263,7 @@
       "displayType": "Dynamic AMOLED 2X",
       "processor": "Deca-Core",
       "chipsetBrand": "Qualcomm Snapdragon",
-      "mainCamera": "50.0 MP + 10.0 MP + 12.0 MP",
+      "mainCamera": "50 MP + 10 MP + 12 MP",
       "selfieCamera": "12.0 MP",
       "battery": "4300 mAh",
       "charging": "25W Super Fast Charging",
@@ -3726,9 +3726,9 @@
     "name": "Xiaomi Redmi 10C",
     "brand": "Xiaomi",
     "tagline": "Official Xiaomi Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 23999,
-    "originalPricePKR": 44999,
-    "discountPercent": 47,
+    "basePricePKR": 47499,
+    "originalPricePKR": 49999,
+    "discountPercent": 5,
     "rating": 4.9,
     "reviewCount": 512,
     "inStock": true,
@@ -3803,7 +3803,7 @@
     "specs": {
       "screen": "6.71 inches IPS LCD, 720 x 1650 pixels",
       "refreshRate": "90Hz",
-      "displayType": "IPS LCD",
+      "displayType": "IPS LCD, 90Hz, 400 nits, Corning Gorilla Glass 3",
       "processor": "Qualcomm SM6225 Snapdragon 680 4G (6 nm)",
       "chipsetBrand": "Qualcomm Snapdragon",
       "mainCamera": "50 MP + 2 MP",
@@ -4482,7 +4482,7 @@
       {
         "id": "nokia-106-std",
         "storage": "MicroSD up to 32GB",
-        "ram": "4MB RAM",
+        "ram": "4MB",
         "pricePKR": 4149,
         "originalPricePKR": 4771,
         "inStock": true,
@@ -8898,7 +8898,7 @@
     "keyHighlights": {
       "display": "169.1mm (6.7\") Super AMOLED",
       "processor": "Octa-Core",
-      "camera": "50.0 MP + 5.0 MP + 2.0 MP",
+      "camera": "50 MP + 5 MP + 2 MP",
       "battery": "5000 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -8908,7 +8908,7 @@
       "displayType": "Super AMOLED",
       "processor": "Samsung Exynos 1330 (5nm)",
       "chipsetBrand": "Samsung Exynos 1330",
-      "mainCamera": "50.0 MP + 5.0 MP + 2.0 MP",
+      "mainCamera": "50 MP + 5 MP + 2 MP",
       "selfieCamera": "13.0 MP",
       "battery": "5000 mAh",
       "charging": "25W Super Fast Charging",
@@ -13630,7 +13630,7 @@
     "keyHighlights": {
       "display": "5.56 inches IPS LCD capacitive touchscreen, 16M colors",
       "processor": "Octa-core (2x2.0 GHz 360 Gold & 6x1.7 GHz Kryo 360 Silver) (Adreno 615)",
-      "camera": "12",
+      "camera": "12.2 MP",
       "battery": "5000 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -13640,7 +13640,7 @@
       "displayType": "IPS LCD capacitive touchscreen, 16M colors",
       "processor": "Octa-core (2x2.0 GHz 360 Gold & 6x1.7 GHz Kryo 360 Silver) (Adreno 615)",
       "chipsetBrand": "Google Tensor",
-      "mainCamera": "12",
+      "mainCamera": "12.2 MP",
       "selfieCamera": "8 MP",
       "battery": "5000 mAh",
       "charging": "18W Fast Charging, USB-PD",
@@ -13927,7 +13927,7 @@
     "keyHighlights": {
       "display": "171.1mm (6.7 Super AMOLED Plus",
       "processor": "Octa-Core",
-      "camera": "50.0 MP + 12.0 MP + 5.0 MP",
+      "camera": "50 MP + 12 MP + 5 MP",
       "battery": "5000 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -13937,7 +13937,7 @@
       "displayType": "Super AMOLED Plus",
       "processor": "Samsung Exynos 1580 (4nm)",
       "chipsetBrand": "Samsung Exynos 1580",
-      "mainCamera": "50.0 MP + 12.0 MP + 5.0 MP",
+      "mainCamera": "50 MP + 12 MP + 5 MP",
       "selfieCamera": "12.0 MP",
       "battery": "5000 mAh",
       "charging": "25W Super Fast Charging",
@@ -14608,7 +14608,7 @@
     "keyHighlights": {
       "display": "2 Inches TFT / QQVGA",
       "processor": "Unisoc 6531E",
-      "camera": "Yes",
+      "camera": "Digital Camera (QVGA)",
       "battery": "1750",
       "charging": "Super Long Battery Backup"
     },
@@ -14618,7 +14618,7 @@
       "displayType": "TFT / QQVGA",
       "processor": "Unisoc 6531E",
       "chipsetBrand": "Unisoc",
-      "mainCamera": "Yes",
+      "mainCamera": "Digital Camera (QVGA)",
       "selfieCamera": "No Selfie Camera",
       "battery": "1750",
       "charging": "Standard Micro-USB",
@@ -14674,7 +14674,7 @@
       {
         "id": "nokia-3210-std",
         "storage": "128MB (MicroSD up to 32GB)",
-        "ram": "64MB RAM",
+        "ram": "64MB",
         "pricePKR": 12449,
         "originalPricePKR": 14316,
         "inStock": true,
@@ -14698,7 +14698,7 @@
     "keyHighlights": {
       "display": "2.8 inches TFT",
       "processor": "Unisoc T107",
-      "camera": "Yes",
+      "camera": "Digital Camera (QVGA)",
       "battery": "1450 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -14708,7 +14708,7 @@
       "displayType": "TFT",
       "processor": "Unisoc T107",
       "chipsetBrand": "Unisoc",
-      "mainCamera": "Yes",
+      "mainCamera": "Digital Camera (QVGA)",
       "selfieCamera": "No",
       "battery": "1450 mAh",
       "charging": "Standard Micro-USB Charging",
@@ -15331,7 +15331,7 @@
     "keyHighlights": {
       "display": "6.7 Super AMOLED",
       "processor": "Octa Core Processor",
-      "camera": "50.0 MP + 8.0 MP + 5.0 MP",
+      "camera": "50 MP + 8 MP + 5 MP",
       "battery": "5000 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -15341,7 +15341,7 @@
       "displayType": "Super AMOLED",
       "processor": "Samsung Exynos 1380 (5nm)",
       "chipsetBrand": "Samsung Exynos 1380",
-      "mainCamera": "50.0 MP + 8.0 MP + 5.0 MP",
+      "mainCamera": "50 MP + 8 MP + 5 MP",
       "selfieCamera": "12.0 MP",
       "battery": "5000 mAh",
       "charging": "25W Super Fast Charging",
@@ -17113,7 +17113,7 @@
       {
         "id": "nokia-4mb-4mb-4mb-ram",
         "storage": "4MB",
-        "ram": "4MB 4MB RAM",
+        "ram": "4MB",
         "pricePKR": 3328,
         "originalPricePKR": 3594,
         "inStock": true,
@@ -17295,7 +17295,7 @@
     "keyHighlights": {
       "display": "6.0 inches P-OLED capacitive touchscreen, 16M colors",
       "processor": "Octa-core (4x2.35 GHz Kryo & 4x1.9 GHz Kryo) (Adreno 540)",
-      "camera": "12",
+      "camera": "12.2 MP",
       "battery": "3520 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -17305,7 +17305,7 @@
       "displayType": "P-OLED capacitive touchscreen, 16M colors",
       "processor": "Octa-core (4x2.35 GHz Kryo & 4x1.9 GHz Kryo) (Adreno 540)",
       "chipsetBrand": "Google Tensor",
-      "mainCamera": "12",
+      "mainCamera": "12.2 MP",
       "selfieCamera": "8 MP",
       "battery": "3520 mAh",
       "charging": "18W Fast Charging, USB-PD",
@@ -17460,7 +17460,7 @@
     "keyHighlights": {
       "display": "5.5 inches P-OLED capacitive touchscreen, 16M colors",
       "processor": "Octa-core (4x2.5 GHz Kryo 385 Gold & 4x1.6 GHz Kryo 385 Silver) (Adreno 630)",
-      "camera": "12",
+      "camera": "12.2 MP",
       "battery": "2915 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -17470,7 +17470,7 @@
       "displayType": "P-OLED capacitive touchscreen, 16M colors",
       "processor": "Octa-core (4x2.5 GHz Kryo 385 Gold & 4x1.6 GHz Kryo 385 Silver) (Adreno 630)",
       "chipsetBrand": "Google Tensor",
-      "mainCamera": "12",
+      "mainCamera": "12.2 MP",
       "selfieCamera": "8 MP",
       "battery": "2915 mAh",
       "charging": "18W Fast Charging, USB-PD",
@@ -18196,7 +18196,7 @@
     "keyHighlights": {
       "display": "5.0 inches AMOLED capacitive touchscreen, 16M colors",
       "processor": "Octa-core (4x2.35 GHz Kryo & 4x1.9 GHz Kryo) (Adreno 540)",
-      "camera": "12",
+      "camera": "12.2 MP",
       "battery": "2700 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -18206,7 +18206,7 @@
       "displayType": "AMOLED capacitive touchscreen, 16M colors",
       "processor": "Octa-core (4x2.35 GHz Kryo & 4x1.9 GHz Kryo) (Adreno 540)",
       "chipsetBrand": "Google Tensor",
-      "mainCamera": "12",
+      "mainCamera": "12.2 MP",
       "selfieCamera": "8 MP",
       "battery": "2700 mAh",
       "charging": "18W Fast Charging, USB-PD",
@@ -18282,7 +18282,7 @@
     "keyHighlights": {
       "display": "6.0 inches OLED capacitive touchscreen, 16M colors",
       "processor": "Octa-core (2x2.0 GHz 360 Gold & 6x1.7 GHz Kryo 360 Silver) (Adreno 615)",
-      "camera": "12",
+      "camera": "12.2 MP",
       "battery": "3700 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -18292,7 +18292,7 @@
       "displayType": "OLED capacitive touchscreen, 16M colors",
       "processor": "Octa-core (2x2.0 GHz 360 Gold & 6x1.7 GHz Kryo 360 Silver) (Adreno 615)",
       "chipsetBrand": "Google Tensor",
-      "mainCamera": "12",
+      "mainCamera": "12.2 MP",
       "selfieCamera": "8 MP",
       "battery": "3700 mAh",
       "charging": "18W Fast Charging, USB-PD",
@@ -18460,7 +18460,7 @@
     "keyHighlights": {
       "display": "5.5 inches AMOLED capacitive touchscreen, 16M colors",
       "processor": "Quad-core (2x2.15 GHz Kryo & 2x1.6 GHz Kryo) (Adreno 530)",
-      "camera": "12",
+      "camera": "12.2 MP",
       "battery": "3450 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -18470,7 +18470,7 @@
       "displayType": "AMOLED capacitive touchscreen, 16M colors",
       "processor": "Quad-core (2x2.15 GHz Kryo & 2x1.6 GHz Kryo) (Adreno 530)",
       "chipsetBrand": "Google Tensor",
-      "mainCamera": "12",
+      "mainCamera": "12.2 MP",
       "selfieCamera": "8 MP",
       "battery": "3450 mAh",
       "charging": "18W Fast Charging, USB-PD",
@@ -18539,7 +18539,7 @@
     "keyHighlights": {
       "display": "5.6 inches OLED capacitive touchscreen, 16M colors",
       "processor": "Octa-core (2x2.0 GHz 360 Gold & 6x1.7 GHz Kryo 360 Silver) (Adreno 615)",
-      "camera": "12",
+      "camera": "12.2 MP",
       "battery": "3000 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -18549,7 +18549,7 @@
       "displayType": "OLED capacitive touchscreen, 16M colors",
       "processor": "Octa-core (2x2.0 GHz 360 Gold & 6x1.7 GHz Kryo 360 Silver) (Adreno 615)",
       "chipsetBrand": "Google Tensor",
-      "mainCamera": "12",
+      "mainCamera": "12.2 MP",
       "selfieCamera": "8 MP",
       "battery": "3000 mAh",
       "charging": "18W Fast Charging, USB-PD",
@@ -18809,7 +18809,7 @@
     "keyHighlights": {
       "display": "170.1mm (6.7) Super AMOLED",
       "processor": "Octa-Core",
-      "camera": "50.0 MP + 8.0 MP + 5.0 MP",
+      "camera": "50 MP + 8 MP + 5 MP",
       "battery": "5000 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -18819,7 +18819,7 @@
       "displayType": "Super AMOLED",
       "processor": "Samsung Exynos 1480 (4nm)",
       "chipsetBrand": "Samsung Exynos 1480",
-      "mainCamera": "50.0 MP + 8.0 MP + 5.0 MP",
+      "mainCamera": "50 MP + 8 MP + 5 MP",
       "selfieCamera": "12.0 MP",
       "battery": "5000 mAh",
       "charging": "25W Super Fast Charging",
@@ -18874,8 +18874,8 @@
     "variants": [
       {
         "id": "nokia-16-mb3-8-mb",
-        "storage": "16 MB3",
-        "ram": "8 MB",
+        "storage": "16MB",
+        "ram": "8MB",
         "pricePKR": 11449,
         "originalPricePKR": 11449,
         "inStock": true,
@@ -19295,7 +19295,7 @@
     "keyHighlights": {
       "display": "5.0 inches AMOLED capacitive touchscreen, 16M colors",
       "processor": "Quad-core (2x2.15 GHz Kryo & 2x1.6 GHz Kryo) (Adreno 530)",
-      "camera": "12",
+      "camera": "12.2 MP",
       "battery": "2770 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -19305,7 +19305,7 @@
       "displayType": "AMOLED capacitive touchscreen, 16M colors",
       "processor": "Quad-core (2x2.15 GHz Kryo & 2x1.6 GHz Kryo) (Adreno 530)",
       "chipsetBrand": "Google Tensor",
-      "mainCamera": "12",
+      "mainCamera": "12.2 MP",
       "selfieCamera": "8 MP",
       "battery": "2770 mAh",
       "charging": "18W Fast Charging, USB-PD",
@@ -19394,7 +19394,7 @@
     "keyHighlights": {
       "display": "6.3 inches P-OLED capacitive touchscreen, 16M colors",
       "processor": "Octa-core (4x2.5 GHz Kryo 385 Gold & 4x1.6 GHz Kryo 385 Silver) (Adreno 630)",
-      "camera": "12",
+      "camera": "12.2 MP",
       "battery": "3430 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -19404,7 +19404,7 @@
       "displayType": "P-OLED capacitive touchscreen, 16M colors",
       "processor": "Octa-core (4x2.5 GHz Kryo 385 Gold & 4x1.6 GHz Kryo 385 Silver) (Adreno 630)",
       "chipsetBrand": "Google Tensor",
-      "mainCamera": "12",
+      "mainCamera": "12.2 MP",
       "selfieCamera": "8 MP",
       "battery": "3430 mAh",
       "charging": "18W Fast Charging, USB-PD",
@@ -20022,7 +20022,7 @@
     "keyHighlights": {
       "display": "6.7 FHD Super AMOLED",
       "processor": "Samsung Exynos 1480 / 1380",
-      "camera": "50.0 MP + 5.0 MP + 2.0 MP",
+      "camera": "50 MP + 5 MP + 2 MP",
       "battery": "5000 mAh",
       "charging": "Fast Charging Supported"
     },
@@ -20032,7 +20032,7 @@
       "displayType": "Super AMOLED",
       "processor": "Samsung Exynos 1480 / 1380",
       "chipsetBrand": "Samsung Exynos 1480",
-      "mainCamera": "50.0 MP + 5.0 MP + 2.0 MP",
+      "mainCamera": "50 MP + 5 MP + 2 MP",
       "selfieCamera": "12.0 MP",
       "battery": "5000 mAh",
       "charging": "25W Super Fast Charging",

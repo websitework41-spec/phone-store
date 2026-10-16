@@ -55,14 +55,16 @@ export const PhoneCard = React.memo(function PhoneCard({
   const isSelectionInStock = Boolean(
     phone.inStock && (activeColor.inStock ?? true) && (primaryVariant?.inStock ?? true)
   );
-  const savingsPKR = phone.originalPricePKR - phone.basePricePKR;
-  const emiPerMonth = Math.round(phone.basePricePKR / 12);
+  const cardPrice = primaryVariant?.pricePKR || phone.basePricePKR;
+  const cardOriginalPrice = primaryVariant?.originalPricePKR || phone.originalPricePKR;
+  const savingsPKR = Math.max(0, cardOriginalPrice - cardPrice);
+  const emiPerMonth = Math.round(cardPrice / 12);
 
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative flex flex-col justify-between bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-cyan-400 hover:ring-4 hover:ring-cyan-500/10 hover:-translate-y-2 transition-all duration-300 cv-auto gpu-accelerated"
+      className="group relative flex flex-col justify-between bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-cyan-400 hover:ring-4 hover:ring-cyan-500/10 hover:-translate-y-2 transition-all duration-300"
     >
       {/* Top Badges & Compare Toggle */}
       <div>
@@ -83,7 +85,7 @@ export const PhoneCard = React.memo(function PhoneCard({
             {phone.discountPercent > 0 && (
               <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-50 text-rose-600 border border-rose-200/70 shadow-xs group-hover:scale-105 transition-transform">
                 <Sparkles className="w-2.5 h-2.5 text-rose-500 fill-rose-500" />
-                Save {phone.discountPercent}%
+                {`Save ${phone.discountPercent}%`}
               </span>
             )}
           </div>
@@ -182,42 +184,49 @@ export const PhoneCard = React.memo(function PhoneCard({
 
         {/* Key Specs Micro-Chips */}
         <div className="grid grid-cols-2 gap-1.5 mt-2.5 pt-2.5 border-t border-slate-100 text-[11px] text-slate-600">
-          <div className="flex items-center gap-1.5 truncate group-hover:text-slate-800 transition-colors">
+          <div className="flex items-center gap-1.5 min-w-0 group-hover:text-slate-800 transition-colors">
             <Cpu className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-            <span className="truncate">{phone.specs.chipsetBrand}</span>
+            <span className="truncate">
+              {phone.specs.chipsetBrand || phone.keyHighlights?.processor?.split(' ')[0] || 'Octa-Core'}
+            </span>
           </div>
-          <div className="flex items-center gap-1.5 truncate group-hover:text-slate-800 transition-colors">
+          <div className="flex items-center gap-1.5 min-w-0 group-hover:text-slate-800 transition-colors">
             <Battery className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
             <span className="truncate">
               {(() => {
-                const raw = phone.keyHighlights.battery || phone.specs.battery || '';
+                const raw = phone.keyHighlights?.battery || phone.specs.battery || '';
                 const match = raw.match(/(\d{3,5})\s*mAh/i);
                 if (match) return `${match[1]} mAh`;
                 const numMatch = raw.match(/\d{3,5}/);
                 if (numMatch) return `${numMatch[0]} mAh`;
-                return raw || '5000 mAh';
+                return '5000 mAh';
               })()}
             </span>
           </div>
-          <div className="flex items-center gap-1.5 truncate group-hover:text-slate-800 transition-colors">
+          <div className="flex items-center gap-1.5 min-w-0 group-hover:text-slate-800 transition-colors">
             <Camera className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
             <span className="truncate">
               {(() => {
-                const raw = phone.specs.mainCamera || phone.keyHighlights.camera || '';
-                if (raw.toLowerCase().includes('no camera') || raw.toLowerCase() === 'no') return 'No Camera';
-                if (raw.toLowerCase().includes('digital camera')) return 'Digital Camera';
-                const match = raw.match(/(\d{1,3})\s*MP/i);
-                if (match) return `${match[1]} MP`;
-                return raw.split('+')[0].trim() || 'Camera';
+                const raw = phone.specs.mainCamera || phone.keyHighlights?.camera || '';
+                const lower = raw.toLowerCase().trim();
+                if (!lower || lower === 'no' || lower === 'no camera' || lower === 'none') return 'No Camera';
+                if (lower.includes('digital camera')) return 'Digital Camera';
+                if (lower === 'vga' || lower === 'qvga') return lower.toUpperCase();
+                if (lower === 'yes') return 'Digital Camera';
+                const clean = raw.replace(/(\d+)\.0+\s*MP/gi, '$1 MP');
+                const mpMatch = clean.match(/(\d+(?:\.\d+)?)\s*MP/i);
+                if (mpMatch && parseFloat(mpMatch[1]) > 0) return `${mpMatch[1]} MP`;
+                const numMatch = clean.match(/^\d+$/);
+                if (numMatch) return `${numMatch[0]} MP`;
+                const firstPart = clean.split('+')[0].trim();
+                return firstPart || '50 MP';
               })()}
             </span>
           </div>
-          <div className="flex items-center gap-1.5 truncate group-hover:text-slate-800 transition-colors">
+          <div className="flex items-center gap-1.5 min-w-0 group-hover:text-slate-800 transition-colors">
             <Layers className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
             <span className="truncate">
-              {primaryVariant.ram === '32MB' || primaryVariant.ram === '8MB' || primaryVariant.ram.toLowerCase().includes('standard')
-                ? 'Standard Keypad'
-                : `${primaryVariant.ram} / ${primaryVariant.storage}`}
+              {`${primaryVariant.ram} / ${primaryVariant.storage}`}
             </span>
           </div>
         </div>
@@ -229,13 +238,13 @@ export const PhoneCard = React.memo(function PhoneCard({
         <div className="flex items-baseline justify-between">
           <div>
             <div className="text-lg sm:text-xl font-black text-slate-950 group-hover:text-cyan-900 transition-colors">
-              {formatPKR(phone.basePricePKR)}
+              {formatPKR(cardPrice)}
             </div>
-            {phone.originalPricePKR > phone.basePricePKR && (
+            {cardOriginalPrice > cardPrice && (
               <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                <span className="line-through">{formatPKR(phone.originalPricePKR)}</span>
+                <span className="line-through">{formatPKR(cardOriginalPrice)}</span>
                 <span className="text-emerald-700 font-bold text-[11px]">
-                  Save {formatPKR(savingsPKR)}
+                  {`Save ${formatPKR(savingsPKR)}`}
                 </span>
               </div>
             )}

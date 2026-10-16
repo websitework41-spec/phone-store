@@ -82,7 +82,7 @@ function HomeContent() {
 
   const isInitialMount = useRef(true);
 
-  // Synchronize cart with localStorage on mount & listen to storage/sync events
+  // Synchronize cart with localStorage on mount & listen to other tabs
   useEffect(() => {
     try {
       const saved = localStorage.getItem('voltphone_cart');
@@ -96,25 +96,22 @@ function HomeContent() {
       // ignore
     }
 
-    const handleSync = () => {
-      try {
-        const saved = localStorage.getItem('voltphone_cart');
-        if (saved) {
-          const parsed = JSON.parse(saved);
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'voltphone_cart' && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
           if (Array.isArray(parsed)) {
             setCartItems(parsed);
           }
+        } catch {
+          // ignore
         }
-      } catch {
-        // ignore
       }
     };
 
-    window.addEventListener('storage', handleSync);
-    window.addEventListener('voltphone_cart_updated', handleSync);
+    window.addEventListener('storage', handleStorageChange);
     return () => {
-      window.removeEventListener('storage', handleSync);
-      window.removeEventListener('voltphone_cart_updated', handleSync);
+      window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
 
@@ -126,7 +123,6 @@ function HomeContent() {
     }
     try {
       localStorage.setItem('voltphone_cart', JSON.stringify(cartItems));
-      window.dispatchEvent(new Event('voltphone_cart_updated'));
     } catch {
       // ignore
     }
@@ -796,7 +792,7 @@ function HomeContent() {
                       <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500 font-medium">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">
                           <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
-                          Front page: {Math.min(displayedPhones.length, inStockCount)} Available In-Stock Mobiles
+                          {`Front page: ${Math.min(displayedPhones.length, inStockCount)} Available In-Stock Mobiles`}
                         </span>
                         <span>
                           Showing <strong className="text-slate-950 font-bold">{displayedPhones.length}</strong> of{' '}
@@ -894,10 +890,14 @@ function HomeContent() {
               <p className="text-xs text-slate-500 leading-relaxed">
                 When the courier rider arrives, open the flyer and inspect the phone box and factory seals before paying cash. 100% scam-free doorstep inspection.
               </p>
-              <div className="pt-2 text-xs font-bold text-cyan-600 flex items-center gap-1 group-hover:underline">
+              <Link
+                href="/policies#open-parcel"
+                onClick={(e) => e.stopPropagation()}
+                className="pt-2 text-xs font-bold text-cyan-600 flex items-center gap-1 hover:underline cursor-pointer"
+              >
                 <span>View Full Open-Parcel Policy</span>
                 <ChevronRight className="w-3.5 h-3.5" />
-              </div>
+              </Link>
             </div>
 
             {/* 2. PTA DIRBS */}
@@ -916,10 +916,14 @@ function HomeContent() {
               <p className="text-xs text-slate-500 leading-relaxed">
                 Every mobile is registered with Pakistan Telecommunication Authority (DIRBS) with full customs tax cleared for lifetime SIM validity.
               </p>
-              <div className="pt-2 text-xs font-bold text-emerald-600 flex items-center gap-1 group-hover:underline">
+              <Link
+                href="/policies#pta-guide"
+                onClick={(e) => e.stopPropagation()}
+                className="pt-2 text-xs font-bold text-emerald-600 flex items-center gap-1 hover:underline cursor-pointer"
+              >
                 <span>View DIRBS Verification Guide</span>
                 <ChevronRight className="w-3.5 h-3.5" />
-              </div>
+              </Link>
             </div>
 
             {/* 3. 0% EMI Installments */}
@@ -938,10 +942,14 @@ function HomeContent() {
               <p className="text-xs text-slate-500 leading-relaxed">
                 Flexible 3, 6, and 12-month zero-interest financing on Meezan Bank, Bank Alfalah, Faysal Bank, and Silkbank credit cards.
               </p>
-              <div className="pt-2 text-xs font-bold text-purple-600 flex items-center gap-1 group-hover:underline">
+              <Link
+                href="/policies#installments"
+                onClick={(e) => e.stopPropagation()}
+                className="pt-2 text-xs font-bold text-purple-600 flex items-center gap-1 hover:underline cursor-pointer"
+              >
                 <span>View 0% EMI Terms &amp; Banks</span>
                 <ChevronRight className="w-3.5 h-3.5" />
-              </div>
+              </Link>
             </div>
 
             {/* 4. Official Brand Warranty */}
@@ -960,10 +968,14 @@ function HomeContent() {
               <p className="text-xs text-slate-500 leading-relaxed">
                 Official service center support across Karachi, Lahore, Islamabad, Faisalabad, and Multan (Samsung, Mercantile, Carlcare, Airlink).
               </p>
-              <div className="pt-2 text-xs font-bold text-indigo-600 flex items-center gap-1 group-hover:underline">
+              <Link
+                href="/policies#warranty"
+                onClick={(e) => e.stopPropagation()}
+                className="pt-2 text-xs font-bold text-indigo-600 flex items-center gap-1 hover:underline cursor-pointer"
+              >
                 <span>View Warranty Claim Centers</span>
                 <ChevronRight className="w-3.5 h-3.5" />
-              </div>
+              </Link>
             </div>
 
             {/* 5. COD Terms */}
@@ -982,10 +994,14 @@ function HomeContent() {
               <p className="text-xs text-slate-500 leading-relaxed">
                 Free shipping on all orders over Rs. 2,000. Express 24-48h courier dispatch via TCS Express, Leopards, and PostEx nationwide.
               </p>
-              <div className="pt-2 text-xs font-bold text-amber-600 flex items-center gap-1 group-hover:underline">
+              <Link
+                href="/policies#cod-terms"
+                onClick={(e) => e.stopPropagation()}
+                className="pt-2 text-xs font-bold text-amber-600 flex items-center gap-1 hover:underline cursor-pointer"
+              >
                 <span>View Full COD Shipping Terms</span>
                 <ChevronRight className="w-3.5 h-3.5" />
-              </div>
+              </Link>
             </div>
 
             {/* 6. 7-Day Replacement Guarantee */}
@@ -1004,10 +1020,14 @@ function HomeContent() {
               <p className="text-xs text-slate-500 leading-relaxed">
                 Out-of-the-box hardware defect protection. Quick WhatsApp hassle-free replacement process within 7 days of parcel delivery.
               </p>
-              <div className="pt-2 text-xs font-bold text-rose-600 flex items-center gap-1 group-hover:underline">
+              <Link
+                href="/policies#replacement-guarantee"
+                onClick={(e) => e.stopPropagation()}
+                className="pt-2 text-xs font-bold text-rose-600 flex items-center gap-1 hover:underline cursor-pointer"
+              >
                 <span>View Replacement Terms</span>
                 <ChevronRight className="w-3.5 h-3.5" />
-              </div>
+              </Link>
             </div>
 
             {/* 7. Privacy Policy & Security */}
@@ -1031,7 +1051,7 @@ function HomeContent() {
                   </div>
                 </div>
                 <Link
-                  href="/policies"
+                  href="/policies#privacy-security"
                   className="px-4 py-2 rounded-full bg-slate-950 hover:bg-slate-800 text-white text-xs font-bold flex items-center gap-1.5 shrink-0 self-start sm:self-center transition-colors"
                 >
                   <span>Explore All 7 Policies</span>

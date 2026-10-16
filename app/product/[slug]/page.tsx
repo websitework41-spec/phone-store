@@ -79,25 +79,22 @@ export default function ProductDetailPage() {
       // ignore
     }
 
-    const handleSync = () => {
-      try {
-        const saved = localStorage.getItem('voltphone_cart');
-        if (saved) {
-          const parsed = JSON.parse(saved);
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'voltphone_cart' && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
           if (Array.isArray(parsed)) {
             setCartItems(parsed);
           }
+        } catch {
+          // ignore
         }
-      } catch {
-        // ignore
       }
     };
 
-    window.addEventListener('storage', handleSync);
-    window.addEventListener('voltphone_cart_updated', handleSync);
+    window.addEventListener('storage', handleStorageChange);
     return () => {
-      window.removeEventListener('storage', handleSync);
-      window.removeEventListener('voltphone_cart_updated', handleSync);
+      window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
 
@@ -109,7 +106,6 @@ export default function ProductDetailPage() {
     }
     try {
       localStorage.setItem('voltphone_cart', JSON.stringify(cartItems));
-      window.dispatchEvent(new Event('voltphone_cart_updated'));
     } catch {
       // ignore
     }
@@ -370,7 +366,7 @@ export default function ProductDetailPage() {
 
               {savings > 0 && (
                 <div className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-                  ⚡ VoltPhone Special: You save {formatPKR(savings)} with Free Shipping!
+                  {`⚡ VoltPhone Special: You save ${formatPKR(savings)} with Free Shipping!`}
                 </div>
               )}
             </div>
@@ -560,7 +556,10 @@ export default function ProductDetailPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
               { label: 'Display & Screen', value: phone.specs.screen },
-              { label: 'Display Technology', value: phone.specs.displayType },
+              {
+                label: 'Display Technology',
+                value: phone.specs.displayType || 'IPS LCD Capacitive Touchscreen',
+              },
               { label: 'Refresh Rate', value: phone.specs.refreshRate },
               { label: 'Processor & Chipset', value: phone.specs.processor },
               { label: 'Primary Rear Camera', value: phone.specs.mainCamera },

@@ -284,7 +284,7 @@ export function HeroBanner({
                 High Performance on a Budget
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Xiaomi Redmi 10C, Infinix Hot 60 Pro, Tecno Spark 40 pro with 50MP AI camera &amp; 5000mAh battery.
+                Xiaomi Redmi 10C, Infinix Hot 60 Pro, Tecno Spark 40 pro with 50MP AI camera &amp; 5000 mAh battery.
               </p>
             </div>
 
