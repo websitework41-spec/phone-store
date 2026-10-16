@@ -106,7 +106,7 @@
     "name": "Samsung Galaxy S25 FE",
     "brand": "Samsung",
     "tagline": "Official Samsung Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 214999,
+    "basePricePKR": 189999,
     "originalPricePKR": 254999,
     "discountPercent": 16,
     "rating": 4.9,
@@ -148,20 +148,20 @@
     ],
     "variants": [
       {
-        "id": "samsung-512gb-8gb",
-        "storage": "512GB",
-        "ram": "8GB",
-        "pricePKR": 214999,
-        "originalPricePKR": 254999,
-        "inStock": false,
-        "stockQty": 0
-      },
-      {
         "id": "samsung-256gb-8gb",
         "storage": "256GB",
         "ram": "8GB",
         "pricePKR": 189999,
         "originalPricePKR": 219999,
+        "inStock": false,
+        "stockQty": 0
+      },
+      {
+        "id": "samsung-512gb-8gb",
+        "storage": "512GB",
+        "ram": "8GB",
+        "pricePKR": 214999,
+        "originalPricePKR": 254999,
         "inStock": false,
         "stockQty": 0
       }
@@ -275,7 +275,7 @@
         "id": "samsung-512gb-12gb",
         "storage": "512GB",
         "ram": "12GB",
-        "pricePKR": 334999,
+        "pricePKR": 316999,
         "originalPricePKR": 469999,
         "inStock": true,
         "stockQty": 5
@@ -381,15 +381,6 @@
     ],
     "variants": [
       {
-        "id": "samsung-512gb-12gb",
-        "storage": "512GB",
-        "ram": "12GB",
-        "pricePKR": 448999,
-        "originalPricePKR": 519999,
-        "inStock": true,
-        "stockQty": 8
-      },
-      {
         "id": "samsung-256gb-12gb",
         "storage": "256GB",
         "ram": "12GB",
@@ -397,6 +388,15 @@
         "originalPricePKR": 449999,
         "inStock": true,
         "stockQty": 5
+      },
+      {
+        "id": "samsung-512gb-12gb",
+        "storage": "512GB",
+        "ram": "12GB",
+        "pricePKR": 448999,
+        "originalPricePKR": 519999,
+        "inStock": true,
+        "stockQty": 8
       }
     ],
     "colorStockMap": {
@@ -484,20 +484,20 @@
     ],
     "variants": [
       {
-        "id": "samsung-512gb-12gb",
-        "storage": "512GB",
-        "ram": "12GB",
-        "pricePKR": 309999,
-        "originalPricePKR": 574999,
-        "inStock": true,
-        "stockQty": 5
-      },
-      {
         "id": "samsung-256gb-12gb",
         "storage": "256GB",
         "ram": "12GB",
         "pricePKR": 289999,
         "originalPricePKR": 539999,
+        "inStock": true,
+        "stockQty": 5
+      },
+      {
+        "id": "samsung-512gb-12gb",
+        "storage": "512GB",
+        "ram": "12GB",
+        "pricePKR": 309999,
+        "originalPricePKR": 574999,
         "inStock": true,
         "stockQty": 5
       }
@@ -962,15 +962,6 @@
     ],
     "variants": [
       {
-        "id": "samsung-512gb-12gb",
-        "storage": "512GB",
-        "ram": "12GB",
-        "pricePKR": 560499,
-        "originalPricePKR": 560499,
-        "inStock": false,
-        "stockQty": 0
-      },
-      {
         "id": "samsung-256gb-12gb",
         "storage": "256GB",
         "ram": "12GB",
@@ -978,6 +969,15 @@
         "originalPricePKR": 382999,
         "inStock": true,
         "stockQty": 5
+      },
+      {
+        "id": "samsung-512gb-12gb",
+        "storage": "512GB",
+        "ram": "12GB",
+        "pricePKR": 560499,
+        "originalPricePKR": 560499,
+        "inStock": false,
+        "stockQty": 0
       }
     ],
     "colorStockMap": {
@@ -1147,7 +1147,7 @@
     "name": "Samsung Galaxy Z Flip 4",
     "brand": "Samsung",
     "tagline": "Official Samsung Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 250999,
+    "basePricePKR": 184999,
     "originalPricePKR": 368499,
     "discountPercent": 32,
     "rating": 5.0,
@@ -1189,20 +1189,20 @@
     ],
     "variants": [
       {
-        "id": "samsung-512gb-8gb",
-        "storage": "512GB",
-        "ram": "8GB",
-        "pricePKR": 250999,
-        "originalPricePKR": 368499,
-        "inStock": false,
-        "stockQty": 0
-      },
-      {
         "id": "samsung-256gb-8gb",
         "storage": "256GB",
         "ram": "8GB",
         "pricePKR": 184999,
         "originalPricePKR": 332999,
+        "inStock": false,
+        "stockQty": 0
+      },
+      {
+        "id": "samsung-512gb-8gb",
+        "storage": "512GB",
+        "ram": "8GB",
+        "pricePKR": 250999,
+        "originalPricePKR": 368499,
         "inStock": false,
         "stockQty": 0
       }
@@ -2172,7 +2172,7 @@
     "name": "Samsung Galaxy S26",
     "brand": "Samsung",
     "tagline": "Official Samsung Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 284500,
+    "basePricePKR": 329999,
     "originalPricePKR": 319999,
     "discountPercent": 11,
     "rating": 4.9,
@@ -2693,7 +2693,7 @@
     "name": "Samsung Galaxy Z Fold 6",
     "brand": "Samsung",
     "tagline": "Official Samsung Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 469999,
+    "basePricePKR": 485999,
     "originalPricePKR": 604999,
     "discountPercent": 22,
     "rating": 4.3,
@@ -2963,7 +2963,7 @@
     "name": "Apple iPhone 17e",
     "brand": "Apple",
     "tagline": "Official Apple Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 284999,
+    "basePricePKR": 349999,
     "originalPricePKR": 289000,
     "discountPercent": 1,
     "rating": 5.0,
@@ -5322,7 +5322,7 @@
     "name": "Xiaomi Redmi 9C",
     "brand": "Xiaomi",
     "tagline": "Official Xiaomi Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 29999,
+    "basePricePKR": 33499,
     "originalPricePKR": 29999,
     "discountPercent": 0,
     "rating": 4.8,
@@ -5380,15 +5380,6 @@
         "stockQty": 0
       },
       {
-        "id": "xiaomi-64gb-3gb",
-        "storage": "64GB",
-        "ram": "3GB",
-        "pricePKR": 33999,
-        "originalPricePKR": 33999,
-        "inStock": false,
-        "stockQty": 0
-      },
-      {
         "id": "xiaomi-128gb-4gb",
         "storage": "128GB",
         "ram": "4GB",
@@ -5396,6 +5387,15 @@
         "originalPricePKR": 39999,
         "inStock": true,
         "stockQty": 5
+      },
+      {
+        "id": "xiaomi-64gb-3gb",
+        "storage": "64GB",
+        "ram": "3GB",
+        "pricePKR": 33999,
+        "originalPricePKR": 33999,
+        "inStock": false,
+        "stockQty": 0
       }
     ],
     "colorStockMap": {
@@ -5652,7 +5652,7 @@
     "name": "Huawei Y9 Prime (2019)",
     "brand": "Huawei",
     "tagline": "Official Huawei Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 31999,
+    "basePricePKR": 32599,
     "originalPricePKR": 31999,
     "discountPercent": 0,
     "rating": 4.6,
@@ -5852,7 +5852,7 @@
     "name": "Realme C63",
     "brand": "Realme",
     "tagline": "Official Realme Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 30299,
+    "basePricePKR": 50999,
     "originalPricePKR": 34999,
     "discountPercent": 13,
     "rating": 4.8,
@@ -5940,7 +5940,7 @@
     "name": "Huawei Y9s (2019)",
     "brand": "Huawei",
     "tagline": "Official Huawei Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 38800,
+    "basePricePKR": 40999,
     "originalPricePKR": 40999,
     "discountPercent": 5,
     "rating": 4.5,
@@ -7787,7 +7787,7 @@
     "name": "Vivo V70",
     "brand": "Vivo",
     "tagline": "Official Vivo Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 191000,
+    "basePricePKR": 179999,
     "originalPricePKR": 199999,
     "discountPercent": 4,
     "rating": 4.9,
@@ -7822,6 +7822,15 @@
     ],
     "variants": [
       {
+        "id": "vivo-256gb-8gb",
+        "storage": "256GB",
+        "ram": "8GB",
+        "pricePKR": 179999,
+        "originalPricePKR": 179999,
+        "inStock": false,
+        "stockQty": 0
+      },
+      {
         "id": "vivo-256gb-12gb",
         "storage": "256GB",
         "ram": "12GB",
@@ -7836,15 +7845,6 @@
         "ram": "12GB",
         "pricePKR": 219999,
         "originalPricePKR": 229999,
-        "inStock": false,
-        "stockQty": 0
-      },
-      {
-        "id": "vivo-256gb-8gb",
-        "storage": "256GB",
-        "ram": "8GB",
-        "pricePKR": 179999,
-        "originalPricePKR": 179999,
         "inStock": false,
         "stockQty": 0
       }
@@ -9273,7 +9273,7 @@
     "name": "Realme C75x",
     "brand": "Realme",
     "tagline": "Official Realme Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 54499,
+    "basePricePKR": 43999,
     "originalPricePKR": 54999,
     "discountPercent": 1,
     "rating": 4.9,
@@ -9301,20 +9301,20 @@
     ],
     "variants": [
       {
-        "id": "realme-128gb-8gb",
-        "storage": "128GB",
-        "ram": "8GB",
-        "pricePKR": 54499,
-        "originalPricePKR": 54999,
-        "inStock": false,
-        "stockQty": 0
-      },
-      {
         "id": "realme-128gb-6gb",
         "storage": "128GB",
         "ram": "6GB",
         "pricePKR": 43999,
         "originalPricePKR": 43999,
+        "inStock": false,
+        "stockQty": 0
+      },
+      {
+        "id": "realme-128gb-8gb",
+        "storage": "128GB",
+        "ram": "8GB",
+        "pricePKR": 54499,
+        "originalPricePKR": 54999,
         "inStock": false,
         "stockQty": 0
       }
@@ -11775,7 +11775,7 @@
     "name": "OnePlus 7 Pro",
     "brand": "OnePlus",
     "tagline": "Official OnePlus Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 92999,
+    "basePricePKR": 108999,
     "originalPricePKR": 100438,
     "discountPercent": 7,
     "rating": 5.0,
@@ -14189,15 +14189,6 @@
     ],
     "variants": [
       {
-        "id": "tecno-128gb-4gb",
-        "storage": "128GB",
-        "ram": "4GB",
-        "pricePKR": 43999,
-        "originalPricePKR": 46999,
-        "inStock": true,
-        "stockQty": 76
-      },
-      {
         "id": "tecno-64gb-4gb",
         "storage": "64GB",
         "ram": "4GB",
@@ -14205,6 +14196,15 @@
         "originalPricePKR": 39999,
         "inStock": true,
         "stockQty": 46
+      },
+      {
+        "id": "tecno-128gb-4gb",
+        "storage": "128GB",
+        "ram": "4GB",
+        "pricePKR": 43999,
+        "originalPricePKR": 46999,
+        "inStock": true,
+        "stockQty": 76
       }
     ],
     "colorStockMap": {
@@ -14285,15 +14285,6 @@
     ],
     "variants": [
       {
-        "id": "oppo-256gb-8gb",
-        "storage": "256GB",
-        "ram": "8GB",
-        "pricePKR": 78499,
-        "originalPricePKR": 89999,
-        "inStock": true,
-        "stockQty": 21
-      },
-      {
         "id": "oppo-128gb-8gb",
         "storage": "128GB",
         "ram": "8GB",
@@ -14301,6 +14292,15 @@
         "originalPricePKR": 74999,
         "inStock": true,
         "stockQty": 2
+      },
+      {
+        "id": "oppo-256gb-8gb",
+        "storage": "256GB",
+        "ram": "8GB",
+        "pricePKR": 78499,
+        "originalPricePKR": 89999,
+        "inStock": true,
+        "stockQty": 21
       }
     ],
     "colorStockMap": {
@@ -15916,7 +15916,7 @@
     "name": "Vivo Y31d",
     "brand": "Vivo",
     "tagline": "Official Vivo Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 66499,
+    "basePricePKR": 68999,
     "originalPricePKR": 72999,
     "discountPercent": 9,
     "rating": 4.8,
@@ -17790,20 +17790,20 @@
     ],
     "variants": [
       {
-        "id": "oneplus-128gb-8-gb-ram-or-64-gb-6-gb-ram",
-        "storage": "128GB",
-        "ram": "8 GB RAM or 64 GB 6 GB RAM",
-        "pricePKR": 76499,
-        "originalPricePKR": 82618,
-        "inStock": true,
-        "stockQty": 5
-      },
-      {
         "id": "oneplus-64gb-8-gb-ram-or-64-gb-6-gb-ram",
         "storage": "64GB",
         "ram": "8 GB RAM or 64 GB 6 GB RAM",
         "pricePKR": 35500,
         "originalPricePKR": 38340,
+        "inStock": true,
+        "stockQty": 5
+      },
+      {
+        "id": "oneplus-128gb-8-gb-ram-or-64-gb-6-gb-ram",
+        "storage": "128GB",
+        "ram": "8 GB RAM or 64 GB 6 GB RAM",
+        "pricePKR": 76499,
+        "originalPricePKR": 82618,
         "inStock": true,
         "stockQty": 5
       },
@@ -17946,7 +17946,7 @@
     "name": "OnePlus 8T",
     "brand": "OnePlus",
     "tagline": "Official OnePlus Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 79499,
+    "basePricePKR": 109479,
     "originalPricePKR": 118999,
     "discountPercent": 33,
     "rating": 4.7,
@@ -18390,7 +18390,7 @@
     "name": "Google Pixel XL",
     "brand": "Google",
     "tagline": "Official Google Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 20999,
+    "basePricePKR": 81999,
     "originalPricePKR": 22678,
     "discountPercent": 7,
     "rating": 2.0,
@@ -18568,7 +18568,7 @@
     "name": "Huawei Y8p",
     "brand": "Huawei",
     "tagline": "Official Huawei Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 28000,
+    "basePricePKR": 31299,
     "originalPricePKR": 32199,
     "discountPercent": 13,
     "rating": 3.7,
@@ -18970,20 +18970,20 @@
     ],
     "variants": [
       {
-        "id": "nothing-256gb-12gb",
-        "storage": "256GB",
-        "ram": "12GB",
-        "pricePKR": 201099,
-        "originalPricePKR": 214999,
-        "inStock": true,
-        "stockQty": 5
-      },
-      {
         "id": "nothing-256gb-8gb",
         "storage": "256GB",
         "ram": "8GB",
         "pricePKR": 166499,
         "originalPricePKR": 181999,
+        "inStock": true,
+        "stockQty": 5
+      },
+      {
+        "id": "nothing-256gb-12gb",
+        "storage": "256GB",
+        "ram": "12GB",
+        "pricePKR": 201099,
+        "originalPricePKR": 214999,
         "inStock": true,
         "stockQty": 5
       }
@@ -19156,6 +19156,15 @@
     ],
     "variants": [
       {
+        "id": "vivo-128gb-6gb",
+        "storage": "128GB",
+        "ram": "6GB",
+        "pricePKR": 79999,
+        "originalPricePKR": 87999,
+        "inStock": true,
+        "stockQty": 1
+      },
+      {
         "id": "vivo-128gb-8gb",
         "storage": "128GB",
         "ram": "8GB",
@@ -19172,15 +19181,6 @@
         "originalPricePKR": 109999,
         "inStock": true,
         "stockQty": 16
-      },
-      {
-        "id": "vivo-128gb-6gb",
-        "storage": "128GB",
-        "ram": "6GB",
-        "pricePKR": 79999,
-        "originalPricePKR": 87999,
-        "inStock": true,
-        "stockQty": 1
       }
     ],
     "colorStockMap": {
@@ -20220,7 +20220,7 @@
     "name": "OnePlus Nord",
     "brand": "OnePlus",
     "tagline": "Official OnePlus Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 87900,
+    "basePricePKR": 87400,
     "originalPricePKR": 94999,
     "discountPercent": 7,
     "rating": 3.0,
@@ -20248,20 +20248,20 @@
     ],
     "variants": [
       {
-        "id": "oneplus-256gb-12gb",
-        "storage": "256GB",
-        "ram": "12GB",
-        "pricePKR": 87900,
-        "originalPricePKR": 94999,
-        "inStock": false,
-        "stockQty": 0
-      },
-      {
         "id": "oneplus-128gb-8gb",
         "storage": "128GB",
         "ram": "8GB",
         "pricePKR": 87400,
         "originalPricePKR": 90000,
+        "inStock": false,
+        "stockQty": 0
+      },
+      {
+        "id": "oneplus-256gb-12gb",
+        "storage": "256GB",
+        "ram": "12GB",
+        "pricePKR": 87900,
+        "originalPricePKR": 94999,
         "inStock": false,
         "stockQty": 0
       }
@@ -20387,7 +20387,7 @@
     "name": "Google Pixel 4a",
     "brand": "Google",
     "tagline": "Official Google Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 76399,
+    "basePricePKR": 90499,
     "originalPricePKR": 82510,
     "discountPercent": 7,
     "rating": 4.0,
@@ -20464,7 +20464,7 @@
     "name": "Huawei P40 Pro",
     "brand": "Huawei",
     "tagline": "Official Huawei Smartphone with 1-Year Brand Warranty & PTA Approval",
-    "basePricePKR": 135499,
+    "basePricePKR": 148999,
     "originalPricePKR": 146338,
     "discountPercent": 7,
     "rating": 5.0,

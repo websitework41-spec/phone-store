@@ -50,7 +50,9 @@ export const PhoneCard = React.memo(function PhoneCard({
   );
   const [isHovered, setIsHovered] = useState(false);
   const activeColor = phone.colors[selectedColorIndex] || phone.colors[0];
-  const primaryVariant = phone.variants.find((v) => v.inStock) || phone.variants[0];
+  const inStockVariants = phone.variants.filter((v) => v.inStock);
+  const primaryVariant = (inStockVariants.length > 0 ? inStockVariants : phone.variants)
+    .reduce((cheapest, v) => (v.pricePKR < cheapest.pricePKR ? v : cheapest), phone.variants[0]);
 
   const isSelectionInStock = Boolean(
     phone.inStock && (activeColor.inStock ?? true) && (primaryVariant?.inStock ?? true)

@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useEffect, useCallback, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { SMARTPHONES, BRANDS, formatPKR } from '@/data/smartphones';
+import { SMARTPHONES, BRANDS, formatPKR, getPhonePrice } from '@/data/smartphones';
 import { Smartphone, FilterState, CartItem, SmartphoneVariant, SmartphoneColor } from '@/types';
 import { Navbar } from '@/components/Navbar';
 import { HeroBanner } from '@/components/HeroBanner';
@@ -239,19 +239,21 @@ function HomeContent() {
         if (!is120Hz || !isAmoled) return false;
       }
 
+      const phonePrice = getPhonePrice(phone);
+
       // Search (Name, Brand, Chipset, Network, Budget phrase)
       if (filters.searchQuery.trim()) {
         const q = filters.searchQuery.toLowerCase();
         if (q.includes('under 25') || q.includes('25k') || q.includes('25000')) {
-          if (phone.basePricePKR > 25000) return false;
+          if (phonePrice > 25000) return false;
         } else if (q.includes('under 40') || q.includes('40k') || q.includes('40000')) {
-          if (phone.basePricePKR > 40000) return false;
+          if (phonePrice > 40000) return false;
         } else if (q.includes('under 60') || q.includes('60k') || q.includes('60000')) {
-          if (phone.basePricePKR > 60000) return false;
+          if (phonePrice > 60000) return false;
         } else if (q.includes('under 100') || q.includes('100k') || q.includes('100000')) {
-          if (phone.basePricePKR > 100000) return false;
+          if (phonePrice > 100000) return false;
         } else if (q.includes('150k') || q.includes('flagship')) {
-          if (phone.basePricePKR < 150000) return false;
+          if (phonePrice < 150000) return false;
         } else if ((q.includes('120hz') || q.includes('120 hz')) && (q.includes('amoled') || q.includes('oled'))) {
           const is120Hz =
             phone.specs.refreshRate?.includes('120') ||
@@ -276,10 +278,10 @@ function HomeContent() {
         if (!filters.selectedBrands.includes(phone.brand)) return false;
       }
 
-      // Price Range
+      // Price Range (Strictly enforced against actual purchasable phone price)
       if (
-        phone.basePricePKR < filters.priceRange[0] ||
-        phone.basePricePKR > filters.priceRange[1]
+        phonePrice < filters.priceRange[0] ||
+        phonePrice > filters.priceRange[1]
       ) {
         return false;
       }
@@ -312,9 +314,11 @@ function HomeContent() {
 
       return true;
     }).sort((a, b) => {
-      // Numerical sort by actual price without in-stock priority inversion
-      if (filters.sortBy === 'price-asc') return a.basePricePKR - b.basePricePKR;
-      if (filters.sortBy === 'price-desc') return b.basePricePKR - a.basePricePKR;
+      // Numerical sort by actual effective price without in-stock priority inversion
+      const priceA = getPhonePrice(a);
+      const priceB = getPhonePrice(b);
+      if (filters.sortBy === 'price-asc') return priceA - priceB;
+      if (filters.sortBy === 'price-desc') return priceB - priceA;
       // Prioritize in-stock phones for other sort modes (popularity, discount, rating)
       if (a.inStock !== b.inStock) {
         return a.inStock ? -1 : 1;

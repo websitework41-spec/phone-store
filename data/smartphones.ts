@@ -55,3 +55,15 @@ export function getPhoneBySlug(slug: string): Smartphone | undefined {
   return SMARTPHONES.find((p) => p.slug === slug);
 }
 
+export function getPhonePrice(phone: Smartphone): number {
+  if (!phone) return 0;
+  const inStockVariants = phone.variants?.filter((v) => v.inStock) || [];
+  if (inStockVariants.length > 0) {
+    return Math.min(...inStockVariants.map((v) => v.pricePKR));
+  }
+  if (phone.variants && phone.variants.length > 0) {
+    return Math.min(...phone.variants.map((v) => v.pricePKR));
+  }
+  return phone.basePricePKR;
+}
+

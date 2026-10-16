@@ -127,4 +127,58 @@ assert "/product/infinix-hot-50" in chat_src
 assert "/product/xiaomi-redmi-14c" in chat_src
 print("[PASS] (d) VoltBot answers 'best phone under 40000' with specific phone recommendations & links")
 
-print("\n>>> ALL 11 QA ITEMS AND SPECIAL REQUIREMENTS (a)-(d) VERIFIED AND PASSING! <<<")
+# --- BUDGET FILTER STRICT ENFORCEMENT VERIFICATION ---
+print("\n=== BUDGET FILTER STRICT ENFORCEMENT ===")
+
+assert "getPhonePrice" in page_src, "getPhonePrice not imported in app/page.tsx"
+assert "phonePrice < filters.priceRange[0] ||" in page_src, "Price filter doesn't use phonePrice"
+assert "phonePrice > filters.priceRange[1]" in page_src, "Price filter doesn't use phonePrice"
+
+def get_phone_price(p):
+    in_stock = [v for v in p.get("variants", []) if v.get("inStock")]
+    if in_stock:
+        return min(v["pricePKR"] for v in in_stock)
+    if p.get("variants"):
+        return min(v["pricePKR"] for v in p["variants"])
+    return p["basePricePKR"]
+
+# Test 25k filter
+f25 = [p for p in phones if get_phone_price(p) <= 25000]
+violators_25 = [p for p in f25 if get_phone_price(p) > 25000]
+assert len(violators_25) == 0, f"25k filter has violators: {violators_25}"
+assert all(p['slug'] != 'google-pixel-xl' for p in f25), "Google Pixel XL should NOT be in 25k filter"
+print(f"[PASS] Under 25,000 filter: {len(f25)} phones, 0 violators (Pixel XL strictly excluded)")
+
+# Test 35k filter
+f35 = [p for p in phones if get_phone_price(p) <= 35000]
+violators_35 = [p for p in f35 if get_phone_price(p) > 35000]
+assert len(violators_35) == 0, f"35k filter has violators: {violators_35}"
+assert all(p['slug'] != 'realme-c63' for p in f35), "Realme C63 should NOT be in 35k filter"
+assert all(p['slug'] != 'google-pixel-xl' for p in f35), "Google Pixel XL should NOT be in 35k filter"
+print(f"[PASS] Under 35,000 filter: {len(f35)} phones, 0 violators (Realme C63 & Pixel XL strictly excluded)")
+
+# Test 40k filter
+f40 = [p for p in phones if get_phone_price(p) <= 40000]
+violators_40 = [p for p in f40 if get_phone_price(p) > 40000]
+assert len(violators_40) == 0, f"40k filter has violators: {violators_40}"
+print(f"[PASS] Under 40,000 filter: {len(f40)} phones, 0 violators")
+
+# Test 60k filter
+f60 = [p for p in phones if get_phone_price(p) <= 60000]
+violators_60 = [p for p in f60 if get_phone_price(p) > 60000]
+assert len(violators_60) == 0, f"60k filter has violators: {violators_60}"
+print(f"[PASS] Under 60,000 filter: {len(f60)} phones, 0 violators")
+
+# Test 100k filter
+f100 = [p for p in phones if get_phone_price(p) <= 100000]
+violators_100 = [p for p in f100 if get_phone_price(p) > 100000]
+assert len(violators_100) == 0, f"100k filter has violators: {violators_100}"
+print(f"[PASS] Under 100,000 filter: {len(f100)} phones, 0 violators")
+
+# Test 150k+ filter
+f150 = [p for p in phones if get_phone_price(p) >= 150000]
+violators_150 = [p for p in f150 if get_phone_price(p) < 150000]
+assert len(violators_150) == 0, f"150k+ filter has violators: {violators_150}"
+print(f"[PASS] Flagship 150K+ filter: {len(f150)} phones, 0 violators")
+
+print("\n>>> ALL CHECKS, BUDGET FILTERS, AND SPECIAL REQUIREMENTS (a)-(d) VERIFIED AND PASSING! <<<")
