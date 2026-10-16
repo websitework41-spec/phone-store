@@ -28,6 +28,9 @@ import {
   submissionRateLimiter,
   MAX_INPUT_LENGTHS,
 } from '@/lib/security';
+import { useAuth } from '@/context/AuthContext';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 interface QuickPurchaseModalProps {
   phone: Smartphone | null;
@@ -44,6 +47,8 @@ export function QuickPurchaseModal({
   isOpen,
   onClose,
 }: QuickPurchaseModalProps) {
+  const { user, profile } = useAuth();
+
   // Form states
   const [fullName, setFullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -59,6 +64,27 @@ export function QuickPurchaseModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
   const [generatedOrderId, setGeneratedOrderId] = useState('');
+
+  // Auto-prefill customer info when logged in
+  React.useEffect(() => {
+    if (user && profile && isOpen) {
+      if (!fullName && (profile.name || user.displayName)) {
+        setFullName(profile.name || user.displayName || '');
+      }
+      if (!phoneNumber && profile.phone) {
+        setPhoneNumber(profile.phone);
+      }
+      const defaultAddr = profile.addresses?.find((a) => a.isDefault) || profile.addresses?.[0];
+      if (defaultAddr) {
+        if (!deliveryAddress) {
+          setDeliveryAddress(defaultAddr.streetAddress);
+        }
+        if (defaultAddr.city) {
+          setCity(defaultAddr.city);
+        }
+      }
+    }
+  }, [user, profile, isOpen]);
 
   if (!isOpen || !phone) return null;
 
@@ -107,7 +133,7 @@ export function QuickPurchaseModal({
 
     setIsSubmitting(true);
     // Simulate secure order placement with sanitized values
-    setTimeout(() => {
+    setTimeout(async () => {
       const randomOrder = `VPK-${Math.floor(100000 + Math.random() * 900000)}`;
       setGeneratedOrderId(randomOrder);
       setFullName(cleanName);
@@ -115,15 +141,53 @@ export function QuickPurchaseModal({
       setAltPhone(cleanAltPhone);
       setDeliveryAddress(cleanAddress);
       setDeliveryNotes(cleanNotes);
+
+      const orderTotal = selectedVariant?.pricePKR || phone?.basePricePKR || 0;
+      const orderItems = phone
+        ? [
+            {
+              name: phone.name,
+              variant: `${selectedVariant?.ram || ''}/${selectedVariant?.storage || ''}`,
+              pricePKR: orderTotal,
+              quantity: 1,
+              color: currentColor?.name || '',
+            },
+          ]
+        : [];
+
+      // Save to Firestore if customer is logged in
+      if (user) {
+        try {
+          const orderDocRef = doc(db, 'users', user.uid, 'orders', randomOrder);
+          await setDoc(orderDocRef, {
+            orderId: randomOrder,
+            customerName: cleanName,
+            phone: phoneCheck.cleanPhone,
+            altPhone: cleanAltPhone,
+            city: city || 'Pakistan',
+            address: cleanAddress,
+            notes: cleanNotes,
+            items: orderItems,
+            totalPKR: orderTotal,
+            paymentMethod,
+            status: 'Placed',
+            createdAt: serverTimestamp(),
+          });
+        } catch (err) {
+          console.error('Error saving quick order to Firestore:', err);
+        }
+      }
+
+      // Always persist to localStorage for guest tracking & offline persistence
       try {
         const newOrder = {
           orderId: randomOrder,
           customerName: cleanName,
           phone: phoneCheck.cleanPhone,
-          city: 'Pakistan',
+          city: city || 'Pakistan',
           address: cleanAddress,
           items: phone ? [`${phone.name} (${selectedVariant?.ram || ''}/${selectedVariant?.storage || ''})`] : [],
-          totalPKR: selectedVariant?.pricePKR || phone?.basePricePKR || 0,
+          totalPKR: orderTotal,
           status: 'Order Confirmed — Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.',
           createdAt: new Date().toISOString(),
         };

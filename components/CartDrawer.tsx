@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CartItem } from '@/types';
 import { formatPKR, PAKISTAN_CITIES } from '@/data/smartphones';
 import { PhoneImageWithFallback } from './PhoneImageWithFallback';
@@ -27,6 +27,9 @@ import {
   submissionRateLimiter,
   MAX_INPUT_LENGTHS,
 } from '@/lib/security';
+import { useAuth } from '@/context/AuthContext';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -45,6 +48,7 @@ export function CartDrawer({
   onRemoveItem,
   onClearCart,
 }: CartDrawerProps) {
+  const { user, profile } = useAuth();
   const [isCheckoutStep, setIsCheckoutStep] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [confirmedOrderId, setConfirmedOrderId] = useState('');
@@ -57,6 +61,27 @@ export function CartDrawer({
   const [paymentMethod, setPaymentMethod] = useState<'cod' | 'bank' | 'card'>('cod');
   const [honeypot, setHoneypot] = useState(''); // Anti-bot honeypot
   const [validationError, setValidationError] = useState('');
+
+  // Auto-prefill customer info when logged in
+  useEffect(() => {
+    if (user && profile) {
+      if (!customerName && (profile.name || user.displayName)) {
+        setCustomerName(profile.name || user.displayName || '');
+      }
+      if (!customerPhone && profile.phone) {
+        setCustomerPhone(profile.phone);
+      }
+      const defaultAddr = profile.addresses?.find((a) => a.isDefault) || profile.addresses?.[0];
+      if (defaultAddr) {
+        if (!customerAddress) {
+          setCustomerAddress(defaultAddr.streetAddress);
+        }
+        if (defaultAddr.city) {
+          setSelectedCity(defaultAddr.city);
+        }
+      }
+    }
+  }, [user, profile, isCheckoutStep]);
 
   if (!isOpen) return null;
 
@@ -76,7 +101,7 @@ export function CartDrawer({
     (i) => !i.phone.inStock || i.selectedColor.inStock === false || i.selectedVariant.inStock === false
   );
 
-  const handlePlaceOrder = (e: React.FormEvent) => {
+  const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     setValidationError('');
 
@@ -124,6 +149,39 @@ export function CartDrawer({
 
     const orderId = `VPK-${Math.floor(100000 + Math.random() * 900000)}`;
     setConfirmedOrderId(orderId);
+
+    const orderItemsSummary = items.map(
+      (i) => `${i.phone.name} (${i.selectedVariant.ram}/${i.selectedVariant.storage})`
+    );
+
+    // Save to Firestore if customer is logged in
+    if (user) {
+      try {
+        const orderDocRef = doc(db, 'users', user.uid, 'orders', orderId);
+        await setDoc(orderDocRef, {
+          orderId,
+          customerName: cleanName,
+          phone: phoneCheck.cleanPhone,
+          city: selectedCity,
+          address: cleanAddress,
+          items: items.map((i) => ({
+            name: i.phone.name,
+            variant: `${i.selectedVariant.ram}/${i.selectedVariant.storage}`,
+            pricePKR: i.selectedVariant.pricePKR,
+            quantity: i.quantity,
+            color: i.selectedColor.name,
+          })),
+          totalPKR: subtotalPKR,
+          paymentMethod,
+          status: 'Placed',
+          createdAt: serverTimestamp(),
+        });
+      } catch (err) {
+        console.error('Error saving order to Firestore:', err);
+      }
+    }
+
+    // Always persist to localStorage for guest tracking & offline persistence
     try {
       const newOrder = {
         orderId,
@@ -131,7 +189,7 @@ export function CartDrawer({
         phone: phoneCheck.cleanPhone,
         city: selectedCity,
         address: cleanAddress,
-        items: items.map((i) => `${i.phone.name} (${i.selectedVariant.ram}/${i.selectedVariant.storage})`),
+        items: orderItemsSummary,
         totalPKR: subtotalPKR,
         status: 'Order Confirmed — Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.',
         createdAt: new Date().toISOString(),
