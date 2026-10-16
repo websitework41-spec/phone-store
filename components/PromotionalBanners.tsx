@@ -24,6 +24,8 @@ import { formatPKR } from '@/data/smartphones';
 interface BannerProps {
   onSelectBrand?: (brand: string) => void;
   onFilterCategory?: (filterKey: string, value: any) => void;
+  onFilterBudget?: () => void;
+  onFilterKeypad?: () => void;
   onOpenEMIModal?: () => void;
 }
 
@@ -90,7 +92,7 @@ export function CatalogBannerS24Ultra({ onSelectBrand }: BannerProps) {
               onClick={() => onSelectBrand && onSelectBrand('Samsung')}
               className="btn-press inline-flex items-center gap-2 px-5 py-3 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 hover:border-cyan-400/60 transition-all cursor-pointer shadow-xs"
             >
-              <span>All 25 Samsung Phones</span>
+              <span>All 19 Samsung Phones</span>
             </button>
           </div>
         </div>
@@ -115,7 +117,12 @@ export function CatalogBannerS24Ultra({ onSelectBrand }: BannerProps) {
 /**
  * Banner 2: Dual Promotional Cards (Budget Kings & Keypad Champions)
  */
-export function CatalogBannerDualCards({ onSelectBrand, onFilterCategory }: BannerProps) {
+export function CatalogBannerDualCards({
+  onSelectBrand,
+  onFilterCategory,
+  onFilterBudget,
+  onFilterKeypad,
+}: BannerProps) {
   return (
     <div className="col-span-full my-6 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
       {/* Card 1: Budget Kings */}
@@ -153,10 +160,10 @@ export function CatalogBannerDualCards({ onSelectBrand, onFilterCategory }: Bann
           </span>
           <button
             onClick={() => {
-              if (onFilterCategory) {
+              if (onFilterBudget) {
+                onFilterBudget();
+              } else if (onFilterCategory) {
                 onFilterCategory('priceRange', [0, 35000]);
-              } else if (onSelectBrand) {
-                onSelectBrand('Xiaomi');
               }
             }}
             className="btn-press inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-slate-950 hover:bg-slate-800 text-white text-xs font-bold transition-all cursor-pointer shadow-md hover:shadow-lg"
@@ -201,7 +208,13 @@ export function CatalogBannerDualCards({ onSelectBrand, onFilterCategory }: Bann
             100% PTA Approved
           </span>
           <button
-            onClick={() => onSelectBrand && onSelectBrand('Nokia')}
+            onClick={() => {
+              if (onFilterKeypad) {
+                onFilterKeypad();
+              } else if (onFilterCategory) {
+                onFilterCategory('keypad', ['Nokia', 'Itel']);
+              }
+            }}
             className="btn-shimmer btn-press inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black transition-all cursor-pointer shadow-md shadow-cyan-500/25 hover:shadow-cyan-400/40"
           >
             <span>View All Keypad Phones</span>

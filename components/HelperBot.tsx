@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import {
   Bot,
   Sparkles,
@@ -70,7 +71,7 @@ function FormattedBotMessage({ text }: { text: string }) {
         // Render inline formatting (bold, links, code)
         const renderInline = (str: string) => {
           // Replace markdown links [label](url)
-          const linkRegex = /\[(.*?)\]\((https?:\/\/[^\s]+)\)/g;
+          const linkRegex = /\[(.*?)\]\(([^\s)]+)\)/g;
           const parts: React.ReactNode[] = [];
           let lastIndex = 0;
           let match;
@@ -81,17 +82,29 @@ function FormattedBotMessage({ text }: { text: string }) {
             }
             const label = match[1];
             const href = match[2];
+            const isExternal = href.startsWith('http://') || href.startsWith('https://');
+
             parts.push(
-              <a
-                key={match.index}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-cyan-600 dark:text-cyan-400 font-semibold underline underline-offset-2 hover:text-cyan-700 inline-flex items-center gap-0.5 mx-0.5"
-              >
-                {label}
-                <ExternalLink className="w-3 h-3 inline" />
-              </a>
+              isExternal ? (
+                <a
+                  key={match.index}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-600 dark:text-cyan-400 font-semibold underline underline-offset-2 hover:text-cyan-700 inline-flex items-center gap-0.5 mx-0.5"
+                >
+                  {label.replace(/\*\*/g, '')}
+                  <ExternalLink className="w-3 h-3 inline" />
+                </a>
+              ) : (
+                <Link
+                  key={match.index}
+                  href={href}
+                  className="text-cyan-600 dark:text-cyan-400 font-bold underline underline-offset-2 hover:text-cyan-700 inline-flex items-center gap-0.5 mx-0.5"
+                >
+                  {label.replace(/\*\*/g, '')}
+                </Link>
+              )
             );
             lastIndex = linkRegex.lastIndex;
           }
@@ -165,6 +178,7 @@ Or tap a quick question below to get started!`,
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   // Auto-scroll when messages update
   useEffect(() => {
@@ -199,8 +213,15 @@ Or tap a quick question below to get started!`,
     setMessages((prev) => [...prev, userMsg]);
     setIsLoading(true);
 
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+    const timeoutId = setTimeout(() => controller.abort(), 6000);
+
     try {
-      // Build history payload for Gemini context
+      // Build history payload for context
       const historyPayload = messages.slice(-5).map((m) => ({
         role: m.sender === 'user' ? ('user' as const) : ('model' as const),
         text: m.text,
@@ -213,10 +234,19 @@ Or tap a quick question below to get started!`,
           message: sanitized,
           history: historyPayload,
         }),
+        signal: controller.signal,
       });
 
+      clearTimeout(timeoutId);
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
       const data = await res.json();
-      const botReply = data?.reply || "I'm having a slight trouble connecting. You can chat directly with our specialists on WhatsApp at +92 313 5221200!";
+      const botReply =
+        data?.reply ||
+        "I'm here to help! You can ask about our smartphones, PTA approval, 0% EMI installments, or chat directly with our specialists on WhatsApp at +92 313 5221200!";
 
       const botMsg: ChatMessage = {
         id: `bot-${Date.now()}`,
@@ -226,16 +256,20 @@ Or tap a quick question below to get started!`,
       };
 
       setMessages((prev) => [...prev, botMsg]);
-    } catch {
-      const errorMsg: ChatMessage = {
-        id: `bot-err-${Date.now()}`,
-        sender: 'bot',
-        text: `⚠️ Network error. Please reach out directly on WhatsApp at [+92 313 5221200](https://wa.me/923135221200) for instant live assistance.`,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      };
-      setMessages((prev) => [...prev, errorMsg]);
+    } catch (err: unknown) {
+      const isAbort = err instanceof Error && err.name === 'AbortError';
+      if (!isAbort) {
+        const errorMsg: ChatMessage = {
+          id: `bot-err-${Date.now()}`,
+          sender: 'bot',
+          text: `⚠️ I'm here to assist you! If you need instant live help, you can also reach us on WhatsApp at [+92 313 5221200](https://wa.me/923135221200).`,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        };
+        setMessages((prev) => [...prev, errorMsg]);
+      }
     } finally {
       setIsLoading(false);
+      abortControllerRef.current = null;
     }
   };
 
@@ -247,6 +281,12 @@ Or tap a quick question below to get started!`,
   };
 
   const handleResetChat = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    setIsLoading(false);
+    setInputMessage('');
     setMessages([
       {
         id: `welcome-${Date.now()}`,
@@ -323,6 +363,7 @@ Or tap a quick question below to get started!`,
             <div className="flex items-center gap-1">
               <button
                 onClick={handleResetChat}
+                aria-label="Reset conversation"
                 className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                 title="Reset conversation"
               >
@@ -330,6 +371,7 @@ Or tap a quick question below to get started!`,
               </button>
               <button
                 onClick={() => setIsOpen(false)}
+                aria-label="Close chat window"
                 className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                 title="Close chat"
               >
@@ -440,6 +482,7 @@ Or tap a quick question below to get started!`,
             <button
               onClick={() => handleSendMessage()}
               disabled={!inputMessage.trim() || isLoading}
+              aria-label="Send message"
               className="w-10 h-10 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white flex items-center justify-center shrink-0 shadow-md shadow-cyan-600/30 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
               title="Send message"
             >

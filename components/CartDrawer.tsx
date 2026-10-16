@@ -47,6 +47,7 @@ export function CartDrawer({
 }: CartDrawerProps) {
   const [isCheckoutStep, setIsCheckoutStep] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
+  const [confirmedOrderId, setConfirmedOrderId] = useState('');
 
   // Form states
   const [customerName, setCustomerName] = useState('');
@@ -120,12 +121,34 @@ export function CartDrawer({
     setCustomerName(cleanName);
     setCustomerPhone(phoneCheck.cleanPhone);
     setCustomerAddress(cleanAddress);
+
+    const orderId = `VPK-${Math.floor(100000 + Math.random() * 900000)}`;
+    setConfirmedOrderId(orderId);
+    try {
+      const newOrder = {
+        orderId,
+        customerName: cleanName,
+        phone: phoneCheck.cleanPhone,
+        city: selectedCity,
+        address: cleanAddress,
+        items: items.map((i) => `${i.phone.name} (${i.selectedVariant.ram}/${i.selectedVariant.storage})`),
+        totalPKR: subtotalPKR,
+        status: 'Order Confirmed — Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.',
+        createdAt: new Date().toISOString(),
+      };
+      const existing = JSON.parse(localStorage.getItem('voltphone_orders') || '[]');
+      localStorage.setItem('voltphone_orders', JSON.stringify([newOrder, ...existing]));
+    } catch {
+      // ignore
+    }
+
     setOrderSuccess(true);
   };
 
   const handleResetOrder = () => {
     setOrderSuccess(false);
     setIsCheckoutStep(false);
+    setConfirmedOrderId('');
     setValidationError('');
     setHoneypot('');
     onClearCart();
@@ -149,7 +172,8 @@ export function CartDrawer({
             </div>
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-500 hover:text-neutral-900 dark:hover:text-white flex items-center justify-center transition-colors"
+              aria-label="Close cart drawer"
+              className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-500 hover:text-neutral-900 dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -176,7 +200,7 @@ export function CartDrawer({
                 <div className="flex justify-between">
                   <span className="text-neutral-400">Tracking Code:</span>
                   <span className="font-mono font-bold text-blue-600">
-                    VPK-{Math.floor(100000 + Math.random() * 900000)}
+                    {confirmedOrderId || 'VPK-786110'}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -410,7 +434,7 @@ export function CartDrawer({
                     Your cart is empty
                   </p>
                   <p className="text-xs text-neutral-400 mt-1">
-                    Explore our curated collection of 200 verified PTA smartphones.
+                    Explore our curated collection of 222 verified PTA smartphones.
                   </p>
                   <button
                     onClick={onClose}
@@ -447,7 +471,8 @@ export function CartDrawer({
                               </h4>
                               <button
                                 onClick={() => onRemoveItem(index)}
-                                className="text-neutral-400 hover:text-rose-600"
+                                aria-label={`Remove ${item.phone.name} from cart`}
+                                className="text-neutral-400 hover:text-rose-600 cursor-pointer p-0.5"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
                               </button>
@@ -474,6 +499,7 @@ export function CartDrawer({
                             <div className="flex items-center gap-1.5 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-0.5">
                               <button
                                 onClick={() => onUpdateQuantity(index, item.quantity - 1)}
+                                aria-label={`Decrease quantity of ${item.phone.name}`}
                                 className="w-5 h-5 rounded flex items-center justify-center hover:bg-white dark:hover:bg-neutral-700 text-xs active:scale-80 transition-transform cursor-pointer"
                               >
                                 <Minus className="w-3 h-3" />
@@ -483,6 +509,7 @@ export function CartDrawer({
                               </span>
                               <button
                                 onClick={() => onUpdateQuantity(index, item.quantity + 1)}
+                                aria-label={`Increase quantity of ${item.phone.name}`}
                                 className="w-5 h-5 rounded flex items-center justify-center hover:bg-white dark:hover:bg-neutral-700 text-xs active:scale-80 transition-transform cursor-pointer"
                               >
                                 <Plus className="w-3 h-3" />

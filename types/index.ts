@@ -73,6 +73,7 @@ export interface FilterState {
   ptaApprovedOnly: boolean;
   inStockOnly: boolean;
   sortBy: 'popularity' | 'price-asc' | 'price-desc' | 'discount' | 'rating';
+  specFilter?: string;
 }
 
 export interface CartItem {

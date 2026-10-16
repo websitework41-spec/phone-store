@@ -84,7 +84,8 @@ export function ComparisonDock({
               />
               <button
                 onClick={() => onRemovePhone(phone.id)}
-                className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-rose-600 text-white flex items-center justify-center text-[10px] hover:scale-110 transition-transform"
+                aria-label={`Remove ${phone.name} from comparison`}
+                className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-rose-600 text-white flex items-center justify-center text-[10px] hover:scale-110 transition-transform cursor-pointer"
                 title="Remove"
               >
                 <X className="w-2.5 h-2.5" />
@@ -143,7 +144,8 @@ export function ComparisonDock({
 
               <button
                 onClick={() => setModalOpen(false)}
-                className="w-9 h-9 rounded-2xl bg-neutral-100 dark:bg-neutral-800 text-neutral-500 hover:text-neutral-900 dark:hover:text-white flex items-center justify-center transition-colors"
+                aria-label="Close comparison modal"
+                className="w-9 h-9 rounded-2xl bg-neutral-100 dark:bg-neutral-800 text-neutral-500 hover:text-neutral-900 dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>

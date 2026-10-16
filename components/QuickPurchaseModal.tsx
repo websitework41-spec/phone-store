@@ -108,13 +108,30 @@ export function QuickPurchaseModal({
     setIsSubmitting(true);
     // Simulate secure order placement with sanitized values
     setTimeout(() => {
-      const randomOrder = `VOLT-PK-${Math.floor(100000 + Math.random() * 900000)}`;
+      const randomOrder = `VPK-${Math.floor(100000 + Math.random() * 900000)}`;
       setGeneratedOrderId(randomOrder);
       setFullName(cleanName);
       setPhoneNumber(phoneCheck.cleanPhone);
       setAltPhone(cleanAltPhone);
       setDeliveryAddress(cleanAddress);
       setDeliveryNotes(cleanNotes);
+      try {
+        const newOrder = {
+          orderId: randomOrder,
+          customerName: cleanName,
+          phone: phoneCheck.cleanPhone,
+          city: 'Pakistan',
+          address: cleanAddress,
+          items: phone ? [`${phone.name} (${selectedVariant?.ram || ''}/${selectedVariant?.storage || ''})`] : [],
+          totalPKR: selectedVariant?.pricePKR || phone?.basePricePKR || 0,
+          status: 'Order Confirmed — Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.',
+          createdAt: new Date().toISOString(),
+        };
+        const existing = JSON.parse(localStorage.getItem('voltphone_orders') || '[]');
+        localStorage.setItem('voltphone_orders', JSON.stringify([newOrder, ...existing]));
+      } catch {
+        // ignore
+      }
       setIsSubmitting(false);
       setIsOrderConfirmed(true);
     }, 600);
@@ -152,6 +169,7 @@ export function QuickPurchaseModal({
 
           <button
             onClick={handleResetAndClose}
+            aria-label="Close quick purchase modal"
             className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-500 hover:text-neutral-900 dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />

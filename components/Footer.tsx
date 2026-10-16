@@ -237,7 +237,7 @@ export function Footer() {
             <ul className="space-y-2 text-slate-400">
               <li>
                 <Link href="/?brand=Samsung#catalog" className="hover:text-cyan-400 transition-colors">
-                  Samsung Galaxy (25)
+                  Samsung Galaxy (19)
                 </Link>
               </li>
               <li>
@@ -285,27 +285,27 @@ export function Footer() {
             </h5>
             <ul className="space-y-2 text-slate-400">
               <li>
-                <Link href="/?search=under%2025000#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?maxPrice=25000#catalog" className="hover:text-cyan-400 transition-colors">
                   Phones Under Rs. 25,000
                 </Link>
               </li>
               <li>
-                <Link href="/?search=under%2040000#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?maxPrice=40000#catalog" className="hover:text-cyan-400 transition-colors">
                   Phones Under Rs. 40,000
                 </Link>
               </li>
               <li>
-                <Link href="/?search=under%2060000#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?maxPrice=60000#catalog" className="hover:text-cyan-400 transition-colors">
                   Phones Under Rs. 60,000
                 </Link>
               </li>
               <li>
-                <Link href="/?search=under%20100000#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?maxPrice=100000#catalog" className="hover:text-cyan-400 transition-colors">
                   Phones Under Rs. 100,000
                 </Link>
               </li>
               <li>
-                <Link href="/?search=flagship#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?minPrice=150000#catalog" className="hover:text-cyan-400 transition-colors">
                   Flagship Mobiles (150K+)
                 </Link>
               </li>
@@ -315,7 +315,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/?search=amoled#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?spec=120hz-amoled#catalog" className="hover:text-cyan-400 transition-colors">
                   120Hz AMOLED Displays
                 </Link>
               </li>
@@ -329,39 +329,39 @@ export function Footer() {
             </h5>
             <ul className="space-y-2 text-slate-400">
               <li>
-                <a href="#policies" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#open-parcel" className="hover:text-cyan-400 transition-colors">
                   Open-Parcel Delivery Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#policies" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#pta-guide" className="hover:text-cyan-400 transition-colors">
                   PTA DIRBS Verification Guide
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#policies" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#installments" className="hover:text-cyan-400 transition-colors">
                   0% Markup EMI Installments
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#policies" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#warranty" className="hover:text-cyan-400 transition-colors">
                   1-Year Official Brand Warranty
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#policies" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#cod-terms" className="hover:text-cyan-400 transition-colors">
                   Cash on Delivery Terms
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#policies" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#replacement-guarantee" className="hover:text-cyan-400 transition-colors">
                   7-Day Replacement Guarantee
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#policies" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#privacy-security" className="hover:text-cyan-400 transition-colors">
                   Privacy Policy &amp; Security
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

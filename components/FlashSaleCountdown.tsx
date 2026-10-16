@@ -3,24 +3,65 @@
 import React, { useState, useEffect, memo } from 'react';
 import { Clock } from 'lucide-react';
 
+const DEADLINE_KEY = 'voltphone_flash_sale_deadline';
+
+function getOrSetFixedDeadline(): number {
+  if (typeof window === 'undefined') return 0;
+  try {
+    const saved = localStorage.getItem(DEADLINE_KEY);
+    const now = Date.now();
+    if (saved) {
+      const parsed = parseInt(saved, 10);
+      if (!isNaN(parsed) && parsed > now) {
+        return parsed;
+      }
+    }
+    // Set fixed deadline: next PKT midnight (persisted across all loads)
+    const nowPkt = new Date();
+    nowPkt.setHours(24, 0, 0, 0);
+    const newDeadline = nowPkt.getTime();
+    localStorage.setItem(DEADLINE_KEY, newDeadline.toString());
+    return newDeadline;
+  } catch {
+    return Date.now() + 14 * 3600 * 1000;
+  }
+}
+
+function calculateTimeLeft(deadline: number) {
+  const diffMs = Math.max(0, deadline - Date.now());
+  const hours = Math.floor(diffMs / (1000 * 60 * 60));
+  const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+  return { hours, minutes, seconds };
+}
+
 /**
  * Isolated Countdown Timer
- * Prevents root Home page and phone grid from re-rendering every 1000ms.
+ * Synchronized with a fixed deadline persisted across page loads in localStorage.
+ * Guaranteed no erratic jumps or fake resets.
  */
 export const FlashSaleCountdown = memo(function FlashSaleCountdown() {
-  const [timeLeft, setTimeLeft] = useState({ hours: 14, minutes: 28, seconds: 45 });
+  const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number } | null>(null);
 
   useEffect(() => {
+    const deadline = getOrSetFixedDeadline();
+    setTimeLeft(calculateTimeLeft(deadline));
+
     const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
-        if (prev.minutes > 0) return { ...prev, minutes: 59, seconds: 59 };
-        if (prev.hours > 0) return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        return { hours: 24, minutes: 0, seconds: 0 };
-      });
+      setTimeLeft(calculateTimeLeft(deadline));
     }, 1000);
+
     return () => clearInterval(timer);
   }, []);
+
+  if (!timeLeft) {
+    return (
+      <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-950 text-white text-xs font-bold shadow-md shadow-slate-950/20 border border-slate-800">
+        <Clock className="w-3.5 h-3.5 text-cyan-400" />
+        <span className="text-slate-400 text-[11px]">Daily Flash Deals</span>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-950 text-white text-xs font-bold shadow-md shadow-slate-950/20 border border-slate-800 hover:scale-105 transition-all duration-200 cursor-default">

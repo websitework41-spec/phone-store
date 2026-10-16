@@ -26,6 +26,8 @@ import {
   Smartphone as PhoneIcon,
 } from 'lucide-react';
 
+import { sanitizeText, validateEmailOrPhone } from '@/lib/security';
+
 interface FilterSidebarProps {
   filters: FilterState;
   setFilters: React.Dispatch<React.SetStateAction<FilterState>>;
@@ -47,12 +49,15 @@ export function FilterSidebar({
   const [assistPhone, setAssistPhone] = useState('');
   const [assistCity, setAssistCity] = useState(PAKISTAN_CITIES[0] || 'Karachi');
   const [assistSubmitted, setAssistSubmitted] = useState(false);
+  const [assistError, setAssistError] = useState('');
 
-  // Compute live counts for all brands
+  // Compute live counts for all brands (reflecting verified in-stock models, matching rendered results)
   const brandModelCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     SMARTPHONES.forEach((p) => {
-      counts[p.brand] = (counts[p.brand] || 0) + 1;
+      if (p.inStock) {
+        counts[p.brand] = (counts[p.brand] || 0) + 1;
+      }
     });
     return counts;
   }, []);
@@ -117,13 +122,27 @@ export function FilterSidebar({
 
   const handleAssistSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (assistName.trim() && assistPhone.trim()) {
-      setAssistSubmitted(true);
-      setTimeout(() => {
-        setAssistName('');
-        setAssistPhone('');
-      }, 4000);
+    setAssistError('');
+
+    const cleanName = sanitizeText(assistName, 60);
+    const cleanPhone = sanitizeText(assistPhone, 60);
+
+    if (!cleanName || cleanName.trim().length < 2) {
+      setAssistError('Please enter your full name.');
+      return;
     }
+
+    if (!cleanPhone || !validateEmailOrPhone(cleanPhone)) {
+      setAssistError('Please enter a valid WhatsApp number (e.g. 03001234567) or email.');
+      return;
+    }
+
+    setAssistSubmitted(true);
+    setTimeout(() => {
+      setAssistName('');
+      setAssistPhone('');
+      setAssistError('');
+    }, 4000);
   };
 
   // Filtered brands by user typing
@@ -488,6 +507,11 @@ export function FilterSidebar({
               >
                 Request Free Callback
               </button>
+              {assistError && (
+                <div className="text-[11px] text-rose-400 font-semibold px-1 pt-1 animate-in fade-in">
+                  ⚠️ {assistError}
+                </div>
+              )}
             </form>
           )}
         </div>

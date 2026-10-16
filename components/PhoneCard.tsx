@@ -83,7 +83,7 @@ export const PhoneCard = React.memo(function PhoneCard({
             {phone.discountPercent > 0 && (
               <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-50 text-rose-600 border border-rose-200/70 shadow-xs group-hover:scale-105 transition-transform">
                 <Sparkles className="w-2.5 h-2.5 text-rose-500 fill-rose-500" />
-                -{phone.discountPercent}%
+                Save {phone.discountPercent}%
               </span>
             )}
           </div>
@@ -188,21 +188,37 @@ export const PhoneCard = React.memo(function PhoneCard({
           </div>
           <div className="flex items-center gap-1.5 truncate group-hover:text-slate-800 transition-colors">
             <Battery className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-            <span className="truncate">{phone.keyHighlights.battery.split(' ')[0]} mAh</span>
+            <span className="truncate">
+              {(() => {
+                const raw = phone.keyHighlights.battery || phone.specs.battery || '';
+                const match = raw.match(/(\d{3,5})\s*mAh/i);
+                if (match) return `${match[1]} mAh`;
+                const numMatch = raw.match(/\d{3,5}/);
+                if (numMatch) return `${numMatch[0]} mAh`;
+                return raw || '5000 mAh';
+              })()}
+            </span>
           </div>
           <div className="flex items-center gap-1.5 truncate group-hover:text-slate-800 transition-colors">
             <Camera className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
             <span className="truncate">
-              {phone.specs.mainCamera.toLowerCase().includes('no')
-                ? 'No Camera'
-                : phone.specs.mainCamera.includes('MP')
-                ? `${phone.specs.mainCamera.split(' ')[0]} MP`
-                : phone.specs.mainCamera}
+              {(() => {
+                const raw = phone.specs.mainCamera || phone.keyHighlights.camera || '';
+                if (raw.toLowerCase().includes('no camera') || raw.toLowerCase() === 'no') return 'No Camera';
+                if (raw.toLowerCase().includes('digital camera')) return 'Digital Camera';
+                const match = raw.match(/(\d{1,3})\s*MP/i);
+                if (match) return `${match[1]} MP`;
+                return raw.split('+')[0].trim() || 'Camera';
+              })()}
             </span>
           </div>
           <div className="flex items-center gap-1.5 truncate group-hover:text-slate-800 transition-colors">
             <Layers className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-            <span className="truncate">{primaryVariant.ram} / {primaryVariant.storage}</span>
+            <span className="truncate">
+              {primaryVariant.ram === '32MB' || primaryVariant.ram === '8MB' || primaryVariant.ram.toLowerCase().includes('standard')
+                ? 'Standard Keypad'
+                : `${primaryVariant.ram} / ${primaryVariant.storage}`}
+            </span>
           </div>
         </div>
       </div>

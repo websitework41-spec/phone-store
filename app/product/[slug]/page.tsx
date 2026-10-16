@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { SMARTPHONES, getPhoneBySlug, formatPKR } from '@/data/smartphones';
@@ -41,7 +41,12 @@ export default function ProductDetailPage() {
   const phone = getPhoneBySlug(slug) || SMARTPHONES[0];
 
   // Find first in-stock color & variant if available
-  const initialColor = phone?.colors.find((c) => c.inStock) || phone?.colors[0];
+  const initialColor = phone?.colors.find((c) => {
+    if (c.inStock === false) return false;
+    if (phone.colorStockMap && phone.colorStockMap[c.name] && !phone.colorStockMap[c.name].inStock) return false;
+    return true;
+  }) || phone?.colors.find((c) => c.inStock !== false) || phone?.colors[0];
+
   const initialVariant = phone?.variants.find((v) => v.inStock) || phone?.variants[0];
 
   // States
@@ -58,9 +63,65 @@ export default function ProductDetailPage() {
   const [selectedTenure, setSelectedTenure] = useState<number>(6); // installment months
   const [isQuickBuyOpen, setIsQuickBuyOpen] = useState(false);
 
+  const isInitialMount = useRef(true);
+
+  // Synchronize cart with localStorage on mount & listen to storage/sync events
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('voltphone_cart');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setCartItems(parsed);
+        }
+      }
+    } catch {
+      // ignore
+    }
+
+    const handleSync = () => {
+      try {
+        const saved = localStorage.getItem('voltphone_cart');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) {
+            setCartItems(parsed);
+          }
+        }
+      } catch {
+        // ignore
+      }
+    };
+
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('voltphone_cart_updated', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('voltphone_cart_updated', handleSync);
+    };
+  }, []);
+
+  // Persist cart to localStorage on updates (survives reloads and page changes)
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    try {
+      localStorage.setItem('voltphone_cart', JSON.stringify(cartItems));
+      window.dispatchEvent(new Event('voltphone_cart_updated'));
+    } catch {
+      // ignore
+    }
+  }, [cartItems]);
+
   useEffect(() => {
     if (phone) {
-      const inStockC = phone.colors.find((c) => c.inStock) || phone.colors[0];
+      const inStockC = phone.colors.find((c) => {
+        if (c.inStock === false) return false;
+        if (phone.colorStockMap && phone.colorStockMap[c.name] && !phone.colorStockMap[c.name].inStock) return false;
+        return true;
+      }) || phone.colors.find((c) => c.inStock !== false) || phone.colors[0];
       const inStockV = phone.variants.find((v) => v.inStock) || phone.variants[0];
       setSelectedColor(inStockC);
       setSelectedVariant(inStockV);
@@ -583,7 +644,36 @@ export default function ProductDetailPage() {
         }
         onClearAll={() => setComparingPhones([])}
         onSelectForCart={(phoneToBuy) => {
-          handleAddToCart();
+          const inStockV = phoneToBuy.variants.find((v) => v.inStock) || phoneToBuy.variants[0];
+          const inStockC = phoneToBuy.colors.find((c) => {
+            if (c.inStock === false) return false;
+            if (phoneToBuy.colorStockMap && phoneToBuy.colorStockMap[c.name] && !phoneToBuy.colorStockMap[c.name].inStock) return false;
+            return true;
+          }) || phoneToBuy.colors.find((c) => c.inStock !== false) || phoneToBuy.colors[0];
+
+          setCartItems((prev) => {
+            const existing = prev.find(
+              (i) =>
+                i.phone.id === phoneToBuy.id &&
+                i.selectedVariant.id === inStockV.id &&
+                i.selectedColor.name === inStockC.name
+            );
+            if (existing) {
+              return prev.map((i) =>
+                i === existing ? { ...i, quantity: i.quantity + 1 } : i
+              );
+            }
+            return [
+              ...prev,
+              {
+                phone: phoneToBuy,
+                selectedColor: inStockC,
+                selectedVariant: inStockV,
+                quantity: 1,
+              },
+            ];
+          });
+          setIsCartOpen(true);
         }}
       />
 

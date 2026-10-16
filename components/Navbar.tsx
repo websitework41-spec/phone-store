@@ -18,6 +18,7 @@ import {
   MessageSquare,
   Truck,
   CheckCircle2,
+  AlertCircle,
   Sparkles,
   Zap,
   CreditCard,
@@ -53,6 +54,7 @@ export function Navbar({
   const [isTrackOrderOpen, setIsTrackOrderOpen] = useState(false);
   const [trackPhoneOrOrder, setTrackPhoneOrOrder] = useState('');
   const [trackResult, setTrackResult] = useState<string | null>(null);
+  const [trackError, setTrackError] = useState(false);
 
   const searchRef = useRef<HTMLDivElement>(null);
   const mobileSearchRef = useRef<HTMLDivElement>(null);
@@ -124,10 +126,43 @@ export function Navbar({
 
   const handleTrackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const cleanTrack = sanitizeText(trackPhoneOrOrder, 50);
-    if (cleanTrack) {
+    const cleanTrack = sanitizeText(trackPhoneOrOrder, 50).trim();
+    if (!cleanTrack) return;
+
+    let matchedOrder: { orderId: string; customerName: string; status: string } | null = null;
+    try {
+      const stored = localStorage.getItem('voltphone_orders');
+      if (stored) {
+        const orders = JSON.parse(stored);
+        if (Array.isArray(orders)) {
+          matchedOrder = orders.find(
+            (o: any) =>
+              o.orderId?.toLowerCase() === cleanTrack.toLowerCase() ||
+              (o.phone && cleanTrack.replace(/\D/g, '') && o.phone.replace(/\D/g, '') === cleanTrack.replace(/\D/g, ''))
+          );
+        }
+      }
+    } catch {
+      // ignore
+    }
+
+    if (!matchedOrder && (cleanTrack.toUpperCase() === 'VPK-786110' || cleanTrack === '03001234567')) {
+      matchedOrder = {
+        orderId: 'VPK-786110',
+        customerName: 'Muhammad Ali',
+        status: 'Dispatched via TCS Express. In transit to destination (Lahore). Expected delivery today with Open-Parcel inspection.',
+      };
+    }
+
+    if (matchedOrder) {
+      setTrackError(false);
       setTrackResult(
-        `Tracking ID confirmed for "${cleanTrack}". Status: Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.`
+        `Tracking ID Verified: ${matchedOrder.orderId} (${matchedOrder.customerName}). Status: ${matchedOrder.status}`
+      );
+    } else {
+      setTrackError(true);
+      setTrackResult(
+        `No order found with Tracking ID "${cleanTrack}". Please verify your order number (e.g. VPK-786110) or contact our WhatsApp helpline at +92 313 5221200.`
       );
     }
   };
@@ -242,7 +277,9 @@ export function Navbar({
                       setSearchQuery('');
                       setIsSearchOpen(false);
                     }}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 hover:scale-115 active:scale-95 transition-all p-1"
+                    aria-label="Clear search"
+                    title="Clear search"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 hover:scale-115 active:scale-95 transition-all p-1 cursor-pointer"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -371,6 +408,7 @@ export function Navbar({
               <button
                 type="button"
                 onClick={handleCompareClick}
+                aria-label="Compare phones side-by-side"
                 className="btn-press relative flex items-center gap-1.5 px-3.5 py-2.5 rounded-full bg-slate-100 hover:bg-white border border-slate-200 hover:border-cyan-400 hover:text-cyan-700 text-slate-800 transition-all cursor-pointer text-xs font-bold shadow-xs hover:shadow-md"
                 title="Compare phones side-by-side"
               >
@@ -387,6 +425,7 @@ export function Navbar({
               <button
                 type="button"
                 onClick={onOpenCart}
+                aria-label="View shopping cart"
                 className="btn-shimmer btn-press relative flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-950 hover:bg-slate-800 text-white transition-all shadow-md shadow-slate-950/20 hover:shadow-lg hover:shadow-cyan-500/20 cursor-pointer text-xs font-bold"
                 title="View your cart"
               >
@@ -420,7 +459,9 @@ export function Navbar({
                   <button
                     type="button"
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                    aria-label="Clear search"
+                    title="Clear search"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -498,7 +539,9 @@ export function Navbar({
                 onClick={() => {
                   setIsTrackOrderOpen(false);
                   setTrackResult(null);
+                  setTrackError(false);
                 }}
+                aria-label="Close tracking popup"
                 className="w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:text-slate-950 hover:scale-110 active:scale-95 flex items-center justify-center cursor-pointer transition-all"
               >
                 <X className="w-4 h-4" />
@@ -515,7 +558,7 @@ export function Navbar({
                 required
                 value={trackPhoneOrOrder}
                 onChange={(e) => setTrackPhoneOrOrder(e.target.value)}
-                placeholder="e.g. 03001234567 or ORD-9821"
+                placeholder="e.g. 03001234567 or VPK-786110"
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-cyan-500"
               />
               <button
@@ -527,12 +570,32 @@ export function Navbar({
             </form>
 
             {trackResult && (
-              <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs space-y-1 animate-in fade-in duration-150">
-                <div className="font-bold flex items-center gap-1.5 text-emerald-800">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <span>Dispatch Verified</span>
+              <div
+                className={`p-3.5 rounded-2xl text-xs space-y-1 animate-in fade-in duration-150 ${
+                  trackError
+                    ? 'bg-rose-50 border border-rose-200 text-rose-900'
+                    : 'bg-emerald-50 border border-emerald-200 text-emerald-900'
+                }`}
+              >
+                <div
+                  className={`font-bold flex items-center gap-1.5 ${
+                    trackError ? 'text-rose-800' : 'text-emerald-800'
+                  }`}
+                >
+                  {trackError ? (
+                    <AlertCircle className="w-4 h-4 text-rose-600" />
+                  ) : (
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  )}
+                  <span>{trackError ? 'Order Not Found' : 'Dispatch Verified'}</span>
                 </div>
-                <p className="text-[11px] leading-relaxed text-emerald-700">{trackResult}</p>
+                <p
+                  className={`text-[11px] leading-relaxed ${
+                    trackError ? 'text-rose-700' : 'text-emerald-700'
+                  }`}
+                >
+                  {trackResult}
+                </p>
               </div>
             )}
           </div>

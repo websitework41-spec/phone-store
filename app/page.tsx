@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useEffect, useCallback, useRef, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { SMARTPHONES, BRANDS, formatPKR } from '@/data/smartphones';
 import { Smartphone, FilterState, CartItem, SmartphoneVariant, SmartphoneColor } from '@/types';
 import { Navbar } from '@/components/Navbar';
@@ -33,6 +35,8 @@ import {
   Banknote,
   Building,
   ChevronDown,
+  ChevronRight,
+  RotateCcw,
   ArrowRight,
   ExternalLink,
   Flame,
@@ -43,7 +47,9 @@ import {
   MessageSquare,
 } from 'lucide-react';
 
-export default function Home() {
+function HomeContent() {
+  const searchParams = useSearchParams();
+
   // Master Filters State
   const [filters, setFilters] = useState<FilterState>({
     searchQuery: '',
@@ -54,6 +60,7 @@ export default function Home() {
     ptaApprovedOnly: false,
     inStockOnly: false,
     sortBy: 'popularity',
+    specFilter: undefined,
   });
 
   // Global compare & cart states
@@ -73,26 +80,129 @@ export default function Home() {
   // Pagination state
   const [visibleCount, setVisibleCount] = useState<number>(24);
 
-  // Read URL query params securely on client load with input sanitization (?brand=Samsung, ?search=...)
+  const isInitialMount = useRef(true);
+
+  // Synchronize cart with localStorage on mount & listen to storage/sync events
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const brandParam = sanitizeText(params.get('brand') || '', 40);
-      const searchParam = sanitizeText(params.get('search') || '', 100);
+    try {
+      const saved = localStorage.getItem('voltphone_cart');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setCartItems(parsed);
+        }
+      }
+    } catch {
+      // ignore
+    }
+
+    const handleSync = () => {
+      try {
+        const saved = localStorage.getItem('voltphone_cart');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) {
+            setCartItems(parsed);
+          }
+        }
+      } catch {
+        // ignore
+      }
+    };
+
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('voltphone_cart_updated', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('voltphone_cart_updated', handleSync);
+    };
+  }, []);
+
+  // Persist cart to localStorage on updates (survives reloads and page changes)
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    try {
+      localStorage.setItem('voltphone_cart', JSON.stringify(cartItems));
+      window.dispatchEvent(new Event('voltphone_cart_updated'));
+    } catch {
+      // ignore
+    }
+  }, [cartItems]);
+
+  // Read URL query params securely on client load & route changes
+  useEffect(() => {
+    if (!searchParams) return;
+    const brandParam = sanitizeText(searchParams.get('brand') || '', 40);
+    const searchParam = sanitizeText(searchParams.get('search') || '', 100);
+    const maxPriceParam = searchParams.get('maxPrice');
+    const minPriceParam = searchParams.get('minPrice');
+    const categoryParam = searchParams.get('category');
+    const specParam = searchParams.get('spec');
+
+    setFilters((prev) => {
+      let updated = { ...prev };
       if (brandParam && BRANDS.includes(brandParam)) {
-        setFilters((prev) => ({
-          ...prev,
-          selectedBrands: brandParam === 'All Brands' ? [] : [brandParam],
-        }));
+        updated.selectedBrands = brandParam === 'All Brands' ? [] : [brandParam];
       }
       if (searchParam) {
-        setFilters((prev) => ({
-          ...prev,
-          searchQuery: searchParam,
-        }));
+        const lowerSearch = searchParam.toLowerCase();
+        if (lowerSearch.includes('under 25') || lowerSearch.includes('25000') || lowerSearch.includes('25,000')) {
+          updated.priceRange = [0, 25000];
+          updated.selectedBrands = [];
+          updated.searchQuery = '';
+        } else if (lowerSearch.includes('under 40') || lowerSearch.includes('40000') || lowerSearch.includes('40,000')) {
+          updated.priceRange = [0, 40000];
+          updated.selectedBrands = [];
+          updated.searchQuery = '';
+        } else if (lowerSearch.includes('under 60') || lowerSearch.includes('60000') || lowerSearch.includes('60,000')) {
+          updated.priceRange = [0, 60000];
+          updated.selectedBrands = [];
+          updated.searchQuery = '';
+        } else if (lowerSearch.includes('under 100') || lowerSearch.includes('100000') || lowerSearch.includes('100,000') || lowerSearch.includes('1 lac') || lowerSearch.includes('1 lakh')) {
+          updated.priceRange = [0, 100000];
+          updated.selectedBrands = [];
+          updated.searchQuery = '';
+        } else if (lowerSearch.includes('150k') || lowerSearch.includes('150000') || lowerSearch.includes('flagship')) {
+          updated.priceRange = [150000, 700000];
+          updated.selectedBrands = [];
+          updated.searchQuery = '';
+        } else if (lowerSearch.includes('120hz') || lowerSearch.includes('amoled')) {
+          updated.specFilter = '120hz-amoled';
+          updated.searchQuery = '';
+        } else if (lowerSearch.includes('keypad')) {
+          updated.selectedBrands = ['Nokia', 'Itel'];
+          updated.searchQuery = '';
+        } else {
+          updated.searchQuery = searchParam;
+        }
       }
-    }
-  }, []);
+      if (maxPriceParam) {
+        const parsedMax = parseInt(maxPriceParam, 10);
+        if (!isNaN(parsedMax) && parsedMax > 0) {
+          updated.priceRange = [0, parsedMax];
+          updated.selectedBrands = [];
+        }
+      }
+      if (minPriceParam) {
+        const parsedMin = parseInt(minPriceParam, 10);
+        if (!isNaN(parsedMin) && parsedMin > 0) {
+          updated.priceRange = [parsedMin, 700000];
+          updated.selectedBrands = [];
+        }
+      }
+      if (categoryParam === 'keypad') {
+        updated.selectedBrands = ['Nokia', 'Itel'];
+        updated.priceRange = [0, 700000];
+      }
+      if (specParam) {
+        updated.specFilter = specParam;
+      }
+      return updated;
+    });
+  }, [searchParams]);
 
   // Reset pagination when filters change
   useEffect(() => {
@@ -106,6 +216,7 @@ export default function Home() {
     filters.ptaApprovedOnly,
     filters.inStockOnly,
     filters.sortBy,
+    filters.specFilter,
   ]);
 
   // Flash deals calculation (top 4 discount items)
@@ -119,13 +230,49 @@ export default function Home() {
   // Filter & Sort Logic
   const filteredPhones = useMemo(() => {
     return SMARTPHONES.filter((phone) => {
-      // Search
+      // Spec Filter
+      if (filters.specFilter === '120hz-amoled') {
+        const is120Hz =
+          phone.specs.refreshRate?.includes('120') ||
+          phone.specs.displayType?.includes('120') ||
+          phone.specs.screen?.includes('120');
+        const isAmoled =
+          /amoled|oled/i.test(phone.specs.displayType || '') ||
+          /amoled|oled/i.test(phone.specs.screen || '') ||
+          /amoled|oled/i.test(phone.keyHighlights?.display || '');
+        if (!is120Hz || !isAmoled) return false;
+      }
+
+      // Search (Name, Brand, Chipset, Network, Budget phrase)
       if (filters.searchQuery.trim()) {
         const q = filters.searchQuery.toLowerCase();
-        const matchesName = phone.name.toLowerCase().includes(q);
-        const matchesBrand = phone.brand.toLowerCase().includes(q);
-        const matchesChip = phone.specs.chipsetBrand?.toLowerCase().includes(q);
-        if (!matchesName && !matchesBrand && !matchesChip) return false;
+        if (q.includes('under 25') || q.includes('25k') || q.includes('25000')) {
+          if (phone.basePricePKR > 25000) return false;
+        } else if (q.includes('under 40') || q.includes('40k') || q.includes('40000')) {
+          if (phone.basePricePKR > 40000) return false;
+        } else if (q.includes('under 60') || q.includes('60k') || q.includes('60000')) {
+          if (phone.basePricePKR > 60000) return false;
+        } else if (q.includes('under 100') || q.includes('100k') || q.includes('100000')) {
+          if (phone.basePricePKR > 100000) return false;
+        } else if (q.includes('150k') || q.includes('flagship')) {
+          if (phone.basePricePKR < 150000) return false;
+        } else if ((q.includes('120hz') || q.includes('120 hz')) && (q.includes('amoled') || q.includes('oled'))) {
+          const is120Hz =
+            phone.specs.refreshRate?.includes('120') ||
+            phone.specs.displayType?.includes('120') ||
+            phone.specs.screen?.includes('120');
+          const isAmoled =
+            /amoled|oled/i.test(phone.specs.displayType || '') ||
+            /amoled|oled/i.test(phone.specs.screen || '') ||
+            /amoled|oled/i.test(phone.keyHighlights?.display || '');
+          if (!is120Hz || !isAmoled) return false;
+        } else {
+          const matchesName = phone.name.toLowerCase().includes(q);
+          const matchesBrand = phone.brand.toLowerCase().includes(q);
+          const matchesChip = phone.specs.chipsetBrand?.toLowerCase().includes(q);
+          const matchesNetwork = phone.specs.network?.toLowerCase().includes(q);
+          if (!matchesName && !matchesBrand && !matchesChip && !matchesNetwork) return false;
+        }
       }
 
       // Brand
@@ -169,13 +316,13 @@ export default function Home() {
 
       return true;
     }).sort((a, b) => {
-      // Prioritize in-stock phones: Available phones show up first on the front page,
-      // and unavailable phones are moved back to later pages.
+      // Numerical sort by actual price without in-stock priority inversion
+      if (filters.sortBy === 'price-asc') return a.basePricePKR - b.basePricePKR;
+      if (filters.sortBy === 'price-desc') return b.basePricePKR - a.basePricePKR;
+      // Prioritize in-stock phones for other sort modes (popularity, discount, rating)
       if (a.inStock !== b.inStock) {
         return a.inStock ? -1 : 1;
       }
-      if (filters.sortBy === 'price-asc') return a.basePricePKR - b.basePricePKR;
-      if (filters.sortBy === 'price-desc') return b.basePricePKR - a.basePricePKR;
       if (filters.sortBy === 'discount') return b.discountPercent - a.discountPercent;
       if (filters.sortBy === 'rating') return b.rating - a.rating;
       // Default: popularity
@@ -256,6 +403,34 @@ export default function Home() {
     }
   }, []);
 
+  const handleFilterBudget = useCallback(() => {
+    setFilters((prev) => ({
+      ...prev,
+      selectedBrands: [],
+      priceRange: [0, 35000],
+      searchQuery: '',
+      specFilter: undefined,
+    }));
+    const catalogEl = document.getElementById('catalog');
+    if (catalogEl) {
+      catalogEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
+  const handleFilterKeypad = useCallback(() => {
+    setFilters((prev) => ({
+      ...prev,
+      selectedBrands: ['Nokia', 'Itel'],
+      priceRange: [0, 700000],
+      searchQuery: '',
+      specFilter: undefined,
+    }));
+    const catalogEl = document.getElementById('catalog');
+    if (catalogEl) {
+      catalogEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
   const handleClearFilter = (key: string, val?: string) => {
     if (key === 'brand' && val) {
       setFilters((prev) => ({
@@ -280,6 +455,8 @@ export default function Home() {
       setFilters((prev) => ({ ...prev, inStockOnly: false }));
     } else if (key === 'price') {
       setFilters((prev) => ({ ...prev, priceRange: [0, 700000] }));
+    } else if (key === 'spec') {
+      setFilters((prev) => ({ ...prev, specFilter: undefined }));
     }
   };
 
@@ -290,7 +467,9 @@ export default function Home() {
     filters.selectedStorage.length > 0 ||
     filters.ptaApprovedOnly ||
     filters.inStockOnly ||
-    filters.priceRange[1] < 700000;
+    filters.priceRange[0] > 0 ||
+    filters.priceRange[1] < 700000 ||
+    Boolean(filters.specFilter);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
@@ -313,6 +492,8 @@ export default function Home() {
         {/* Hero Banner Showcase */}
         <HeroBanner
           onQuickFilter={handleSelectBrand}
+          onFilterBudget={handleFilterBudget}
+          onFilterKeypad={handleFilterKeypad}
           onOpenEMIModal={() => setActivePolicyModal('installments')}
         />
 
@@ -431,7 +612,7 @@ export default function Home() {
               {filters.searchQuery.trim() && (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-50 text-cyan-800 border border-cyan-200">
                   Search: &quot;{filters.searchQuery}&quot;
-                  <button onClick={() => handleClearFilter('search')} className="hover:text-cyan-950 p-0.5">
+                  <button onClick={() => handleClearFilter('search')} aria-label="Remove search filter" className="hover:text-cyan-950 p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
                   </button>
                 </span>
@@ -440,16 +621,20 @@ export default function Home() {
               {filters.selectedBrands.map((b) => (
                 <span key={b} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
                   {b}
-                  <button onClick={() => handleClearFilter('brand', b)} className="hover:text-rose-600 p-0.5">
+                  <button onClick={() => handleClearFilter('brand', b)} aria-label={`Remove brand filter ${b}`} className="hover:text-rose-600 p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
                   </button>
                 </span>
               ))}
 
-              {filters.priceRange[1] < 700000 && (
+              {(filters.priceRange[0] > 0 || filters.priceRange[1] < 700000) && (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
-                  Up to {formatPKR(filters.priceRange[1])}
-                  <button onClick={() => handleClearFilter('price')} className="hover:text-rose-600 p-0.5">
+                  {filters.priceRange[0] > 0 && filters.priceRange[1] < 700000
+                    ? `${formatPKR(filters.priceRange[0])} - ${formatPKR(filters.priceRange[1])}`
+                    : filters.priceRange[0] > 0
+                    ? `From ${formatPKR(filters.priceRange[0])}`
+                    : `Up to ${formatPKR(filters.priceRange[1])}`}
+                  <button onClick={() => handleClearFilter('price')} aria-label="Remove price filter" className="hover:text-rose-600 p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
                   </button>
                 </span>
@@ -458,7 +643,7 @@ export default function Home() {
               {filters.selectedRam.map((r) => (
                 <span key={r} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
                   RAM: {r}
-                  <button onClick={() => handleClearFilter('ram', r)} className="hover:text-rose-600 p-0.5">
+                  <button onClick={() => handleClearFilter('ram', r)} aria-label={`Remove RAM filter ${r}`} className="hover:text-rose-600 p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
                   </button>
                 </span>
@@ -467,7 +652,7 @@ export default function Home() {
               {filters.selectedStorage.map((s) => (
                 <span key={s} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
                   Storage: {s}
-                  <button onClick={() => handleClearFilter('storage', s)} className="hover:text-rose-600 p-0.5">
+                  <button onClick={() => handleClearFilter('storage', s)} aria-label={`Remove storage filter ${s}`} className="hover:text-rose-600 p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
                   </button>
                 </span>
@@ -476,7 +661,7 @@ export default function Home() {
               {filters.ptaApprovedOnly && (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
                   PTA Approved Only
-                  <button onClick={() => handleClearFilter('pta')} className="hover:text-emerald-950 p-0.5">
+                  <button onClick={() => handleClearFilter('pta')} aria-label="Remove PTA Approved filter" className="hover:text-emerald-950 p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
                   </button>
                 </span>
@@ -485,7 +670,16 @@ export default function Home() {
               {filters.inStockOnly && (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-50 text-cyan-800 border border-cyan-200">
                   In Stock Only
-                  <button onClick={() => handleClearFilter('inStock')} className="hover:text-cyan-950 p-0.5">
+                  <button onClick={() => handleClearFilter('inStock')} aria-label="Remove In Stock filter" className="hover:text-cyan-950 p-0.5 cursor-pointer">
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              )}
+
+              {filters.specFilter && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-50 text-cyan-800 border border-cyan-200">
+                  Spec: {filters.specFilter === '120hz-amoled' ? '120Hz AMOLED Displays' : filters.specFilter}
+                  <button onClick={() => handleClearFilter('spec')} aria-label="Remove display spec filter" className="hover:text-cyan-950 p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
                   </button>
                 </span>
@@ -502,6 +696,7 @@ export default function Home() {
                     ptaApprovedOnly: false,
                     inStockOnly: false,
                     sortBy: 'popularity',
+                    specFilter: undefined,
                   })
                 }
                 className="text-xs text-rose-600 hover:underline font-bold ml-auto cursor-pointer"
@@ -568,7 +763,11 @@ export default function Home() {
                         )}
                         {/* Banner 2: Dual Split Promo Cards (Budget Kings & Keypad Classics) */}
                         {index === 11 && (
-                          <CatalogBannerDualCards onSelectBrand={handleSelectBrand} />
+                          <CatalogBannerDualCards
+                            onSelectBrand={handleSelectBrand}
+                            onFilterBudget={handleFilterBudget}
+                            onFilterKeypad={handleFilterKeypad}
+                          />
                         )}
                         {/* Banner 3: 0% Markup Bank EMI Installments */}
                         {index === 17 && (
@@ -663,64 +862,182 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Why Buy from VoltPhone Section */}
-        <section className="mt-16 pt-12 border-t border-slate-200">
+        {/* Customer Assurances & Official Policies Section */}
+        <section id="policies" className="mt-16 pt-12 border-t border-slate-200 scroll-mt-24">
           <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-700 text-xs font-bold uppercase tracking-wider mb-2">
+              <ShieldCheck className="w-3.5 h-3.5 text-cyan-600" />
+              100% Customer Protection
+            </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 font-sans tracking-tight">
-              Why Pakistani Buyers Choose VoltPhone PK
+              Customer Assurances &amp; Official Policies
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-2">
-              Online mobile shopping in Pakistan requires rock-solid confidence. Here is how we protect your money.
+              Online mobile shopping in Pakistan requires rock-solid confidence. Explore our complete policies or click any assurance for full details.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {/* 1. Open Parcel */}
             <div
+              id="open-parcel"
               onClick={() => setActivePolicyModal('open-parcel')}
-              className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 cursor-pointer card-hover-fx group"
+              className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 cursor-pointer card-hover-fx group scroll-mt-24"
             >
               <div className="w-11 h-11 rounded-2xl bg-cyan-50 border border-cyan-200 text-cyan-700 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                 <PackageCheck className="w-6 h-6 stroke-[2.2]" />
               </div>
               <h3 className="text-sm font-bold text-slate-950 flex items-center justify-between font-sans">
-                <span className="group-hover:text-cyan-700 transition-colors">Open-Parcel Delivery</span>
+                <span className="group-hover:text-cyan-700 transition-colors">Open-Parcel Delivery Policy</span>
                 <ArrowRight className="w-4 h-4 text-cyan-600 group-hover:translate-x-1.5 transition-transform" />
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                When the rider arrives at your doorstep, inspect the factory seals, serial number, and box condition before paying cash. 100% scam-free.
+                When the courier rider arrives, open the flyer and inspect the phone box and factory seals before paying cash. 100% scam-free doorstep inspection.
               </p>
+              <div className="pt-2 text-xs font-bold text-cyan-600 flex items-center gap-1 group-hover:underline">
+                <span>View Full Open-Parcel Policy</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </div>
             </div>
 
+            {/* 2. PTA DIRBS */}
             <div
+              id="pta-guide"
               onClick={() => setActivePolicyModal('pta-guide')}
-              className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 cursor-pointer card-hover-fx group"
+              className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 cursor-pointer card-hover-fx group scroll-mt-24"
             >
               <div className="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                 <ShieldCheck className="w-6 h-6 stroke-[2.2]" />
               </div>
               <h3 className="text-sm font-bold text-slate-950 flex items-center justify-between font-sans">
-                <span className="group-hover:text-emerald-700 transition-colors">100% Official PTA Tax Paid</span>
+                <span className="group-hover:text-emerald-700 transition-colors">PTA DIRBS Verification Guide</span>
                 <ArrowRight className="w-4 h-4 text-emerald-600 group-hover:translate-x-1.5 transition-transform" />
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Every mobile is registered with Pakistan Telecommunication Authority (DIRBS) with full customs duties cleared for lifetime SIM validity.
+                Every mobile is registered with Pakistan Telecommunication Authority (DIRBS) with full customs tax cleared for lifetime SIM validity.
               </p>
+              <div className="pt-2 text-xs font-bold text-emerald-600 flex items-center gap-1 group-hover:underline">
+                <span>View DIRBS Verification Guide</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </div>
             </div>
 
+            {/* 3. 0% EMI Installments */}
             <div
+              id="installments"
+              onClick={() => setActivePolicyModal('installments')}
+              className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 cursor-pointer card-hover-fx group scroll-mt-24"
+            >
+              <div className="w-11 h-11 rounded-2xl bg-purple-50 border border-purple-200 text-purple-700 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                <CreditCard className="w-6 h-6 stroke-[2.2]" />
+              </div>
+              <h3 className="text-sm font-bold text-slate-950 flex items-center justify-between font-sans">
+                <span className="group-hover:text-purple-700 transition-colors">0% Markup EMI Installments</span>
+                <ArrowRight className="w-4 h-4 text-purple-600 group-hover:translate-x-1.5 transition-transform" />
+              </h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Flexible 3, 6, and 12-month zero-interest financing on Meezan Bank, Bank Alfalah, Faysal Bank, and Silkbank credit cards.
+              </p>
+              <div className="pt-2 text-xs font-bold text-purple-600 flex items-center gap-1 group-hover:underline">
+                <span>View 0% EMI Terms &amp; Banks</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </div>
+            </div>
+
+            {/* 4. Official Brand Warranty */}
+            <div
+              id="warranty"
               onClick={() => setActivePolicyModal('warranty')}
-              className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 cursor-pointer card-hover-fx group"
+              className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 cursor-pointer card-hover-fx group scroll-mt-24"
             >
               <div className="w-11 h-11 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                 <Award className="w-6 h-6 stroke-[2.2]" />
               </div>
               <h3 className="text-sm font-bold text-slate-950 flex items-center justify-between font-sans">
-                <span className="group-hover:text-indigo-700 transition-colors">Authorized Brand Warranty</span>
+                <span className="group-hover:text-indigo-700 transition-colors">1-Year Official Brand Warranty</span>
                 <ArrowRight className="w-4 h-4 text-indigo-600 group-hover:translate-x-1.5 transition-transform" />
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Official service center support across Karachi, Lahore, Islamabad, Faisalabad, and Multan (Samsung, Apple Mercantile, Carlcare, Airlink).
+                Official service center support across Karachi, Lahore, Islamabad, Faisalabad, and Multan (Samsung, Mercantile, Carlcare, Airlink).
               </p>
+              <div className="pt-2 text-xs font-bold text-indigo-600 flex items-center gap-1 group-hover:underline">
+                <span>View Warranty Claim Centers</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </div>
+            </div>
+
+            {/* 5. COD Terms */}
+            <div
+              id="cod-terms"
+              onClick={() => setActivePolicyModal('cod-terms')}
+              className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 cursor-pointer card-hover-fx group scroll-mt-24"
+            >
+              <div className="w-11 h-11 rounded-2xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                <Truck className="w-6 h-6 stroke-[2.2]" />
+              </div>
+              <h3 className="text-sm font-bold text-slate-950 flex items-center justify-between font-sans">
+                <span className="group-hover:text-amber-700 transition-colors">Cash on Delivery Terms</span>
+                <ArrowRight className="w-4 h-4 text-amber-600 group-hover:translate-x-1.5 transition-transform" />
+              </h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Free shipping on all orders over Rs. 2,000. Express 24-48h courier dispatch via TCS Express, Leopards, and PostEx nationwide.
+              </p>
+              <div className="pt-2 text-xs font-bold text-amber-600 flex items-center gap-1 group-hover:underline">
+                <span>View Full COD Shipping Terms</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </div>
+            </div>
+
+            {/* 6. 7-Day Replacement Guarantee */}
+            <div
+              id="replacement-guarantee"
+              onClick={() => setActivePolicyModal('replacement-guarantee')}
+              className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 cursor-pointer card-hover-fx group scroll-mt-24"
+            >
+              <div className="w-11 h-11 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                <RotateCcw className="w-6 h-6 stroke-[2.2]" />
+              </div>
+              <h3 className="text-sm font-bold text-slate-950 flex items-center justify-between font-sans">
+                <span className="group-hover:text-rose-700 transition-colors">7-Day Replacement Guarantee</span>
+                <ArrowRight className="w-4 h-4 text-rose-600 group-hover:translate-x-1.5 transition-transform" />
+              </h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Out-of-the-box hardware defect protection. Quick WhatsApp hassle-free replacement process within 7 days of parcel delivery.
+              </p>
+              <div className="pt-2 text-xs font-bold text-rose-600 flex items-center gap-1 group-hover:underline">
+                <span>View Replacement Terms</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </div>
+            </div>
+
+            {/* 7. Privacy Policy & Security */}
+            <div
+              id="privacy-security"
+              onClick={() => setActivePolicyModal('privacy-security')}
+              className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 cursor-pointer card-hover-fx group scroll-mt-24 col-span-1 md:col-span-2 lg:col-span-3"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-slate-100 border border-slate-300 text-slate-800 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                    <ShieldCheck className="w-6 h-6 stroke-[2.2]" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-950 font-sans group-hover:text-cyan-700 transition-colors">
+                      Privacy Policy &amp; Bank-Grade Security
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      256-bit SSL encrypted transactions. Strictly zero spam policy. We never share customer phone numbers or CNIC information.
+                    </p>
+                  </div>
+                </div>
+                <Link
+                  href="/policies"
+                  className="px-4 py-2 rounded-full bg-slate-950 hover:bg-slate-800 text-white text-xs font-bold flex items-center gap-1.5 shrink-0 self-start sm:self-center transition-colors"
+                >
+                  <span>Explore All 7 Policies</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -736,7 +1053,13 @@ export default function Home() {
         }
         onClearAll={() => setComparingPhones([])}
         onSelectForCart={(phone) => {
-          handleAddToCart(phone, phone.variants[0], phone.colors[0]);
+          const inStockVariant = phone.variants.find((v) => v.inStock) || phone.variants[0];
+          const inStockColor = phone.colors.find((c) => {
+            if (c.inStock === false) return false;
+            if (phone.colorStockMap && phone.colorStockMap[c.name] && !phone.colorStockMap[c.name].inStock) return false;
+            return true;
+          }) || phone.colors.find((c) => c.inStock !== false) || phone.colors[0];
+          handleAddToCart(phone, inStockVariant, inStockColor);
         }}
       />
 
@@ -792,6 +1115,8 @@ export default function Home() {
               </div>
               <button
                 onClick={() => setActivePolicyModal(null)}
+                aria-label={activePolicyModal === 'installments' ? 'Close EMI modal' : 'Close policy details dialog'}
+                title={activePolicyModal === 'installments' ? 'Close EMI modal' : 'Close dialog'}
                 className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-950 transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
@@ -892,5 +1217,19 @@ export default function Home() {
         </a>
       </aside>
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center text-slate-500 font-bold">
+          Loading VoltPhone PK Catalog...
+        </div>
+      }
+    >
+      <HomeContent />
+    </Suspense>
   );
 }

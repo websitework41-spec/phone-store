@@ -24,6 +24,8 @@ import { formatPKR } from '@/data/smartphones';
 
 interface HeroBannerProps {
   onQuickFilter?: (brand: string) => void;
+  onFilterBudget?: () => void;
+  onFilterKeypad?: () => void;
   onOpenEMIModal?: () => void;
 }
 
@@ -103,7 +105,12 @@ const HERO_SLIDES: SlideItem[] = [
   },
 ];
 
-export function HeroBanner({ onQuickFilter, onOpenEMIModal }: HeroBannerProps) {
+export function HeroBanner({
+  onQuickFilter,
+  onFilterBudget,
+  onFilterKeypad,
+  onOpenEMIModal,
+}: HeroBannerProps) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -256,7 +263,13 @@ export function HeroBanner({ onQuickFilter, onOpenEMIModal }: HeroBannerProps) {
         <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-4">
           {/* Promo Card 1: Budget Kings Under Rs. 35,000 */}
           <div
-            onClick={() => onQuickFilter && onQuickFilter('Xiaomi')}
+            onClick={() => {
+              if (onFilterBudget) {
+                onFilterBudget();
+              } else {
+                window.location.href = '/?maxPrice=35000#catalog';
+              }
+            }}
             className="flex-1 bg-white rounded-3xl p-5 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-cyan-400 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group cursor-pointer"
           >
             <div className="space-y-2">
@@ -280,16 +293,32 @@ export function HeroBanner({ onQuickFilter, onOpenEMIModal }: HeroBannerProps) {
                 <span className="text-[11px] text-slate-400 block font-medium">Starting From</span>
                 <span className="text-base font-black text-slate-950 group-hover:text-cyan-700 transition-colors">Rs. 18,999</span>
               </div>
-              <span className="btn-press inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-950 group-hover:bg-cyan-500 group-hover:text-slate-950 text-white text-xs font-bold transition-all shadow-sm">
+              <Link
+                href="/?maxPrice=35000#catalog"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onFilterBudget) {
+                    e.preventDefault();
+                    onFilterBudget();
+                  }
+                }}
+                className="btn-press inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-950 hover:bg-cyan-500 hover:text-slate-950 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+              >
                 <span>Explore</span>
-                <ArrowRight className="w-3.5 h-3.5 text-cyan-400 group-hover:text-slate-950 group-hover:translate-x-0.5 transition-all" />
-              </span>
+                <ArrowRight className="w-3.5 h-3.5 text-cyan-400 hover:text-slate-950 group-hover:translate-x-0.5 transition-all" />
+              </Link>
             </div>
           </div>
 
           {/* Promo Card 2: Classic Keypad & Feature Phones */}
           <div
-            onClick={() => onQuickFilter && onQuickFilter('Nokia')}
+            onClick={() => {
+              if (onFilterKeypad) {
+                onFilterKeypad();
+              } else {
+                window.location.href = '/?category=keypad#catalog';
+              }
+            }}
             className="flex-1 bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl p-5 border border-slate-800 shadow-sm hover:shadow-xl hover:border-cyan-400 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between text-white relative overflow-hidden group cursor-pointer"
           >
             <div className="space-y-2">
@@ -315,10 +344,20 @@ export function HeroBanner({ onQuickFilter, onOpenEMIModal }: HeroBannerProps) {
                 <span className="text-[11px] text-slate-400 block font-medium">From Only</span>
                 <span className="text-base font-black text-cyan-400 group-hover:text-cyan-300 transition-colors">Rs. 2,999</span>
               </div>
-              <span className="btn-shimmer btn-press inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold transition-all shadow-md shadow-cyan-500/20">
+              <Link
+                href="/?category=keypad#catalog"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onFilterKeypad) {
+                    e.preventDefault();
+                    onFilterKeypad();
+                  }
+                }}
+                className="btn-shimmer btn-press inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold transition-all shadow-md shadow-cyan-500/20 cursor-pointer"
+              >
                 <span>View Keypad</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-              </span>
+              </Link>
             </div>
           </div>
         </div>
