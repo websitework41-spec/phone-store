@@ -119,14 +119,15 @@ body {
   background: linear-gradient(
     60deg,
     transparent 20%,
-    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.32) 50%,
     transparent 80%
   );
   transform: translateX(-150%) skewX(-20deg);
   transition: none;
+  pointer-events: none;
 }
 .btn-shimmer:hover::after {
-  animation: shimmer-sweep 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: shimmer-sweep 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Interactive Card Base */
@@ -140,15 +141,239 @@ body {
   box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
 }
 
-/* Interactive Micro-button classes */
-.btn-press {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+/* ============================================================
+   UNIVERSAL INTERACTIVE BUTTON ANIMATIONS & TACTILE MICRO-PHYSICS
+   ============================================================ */
+
+/* Universal Interactive Base for all buttons & button-like elements */
+button,
+[role="button"],
+.btn-press,
+.btn-interactive,
+input[type="button"],
+input[type="submit"] {
+  position: relative;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.2s ease,
+              border-color 0.2s ease,
+              color 0.2s ease,
+              filter 0.2s ease,
+              opacity 0.2s ease;
+  will-change: transform;
+  cursor: pointer;
 }
-.btn-press:hover {
-  transform: translateY(-1.5px) scale(1.02);
+
+/* Maintain position if already absolute or fixed */
+button.absolute, [role="button"].absolute, .btn-press.absolute {
+  position: absolute;
 }
-.btn-press:active {
-  transform: translateY(0.5px) scale(0.97);
+button.fixed, [role="button"].fixed, .btn-press.fixed {
+  position: fixed;
+}
+
+/* Hover Elevation & Soft Dynamic Micro-Lift */
+button:hover:not(:disabled):not([aria-disabled="true"]),
+[role="button"]:hover:not(:disabled):not([aria-disabled="true"]),
+.btn-press:hover:not(:disabled):not([aria-disabled="true"]),
+.btn-interactive:hover:not(:disabled):not([aria-disabled="true"]) {
+  transform: translateY(-2.5px) scale(1.025);
+  box-shadow: 0 8px 20px -4px rgba(6, 182, 212, 0.22), 0 4px 6px -2px rgba(15, 23, 42, 0.06);
+}
+
+/* Tactile Spring Press / Click Feedback (Immediate physical depression) */
+button:active:not(:disabled):not([aria-disabled="true"]),
+[role="button"]:active:not(:disabled):not([aria-disabled="true"]),
+.btn-press:active:not(:disabled):not([aria-disabled="true"]),
+.btn-interactive:active:not(:disabled):not([aria-disabled="true"]),
+.btn-pressed {
+  transform: translateY(2px) scale(0.93) !important;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.24), 0 1px 2px rgba(0, 0, 0, 0.08) !important;
+  filter: brightness(0.93) contrast(1.04) !important;
+  transition: transform 0.06s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.06s ease, filter 0.06s ease !important;
+}
+
+/* Elastic Spring Rebound Animation (The tactile "pop" when clicked & released) */
+@keyframes btn-spring-pop {
+  0% {
+    transform: translateY(2px) scale(0.93);
+  }
+  38% {
+    transform: translateY(-3px) scale(1.07);
+  }
+  68% {
+    transform: translateY(1px) scale(0.98);
+  }
+  86% {
+    transform: translateY(-0.5px) scale(1.015);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.btn-spring-active {
+  animation: btn-spring-pop 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  will-change: transform;
+}
+
+/* Expanding Shockwave Ring on Click */
+.btn-shockwave-ring {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: btn-shockwave-expand 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 25;
+}
+
+@keyframes btn-shockwave-expand {
+  0% {
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.85), inset 0 0 0 1px rgba(255, 255, 255, 0.95);
+    opacity: 1;
+  }
+  40% {
+    box-shadow: 0 0 0 8px rgba(6, 182, 212, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+    opacity: 0.9;
+  }
+  100% {
+    box-shadow: 0 0 0 16px rgba(6, 182, 212, 0), inset 0 0 0 0 rgba(255, 255, 255, 0);
+    opacity: 0;
+  }
+}
+
+/* Dynamic Sparkle / Confetti Particles on Primary Action Clicks */
+.btn-click-particle {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 9999px;
+  z-index: 99999;
+  animation: btn-particle-fly 0.5s cubic-bezier(0.12, 0.8, 0.32, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes btn-particle-fly {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Accessible Focus Glow Ring */
+button:focus-visible,
+[role="button"]:focus-visible,
+.btn-press:focus-visible,
+.btn-interactive:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #06b6d4, 0 8px 16px -4px rgba(6, 182, 212, 0.35);
+}
+
+/* Disabled State Handling */
+button:disabled,
+button[disabled],
+[role="button"][aria-disabled="true"],
+.btn-press:disabled,
+.btn-interactive:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.55 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  filter: grayscale(25%) !important;
+  pointer-events: none !important;
+}
+
+/* Micro-interactions for Icons Inside Buttons */
+button svg,
+[role="button"] svg,
+.btn-press svg,
+.btn-interactive svg {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.2s ease;
+  display: inline-block;
+}
+
+/* Micro-zoom icon on button hover */
+button:hover:not(:disabled) svg:not(.animate-spin),
+[role="button"]:hover:not(:disabled) svg:not(.animate-spin),
+.btn-press:hover:not(:disabled) svg:not(.animate-spin) {
+  transform: scale(1.14);
+}
+
+/* Directional Arrow & Chevron Shifts */
+button:hover:not(:disabled) .lucide-arrow-right,
+button:hover:not(:disabled) .lucide-chevron-right {
+  transform: translateX(3px) scale(1.12);
+}
+button:hover:not(:disabled) .lucide-arrow-left,
+button:hover:not(:disabled) .lucide-chevron-left {
+  transform: translateX(-3px) scale(1.12);
+}
+
+/* High-Energy Action Icons */
+button:hover:not(:disabled) .lucide-shopping-cart,
+button:hover:not(:disabled) .lucide-shopping-bag {
+  transform: rotate(-10deg) scale(1.18);
+}
+button:hover:not(:disabled) .lucide-zap,
+button:hover:not(:disabled) .lucide-sparkles {
+  transform: rotate(15deg) scale(1.22);
+}
+button:hover:not(:disabled) .lucide-send {
+  transform: translate(2px, -2px) scale(1.15);
+}
+button:hover:not(:disabled) .lucide-rotate-ccw,
+button:hover:not(:disabled) .lucide-refresh-cw {
+  transform: rotate(-180deg) scale(1.1);
+}
+button:hover:not(:disabled) .lucide-x,
+button:hover:not(:disabled) .lucide-plus {
+  transform: rotate(90deg) scale(1.15);
+}
+button:hover:not(:disabled) .lucide-trash-2 {
+  transform: scale(1.18) rotate(8deg);
+}
+
+/* Liquid Ripple Wave Animation */
+.btn-ripple-wave {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: scale(0);
+  animation: btn-ripple-spread 0.55s cubic-bezier(0.12, 0.85, 0.32, 1) forwards;
+  z-index: 20;
+}
+
+@keyframes btn-ripple-spread {
+  0% {
+    transform: scale(0);
+    opacity: 0.85;
+  }
+  40% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+}
+
+/* Pulsing conversion glow for high-impact buttons */
+.btn-glow-cyan {
+  position: relative;
+  box-shadow: 0 4px 14px 0 rgba(6, 182, 212, 0.39);
+  transition: all 0.25s ease;
+}
+.btn-glow-cyan:hover {
+  box-shadow: 0 6px 22px 0 rgba(6, 182, 212, 0.65);
 }
 
 /* Speed & Rendering Performance Optimizations */

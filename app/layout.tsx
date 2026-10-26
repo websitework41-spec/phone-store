@@ -4,6 +4,7 @@ import "./globals.css";
 import { HelperBot } from "@/components/HelperBot";
 import { AuthProvider } from "@/context/AuthContext";
 import { AuthModal } from "@/components/AuthModal";
+import { ButtonRipple } from "@/components/ButtonRipple";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en" className={`${plusJakartaSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 font-sans">
         <AuthProvider>
+          <ButtonRipple />
           {children}
           <AuthModal />
           <HelperBot />
