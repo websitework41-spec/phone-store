@@ -6,6 +6,7 @@ import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
 import { AuthProvider } from "@/context/AuthContext";
 import { AuthModal } from "@/components/AuthModal";
 import { ButtonRipple } from "@/components/ButtonRipple";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -36,6 +37,7 @@ export default function RootLayout({
     <html lang="en" className={`${plusJakartaSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[#f1f3f6] text-[#0f1111] font-sans">
         <AuthProvider>
+          <AnalyticsTracker />
           <ButtonRipple />
           {children}
           <AuthModal />

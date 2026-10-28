@@ -82,3 +82,51 @@ export interface CartItem {
   selectedVariant: SmartphoneVariant;
   quantity: number;
 }
+
+export interface ProductViewEvent {
+  phoneId: string;
+  name: string;
+  brand: string;
+  slug: string;
+  image: string;
+  pricePKR: number;
+  viewedAt: string;
+  action?: 'viewed' | 'added_to_cart' | 'initiated_checkout';
+}
+
+export interface VisitorSession {
+  visitorId: string;
+  customerName?: string;
+  phone?: string;
+  city: string;
+  device: string;
+  ip?: string;
+  firstSeen: string;
+  lastSeen: string;
+  isOnline: boolean;
+  pageViewsCount: number;
+  currentPath: string;
+  hasPurchased: boolean;
+  orderIds?: string[];
+  viewedProducts: ProductViewEvent[];
+}
+
+export interface AnalyticsStats {
+  activeNow: number;
+  todayVisitors: number;
+  monthVisitors: number;
+  todayPageViews: number;
+  monthPageViews: number;
+  unpurchasedLeadsCount: number;
+  unpurchasedVisitors: VisitorSession[];
+  topUnpurchasedProducts: Array<{
+    phoneId: string;
+    name: string;
+    brand: string;
+    slug: string;
+    image: string;
+    pricePKR: number;
+    unpurchasedViewsCount: number;
+    addedToCartCount: number;
+  }>;
+}

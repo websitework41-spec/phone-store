@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
-import { Smartphone, SmartphoneColor, SmartphoneVariant } from '@/types';
+import { Smartphone, SmartphoneColor, SmartphoneVariant, AnalyticsStats, VisitorSession } from '@/types';
 import { BRANDS, PAKISTAN_CITIES, formatPKR } from '@/data/smartphones';
 import { AdminOrder } from '@/app/api/admin/orders/route';
 import {
@@ -10,6 +10,7 @@ import {
   markProductDeletedLocally,
   saveProductLocally,
 } from '@/lib/catalog';
+import { PhoneImageWithFallback } from '@/components/PhoneImageWithFallback';
 import {
   LayoutDashboard,
   Package,
@@ -62,9 +63,13 @@ import {
   Bell,
   Store,
   Menu,
+  Activity,
+  Radio,
+  Flame,
+  MessageSquare,
 } from 'lucide-react';
 
-type AdminTab = 'dashboard' | 'products' | 'inventory' | 'orders' | 'customers' | 'settings';
+type AdminTab = 'dashboard' | 'analytics' | 'products' | 'inventory' | 'orders' | 'customers' | 'settings';
 
 export default function AdminPortalPage() {
   const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
@@ -90,6 +95,11 @@ export default function AdminPortalPage() {
   const [orderSearch, setOrderSearch] = useState('');
   const [orderStatusFilter, setOrderStatusFilter] = useState<string>('all');
 
+  // Visitor Analytics & Unpurchased Leads state
+  const [analyticsStats, setAnalyticsStats] = useState<AnalyticsStats | null>(null);
+  const [analyticsFilter, setAnalyticsFilter] = useState<'all' | 'cart_only' | 'viewed_only'>('all');
+  const [analyticsSearch, setAnalyticsSearch] = useState('');
+
   // Bulk Selection
   const [selectedProductIds, setSelectedProductIds] = useState<string[]>([]);
 
@@ -114,6 +124,22 @@ export default function AdminPortalPage() {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
+  // Helper for time ago formatting
+  const formatTimeAgo = (isoString: string) => {
+    try {
+      const diffMs = Date.now() - new Date(isoString).getTime();
+      const diffMins = Math.floor(diffMs / 60000);
+      if (diffMins < 1) return 'Just now';
+      if (diffMins < 60) return `${diffMins}m ago`;
+      const diffHours = Math.floor(diffMins / 60);
+      if (diffHours < 24) return `${diffHours}h ago`;
+      const diffDays = Math.floor(diffHours / 24);
+      return `${diffDays}d ago`;
+    } catch {
+      return 'Recently';
+    }
+  };
+
   // Check stored login session
   useEffect(() => {
     try {
@@ -130,17 +156,19 @@ export default function AdminPortalPage() {
     fetchData();
   }, []);
 
-  // Fetch products and orders with dynamic merge
+  // Fetch products, orders, and real-time visitor analytics
   const fetchData = async () => {
     setIsRefreshing(true);
     try {
-      const [prodRes, orderRes] = await Promise.all([
+      const [prodRes, orderRes, analyticsRes] = await Promise.all([
         fetch('/api/admin/products?_t=' + Date.now(), { cache: 'no-store' }),
         fetch('/api/admin/orders?_t=' + Date.now(), { cache: 'no-store' }),
+        fetch('/api/analytics?_t=' + Date.now(), { cache: 'no-store' }),
       ]);
 
       const prodData = await prodRes.json();
       const orderData = await orderRes.json();
+      const analyticsData = await analyticsRes.json();
 
       if (prodData.success) {
         setProducts(getActiveCatalog(prodData.products || []));
@@ -150,6 +178,9 @@ export default function AdminPortalPage() {
       if (orderData.success) {
         setOrders(orderData.orders || []);
       }
+      if (analyticsData.success && analyticsData.stats) {
+        setAnalyticsStats(analyticsData.stats);
+      }
     } catch (err) {
       setProducts(getActiveCatalog());
     } finally {
@@ -157,6 +188,22 @@ export default function AdminPortalPage() {
       setIsRefreshing(false);
     }
   };
+
+  // Live auto-polling of active visitors & leads every 15s when authenticated
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    const interval = setInterval(() => {
+      fetch('/api/analytics?_t=' + Date.now(), { cache: 'no-store' })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && data.stats) {
+            setAnalyticsStats(data.stats);
+          }
+        })
+        .catch(() => {});
+    }, 15000);
+    return () => clearInterval(interval);
+  }, [isAuthenticated]);
 
   // Handle Authentication
   const handleAdminLogin = (e: React.FormEvent) => {
@@ -247,6 +294,42 @@ export default function AdminPortalPage() {
       return true;
     });
   }, [orders, orderStatusFilter, orderSearch]);
+
+  // Filtered Unpurchased Visitors (by search & intent filter)
+  const filteredUnpurchasedVisitors = useMemo(() => {
+    if (!analyticsStats?.unpurchasedVisitors) return [];
+    return analyticsStats.unpurchasedVisitors.filter((v) => {
+      // Filter by intent
+      if (analyticsFilter === 'cart_only') {
+        const hasCart = v.viewedProducts.some(
+          (p) => p.action === 'added_to_cart' || p.action === 'initiated_checkout'
+        );
+        if (!hasCart) return false;
+      }
+      if (analyticsFilter === 'viewed_only') {
+        const hasCart = v.viewedProducts.some(
+          (p) => p.action === 'added_to_cart' || p.action === 'initiated_checkout'
+        );
+        if (hasCart) return false;
+      }
+
+      // Filter by search query
+      if (analyticsSearch.trim()) {
+        const query = analyticsSearch.toLowerCase().trim();
+        const productNames = v.viewedProducts.map((p) => p.name).join(' ').toLowerCase();
+        const match =
+          v.visitorId.toLowerCase().includes(query) ||
+          (v.customerName && v.customerName.toLowerCase().includes(query)) ||
+          (v.phone && v.phone.includes(query)) ||
+          v.city.toLowerCase().includes(query) ||
+          v.device.toLowerCase().includes(query) ||
+          productNames.includes(query);
+        if (!match) return false;
+      }
+
+      return true;
+    });
+  }, [analyticsStats, analyticsFilter, analyticsSearch]);
 
   // Key Dashboard Statistics
   const stats = useMemo(() => {
@@ -666,6 +749,27 @@ export default function AdminPortalPage() {
 
           <button
             onClick={() => {
+              setActiveTab('analytics');
+              setIsMobileSidebarOpen(false);
+            }}
+            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
+              activeTab === 'analytics'
+                ? 'bg-[#202123] text-white font-bold'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-[#1a1b1c]'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <Activity className="w-4 h-4 shrink-0 text-emerald-400" />
+              <span>Live Traffic &amp; Leads</span>
+            </div>
+            <span className="flex items-center gap-1.5 text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              {analyticsStats?.activeNow || 0} Live
+            </span>
+          </button>
+
+          <button
+            onClick={() => {
               setActiveTab('orders');
               setIsMobileSidebarOpen(false);
             }}
@@ -817,6 +921,7 @@ export default function AdminPortalPage() {
             </button>
             <h1 className="text-base font-bold text-slate-900 tracking-tight">
               {activeTab === 'dashboard' && 'Store Overview'}
+              {activeTab === 'analytics' && 'Live Traffic & Unpurchased Leads'}
               {activeTab === 'products' && 'Products'}
               {activeTab === 'inventory' && 'Inventory Matrix'}
               {activeTab === 'orders' && 'Orders'}
@@ -1008,6 +1113,81 @@ export default function AdminPortalPage() {
                 </div>
               </div>
 
+              {/* Real-time Traffic & Visitor Insights Banner (Shopify Live View style) */}
+              <div className="bg-gradient-to-r from-slate-900 via-slate-950 to-emerald-950 text-white rounded-3xl p-5 sm:p-6 shadow-md border border-slate-800 space-y-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+                  <div className="flex items-center gap-3">
+                    <div className="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shrink-0">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping absolute" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs uppercase font-extrabold tracking-wider text-emerald-400">
+                          Live Store Traffic
+                        </span>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                          Real-time
+                        </span>
+                      </div>
+                      <h3 className="text-base sm:text-lg font-black text-white tracking-tight">
+                        {analyticsStats?.activeNow || 0} active shoppers viewing Hamza Phone Store right now
+                      </h3>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => setActiveTab('analytics')}
+                    className="btn-press flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black text-xs transition-all shadow-sm cursor-pointer shrink-0"
+                  >
+                    <span>View Unpurchased Leads ({analyticsStats?.unpurchasedLeadsCount || 0})</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-1">
+                  <div className="bg-white/5 border border-white/10 rounded-2xl p-3.5 sm:p-4">
+                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      Active Right Now
+                    </div>
+                    <div className="text-2xl font-black text-emerald-400 mt-1 flex items-baseline gap-1.5">
+                      <span>{analyticsStats?.activeNow || 0}</span>
+                      <span className="text-xs font-normal text-emerald-300/80">viewers</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white/5 border border-white/10 rounded-2xl p-3.5 sm:p-4">
+                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      Today&apos;s Visitors
+                    </div>
+                    <div className="text-2xl font-black text-white mt-1 flex items-baseline gap-1.5">
+                      <span>{analyticsStats?.todayVisitors || 0}</span>
+                      <span className="text-xs font-normal text-slate-400">unique</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white/5 border border-white/10 rounded-2xl p-3.5 sm:p-4">
+                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      Monthly Visitors
+                    </div>
+                    <div className="text-2xl font-black text-white mt-1 flex items-baseline gap-1.5">
+                      <span>{analyticsStats?.monthVisitors || 0}</span>
+                      <span className="text-xs font-normal text-slate-400">this month</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white/5 border border-white/10 rounded-2xl p-3.5 sm:p-4">
+                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      Unpurchased Views
+                    </div>
+                    <div className="text-2xl font-black text-amber-400 mt-1 flex items-baseline gap-1.5">
+                      <span>{analyticsStats?.unpurchasedLeadsCount || 0}</span>
+                      <span className="text-xs font-normal text-amber-300/80">prospects</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Shopify Visual Sales Activity & Recent Orders Grid */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Sales Activity Visual Chart (2 Cols) */}
@@ -1163,6 +1343,407 @@ export default function AdminPortalPage() {
                           </td>
                         </tr>
                       ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB: VISITOR ANALYTICS & UNPURCHASED LEADS */}
+          {activeTab === 'analytics' && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              {/* Live Status Header Banner */}
+              <div className="bg-gradient-to-r from-slate-900 via-slate-950 to-emerald-950 text-white rounded-3xl p-6 shadow-md border border-slate-800 space-y-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+                  <div className="flex items-center gap-3">
+                    <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shrink-0">
+                      <span className="w-3 h-3 rounded-full bg-emerald-400 animate-ping absolute" />
+                      <span className="w-3 h-3 rounded-full bg-emerald-400" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs uppercase font-extrabold tracking-wider text-emerald-400">
+                          Real-Time Visitor Analytics
+                        </span>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+                          <Radio className="w-3 h-3 text-emerald-400 animate-pulse" />
+                          Live Stream
+                        </span>
+                      </div>
+                      <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                        Live Traffic &amp; Unpurchased Product Leads
+                      </h2>
+                      <p className="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                        Monitor shoppers active right now, review daily &amp; monthly unique visitors, and re-engage visitors who browsed smartphones without completing their order.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2.5 shrink-0">
+                    <button
+                      onClick={fetchData}
+                      disabled={isRefreshing}
+                      className="btn-press flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold transition-all cursor-pointer"
+                      title="Refresh analytics data"
+                    >
+                      <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-emerald-400' : ''}`} />
+                      <span>{isRefreshing ? 'Updating...' : 'Live Sync'}</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 4 Core KPIs: Active Now, Today, Monthly, Unpurchased */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-1">
+                  {/* KPI 1: Active Now */}
+                  <div className="bg-white/5 border border-white/10 rounded-2xl p-4 relative overflow-hidden">
+                    <div className="flex items-center justify-between text-slate-400 text-[11px] font-bold uppercase tracking-wider">
+                      <span>Active Right Now</span>
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    </div>
+                    <div className="text-3xl font-black text-emerald-400 mt-1.5 flex items-baseline gap-1.5">
+                      <span>{analyticsStats?.activeNow || 0}</span>
+                      <span className="text-xs font-semibold text-emerald-300/80">live viewers</span>
+                    </div>
+                    <p className="text-[10px] text-slate-400 mt-1">
+                      Active on site within the last 3 minutes
+                    </p>
+                  </div>
+
+                  {/* KPI 2: Today's Visitors */}
+                  <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
+                    <div className="flex items-center justify-between text-slate-400 text-[11px] font-bold uppercase tracking-wider">
+                      <span>Today&apos;s Visitors</span>
+                      <Clock className="w-3.5 h-3.5 text-sky-400" />
+                    </div>
+                    <div className="text-3xl font-black text-white mt-1.5 flex items-baseline gap-1.5">
+                      <span>{analyticsStats?.todayVisitors || 0}</span>
+                      <span className="text-xs font-semibold text-slate-400">unique users</span>
+                    </div>
+                    <p className="text-[10px] text-slate-400 mt-1">
+                      {analyticsStats?.todayPageViews || 0} pageviews logged today
+                    </p>
+                  </div>
+
+                  {/* KPI 3: Monthly Visitors */}
+                  <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
+                    <div className="flex items-center justify-between text-slate-400 text-[11px] font-bold uppercase tracking-wider">
+                      <span>Monthly Visitors</span>
+                      <Calendar className="w-3.5 h-3.5 text-purple-400" />
+                    </div>
+                    <div className="text-3xl font-black text-white mt-1.5 flex items-baseline gap-1.5">
+                      <span>{analyticsStats?.monthVisitors || 0}</span>
+                      <span className="text-xs font-semibold text-slate-400">this month</span>
+                    </div>
+                    <p className="text-[10px] text-slate-400 mt-1">
+                      {analyticsStats?.monthPageViews || 0} total monthly pageviews
+                    </p>
+                  </div>
+
+                  {/* KPI 4: Unpurchased Leads */}
+                  <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
+                    <div className="flex items-center justify-between text-slate-400 text-[11px] font-bold uppercase tracking-wider">
+                      <span>Unpurchased Leads</span>
+                      <Flame className="w-3.5 h-3.5 text-amber-400" />
+                    </div>
+                    <div className="text-3xl font-black text-amber-400 mt-1.5 flex items-baseline gap-1.5">
+                      <span>{analyticsStats?.unpurchasedLeadsCount || 0}</span>
+                      <span className="text-xs font-semibold text-amber-300/80">prospects</span>
+                    </div>
+                    <p className="text-[10px] text-slate-400 mt-1">
+                      Viewed phones without completing order
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Top Unpurchased Products (High Demand - Low Conversion) */}
+              {analyticsStats?.topUnpurchasedProducts && analyticsStats.topUnpurchasedProducts.length > 0 && (
+                <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                        <span>High-Interest Phones Viewed Without Purchase</span>
+                        <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+                          Lead Opportunities
+                        </span>
+                      </h3>
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        These smartphones are receiving high browsing traffic but have not converted to checkout yet.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                    {analyticsStats.topUnpurchasedProducts.map((p) => (
+                      <div
+                        key={p.phoneId}
+                        className="bg-slate-50/80 hover:bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80 flex items-center justify-between gap-3 transition-all hover:border-[#008060] group"
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                            <PhoneImageWithFallback
+                              src={p.image}
+                              alt={p.name}
+                              brand={p.brand}
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                          <div className="min-w-0">
+                            <h4 className="text-xs font-bold text-slate-900 truncate">
+                              {p.name}
+                            </h4>
+                            <div className="text-xs font-black text-[#008060] mt-0.5">
+                              {formatPKR(p.pricePKR)}
+                            </div>
+                            <div className="flex items-center gap-1.5 mt-1">
+                              <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200/60">
+                                {p.unpurchasedViewsCount} views
+                              </span>
+                              {p.addedToCartCount > 0 && (
+                                <span className="text-[10px] font-black text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200/60">
+                                  {p.addedToCartCount} in cart
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        <Link
+                          href={`/product/${p.slug}`}
+                          target="_blank"
+                          title="Inspect Product Page"
+                          className="p-2 rounded-xl bg-white hover:bg-slate-200 border border-slate-200 text-slate-500 hover:text-slate-900 transition-colors shrink-0"
+                        >
+                          <ArrowUpRight className="w-4 h-4" />
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Unpurchased Visitor Leads Table (Detailed Log) */}
+              <div className="bg-white border border-slate-200/90 rounded-2xl shadow-xs overflow-hidden space-y-4">
+                {/* Search & Filter Header */}
+                <div className="p-4 border-b border-slate-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 bg-slate-50/50">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      onClick={() => setAnalyticsFilter('all')}
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        analyticsFilter === 'all'
+                          ? 'bg-[#008060] text-white shadow-xs'
+                          : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                      }`}
+                    >
+                      All Unpurchased ({analyticsStats?.unpurchasedVisitors?.length || 0})
+                    </button>
+                    <button
+                      onClick={() => setAnalyticsFilter('cart_only')}
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                        analyticsFilter === 'cart_only'
+                          ? 'bg-amber-600 text-white shadow-xs'
+                          : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                      }`}
+                    >
+                      <ShoppingBag className="w-3.5 h-3.5" />
+                      <span>Added to Cart Abandoned</span>
+                    </button>
+                    <button
+                      onClick={() => setAnalyticsFilter('viewed_only')}
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        analyticsFilter === 'viewed_only'
+                          ? 'bg-slate-900 text-white shadow-xs'
+                          : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                      }`}
+                    >
+                      Viewed Specs Only
+                    </button>
+                  </div>
+
+                  {/* Search by visitor, phone, or city */}
+                  <div className="relative w-full md:w-72">
+                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      value={analyticsSearch}
+                      onChange={(e) => setAnalyticsSearch(e.target.value)}
+                      placeholder="Search visitor ID, phone, city..."
+                      className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#008060] transition-all"
+                    />
+                    {analyticsSearch && (
+                      <button
+                        onClick={() => setAnalyticsSearch('')}
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Leads Table */}
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-[#f9fafb] text-slate-500 uppercase font-semibold border-b border-slate-200/80">
+                      <tr>
+                        <th className="px-5 py-3.5">Visitor &amp; Location</th>
+                        <th className="px-5 py-3.5">Products Viewed (Unpurchased)</th>
+                        <th className="px-5 py-3.5">Intent Stage</th>
+                        <th className="px-5 py-3.5">Last Active</th>
+                        <th className="px-5 py-3.5 text-right">Lead Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {filteredUnpurchasedVisitors.length > 0 ? (
+                        filteredUnpurchasedVisitors.map((visitor) => {
+                          const topProduct = visitor.viewedProducts?.[0];
+                          const hasAddedCart = visitor.viewedProducts.some(
+                            (p) => p.action === 'added_to_cart' || p.action === 'initiated_checkout'
+                          );
+                          const hasCheckout = visitor.viewedProducts.some(
+                            (p) => p.action === 'initiated_checkout'
+                          );
+
+                          return (
+                            <tr
+                              key={visitor.visitorId}
+                              className="hover:bg-slate-50/80 transition-colors"
+                            >
+                              {/* 1. Visitor / Location */}
+                              <td className="px-5 py-3.5">
+                                <div className="flex items-center gap-2">
+                                  <span className="font-mono font-bold text-[#008060]">
+                                    {visitor.visitorId}
+                                  </span>
+                                  {visitor.isOnline && (
+                                    <span className="inline-flex items-center gap-1 px-1.5 py-0.2 rounded-full text-[9px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                      Live Now
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="text-[11px] text-slate-600 font-medium mt-0.5 flex items-center gap-1.5">
+                                  <MapPin className="w-3 h-3 text-slate-400" />
+                                  <span>{visitor.city || 'Pakistan'}</span>
+                                  <span className="text-slate-300">•</span>
+                                  <span>{visitor.device || 'Mobile'}</span>
+                                </div>
+                                {visitor.customerName && (
+                                  <div className="text-[11px] text-slate-900 font-bold mt-1">
+                                    👤 {visitor.customerName}
+                                    {visitor.phone && (
+                                      <span className="text-slate-500 font-normal ml-1">
+                                        ({visitor.phone})
+                                      </span>
+                                    )}
+                                  </div>
+                                )}
+                              </td>
+
+                              {/* 2. Products Viewed */}
+                              <td className="px-5 py-3.5">
+                                <div className="space-y-2">
+                                  {visitor.viewedProducts.slice(0, 2).map((vp, vIdx) => (
+                                    <div key={vIdx} className="flex items-center gap-2.5">
+                                      <div className="w-9 h-9 rounded-lg bg-white border border-slate-200 p-0.5 flex items-center justify-center shrink-0">
+                                        <PhoneImageWithFallback
+                                          src={vp.image}
+                                          alt={vp.name}
+                                          brand={vp.brand}
+                                          className="w-full h-full object-contain"
+                                        />
+                                      </div>
+                                      <div>
+                                        <div className="font-bold text-slate-900 line-clamp-1">
+                                          {vp.name}
+                                        </div>
+                                        <div className="text-[11px] font-black text-[#008060]">
+                                          {formatPKR(vp.pricePKR)}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ))}
+                                  {visitor.viewedProducts.length > 2 && (
+                                    <div className="text-[10px] text-slate-400 font-semibold pl-1">
+                                      +{visitor.viewedProducts.length - 2} more viewed
+                                    </div>
+                                  )}
+                                </div>
+                              </td>
+
+                              {/* 3. Intent Stage Badge */}
+                              <td className="px-5 py-3.5">
+                                {hasCheckout ? (
+                                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black bg-purple-50 text-purple-700 border border-purple-200">
+                                    <Zap className="w-3 h-3 text-purple-600" />
+                                    Initiated Checkout (High Intent)
+                                  </span>
+                                ) : hasAddedCart ? (
+                                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-50 text-amber-700 border border-amber-200">
+                                    <ShoppingBag className="w-3 h-3 text-amber-600" />
+                                    Added to Cart (Abandoned)
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-sky-50 text-sky-700 border border-sky-200">
+                                    <Eye className="w-3 h-3 text-sky-600" />
+                                    Browsed Product Specs
+                                  </span>
+                                )}
+                              </td>
+
+                              {/* 4. Last Active Time */}
+                              <td className="px-5 py-3.5 text-slate-600">
+                                <div className="font-semibold text-slate-900">
+                                  {formatTimeAgo(visitor.lastSeen)}
+                                </div>
+                                <div className="text-[10px] text-slate-400">
+                                  {visitor.pageViewsCount} pages viewed
+                                </div>
+                              </td>
+
+                              {/* 5. Lead Action */}
+                              <td className="px-5 py-3.5 text-right">
+                                <div className="flex items-center justify-end gap-2">
+                                  {visitor.phone ? (
+                                    <a
+                                      href={`https://wa.me/${visitor.phone.replace(/\D/g, '')}?text=Salam%20${encodeURIComponent(
+                                        visitor.customerName || 'Dear Customer'
+                                      )}!%20We%20noticed%20you%20were%20interested%20in%20the%20${encodeURIComponent(
+                                        topProduct?.name || 'smartphone'
+                                      )}%20at%20Hamza%20Phone%20Store.%20Would%20you%20like%20to%20place%20an%20order%20with%20our%20Open-Parcel%20Cash%20on%20Delivery%20service?`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-1 transition-all shadow-xs"
+                                      title="Reach out via WhatsApp"
+                                    >
+                                      <MessageSquare className="w-3.5 h-3.5" />
+                                      <span>WhatsApp</span>
+                                    </a>
+                                  ) : (
+                                    topProduct && (
+                                      <Link
+                                        href={`/product/${topProduct.slug}`}
+                                        target="_blank"
+                                        className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-all inline-flex items-center gap-1"
+                                      >
+                                        <span>View</span>
+                                        <ArrowUpRight className="w-3.5 h-3.5" />
+                                      </Link>
+                                    )
+                                  )}
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      ) : (
+                        <tr>
+                          <td colSpan={5} className="py-12 text-center text-slate-400 text-xs">
+                            No unpurchased visitor leads matching your current search or filter.
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>

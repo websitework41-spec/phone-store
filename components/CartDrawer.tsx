@@ -31,6 +31,7 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { trackPurchase } from './AnalyticsTracker';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -230,6 +231,7 @@ export function CartDrawer({
       }).catch(() => {});
     } catch {}
 
+    trackPurchase(randomOrderId);
     setOrderSuccess(true);
   };
 

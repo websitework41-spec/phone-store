@@ -1,0 +1,859 @@
+[
+  {
+    "visitorId": "VIS-914820",
+    "customerName": "Muhammad Rehan",
+    "phone": "03045678912",
+    "city": "Lahore",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T15:12:58.896Z",
+    "lastSeen": "2026-10-28T15:23:58.896Z",
+    "isOnline": true,
+    "pageViewsCount": 4,
+    "currentPath": "/product/realme-c100i",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "realme-c100i",
+        "name": "Realme C100i",
+        "brand": "Realme",
+        "slug": "realme-c100i",
+        "image": "https://images.priceoye.pk/realme-c100i-pakistan-priceoye-m0x3n-270x270.webp",
+        "pricePKR": 39499,
+        "viewedAt": "2026-10-28T15:22:58.896Z",
+        "action": "added_to_cart"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-827391",
+    "customerName": "Usman Ali",
+    "phone": "03129876540",
+    "city": "Karachi",
+    "device": "Mobile (iOS)",
+    "firstSeen": "2026-10-28T15:06:58.896Z",
+    "lastSeen": "2026-10-28T15:22:58.896Z",
+    "isOnline": true,
+    "pageViewsCount": 6,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "samsung-galaxy-s24-ultra",
+        "name": "Samsung Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-s24-ultra",
+        "image": "https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-bmqbr-270x270.jpg",
+        "pricePKR": 323999,
+        "viewedAt": "2026-10-28T15:21:58.896Z",
+        "action": "viewed"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-736201",
+    "city": "Islamabad",
+    "device": "Desktop (Windows)",
+    "firstSeen": "2026-10-28T15:19:58.896Z",
+    "lastSeen": "2026-10-28T15:24:28.896Z",
+    "isOnline": true,
+    "pageViewsCount": 3,
+    "currentPath": "/product/apple-iphone-16",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "apple-iphone-16",
+        "name": "Apple iPhone 16",
+        "brand": "Apple",
+        "slug": "apple-iphone-16",
+        "image": "https://images.priceoye.pk/apple-iphone-16-pakistan-priceoye-w4qf1-270x270.webp",
+        "pricePKR": 328999,
+        "viewedAt": "2026-10-28T15:23:58.896Z",
+        "action": "added_to_cart"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-654819",
+    "customerName": "Danish Khan",
+    "phone": "03339182736",
+    "city": "Peshawar",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T15:09:58.896Z",
+    "lastSeen": "2026-10-28T15:22:58.896Z",
+    "isOnline": true,
+    "pageViewsCount": 5,
+    "currentPath": "/product/xiaomi-redmi-note-14-pro",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "xiaomi-redmi-note-14-pro",
+        "name": "Xiaomi Redmi Note 14 Pro",
+        "brand": "Xiaomi",
+        "slug": "xiaomi-redmi-note-14-pro",
+        "image": "https://images.priceoye.pk/redmi-note-14-pro-pakistan-priceoye-n3f9v-270x270.webp",
+        "pricePKR": 73999,
+        "viewedAt": "2026-10-28T15:21:58.896Z",
+        "action": "viewed"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-549102",
+    "city": "Rawalpindi",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T15:16:58.896Z",
+    "lastSeen": "2026-10-28T15:23:28.896Z",
+    "isOnline": true,
+    "pageViewsCount": 2,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-492817",
+    "customerName": "Asad Farooq",
+    "phone": "03451122334",
+    "city": "Faisalabad",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T14:39:58.896Z",
+    "lastSeen": "2026-10-28T14:59:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 7,
+    "currentPath": "/product/tecno-spark-go-3",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "tecno-spark-go-3",
+        "name": "Tecno Spark Go 3",
+        "brand": "Tecno",
+        "slug": "tecno-spark-go-3",
+        "image": "https://images.priceoye.pk/tecno-spark-go-3-pakistan-priceoye-7k2j1-270x270.webp",
+        "pricePKR": 37995,
+        "viewedAt": "2026-10-28T14:54:58.896Z",
+        "action": "initiated_checkout"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-382910",
+    "customerName": "Kashif Mehmood",
+    "phone": "03004455667",
+    "city": "Multan",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T13:54:58.896Z",
+    "lastSeen": "2026-10-28T14:24:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 9,
+    "currentPath": "/product/samsung-galaxy-a56-5g",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "samsung-galaxy-a56-5g",
+        "name": "Samsung Galaxy A56 5G",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-a56-5g",
+        "image": "https://images.priceoye.pk/samsung-galaxy-a56-5g-pakistan-priceoye-v6p4q-270x270.webp",
+        "pricePKR": 145999,
+        "viewedAt": "2026-10-28T14:19:58.896Z",
+        "action": "added_to_cart"
+      },
+      {
+        "phoneId": "samsung-galaxy-s24-ultra",
+        "name": "Samsung Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-s24-ultra",
+        "image": "https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-bmqbr-270x270.jpg",
+        "pricePKR": 323999,
+        "viewedAt": "2026-10-28T14:09:58.896Z",
+        "action": "viewed"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-271904",
+    "customerName": "Zainab Tariq",
+    "phone": "03335551212",
+    "city": "Islamabad",
+    "device": "Desktop (macOS)",
+    "firstSeen": "2026-10-28T13:04:58.896Z",
+    "lastSeen": "2026-10-28T13:29:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 6,
+    "currentPath": "/account/orders",
+    "hasPurchased": true,
+    "orderIds": [
+      "VPK-761930"
+    ],
+    "viewedProducts": [
+      {
+        "phoneId": "xiaomi-redmi-note-14-pro",
+        "name": "Xiaomi Redmi Note 14 Pro",
+        "brand": "Xiaomi",
+        "slug": "xiaomi-redmi-note-14-pro",
+        "image": "https://images.priceoye.pk/redmi-note-14-pro-pakistan-priceoye-n3f9v-270x270.webp",
+        "pricePKR": 73999,
+        "viewedAt": "2026-10-28T13:14:58.896Z",
+        "action": "initiated_checkout"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-198472",
+    "city": "Gujranwala",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T11:44:58.896Z",
+    "lastSeen": "2026-10-28T11:54:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 4,
+    "currentPath": "/product/xiaomi-14",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "xiaomi-14",
+        "name": "Xiaomi 14",
+        "brand": "Xiaomi",
+        "slug": "xiaomi-14",
+        "image": "https://images.priceoye.pk/xiaomi-14-pakistan-priceoye-b4v6z-270x270.webp",
+        "pricePKR": 285995,
+        "viewedAt": "2026-10-28T11:49:58.896Z",
+        "action": "viewed"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-109283",
+    "customerName": "Rana Waqas",
+    "phone": "03217788990",
+    "city": "Sialkot",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T10:14:58.896Z",
+    "lastSeen": "2026-10-28T10:24:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 3,
+    "currentPath": "/product/nokia-105-classic",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "nokia-105-classic",
+        "name": "Nokia 105 Classic",
+        "brand": "Nokia",
+        "slug": "nokia-105-classic",
+        "image": "https://images.priceoye.pk/nokia-105-classic-pakistan-priceoye-w7j2q-270x270.webp",
+        "pricePKR": 3349,
+        "viewedAt": "2026-10-28T10:19:58.896Z",
+        "action": "added_to_cart"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-102314",
+    "city": "Lahore",
+    "device": "Mobile (iOS)",
+    "firstSeen": "2026-10-28T14:06:58.896Z",
+    "lastSeen": "2026-10-28T14:06:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 2,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-104628",
+    "city": "Islamabad",
+    "device": "Desktop (Windows)",
+    "firstSeen": "2026-10-28T13:48:58.896Z",
+    "lastSeen": "2026-10-28T13:48:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 3,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-106942",
+    "city": "Rawalpindi",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T13:30:58.896Z",
+    "lastSeen": "2026-10-28T13:30:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 4,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "samsung-galaxy-s24-ultra",
+        "name": "Samsung Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-s24-ultra",
+        "image": "https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-bmqbr-270x270.jpg",
+        "pricePKR": 323999,
+        "viewedAt": "2026-10-28T13:30:58.896Z",
+        "action": "viewed"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-109256",
+    "customerName": "Customer Faisalabad 4",
+    "phone": "03501000004",
+    "city": "Faisalabad",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T13:12:58.896Z",
+    "lastSeen": "2026-10-28T13:12:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 5,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-111570",
+    "city": "Multan",
+    "device": "Mobile (iOS)",
+    "firstSeen": "2026-10-28T12:54:58.896Z",
+    "lastSeen": "2026-10-28T12:54:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 1,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-113884",
+    "city": "Peshawar",
+    "device": "Desktop (Windows)",
+    "firstSeen": "2026-10-28T12:36:58.896Z",
+    "lastSeen": "2026-10-28T12:36:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 2,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "samsung-galaxy-s24-ultra",
+        "name": "Samsung Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-s24-ultra",
+        "image": "https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-bmqbr-270x270.jpg",
+        "pricePKR": 323999,
+        "viewedAt": "2026-10-28T12:36:58.896Z",
+        "action": "added_to_cart"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-116198",
+    "city": "Quetta",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T12:18:58.896Z",
+    "lastSeen": "2026-10-28T12:18:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 3,
+    "currentPath": "/",
+    "hasPurchased": true,
+    "orderIds": [
+      "VPK-600007"
+    ],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-118512",
+    "customerName": "Customer Sargodha 8",
+    "phone": "03401000008",
+    "city": "Sargodha",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T12:00:58.896Z",
+    "lastSeen": "2026-10-28T12:00:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 4,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-120826",
+    "city": "Bahawalpur",
+    "device": "Mobile (iOS)",
+    "firstSeen": "2026-10-28T11:42:58.896Z",
+    "lastSeen": "2026-10-28T11:42:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 5,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "samsung-galaxy-s24-ultra",
+        "name": "Samsung Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-s24-ultra",
+        "image": "https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-bmqbr-270x270.jpg",
+        "pricePKR": 323999,
+        "viewedAt": "2026-10-28T11:42:58.896Z",
+        "action": "viewed"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-123140",
+    "city": "Karachi",
+    "device": "Desktop (Windows)",
+    "firstSeen": "2026-10-28T11:24:58.896Z",
+    "lastSeen": "2026-10-28T11:24:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 1,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-125454",
+    "city": "Lahore",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T11:06:58.896Z",
+    "lastSeen": "2026-10-28T11:06:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 2,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-127768",
+    "customerName": "Customer Islamabad 12",
+    "phone": "03301000012",
+    "city": "Islamabad",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T10:48:58.896Z",
+    "lastSeen": "2026-10-28T10:48:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 3,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "samsung-galaxy-s24-ultra",
+        "name": "Samsung Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-s24-ultra",
+        "image": "https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-bmqbr-270x270.jpg",
+        "pricePKR": 323999,
+        "viewedAt": "2026-10-28T10:48:58.896Z",
+        "action": "added_to_cart"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-130082",
+    "city": "Rawalpindi",
+    "device": "Mobile (iOS)",
+    "firstSeen": "2026-10-28T10:30:58.896Z",
+    "lastSeen": "2026-10-28T10:30:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 4,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-132396",
+    "city": "Faisalabad",
+    "device": "Desktop (Windows)",
+    "firstSeen": "2026-10-28T10:12:58.896Z",
+    "lastSeen": "2026-10-28T10:12:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 5,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": true,
+    "orderIds": [
+      "VPK-600014"
+    ],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-134710",
+    "city": "Multan",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T09:54:58.896Z",
+    "lastSeen": "2026-10-28T09:54:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 1,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "samsung-galaxy-s24-ultra",
+        "name": "Samsung Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-s24-ultra",
+        "image": "https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-bmqbr-270x270.jpg",
+        "pricePKR": 323999,
+        "viewedAt": "2026-10-28T09:54:58.896Z",
+        "action": "viewed"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-137024",
+    "customerName": "Customer Peshawar 16",
+    "phone": "03201000016",
+    "city": "Peshawar",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T09:36:58.896Z",
+    "lastSeen": "2026-10-28T09:36:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 2,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-139338",
+    "city": "Quetta",
+    "device": "Mobile (iOS)",
+    "firstSeen": "2026-10-28T09:18:58.896Z",
+    "lastSeen": "2026-10-28T09:18:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 3,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-141652",
+    "city": "Sargodha",
+    "device": "Desktop (Windows)",
+    "firstSeen": "2026-10-28T09:00:58.896Z",
+    "lastSeen": "2026-10-28T09:00:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 4,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "samsung-galaxy-s24-ultra",
+        "name": "Samsung Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-s24-ultra",
+        "image": "https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-bmqbr-270x270.jpg",
+        "pricePKR": 323999,
+        "viewedAt": "2026-10-28T09:00:58.896Z",
+        "action": "added_to_cart"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-143966",
+    "city": "Bahawalpur",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T08:42:58.896Z",
+    "lastSeen": "2026-10-28T08:42:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 5,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-146280",
+    "customerName": "Customer Karachi 20",
+    "phone": "03101000020",
+    "city": "Karachi",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-28T08:24:58.896Z",
+    "lastSeen": "2026-10-28T08:24:58.896Z",
+    "isOnline": false,
+    "pageViewsCount": 1,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-148594",
+    "city": "Lahore",
+    "device": "Mobile (iOS)",
+    "firstSeen": "2026-10-07T13:27:00.000Z",
+    "lastSeen": "2026-10-07T13:27:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 2,
+    "currentPath": "/",
+    "hasPurchased": true,
+    "orderIds": [
+      "VPK-600021"
+    ],
+    "viewedProducts": [
+      {
+        "phoneId": "samsung-galaxy-s24-ultra",
+        "name": "Samsung Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-s24-ultra",
+        "image": "https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-bmqbr-270x270.jpg",
+        "pricePKR": 323999,
+        "viewedAt": "2026-10-07T13:27:00.000Z",
+        "action": "viewed"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-150908",
+    "city": "Islamabad",
+    "device": "Desktop (Windows)",
+    "firstSeen": "2026-10-06T14:34:00.000Z",
+    "lastSeen": "2026-10-06T14:34:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 3,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-153222",
+    "city": "Rawalpindi",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-05T15:41:00.000Z",
+    "lastSeen": "2026-10-05T15:41:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 4,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-155536",
+    "customerName": "Customer Faisalabad 24",
+    "phone": "03501000024",
+    "city": "Faisalabad",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-04T04:48:00.000Z",
+    "lastSeen": "2026-10-04T04:48:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 5,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "samsung-galaxy-s24-ultra",
+        "name": "Samsung Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-s24-ultra",
+        "image": "https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-bmqbr-270x270.jpg",
+        "pricePKR": 323999,
+        "viewedAt": "2026-10-04T04:48:00.000Z",
+        "action": "added_to_cart"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-157850",
+    "city": "Multan",
+    "device": "Mobile (iOS)",
+    "firstSeen": "2026-10-28T05:55:00.000Z",
+    "lastSeen": "2026-10-28T05:55:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 1,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-160164",
+    "city": "Peshawar",
+    "device": "Desktop (Windows)",
+    "firstSeen": "2026-10-27T06:02:00.000Z",
+    "lastSeen": "2026-10-27T06:02:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 2,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-162478",
+    "city": "Quetta",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-26T07:09:00.000Z",
+    "lastSeen": "2026-10-26T07:09:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 3,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "samsung-galaxy-s24-ultra",
+        "name": "Samsung Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-s24-ultra",
+        "image": "https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-bmqbr-270x270.jpg",
+        "pricePKR": 323999,
+        "viewedAt": "2026-10-26T07:09:00.000Z",
+        "action": "viewed"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-164792",
+    "customerName": "Customer Sargodha 28",
+    "phone": "03401000028",
+    "city": "Sargodha",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-25T08:16:00.000Z",
+    "lastSeen": "2026-10-25T08:16:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 4,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": true,
+    "orderIds": [
+      "VPK-600028"
+    ],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-167106",
+    "city": "Bahawalpur",
+    "device": "Mobile (iOS)",
+    "firstSeen": "2026-10-24T09:23:00.000Z",
+    "lastSeen": "2026-10-24T09:23:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 5,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-169420",
+    "city": "Karachi",
+    "device": "Desktop (Windows)",
+    "firstSeen": "2026-10-23T10:30:00.000Z",
+    "lastSeen": "2026-10-23T10:30:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 1,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "samsung-galaxy-s24-ultra",
+        "name": "Samsung Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-s24-ultra",
+        "image": "https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-bmqbr-270x270.jpg",
+        "pricePKR": 323999,
+        "viewedAt": "2026-10-23T10:30:00.000Z",
+        "action": "added_to_cart"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-171734",
+    "city": "Lahore",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-22T11:37:00.000Z",
+    "lastSeen": "2026-10-22T11:37:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 2,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-174048",
+    "customerName": "Customer Islamabad 32",
+    "phone": "03301000032",
+    "city": "Islamabad",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-21T12:44:00.000Z",
+    "lastSeen": "2026-10-21T12:44:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 3,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-176362",
+    "city": "Rawalpindi",
+    "device": "Mobile (iOS)",
+    "firstSeen": "2026-10-20T13:51:00.000Z",
+    "lastSeen": "2026-10-20T13:51:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 4,
+    "currentPath": "/",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": [
+      {
+        "phoneId": "samsung-galaxy-s24-ultra",
+        "name": "Samsung Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "slug": "samsung-galaxy-s24-ultra",
+        "image": "https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-bmqbr-270x270.jpg",
+        "pricePKR": 323999,
+        "viewedAt": "2026-10-20T13:51:00.000Z",
+        "action": "viewed"
+      }
+    ]
+  },
+  {
+    "visitorId": "VIS-178676",
+    "city": "Faisalabad",
+    "device": "Desktop (Windows)",
+    "firstSeen": "2026-10-19T14:58:00.000Z",
+    "lastSeen": "2026-10-19T14:58:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 5,
+    "currentPath": "/product/samsung-galaxy-s24-ultra",
+    "hasPurchased": false,
+    "orderIds": [],
+    "viewedProducts": []
+  },
+  {
+    "visitorId": "VIS-180990",
+    "city": "Multan",
+    "device": "Mobile (Android)",
+    "firstSeen": "2026-10-18T15:05:00.000Z",
+    "lastSeen": "2026-10-18T15:05:00.000Z",
+    "isOnline": false,
+    "pageViewsCount": 1,
+    "currentPath": "/",
+    "hasPurchased": true,
+    "orderIds": [
+      "VPK-600035"
+    ],
+    "viewedProducts": []
+  }
+]

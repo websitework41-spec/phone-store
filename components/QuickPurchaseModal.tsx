@@ -31,6 +31,7 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { trackPurchase } from './AnalyticsTracker';
 
 interface QuickPurchaseModalProps {
   phone: Smartphone | null;
@@ -229,6 +230,7 @@ export function QuickPurchaseModal({
         }).catch(() => {});
       } catch {}
 
+      trackPurchase(randomOrder);
       setIsSubmitting(false);
       setIsOrderConfirmed(true);
     }, 600);
