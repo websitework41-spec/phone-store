@@ -61,12 +61,14 @@ import {
   HelpCircle,
   Bell,
   Store,
+  Menu,
 } from 'lucide-react';
 
 type AdminTab = 'dashboard' | 'products' | 'inventory' | 'orders' | 'customers' | 'settings';
 
 export default function AdminPortalPage() {
   const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [products, setProducts] = useState<Smartphone[]>([]);
   const [orders, setOrders] = useState<AdminOrder[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -595,11 +597,27 @@ export default function AdminPortalPage() {
         </div>
       )}
 
-      {/* Modern Shopify Charcoal Sidebar */}
-      <aside className="w-full md:w-60 bg-[#111213] text-slate-300 border-r border-[#202123] flex flex-col shrink-0">
+      {/* Mobile Backdrop Overlay */}
+      {isMobileSidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs md:hidden"
+          onClick={() => setIsMobileSidebarOpen(false)}
+        />
+      )}
+
+      {/* Modern Shopify Charcoal Sidebar (Responsive Drawer on Mobile, Sticky on Desktop) */}
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-72 bg-[#111213] text-slate-300 border-r border-[#202123] flex flex-col shrink-0 transition-transform duration-300 ease-in-out md:static md:w-60 md:translate-x-0 ${
+          isMobileSidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full md:translate-x-0'
+        }`}
+      >
         {/* Brand Header */}
         <div className="p-4 border-b border-[#202123] flex items-center justify-between">
-          <Link href="/admin" className="flex items-center gap-2.5 group">
+          <Link
+            href="/admin"
+            onClick={() => setIsMobileSidebarOpen(false)}
+            className="flex items-center gap-2.5 group"
+          >
             <div className="w-8 h-8 rounded-xl bg-[#008060] flex items-center justify-center text-white font-extrabold text-xs shadow-md group-hover:scale-105 transition-transform">
               HPS
             </div>
@@ -610,20 +628,32 @@ export default function AdminPortalPage() {
               <div className="text-[10px] font-semibold text-slate-400">Shopify Store Admin</div>
             </div>
           </Link>
-          <Link
-            href="/"
-            target="_blank"
-            title="View Live Storefront"
-            className="p-1.5 rounded-lg bg-[#202123] hover:bg-[#303133] text-slate-300 hover:text-white transition-all text-xs"
-          >
-            <Eye className="w-3.5 h-3.5" />
-          </Link>
+          <div className="flex items-center gap-1">
+            <Link
+              href="/"
+              target="_blank"
+              title="View Live Storefront"
+              className="p-1.5 rounded-lg bg-[#202123] hover:bg-[#303133] text-slate-300 hover:text-white transition-all text-xs"
+            >
+              <Eye className="w-3.5 h-3.5" />
+            </Link>
+            <button
+              onClick={() => setIsMobileSidebarOpen(false)}
+              className="md:hidden p-1.5 rounded-lg bg-[#202123] hover:bg-[#303133] text-slate-400 hover:text-white transition-all"
+              aria-label="Close sidebar"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         {/* Navigation Items */}
-        <nav className="p-2 space-y-0.5 flex-1 text-xs">
+        <nav className="p-2 space-y-0.5 flex-1 text-xs overflow-y-auto">
           <button
-            onClick={() => setActiveTab('dashboard')}
+            onClick={() => {
+              setActiveTab('dashboard');
+              setIsMobileSidebarOpen(false);
+            }}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium transition-all ${
               activeTab === 'dashboard'
                 ? 'bg-[#202123] text-white font-bold'
@@ -635,7 +665,10 @@ export default function AdminPortalPage() {
           </button>
 
           <button
-            onClick={() => setActiveTab('orders')}
+            onClick={() => {
+              setActiveTab('orders');
+              setIsMobileSidebarOpen(false);
+            }}
             className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
               activeTab === 'orders'
                 ? 'bg-[#202123] text-white font-bold'
@@ -654,7 +687,10 @@ export default function AdminPortalPage() {
           </button>
 
           <button
-            onClick={() => setActiveTab('products')}
+            onClick={() => {
+              setActiveTab('products');
+              setIsMobileSidebarOpen(false);
+            }}
             className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
               activeTab === 'products'
                 ? 'bg-[#202123] text-white font-bold'
@@ -671,7 +707,10 @@ export default function AdminPortalPage() {
           </button>
 
           <button
-            onClick={() => setActiveTab('inventory')}
+            onClick={() => {
+              setActiveTab('inventory');
+              setIsMobileSidebarOpen(false);
+            }}
             className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all ${
               activeTab === 'inventory'
                 ? 'bg-[#202123] text-white font-bold'
@@ -690,7 +729,10 @@ export default function AdminPortalPage() {
           </button>
 
           <button
-            onClick={() => setActiveTab('customers')}
+            onClick={() => {
+              setActiveTab('customers');
+              setIsMobileSidebarOpen(false);
+            }}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium transition-all ${
               activeTab === 'customers'
                 ? 'bg-[#202123] text-white font-bold'
@@ -708,6 +750,7 @@ export default function AdminPortalPage() {
           <Link
             href="/"
             target="_blank"
+            onClick={() => setIsMobileSidebarOpen(false)}
             className="flex items-center justify-between px-3 py-2 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-[#1a1b1c] transition-all font-medium"
           >
             <div className="flex items-center gap-3">
@@ -722,7 +765,10 @@ export default function AdminPortalPage() {
           </div>
 
           <button
-            onClick={() => setActiveTab('settings')}
+            onClick={() => {
+              setActiveTab('settings');
+              setIsMobileSidebarOpen(false);
+            }}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl font-medium transition-all ${
               activeTab === 'settings'
                 ? 'bg-[#202123] text-white font-bold'
@@ -760,8 +806,15 @@ export default function AdminPortalPage() {
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col min-w-0 bg-[#f1f2f4] overflow-y-auto">
         {/* Top Header Bar */}
-        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-6 py-3 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-6 py-3 flex items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <button
+              onClick={() => setIsMobileSidebarOpen(true)}
+              className="md:hidden p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
+              aria-label="Open admin navigation menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
             <h1 className="text-base font-bold text-slate-900 tracking-tight">
               {activeTab === 'dashboard' && 'Store Overview'}
               {activeTab === 'products' && 'Products'}

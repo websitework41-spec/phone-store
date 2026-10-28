@@ -307,11 +307,11 @@ export default function AccountPage() {
 
         {/* Dashboard Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Left Navigation Sidebar */}
-          <div className="lg:col-span-1 space-y-2">
+          {/* Navigation Sidebar (Desktop) / Horizontal Tabs Rail (Mobile) */}
+          <div className="lg:col-span-1 flex lg:flex-col gap-2 overflow-x-auto scrollbar-none pb-1">
             <button
               onClick={() => setActiveTab('profile')}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all cursor-pointer text-left ${
+              className={`shrink-0 lg:w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap lg:whitespace-normal text-left ${
                 activeTab === 'profile'
                   ? 'bg-slate-950 text-white shadow-md'
                   : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200/80'
@@ -323,7 +323,7 @@ export default function AccountPage() {
 
             <button
               onClick={() => setActiveTab('addresses')}
-              className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-xs font-bold transition-all cursor-pointer text-left ${
+              className={`shrink-0 lg:w-full flex items-center justify-between gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap lg:whitespace-normal text-left ${
                 activeTab === 'addresses'
                   ? 'bg-slate-950 text-white shadow-md'
                   : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200/80'
@@ -342,7 +342,7 @@ export default function AccountPage() {
 
             <button
               onClick={() => setActiveTab('security')}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all cursor-pointer text-left ${
+              className={`shrink-0 lg:w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap lg:whitespace-normal text-left ${
                 activeTab === 'security'
                   ? 'bg-slate-950 text-white shadow-md'
                   : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200/80'
@@ -354,7 +354,7 @@ export default function AccountPage() {
 
             <Link
               href="/account/orders"
-              className="w-full flex items-center justify-between px-4 py-3 rounded-2xl text-xs font-bold bg-white hover:bg-sky-50/60 text-slate-700 hover:text-[#136ab5] border border-slate-200/80 transition-all text-left"
+              className="shrink-0 lg:w-full flex items-center justify-between gap-3 px-4 py-3 rounded-2xl text-xs font-bold bg-white hover:bg-sky-50/60 text-slate-700 hover:text-[#136ab5] border border-slate-200/80 transition-all whitespace-nowrap lg:whitespace-normal text-left"
             >
               <div className="flex items-center gap-3">
                 <ShoppingBag className="w-4 h-4 text-[#136ab5]" />

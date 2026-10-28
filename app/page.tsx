@@ -595,7 +595,7 @@ function HomeContent() {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-2.5 sm:gap-3">
+          <div className="flex sm:grid sm:grid-cols-5 lg:grid-cols-10 gap-2.5 sm:gap-3 overflow-x-auto pb-2 sm:pb-0 scrollbar-none">
             {[
               { name: 'Apple', logo: '', color: 'bg-black text-white' },
               { name: 'Samsung', logo: 'SAMSUNG', color: 'bg-[#1428a0] text-white' },
@@ -614,21 +614,21 @@ function HomeContent() {
                 <button
                   key={b.name}
                   onClick={() => handleSelectBrand(b.name)}
-                  className={`group flex flex-col items-center justify-center p-3 rounded-2xl bg-white border transition-all duration-200 cursor-pointer ${
+                  className={`group shrink-0 min-w-[86px] sm:min-w-0 flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-white border transition-all duration-200 cursor-pointer ${
                     isSelected
                       ? 'border-[#48afff] ring-2 ring-[#48afff]/30 shadow-md bg-sky-50/40'
                       : 'border-slate-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:border-[#48afff] hover:shadow-lg hover:-translate-y-1'
                   }`}
                 >
-                  <div className={`w-11 h-11 rounded-full flex items-center justify-center font-black text-xs shadow-xs group-hover:scale-110 transition-transform ${b.color}`}>
+                  <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center font-black text-xs shadow-xs group-hover:scale-110 transition-transform ${b.color}`}>
                     {b.name === 'Apple' ? '' : b.name === 'Xiaomi' ? 'mi' : b.name.slice(0, 3).toUpperCase()}
                   </div>
-                  <span className={`text-xs font-bold mt-2 truncate transition-colors ${
+                  <span className={`text-[11px] sm:text-xs font-bold mt-1.5 sm:mt-2 truncate transition-colors ${
                     isSelected ? 'text-[#136ab5]' : 'text-slate-800 group-hover:text-[#136ab5]'
                   }`}>
                     {b.name}
                   </span>
-                  <span className="text-[10px] text-slate-400 font-medium">
+                  <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium">
                     {count} {count === 1 ? 'model' : 'models'}
                   </span>
                 </button>
@@ -892,7 +892,7 @@ function HomeContent() {
             <div className="lg:col-span-9">
               {filteredPhones.length > 0 ? (
                 <>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-5">
                     {displayedPhones.map((phone, index) => (
                       <React.Fragment key={phone.id}>
                         {/* Section Divider when list transitions to out-of-stock items */}

@@ -113,6 +113,8 @@ export function HeroBanner({
 }: HeroBannerProps) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
 
   const nextSlide = useCallback(() => {
     setCurrentSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
@@ -121,6 +123,27 @@ export function HeroBanner({
   const prevSlide = useCallback(() => {
     setCurrentSlideIndex((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
   }, []);
+
+  const minSwipeDistance = 45;
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEndX(null);
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX || !touchEndX) return;
+    const distance = touchStartX - touchEndX;
+    if (distance > minSwipeDistance) {
+      nextSlide();
+    } else if (distance < -minSwipeDistance) {
+      prevSlide();
+    }
+  };
 
   useEffect(() => {
     if (isPaused) return;
@@ -138,16 +161,19 @@ export function HeroBanner({
         <div
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
-          className={`lg:col-span-8 relative overflow-hidden rounded-3xl bg-gradient-to-r ${slide.gradient} text-white border border-slate-800 shadow-2xl transition-all duration-700 min-h-[380px] sm:min-h-[440px] flex flex-col justify-between group`}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          className={`lg:col-span-8 relative overflow-hidden rounded-3xl bg-gradient-to-r ${slide.gradient} text-white border border-slate-800 shadow-2xl transition-all duration-700 min-h-[380px] sm:min-h-[440px] flex flex-col justify-between group touch-pan-y`}
         >
           {/* Subtle Ambient Backdrops */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none group-hover:scale-120 transition-transform duration-700" />
           <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
 
           {/* Slide Content */}
-          <div className="relative z-10 p-6 sm:p-10 flex-1 grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+          <div className="relative z-10 p-5 sm:p-10 flex-1 grid grid-cols-1 sm:grid-cols-12 gap-5 sm:gap-6 items-center">
             {/* Left Copy & Actions */}
-            <div className="sm:col-span-7 space-y-4">
+            <div className="sm:col-span-7 space-y-3.5 sm:space-y-4">
               <div className="flex flex-wrap items-center gap-2">
                 <span
                   className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider border backdrop-blur-md shadow-xs ${slide.badgeColor}`}
@@ -212,9 +238,9 @@ export function HeroBanner({
 
             {/* Right Visual Image with Gentle Floating Animation & Zoom */}
             <div className="sm:col-span-5 flex items-center justify-center relative">
-              <div className="relative w-48 h-48 sm:w-60 sm:h-60 group/img">
+              <div className="relative w-40 h-40 sm:w-60 sm:h-60 group/img my-1 sm:my-0">
                 <Link href={slide.link} className="relative block w-full h-full animate-float">
-                  <div className="w-full h-full bg-white rounded-3xl p-4 sm:p-5 shadow-2xl border border-white/30 flex items-center justify-center overflow-hidden">
+                  <div className="w-full h-full bg-white rounded-3xl p-3 sm:p-5 shadow-2xl border border-white/30 flex items-center justify-center overflow-hidden">
                     <PhoneImageWithFallback
                       src={slide.image}
                       alt={slide.phoneName}

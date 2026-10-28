@@ -66,33 +66,33 @@ export const PhoneCard = React.memo(function PhoneCard({
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative flex flex-col justify-between bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-xl hover:border-[#48afff] hover:-translate-y-1.5 transition-all duration-300"
+      className="group relative flex flex-col justify-between bg-white rounded-2xl p-2.5 sm:p-5 border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-xl hover:border-[#48afff] hover:-translate-y-1.5 transition-all duration-300"
     >
       {/* Top Badges & Compare Toggle */}
       <div>
-        <div className="flex items-center justify-between gap-2 mb-2.5">
-          <div className="flex flex-wrap items-center gap-1.5">
+        <div className="flex items-center justify-between gap-1.5 mb-2">
+          <div className="flex flex-wrap items-center gap-1">
             {!phone.inStock ? (
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
                 Out of Stock
               </span>
             ) : (
               phone.specs.ptaStatus === 'PTA Approved' && (
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-xs">
-                  <ShieldCheck className="w-3.5 h-3.5 stroke-[2.2]" />
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-xs">
+                  <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2.2]" />
                   PTA Approved
                 </span>
               )
             )}
             {phone.discountPercent > 0 && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-[#fef3eb] text-[#f47708] border border-[#fcd5b8] shadow-xs group-hover:scale-105 transition-transform">
+              <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-black bg-[#fef3eb] text-[#f47708] border border-[#fcd5b8] shadow-xs group-hover:scale-105 transition-transform">
                 <Sparkles className="w-2.5 h-2.5 text-[#f47708] fill-[#f47708]" />
                 {`${phone.discountPercent}% OFF`}
               </span>
             )}
           </div>
 
-          {/* Compare Toggle Button */}
+          {/* Compare Toggle Button (Visible on sm+) */}
           {onToggleCompare && (
             <button
               onClick={(e) => {
@@ -100,7 +100,7 @@ export const PhoneCard = React.memo(function PhoneCard({
                 onToggleCompare(phone);
               }}
               title="Add to Compare"
-              className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all cursor-pointer btn-press ${
+              className={`hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all cursor-pointer btn-press ${
                 isComparing
                   ? 'bg-[#136ab5] text-white shadow-sm ring-2 ring-[#48afff]'
                   : 'bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900'
@@ -115,7 +115,7 @@ export const PhoneCard = React.memo(function PhoneCard({
         {/* Product Image Canvas */}
         <Link
           href={`/product/${phone.slug}`}
-          className="block relative w-full h-48 sm:h-52 my-1.5 bg-white p-2 overflow-hidden flex items-center justify-center"
+          className="block relative w-full h-32 sm:h-52 my-1 bg-white p-1 sm:p-2 overflow-hidden flex items-center justify-center"
         >
           <div className="w-full h-full flex items-center justify-center transition-transform duration-500 ease-out group-hover:scale-105">
             <PhoneImageWithFallback
@@ -128,11 +128,11 @@ export const PhoneCard = React.memo(function PhoneCard({
         </Link>
 
         {/* Color Variant Swatches with Tactile Pop */}
-        <div className="flex items-center gap-2 my-2.5">
-          <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+        <div className="flex items-center gap-1.5 my-1.5 sm:my-2.5">
+          <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 tracking-wider">
             Colors:
           </span>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1 sm:gap-1.5">
             {phone.colors.map((color, idx) => {
               const isColorInStock = color.inStock ?? true;
               const isSelected = selectedColorIndex === idx;
@@ -171,29 +171,29 @@ export const PhoneCard = React.memo(function PhoneCard({
 
         {/* Brand & Name */}
         <div className="mt-1">
-          <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#136ab5]">
+          <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-[#136ab5]">
             {phone.brand}
           </span>
           <Link href={`/product/${phone.slug}`}>
-            <h3 className="text-sm sm:text-base font-extrabold text-slate-950 group-hover:text-[#136ab5] transition-colors line-clamp-1 mt-0.5">
+            <h3 className="text-xs sm:text-base font-extrabold text-slate-950 group-hover:text-[#136ab5] transition-colors line-clamp-1 mt-0.5">
               {phone.name}
             </h3>
           </Link>
-          <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+          <p className="text-[10px] sm:text-xs text-slate-500 line-clamp-1 mt-0.5">
             {phone.tagline}
           </p>
         </div>
 
         {/* Key Specs Micro-Chips */}
-        <div className="grid grid-cols-2 gap-1.5 mt-2.5 pt-2.5 border-t border-slate-100 text-[11px] text-slate-600">
-          <div className="flex items-center gap-1.5 min-w-0 group-hover:text-slate-800 transition-colors">
-            <Cpu className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+        <div className="grid grid-cols-2 gap-1 sm:gap-1.5 mt-2 sm:mt-2.5 pt-2 sm:pt-2.5 border-t border-slate-100 text-[10px] sm:text-[11px] text-slate-600">
+          <div className="flex items-center gap-1 sm:gap-1.5 min-w-0 group-hover:text-slate-800 transition-colors">
+            <Cpu className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 flex-shrink-0" />
             <span className="truncate">
               {phone.specs.chipsetBrand || phone.keyHighlights?.processor?.split(' ')[0] || 'Octa-Core'}
             </span>
           </div>
-          <div className="flex items-center gap-1.5 min-w-0 group-hover:text-slate-800 transition-colors">
-            <Battery className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+          <div className="flex items-center gap-1 sm:gap-1.5 min-w-0 group-hover:text-slate-800 transition-colors">
+            <Battery className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 flex-shrink-0" />
             <span className="truncate">
               {(() => {
                 const raw = phone.keyHighlights?.battery || phone.specs.battery || '';
@@ -205,8 +205,8 @@ export const PhoneCard = React.memo(function PhoneCard({
               })()}
             </span>
           </div>
-          <div className="flex items-center gap-1.5 min-w-0 group-hover:text-slate-800 transition-colors">
-            <Camera className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+          <div className="flex items-center gap-1 sm:gap-1.5 min-w-0 group-hover:text-slate-800 transition-colors">
+            <Camera className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 flex-shrink-0" />
             <span className="truncate">
               {(() => {
                 const raw = phone.specs.mainCamera || phone.keyHighlights?.camera || '';
@@ -225,8 +225,8 @@ export const PhoneCard = React.memo(function PhoneCard({
               })()}
             </span>
           </div>
-          <div className="flex items-center gap-1.5 min-w-0 group-hover:text-slate-800 transition-colors">
-            <Layers className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+          <div className="flex items-center gap-1 sm:gap-1.5 min-w-0 group-hover:text-slate-800 transition-colors">
+            <Layers className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 flex-shrink-0" />
             <span className="truncate">
               {`${primaryVariant.ram} / ${primaryVariant.storage}`}
             </span>
@@ -235,66 +235,66 @@ export const PhoneCard = React.memo(function PhoneCard({
       </div>
 
       {/* Pricing, Stock Status & Dual Conversion Action Buttons */}
-      <div className="mt-3 pt-3 border-t border-slate-100">
+      <div className="mt-2.5 sm:mt-3 pt-2.5 sm:pt-3 border-t border-slate-100">
         {/* Price & Star Rating */}
-        <div className="flex items-baseline justify-between">
-          <div>
+        <div className="flex items-baseline justify-between gap-1">
+          <div className="min-w-0">
             <div className="flex items-baseline gap-1">
-              <span className="text-xs font-bold text-slate-500">Rs</span>
-              <span className="text-lg sm:text-2xl font-black text-slate-950 group-hover:text-[#136ab5] tracking-tight transition-colors">
+              <span className="text-[10px] sm:text-xs font-bold text-slate-500">Rs</span>
+              <span className="text-base sm:text-2xl font-black text-slate-950 group-hover:text-[#136ab5] tracking-tight transition-colors truncate">
                 {cardPrice.toLocaleString()}
               </span>
             </div>
             {cardOriginalPrice > cardPrice && (
-              <div className="flex items-center gap-1.5 mt-0.5 text-xs text-slate-400">
-                <span className="line-through">Rs {cardOriginalPrice.toLocaleString()}</span>
-                <span className="text-[10px] font-black px-1.5 py-0.2 rounded bg-[#fef3eb] text-[#f47708] border border-[#fcd5b8]">
-                  {Math.round(((cardOriginalPrice - cardPrice) / cardOriginalPrice) * 100)}% OFF
+              <div className="flex items-center gap-1 sm:gap-1.5 mt-0.5 text-[10px] sm:text-xs text-slate-400">
+                <span className="line-through truncate">Rs {cardOriginalPrice.toLocaleString()}</span>
+                <span className="text-[9px] sm:text-[10px] font-black px-1 sm:px-1.5 py-0.2 rounded bg-[#fef3eb] text-[#f47708] border border-[#fcd5b8] shrink-0">
+                  {Math.round(((cardOriginalPrice - cardPrice) / cardOriginalPrice) * 100)}%
                 </span>
               </div>
             )}
           </div>
 
-          <div className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-amber-50 border border-amber-200/60 text-xs text-amber-700 font-extrabold">
-            <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
+          <div className="flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-lg bg-amber-50 border border-amber-200/60 text-[10px] sm:text-xs text-amber-700 font-extrabold shrink-0">
+            <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-amber-400 stroke-amber-400" />
             <span>{phone.rating}</span>
-            <span className="text-[10px] text-slate-400 font-normal">({phone.reviewCount})</span>
+            <span className="hidden sm:inline text-[10px] text-slate-400 font-normal">({phone.reviewCount})</span>
           </div>
         </div>
 
         {/* 0% EMI Installment Badge */}
-        <div className="mt-2 py-1 px-2.5 rounded-xl bg-slate-50 hover:bg-sky-50/60 border border-slate-200/80 transition-colors flex items-center justify-between text-[11px] text-slate-600">
-          <span className="flex items-center gap-1 font-medium">
-            <CreditCard className="w-3 h-3 text-[#136ab5]" />
-            <span>0% Installment:</span>
+        <div className="mt-1.5 sm:mt-2 py-0.5 sm:py-1 px-2 sm:px-2.5 rounded-xl bg-slate-50 hover:bg-sky-50/60 border border-slate-200/80 transition-colors flex items-center justify-between text-[10px] sm:text-[11px] text-slate-600">
+          <span className="flex items-center gap-1 font-medium truncate">
+            <CreditCard className="w-3 h-3 text-[#136ab5] shrink-0" />
+            <span className="truncate">0% EMI:</span>
           </span>
-          <span className="font-extrabold text-[#136ab5]">
+          <span className="font-extrabold text-[#136ab5] shrink-0 ml-1">
             {formatPKR(emiPerMonth)}/mo
           </span>
         </div>
 
-        {/* Live Stock Status Indicator with Dual Pulse Wave */}
-        <div className="mt-2.5 flex items-center justify-between text-[11px]">
+        {/* Live Stock Status Indicator */}
+        <div className="mt-2 flex items-center justify-between text-[10px] sm:text-[11px]">
           {isSelectionInStock ? (
-            <span className="inline-flex items-center gap-1.5 text-emerald-700 font-semibold">
-              <span className="relative flex h-2.5 w-2.5">
+            <span className="inline-flex items-center gap-1 text-emerald-700 font-semibold truncate">
+              <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
-              <span>In Stock • Ready to Ship</span>
+              <span className="truncate">In Stock</span>
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1.5 text-rose-600 font-semibold">
-              <span className="h-2 w-2 rounded-full bg-rose-500" />
-              <span>Out of Stock</span>
+            <span className="inline-flex items-center gap-1 text-rose-600 font-semibold truncate">
+              <span className="h-1.5 w-1.5 rounded-full bg-rose-500 shrink-0" />
+              <span className="truncate">Out of Stock</span>
             </span>
           )}
-          <span className="text-slate-400 font-medium">Open-Parcel COD</span>
+          <span className="text-slate-400 font-medium truncate text-[9px] sm:text-[10px]">Open-Parcel COD</span>
         </div>
 
-        {/* Dual Conversion Buttons with Tactile Hover Scale & Shimmer */}
-        <div className="grid grid-cols-12 gap-2 mt-3">
-          {/* Quick Buy Button (PriceOye Electric Sky Blue) */}
+        {/* Dual Conversion Buttons */}
+        <div className="grid grid-cols-12 gap-1.5 sm:gap-2 mt-2 sm:mt-3">
+          {/* Quick Buy Button */}
           <button
             onClick={() => {
               if (isSelectionInStock && onQuickBuy) {
@@ -302,17 +302,17 @@ export const PhoneCard = React.memo(function PhoneCard({
               }
             }}
             disabled={!isSelectionInStock}
-            className={`group/btn col-span-8 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-black transition-all btn-shimmer btn-press ${
+            className={`group/btn col-span-8 flex items-center justify-center gap-1 py-2 sm:py-2.5 px-1.5 sm:px-3 rounded-xl text-[11px] sm:text-xs font-black transition-all btn-shimmer btn-press ${
               isSelectionInStock
                 ? 'bg-[#48afff] hover:bg-[#229eff] text-white shadow-md shadow-[#48afff]/25 hover:shadow-lg hover:shadow-[#48afff]/40 cursor-pointer'
                 : 'bg-slate-200 text-slate-400 cursor-not-allowed border border-slate-300'
             }`}
           >
-            <Zap className="w-3.5 h-3.5 fill-white stroke-white group-hover/btn:rotate-12 transition-transform duration-300" />
-            <span>{isSelectionInStock ? 'Quick Buy' : 'Out of Stock'}</span>
+            <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-white stroke-white group-hover/btn:rotate-12 transition-transform duration-300" />
+            <span className="truncate">{isSelectionInStock ? 'Quick Buy' : 'Out of Stock'}</span>
           </button>
 
-          {/* Add to Cart Button (PriceOye Deep Ocean Blue) */}
+          {/* Add to Cart Button */}
           <button
             onClick={() => {
               if (isSelectionInStock && onAddToCart) {
@@ -321,13 +321,13 @@ export const PhoneCard = React.memo(function PhoneCard({
             }}
             disabled={!isSelectionInStock}
             title="Add to Cart"
-            className={`group/cart col-span-4 flex items-center justify-center py-2.5 px-2 rounded-xl text-xs font-bold transition-all btn-press ${
+            className={`group/cart col-span-4 flex items-center justify-center py-2 sm:py-2.5 px-1 sm:px-2 rounded-xl text-xs font-bold transition-all btn-press ${
               isSelectionInStock
                 ? 'bg-[#136ab5] hover:bg-[#0f5492] text-white cursor-pointer shadow-md shadow-[#136ab5]/20 hover:shadow-lg hover:shadow-[#136ab5]/30'
                 : 'bg-slate-100 text-slate-300 cursor-not-allowed'
             }`}
           >
-            <ShoppingCart className="w-4 h-4 text-white group-hover/cart:scale-120 transition-transform duration-200" />
+            <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white group-hover/cart:scale-120 transition-transform duration-200" />
           </button>
         </div>
       </div>

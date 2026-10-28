@@ -323,27 +323,27 @@ export default function ProductDetailPage() {
         {/* PriceOye Styled Breadcrumbs */}
         <nav
           aria-label="Breadcrumb"
-          className="flex items-center gap-1.5 text-xs text-slate-500 font-semibold mb-5 flex-wrap"
+          className="flex items-center gap-1.5 text-xs text-slate-500 font-semibold mb-5 overflow-x-auto whitespace-nowrap scrollbar-none py-1"
         >
           <Link
             href="/"
-            className="hover:text-[#0b3c68] transition-colors flex items-center gap-1 text-slate-500 hover:underline"
+            className="hover:text-[#0b3c68] transition-colors flex items-center gap-1 text-slate-500 hover:underline shrink-0"
           >
             <span>Home</span>
           </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <Link href="/" className="hover:text-[#0b3c68] transition-colors text-slate-500 hover:underline">
+          <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+          <Link href="/" className="hover:text-[#0b3c68] transition-colors text-slate-500 hover:underline shrink-0">
             <span>Mobiles</span>
           </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+          <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
           <Link
             href={`/?brand=${encodeURIComponent(phone.brand)}#catalog`}
-            className="hover:text-[#0b3c68] transition-colors text-slate-600 hover:underline capitalize"
+            className="hover:text-[#0b3c68] transition-colors text-slate-600 hover:underline capitalize shrink-0"
           >
             {phone.brand}
           </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <span className="text-[#0b3c68] font-black truncate max-w-xs sm:max-w-md">
+          <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+          <span className="text-[#0b3c68] font-black truncate max-w-xs sm:max-w-md shrink-0">
             {phone.name}
           </span>
         </nav>
@@ -353,7 +353,7 @@ export default function ProductDetailPage() {
           {/* Left Column: Premium Image Gallery (PriceOye Showcase) */}
           <div className="lg:col-span-5 xl:col-span-5 space-y-4 lg:sticky lg:top-24">
             {/* Main Showcase Elevated Card */}
-            <div className="relative w-full h-[380px] sm:h-[460px] bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-[0_2px_16px_rgba(0,0,0,0.04)] flex items-center justify-center overflow-hidden group">
+            <div className="relative w-full h-[300px] sm:h-[460px] bg-white rounded-3xl p-4 sm:p-10 border border-slate-200/80 shadow-[0_2px_16px_rgba(0,0,0,0.04)] flex items-center justify-center overflow-hidden group">
               {/* Product cutout image with subtle hover zoom */}
               <div className="w-full h-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
                 <PhoneImageWithFallback
@@ -1429,8 +1429,8 @@ export default function ProductDetailPage() {
       </main>
 
       {/* Sticky Bottom Buy Bar on Mobile Viewports */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-3 flex items-center justify-between shadow-2xl">
-        <div className="flex items-center gap-2.5">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2.5 pb-[max(12px,env(safe-area-inset-bottom))] flex items-center justify-between shadow-2xl">
+        <div className="flex items-center gap-2.5 min-w-0 mr-2">
           <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 p-0.5 shrink-0 flex items-center justify-center">
             <PhoneImageWithFallback
               src={selectedColor.image}
@@ -1439,8 +1439,8 @@ export default function ProductDetailPage() {
               className="w-full h-full object-contain"
             />
           </div>
-          <div>
-            <div className="text-xs font-black text-slate-900 line-clamp-1">
+          <div className="min-w-0">
+            <div className="text-xs font-black text-slate-900 truncate">
               {phone.name}
             </div>
             <div className="text-xs font-black text-[#0b3c68]">
@@ -1449,13 +1449,13 @@ export default function ProductDetailPage() {
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={handleAddToCart}
             disabled={!isSelectionInStock}
-            className={`px-3 py-2.5 rounded-xl text-xs font-black transition-all ${
+            className={`px-3 py-2.5 rounded-xl text-xs font-black transition-all active:scale-95 ${
               isSelectionInStock
-                ? 'bg-[#0b3c68] text-white'
+                ? 'bg-[#0b3c68] text-white hover:bg-[#072846]'
                 : 'bg-slate-200 text-slate-400 cursor-not-allowed'
             }`}
           >
@@ -1466,9 +1466,9 @@ export default function ProductDetailPage() {
               if (isSelectionInStock) setIsQuickBuyOpen(true);
             }}
             disabled={!isSelectionInStock}
-            className={`px-3.5 py-2.5 rounded-xl text-xs font-black transition-all ${
+            className={`px-3.5 py-2.5 rounded-xl text-xs font-black transition-all active:scale-95 ${
               isSelectionInStock
-                ? 'bg-[#48afff] text-white shadow-sm'
+                ? 'bg-[#48afff] text-white hover:bg-[#229eff] shadow-sm'
                 : 'bg-slate-200 text-slate-400 cursor-not-allowed'
             }`}
           >

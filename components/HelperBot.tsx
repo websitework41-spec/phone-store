@@ -333,11 +333,19 @@ Or tap a quick question below to get started!`,
         </aside>
       )}
 
-      {/* Floating Chat Modal Window */}
+      {/* Mobile Backdrop Overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs sm:hidden animate-in fade-in duration-200"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Floating Chat Modal Window (Bottom Sheet on Mobile, Floating Widget on Desktop) */}
       {isOpen && (
         <section
           aria-label="HamzaBot AI Chat Window"
-          className="fixed bottom-4 sm:bottom-6 right-3 sm:right-6 z-50 w-[calc(100vw-24px)] sm:w-[410px] h-[580px] max-h-[90vh] rounded-2xl shadow-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200"
+          className="fixed bottom-0 sm:bottom-6 left-0 right-0 sm:left-auto sm:right-6 z-50 w-full sm:w-[410px] h-[88vh] sm:h-[580px] max-h-[92vh] rounded-t-3xl sm:rounded-2xl shadow-2xl bg-white dark:bg-slate-900 border-t sm:border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom duration-200"
         >
           {/* Header */}
           <div className="px-4 py-3.5 bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950 text-white flex items-center justify-between border-b border-[#48afff]/20">

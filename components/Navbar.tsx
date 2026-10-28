@@ -278,26 +278,26 @@ export function Navbar({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16 sm:h-20 gap-4">
               {/* Hamza Phone Store Brand Logo */}
-              <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white text-[#0b3c68] flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                  <Zap className="w-6 h-6 fill-[#0b3c68] stroke-[#0b3c68] group-hover:animate-bounce" />
+              <Link href="/" className="flex items-center gap-2 sm:gap-3 shrink-0 group">
+                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-white text-[#0b3c68] flex items-center justify-center shadow-lg group-hover:scale-105 transition-all">
+                  <Zap className="w-5 h-5 sm:w-6 sm:h-6 fill-[#0b3c68] stroke-[#0b3c68]" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xl sm:text-2xl font-black tracking-tight text-white font-sans flex items-center gap-1.5">
+                  <div className="flex items-center gap-1 sm:gap-1.5">
+                    <span className="text-base sm:text-2xl font-black tracking-tight text-white font-sans flex items-center gap-1">
                       <span>HAMZA</span>
-                      <span className="bg-white text-[#0b3c68] px-2 py-0.5 rounded-lg text-base sm:text-lg font-black shadow-xs tracking-normal">
+                      <span className="bg-white text-[#0b3c68] px-1.5 sm:px-2 py-0.5 rounded-lg text-xs sm:text-lg font-black shadow-xs tracking-normal">
                         PHONE STORE
                       </span>
                     </span>
-                    <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-[#f88b2a] text-white shadow-xs tracking-wider">
+                    <span className="text-[9px] sm:text-[10px] font-black px-1.5 sm:px-2 py-0.5 rounded-full bg-[#f88b2a] text-white shadow-xs tracking-wider">
                       PK
                     </span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-white/95 -mt-0.5">
-                    <span className="relative flex h-2 w-2">
+                  <div className="hidden xs:flex sm:flex items-center gap-1.5 text-[9px] sm:text-[10px] font-bold text-white/95 -mt-0.5">
+                    <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-80" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-emerald-400" />
                     </span>
                     <span>222 Verified Mobiles In-Stock</span>
                   </div>

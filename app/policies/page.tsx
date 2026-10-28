@@ -335,14 +335,14 @@ export default function PoliciesPage() {
 
       {/* Policies Content */}
       <main id="policies" className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-8">
-        {/* Quick Nav Chips */}
-        <div className="flex flex-wrap gap-2 p-4 bg-white rounded-2xl border border-slate-200 shadow-xs">
-          <span className="text-xs font-bold text-slate-400 self-center mr-1">Quick Jump:</span>
+        {/* Quick Nav Chips - Responsive Horizontal Rail */}
+        <div className="flex items-center gap-2 p-3 sm:p-4 bg-white rounded-2xl border border-slate-200 shadow-xs overflow-x-auto scrollbar-none">
+          <span className="text-xs font-bold text-slate-400 self-center mr-1 shrink-0">Quick Jump:</span>
           {policySections.map((sec) => (
             <a
               key={sec.id}
               href={`#${sec.id}`}
-              className="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 hover:bg-sky-50 text-slate-700 hover:text-[#136ab5] border border-slate-200/80 hover:border-sky-300 transition-all"
+              className="shrink-0 whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 hover:bg-sky-50 text-slate-700 hover:text-[#136ab5] border border-slate-200/80 hover:border-sky-300 transition-all"
             >
               {sec.title}
             </a>
