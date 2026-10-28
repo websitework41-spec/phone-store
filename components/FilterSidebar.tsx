@@ -172,11 +172,11 @@ export function FilterSidebar({
     filters.selectedBrands.includes('Itel');
 
   return (
-    <aside className="w-full bg-white rounded-3xl p-5 border border-slate-200/90 shadow-sm space-y-6">
+    <aside className="w-full bg-white rounded-2xl p-5 border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.04)] space-y-6">
       {/* 1. Header & Active Counter */}
       <div className="flex items-center justify-between pb-4 border-b border-slate-100">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-cyan-50 border border-cyan-200/70 text-cyan-700 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-xl bg-sky-50 border border-sky-100 text-[#136ab5] flex items-center justify-center">
             <SlidersHorizontal className="w-4 h-4 stroke-[2.2]" />
           </div>
           <div>
@@ -215,7 +215,7 @@ export function FilterSidebar({
             }}
             className={`btn-press py-2.5 px-3 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
               filters.selectedBrands.length === 0
-                ? 'bg-slate-950 text-white shadow-md ring-2 ring-cyan-500/50'
+                ? 'bg-[#136ab5] text-white shadow-md ring-2 ring-[#48afff]/50'
                 : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-950'
             }`}
           >
@@ -231,8 +231,8 @@ export function FilterSidebar({
             }}
             className={`btn-press py-2.5 px-3 rounded-xl text-xs font-bold transition-all text-center cursor-pointer flex items-center justify-center gap-1.5 ${
               isKeypadSelected
-                ? 'bg-cyan-600 text-white shadow-md ring-2 ring-cyan-400'
-                : 'bg-cyan-50 hover:bg-cyan-100 text-cyan-800 border border-cyan-200/70 hover:shadow-xs'
+                ? 'bg-[#136ab5] text-white shadow-md ring-2 ring-[#48afff]'
+                : 'bg-sky-50 hover:bg-sky-100 text-[#136ab5] border border-sky-200 hover:shadow-xs'
             }`}
           >
             <PhoneIcon className="w-3.5 h-3.5" />
@@ -259,13 +259,13 @@ export function FilterSidebar({
                 ptaApprovedOnly: e.target.checked,
               }))
             }
-            className="w-4 h-4 accent-cyan-600 rounded cursor-pointer transition-transform active:scale-90"
+            className="w-4 h-4 accent-[#48afff] rounded cursor-pointer transition-transform active:scale-90"
           />
         </label>
 
         <label className="flex items-center justify-between cursor-pointer group p-1 rounded-lg hover:bg-slate-100 transition-colors">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-cyan-600 group-hover:scale-115 transition-transform" />
+            <CheckCircle2 className="w-4 h-4 text-[#136ab5] group-hover:scale-115 transition-transform" />
             <span className="text-xs font-bold text-slate-800 group-hover:text-slate-950">
               In Stock Only (Ready to Ship)
             </span>
@@ -279,7 +279,7 @@ export function FilterSidebar({
                 inStockOnly: e.target.checked,
               }))
             }
-            className="w-4 h-4 accent-cyan-600 rounded cursor-pointer transition-transform active:scale-90"
+            className="w-4 h-4 accent-[#48afff] rounded cursor-pointer transition-transform active:scale-90"
           />
         </label>
       </div>
@@ -290,7 +290,7 @@ export function FilterSidebar({
           <label className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
             Price Range (PKR)
           </label>
-          <span className="text-xs font-black text-cyan-700">
+          <span className="text-xs font-black text-[#136ab5]">
             {formatPKR(filters.priceRange[0])} - {formatPKR(filters.priceRange[1])}
           </span>
         </div>
@@ -311,7 +311,7 @@ export function FilterSidebar({
                   priceRange: [Math.max(0, Number(e.target.value)), prev.priceRange[1]],
                 }))
               }
-              className="w-full px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+              className="w-full px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-[#48afff] transition-all"
             />
           </div>
           <div>
@@ -328,7 +328,7 @@ export function FilterSidebar({
                   priceRange: [prev.priceRange[0], Math.min(700000, Number(e.target.value))],
                 }))
               }
-              className="w-full px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+              className="w-full px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-[#48afff] transition-all"
             />
           </div>
         </div>
@@ -350,8 +350,8 @@ export function FilterSidebar({
                 }
                 className={`btn-press text-[11px] px-2.5 py-1 rounded-full font-semibold transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-slate-950 text-white shadow-sm ring-2 ring-cyan-400'
-                    : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 border border-slate-200/60 hover:border-cyan-300'
+                    ? 'bg-[#136ab5] text-white shadow-sm ring-2 ring-[#48afff]'
+                    : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 border border-slate-200/60 hover:border-[#48afff]'
                 }`}
               >
                 {preset.label}
@@ -368,7 +368,7 @@ export function FilterSidebar({
             Mobile Brands ({BRANDS.length - 1})
           </h3>
           {filters.selectedBrands.length > 0 && (
-            <span className="text-[10px] font-bold text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded-full border border-cyan-200 animate-in zoom-in-50">
+            <span className="text-[10px] font-bold text-[#136ab5] bg-sky-50 px-2 py-0.5 rounded-full border border-sky-200 animate-in zoom-in-50">
               {filters.selectedBrands.length} selected
             </span>
           )}
@@ -382,7 +382,7 @@ export function FilterSidebar({
             value={brandSearch}
             onChange={(e) => setBrandSearch(e.target.value)}
             placeholder="Search brand (Samsung, Apple, Nokia...)"
-            className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-slate-50 text-xs text-slate-900 placeholder:text-slate-400 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+            className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-slate-50 text-xs text-slate-900 placeholder:text-slate-400 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#48afff] transition-all"
           />
         </div>
 
@@ -396,7 +396,7 @@ export function FilterSidebar({
                 key={brand}
                 className={`flex items-center justify-between p-2 rounded-xl text-xs font-medium cursor-pointer transition-all duration-150 ${
                   isChecked
-                    ? 'bg-cyan-50 text-cyan-900 font-bold border border-cyan-200 shadow-xs'
+                    ? 'bg-sky-50 text-[#136ab5] font-bold border border-sky-200 shadow-xs'
                     : 'text-slate-700 hover:bg-slate-100 hover:translate-x-1'
                 }`}
               >
@@ -405,7 +405,7 @@ export function FilterSidebar({
                     type="checkbox"
                     checked={isChecked}
                     onChange={() => handleBrandToggle(brand)}
-                    className="w-4 h-4 accent-cyan-600 rounded cursor-pointer"
+                    className="w-4 h-4 accent-[#48afff] rounded cursor-pointer"
                   />
                   <span>{brand}</span>
                 </div>
@@ -433,7 +433,7 @@ export function FilterSidebar({
                 onClick={() => handleRamToggle(ram)}
                 className={`btn-press text-xs px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-cyan-600 text-white shadow-sm ring-2 ring-cyan-400'
+                    ? 'bg-[#136ab5] text-white shadow-sm ring-2 ring-[#48afff]'
                     : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 border border-slate-200/60'
                 }`}
               >
@@ -459,7 +459,7 @@ export function FilterSidebar({
                 onClick={() => handleStorageToggle(storage)}
                 className={`btn-press text-xs px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-cyan-600 text-white shadow-sm ring-2 ring-cyan-400'
+                    ? 'bg-[#136ab5] text-white shadow-sm ring-2 ring-[#48afff]'
                     : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 border border-slate-200/60'
                 }`}
               >
@@ -472,14 +472,14 @@ export function FilterSidebar({
 
       {/* 8. Quick Order Assistance Callback Card */}
       <div className="pt-4 border-t border-slate-100">
-        <div className="rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 p-4 text-white space-y-3 border border-slate-800 shadow-md">
+        <div className="rounded-2xl bg-gradient-to-br from-[#0c2847] to-[#136ab5] p-4 text-white space-y-3 border border-sky-900 shadow-md">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center animate-pulse">
+            <div className="w-7 h-7 rounded-lg bg-white/20 text-white flex items-center justify-center animate-pulse">
               <Phone className="w-3.5 h-3.5 stroke-[2.2]" />
             </div>
             <div>
               <h4 className="text-xs font-bold text-white">Need Buying Help?</h4>
-              <p className="text-[10px] text-slate-400">Request a free phone expert callback</p>
+              <p className="text-[10px] text-sky-200">Request a free phone expert callback</p>
             </div>
           </div>
 
@@ -495,7 +495,7 @@ export function FilterSidebar({
                 value={assistName}
                 onChange={(e) => setAssistName(e.target.value)}
                 placeholder="Your Full Name"
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-white placeholder:text-slate-400 focus:outline-none focus:border-cyan-400 transition-colors"
+                className="w-full px-3 py-1.5 rounded-lg bg-black/25 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#48afff] transition-colors"
               />
               <input
                 type="tel"
@@ -503,12 +503,12 @@ export function FilterSidebar({
                 value={assistPhone}
                 onChange={(e) => setAssistPhone(e.target.value)}
                 placeholder="Phone (0300-1234567)"
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-white placeholder:text-slate-400 focus:outline-none focus:border-cyan-400 transition-colors"
+                className="w-full px-3 py-1.5 rounded-lg bg-black/25 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#48afff] transition-colors"
               />
               <select
                 value={assistCity}
                 onChange={(e) => setAssistCity(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors"
+                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-white/20 text-xs text-white focus:outline-none focus:border-[#48afff] transition-colors"
               >
                 {PAKISTAN_CITIES.map((c) => (
                   <option key={c} value={c} className="bg-slate-900 text-white">
@@ -518,12 +518,12 @@ export function FilterSidebar({
               </select>
               <button
                 type="submit"
-                className="btn-shimmer btn-press w-full py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black transition-all cursor-pointer shadow-md shadow-cyan-500/25"
+                className="btn-shimmer btn-press w-full py-2 rounded-lg bg-[#48afff] hover:bg-[#229eff] text-white text-xs font-black transition-all cursor-pointer shadow-md shadow-[#48afff]/25"
               >
                 Request Free Callback
               </button>
               {assistError && (
-                <div className="text-[11px] text-rose-400 font-semibold px-1 pt-1 animate-in fade-in">
+                <div className="text-[11px] text-rose-300 font-semibold px-1 pt-1 animate-in fade-in">
                   ⚠️ {assistError}
                 </div>
               )}

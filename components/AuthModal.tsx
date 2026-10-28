@@ -130,7 +130,7 @@ export function AuthModal() {
             <X className="w-5 h-5" />
           </button>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-[11px] font-bold tracking-wide uppercase mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#48afff]/20 text-[#48afff] border border-[#48afff]/30 text-[11px] font-bold tracking-wide uppercase mb-2">
             <ShieldCheck className="w-3.5 h-3.5" /> 100% PTA Verified Accounts
           </div>
 
@@ -182,7 +182,7 @@ export function AuthModal() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="03001234567"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:border-[#48afff] transition-all"
                   />
                 </div>
                 <span className="text-[10px] text-slate-400 mt-1 block">
@@ -198,7 +198,7 @@ export function AuthModal() {
                   <button
                     type="button"
                     onClick={() => openAuthModal('forgot')}
-                    className="text-[11px] font-semibold text-cyan-600 hover:text-cyan-800 transition-colors cursor-pointer"
+                    className="text-[11px] font-semibold text-[#136ab5] hover:text-[#136ab5] transition-colors cursor-pointer"
                   >
                     Forgot password?
                   </button>
@@ -211,7 +211,7 @@ export function AuthModal() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-10 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all"
+                    className="w-full pl-10 pr-10 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:border-[#48afff] transition-all"
                   />
                   <button
                     type="button"
@@ -244,7 +244,7 @@ export function AuthModal() {
                   <button
                     type="button"
                     onClick={() => openAuthModal('signup')}
-                    className="font-bold text-cyan-600 hover:text-cyan-800 transition-colors cursor-pointer"
+                    className="font-bold text-[#136ab5] hover:text-[#136ab5] transition-colors cursor-pointer"
                   >
                     Create Account
                   </button>
@@ -268,7 +268,7 @@ export function AuthModal() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Muhammad Ali"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:border-[#48afff] transition-all"
                   />
                 </div>
               </div>
@@ -285,7 +285,7 @@ export function AuthModal() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="03001234567"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:border-[#48afff] transition-all"
                   />
                 </div>
                 <span className="text-[10px] text-slate-400 mt-1 block">
@@ -306,7 +306,7 @@ export function AuthModal() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Min 6 chars"
-                      className="w-full pl-9 pr-3 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                      className="w-full pl-9 pr-3 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] transition-all"
                     />
                   </div>
                 </div>
@@ -323,7 +323,7 @@ export function AuthModal() {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="Repeat"
-                      className="w-full pl-9 pr-3 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                      className="w-full pl-9 pr-3 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] transition-all"
                     />
                   </div>
                 </div>
@@ -334,7 +334,7 @@ export function AuthModal() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="font-semibold text-cyan-700 hover:text-cyan-900 cursor-pointer"
+                  className="font-semibold text-[#136ab5] hover:text-[#0d4775] cursor-pointer"
                 >
                   {showPassword ? 'Hide' : 'Show'}
                 </button>
@@ -343,7 +343,7 @@ export function AuthModal() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3 px-4 rounded-2xl bg-cyan-600 hover:bg-cyan-700 active:scale-98 text-white font-bold text-xs tracking-wide transition-all shadow-md shadow-cyan-600/20 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                className="w-full py-3 px-4 rounded-2xl bg-[#136ab5] hover:bg-[#0f5492] active:scale-98 text-white font-bold text-xs tracking-wide transition-all shadow-md shadow-cyan-600/20 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
               >
                 {isLoading ? (
                   <span>Creating Account...</span>
@@ -361,7 +361,7 @@ export function AuthModal() {
                   <button
                     type="button"
                     onClick={() => openAuthModal('login')}
-                    className="font-bold text-cyan-600 hover:text-cyan-800 transition-colors cursor-pointer"
+                    className="font-bold text-[#136ab5] hover:text-[#136ab5] transition-colors cursor-pointer"
                   >
                     Log In
                   </button>

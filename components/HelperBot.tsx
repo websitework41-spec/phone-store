@@ -52,14 +52,14 @@ function FormattedBotMessage({ text }: { text: string }) {
         if (trimmed.startsWith('### ')) {
           return (
             <h4 key={idx} className="font-bold text-slate-950 dark:text-white text-xs sm:text-sm mt-2 mb-1 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 inline-block"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#48afff] inline-block"></span>
               {trimmed.replace(/^###\s*/, '')}
             </h4>
           );
         }
         if (trimmed.startsWith('## ')) {
           return (
-            <h3 key={idx} className="font-extrabold text-slate-950 dark:text-white text-sm sm:text-base mt-2.5 mb-1 text-cyan-600 dark:text-cyan-400">
+            <h3 key={idx} className="font-extrabold text-slate-950 dark:text-white text-sm sm:text-base mt-2.5 mb-1 text-[#136ab5] dark:text-[#48afff]">
               {trimmed.replace(/^##\s*/, '')}
             </h3>
           );
@@ -92,7 +92,7 @@ function FormattedBotMessage({ text }: { text: string }) {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-cyan-600 dark:text-cyan-400 font-semibold underline underline-offset-2 hover:text-cyan-700 inline-flex items-center gap-0.5 mx-0.5"
+                  className="text-[#136ab5] dark:text-[#48afff] font-semibold underline underline-offset-2 hover:text-[#136ab5] inline-flex items-center gap-0.5 mx-0.5"
                 >
                   {label.replace(/\*\*/g, '')}
                   <ExternalLink className="w-3 h-3 inline" />
@@ -101,7 +101,7 @@ function FormattedBotMessage({ text }: { text: string }) {
                 <Link
                   key={match.index}
                   href={href}
-                  className="text-cyan-600 dark:text-cyan-400 font-bold underline underline-offset-2 hover:text-cyan-700 inline-flex items-center gap-0.5 mx-0.5"
+                  className="text-[#136ab5] dark:text-[#48afff] font-bold underline underline-offset-2 hover:text-[#136ab5] inline-flex items-center gap-0.5 mx-0.5"
                 >
                   {label.replace(/\*\*/g, '')}
                 </Link>
@@ -128,7 +128,7 @@ function FormattedBotMessage({ text }: { text: string }) {
               // Code snippet `code`
               if (bp.startsWith('`') && bp.endsWith('`') && bp.length > 2) {
                 return (
-                  <code key={`${pIdx}-${bIdx}`} className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[11px] text-cyan-700 dark:text-cyan-300">
+                  <code key={`${pIdx}-${bIdx}`} className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[11px] text-[#136ab5] dark:text-sky-300">
                     {bp.slice(1, -1)}
                   </code>
                 );
@@ -141,7 +141,7 @@ function FormattedBotMessage({ text }: { text: string }) {
         if (isBullet) {
           return (
             <div key={idx} className="flex items-start gap-2 pl-2">
-              <span className="text-cyan-500 font-bold text-xs mt-0.5">•</span>
+              <span className="text-[#48afff] font-bold text-xs mt-0.5">•</span>
               <span className="flex-1">{renderInline(content)}</span>
             </div>
           );
@@ -313,7 +313,7 @@ Or tap a quick question below to get started!`,
         >
           <button
             onClick={() => setIsOpen(true)}
-            className="flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-cyan-600 via-sky-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-cyan-600/30 btn-press card-hover-fx group cursor-pointer border border-cyan-400/40 transition-all duration-300 transform hover:scale-105"
+            className="flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-cyan-600 via-sky-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-cyan-600/30 btn-press card-hover-fx group cursor-pointer border border-[#48afff]/40 transition-all duration-300 transform hover:scale-105"
             title="Ask HamzaBot AI - 24/7 Mobile Helper & FAQ Assistant"
           >
             <span className="relative flex h-3 w-3">
@@ -342,10 +342,10 @@ Or tap a quick question below to get started!`,
           className="fixed bottom-4 sm:bottom-6 right-3 sm:right-6 z-50 w-[calc(100vw-24px)] sm:w-[410px] h-[580px] max-h-[90vh] rounded-2xl shadow-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200"
         >
           {/* Header */}
-          <div className="px-4 py-3.5 bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950 text-white flex items-center justify-between border-b border-cyan-500/20">
+          <div className="px-4 py-3.5 bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950 text-white flex items-center justify-between border-b border-[#48afff]/20">
             <div className="flex items-center gap-3">
               <div className="relative">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center shadow-md shadow-cyan-500/20 border border-white/20">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center shadow-md shadow-[#48afff]/20 border border-white/20">
                   <Bot className="w-5 h-5 text-white" />
                 </div>
                 <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full"></span>
@@ -354,9 +354,9 @@ Or tap a quick question below to get started!`,
                 <div className="flex items-center gap-1.5">
                   <h3 className="text-sm font-black tracking-tight text-white flex items-center gap-1">
                     HamzaBot AI
-                    <Sparkles className="w-3 h-3 text-cyan-400 fill-cyan-400/40" />
+                    <Sparkles className="w-3 h-3 text-[#48afff] fill-cyan-400/40" />
                   </h3>
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
+                  <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#48afff]/20 text-sky-300 border border-[#48afff]/30">
                     Live
                   </span>
                 </div>
@@ -387,9 +387,9 @@ Or tap a quick question below to get started!`,
           </div>
 
           {/* Quick Helpline Ribbon */}
-          <div className="px-3 py-1.5 bg-cyan-50 dark:bg-cyan-950/40 border-b border-cyan-100 dark:border-cyan-900/30 flex items-center justify-between text-[11px]">
+          <div className="px-3 py-1.5 bg-sky-50 dark:bg-cyan-950/40 border-b border-cyan-100 dark:border-cyan-900/30 flex items-center justify-between text-[11px]">
             <span className="text-cyan-950 dark:text-cyan-200 font-medium flex items-center gap-1.5">
-              <Phone className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />
+              <Phone className="w-3 h-3 text-[#136ab5] dark:text-[#48afff]" />
               Helpline: <strong className="font-bold">+92 313 5221200</strong>
             </span>
             <a
@@ -446,9 +446,9 @@ Or tap a quick question below to get started!`,
                   <Bot className="w-4 h-4 animate-spin" />
                 </div>
                 <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60 rounded-2xl rounded-bl-xs px-4 py-3 flex items-center gap-1.5 shadow-sm">
-                  <span className="w-2 h-2 rounded-full bg-cyan-500 animate-bounce"></span>
-                  <span className="w-2 h-2 rounded-full bg-cyan-500 animate-bounce [animation-delay:0.2s]"></span>
-                  <span className="w-2 h-2 rounded-full bg-cyan-500 animate-bounce [animation-delay:0.4s]"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#48afff] animate-bounce"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#48afff] animate-bounce [animation-delay:0.2s]"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#48afff] animate-bounce [animation-delay:0.4s]"></span>
                   <span className="text-[11px] text-slate-400 ml-1.5 font-medium">
                     HamzaBot is thinking...
                   </span>
@@ -466,7 +466,7 @@ Or tap a quick question below to get started!`,
                 key={index}
                 onClick={() => handleSendMessage(faq.prompt)}
                 disabled={isLoading}
-                className="shrink-0 px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-cyan-50 dark:hover:bg-cyan-950/50 hover:text-cyan-600 dark:hover:text-cyan-400 text-slate-600 dark:text-slate-300 text-[11px] font-semibold transition-all border border-slate-200/80 dark:border-slate-700/80 cursor-pointer disabled:opacity-50"
+                className="shrink-0 px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-sky-50 dark:hover:bg-cyan-950/50 hover:text-[#136ab5] dark:hover:text-[#48afff] text-slate-600 dark:text-slate-300 text-[11px] font-semibold transition-all border border-slate-200/80 dark:border-slate-700/80 cursor-pointer disabled:opacity-50"
               >
                 {faq.label}
               </button>
@@ -483,7 +483,7 @@ Or tap a quick question below to get started!`,
               onKeyDown={handleKeyDown}
               disabled={isLoading}
               placeholder="Ask about phones, PTA, EMI, Open-Parcel..."
-              className="flex-1 px-3.5 py-2.5 text-xs sm:text-sm bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl border border-transparent focus:border-cyan-500 focus:bg-white dark:focus:bg-slate-950 focus:outline-none transition-all placeholder:text-slate-400"
+              className="flex-1 px-3.5 py-2.5 text-xs sm:text-sm bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl border border-transparent focus:border-[#48afff] focus:bg-white dark:focus:bg-slate-950 focus:outline-none transition-all placeholder:text-slate-400"
             />
             <button
               onClick={() => handleSendMessage()}

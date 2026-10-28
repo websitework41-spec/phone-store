@@ -66,7 +66,7 @@ export const PhoneCard = React.memo(function PhoneCard({
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative flex flex-col justify-between bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-cyan-400 hover:ring-4 hover:ring-cyan-500/10 hover:-translate-y-2 transition-all duration-300"
+      className="group relative flex flex-col justify-between bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-xl hover:border-[#48afff] hover:-translate-y-1.5 transition-all duration-300"
     >
       {/* Top Badges & Compare Toggle */}
       <div>
@@ -78,16 +78,16 @@ export const PhoneCard = React.memo(function PhoneCard({
               </span>
             ) : (
               phone.specs.ptaStatus === 'PTA Approved' && (
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/70 shadow-xs">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-xs">
                   <ShieldCheck className="w-3.5 h-3.5 stroke-[2.2]" />
                   PTA Approved
                 </span>
               )
             )}
             {phone.discountPercent > 0 && (
-              <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-50 text-rose-600 border border-rose-200/70 shadow-xs group-hover:scale-105 transition-transform">
-                <Sparkles className="w-2.5 h-2.5 text-rose-500 fill-rose-500" />
-                {`Save ${phone.discountPercent}%`}
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-[#fef3eb] text-[#f47708] border border-[#fcd5b8] shadow-xs group-hover:scale-105 transition-transform">
+                <Sparkles className="w-2.5 h-2.5 text-[#f47708] fill-[#f47708]" />
+                {`${phone.discountPercent}% OFF`}
               </span>
             )}
           </div>
@@ -102,7 +102,7 @@ export const PhoneCard = React.memo(function PhoneCard({
               title="Add to Compare"
               className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all cursor-pointer btn-press ${
                 isComparing
-                  ? 'bg-cyan-600 text-white shadow-sm ring-2 ring-cyan-400'
+                  ? 'bg-[#136ab5] text-white shadow-sm ring-2 ring-[#48afff]'
                   : 'bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -143,7 +143,7 @@ export const PhoneCard = React.memo(function PhoneCard({
                   title={`${color.name} ${!isColorInStock ? '(Out of Stock)' : ''}`}
                   className={`relative w-4 h-4 rounded-full border transition-all duration-200 cursor-pointer ${
                     isSelected
-                      ? 'ring-2 ring-cyan-500 ring-offset-2 scale-125 shadow-md'
+                      ? 'ring-2 ring-[#48afff] ring-offset-2 scale-125 shadow-md'
                       : 'border-slate-300 hover:scale-130 hover:border-slate-400'
                   } ${!isColorInStock ? 'opacity-40' : ''}`}
                   style={{ backgroundColor: color.hex }}
@@ -171,11 +171,11 @@ export const PhoneCard = React.memo(function PhoneCard({
 
         {/* Brand & Name */}
         <div className="mt-1">
-          <span className="text-[11px] font-extrabold uppercase tracking-wider text-cyan-700">
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#136ab5]">
             {phone.brand}
           </span>
           <Link href={`/product/${phone.slug}`}>
-            <h3 className="text-sm sm:text-base font-extrabold text-slate-950 group-hover:text-cyan-700 transition-colors line-clamp-1 mt-0.5">
+            <h3 className="text-sm sm:text-base font-extrabold text-slate-950 group-hover:text-[#136ab5] transition-colors line-clamp-1 mt-0.5">
               {phone.name}
             </h3>
           </Link>
@@ -239,33 +239,36 @@ export const PhoneCard = React.memo(function PhoneCard({
         {/* Price & Star Rating */}
         <div className="flex items-baseline justify-between">
           <div>
-            <div className="text-lg sm:text-xl font-black text-slate-950 group-hover:text-cyan-900 transition-colors">
-              {formatPKR(cardPrice)}
+            <div className="flex items-baseline gap-1">
+              <span className="text-xs font-bold text-slate-500">Rs</span>
+              <span className="text-lg sm:text-2xl font-black text-slate-950 group-hover:text-[#136ab5] tracking-tight transition-colors">
+                {cardPrice.toLocaleString()}
+              </span>
             </div>
             {cardOriginalPrice > cardPrice && (
-              <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                <span className="line-through">{formatPKR(cardOriginalPrice)}</span>
-                <span className="text-emerald-700 font-bold text-[11px]">
-                  {`Save ${formatPKR(savingsPKR)}`}
+              <div className="flex items-center gap-1.5 mt-0.5 text-xs text-slate-400">
+                <span className="line-through">Rs {cardOriginalPrice.toLocaleString()}</span>
+                <span className="text-[10px] font-black px-1.5 py-0.2 rounded bg-[#fef3eb] text-[#f47708] border border-[#fcd5b8]">
+                  {Math.round(((cardOriginalPrice - cardPrice) / cardOriginalPrice) * 100)}% OFF
                 </span>
               </div>
             )}
           </div>
 
-          <div className="flex items-center gap-1 text-xs text-amber-500 font-bold">
+          <div className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-amber-50 border border-amber-200/60 text-xs text-amber-700 font-extrabold">
             <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
             <span>{phone.rating}</span>
-            <span className="text-[11px] text-slate-400 font-normal">({phone.reviewCount})</span>
+            <span className="text-[10px] text-slate-400 font-normal">({phone.reviewCount})</span>
           </div>
         </div>
 
         {/* 0% EMI Installment Badge */}
-        <div className="mt-2 py-1 px-2.5 rounded-xl bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 transition-colors flex items-center justify-between text-[11px] text-slate-600">
+        <div className="mt-2 py-1 px-2.5 rounded-xl bg-slate-50 hover:bg-sky-50/60 border border-slate-200/80 transition-colors flex items-center justify-between text-[11px] text-slate-600">
           <span className="flex items-center gap-1 font-medium">
-            <CreditCard className="w-3 h-3 text-cyan-600" />
+            <CreditCard className="w-3 h-3 text-[#136ab5]" />
             <span>0% Installment:</span>
           </span>
-          <span className="font-extrabold text-cyan-700">
+          <span className="font-extrabold text-[#136ab5]">
             {formatPKR(emiPerMonth)}/mo
           </span>
         </div>
@@ -291,7 +294,7 @@ export const PhoneCard = React.memo(function PhoneCard({
 
         {/* Dual Conversion Buttons with Tactile Hover Scale & Shimmer */}
         <div className="grid grid-cols-12 gap-2 mt-3">
-          {/* Quick Buy Button (Electric Cyan with Shimmer & Tap Feedback) */}
+          {/* Quick Buy Button (PriceOye Electric Sky Blue) */}
           <button
             onClick={() => {
               if (isSelectionInStock && onQuickBuy) {
@@ -301,15 +304,15 @@ export const PhoneCard = React.memo(function PhoneCard({
             disabled={!isSelectionInStock}
             className={`group/btn col-span-8 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-black transition-all btn-shimmer btn-press ${
               isSelectionInStock
-                ? 'bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-md shadow-cyan-500/25 hover:shadow-lg hover:shadow-cyan-400/40 cursor-pointer'
+                ? 'bg-[#48afff] hover:bg-[#229eff] text-white shadow-md shadow-[#48afff]/25 hover:shadow-lg hover:shadow-[#48afff]/40 cursor-pointer'
                 : 'bg-slate-200 text-slate-400 cursor-not-allowed border border-slate-300'
             }`}
           >
-            <Zap className="w-3.5 h-3.5 fill-slate-950 stroke-slate-950 group-hover/btn:rotate-12 transition-transform duration-300" />
+            <Zap className="w-3.5 h-3.5 fill-white stroke-white group-hover/btn:rotate-12 transition-transform duration-300" />
             <span>{isSelectionInStock ? 'Quick Buy' : 'Out of Stock'}</span>
           </button>
 
-          {/* Add to Cart Button (Deep Slate with Scale Bounce) */}
+          {/* Add to Cart Button (PriceOye Deep Ocean Blue) */}
           <button
             onClick={() => {
               if (isSelectionInStock && onAddToCart) {
@@ -320,11 +323,11 @@ export const PhoneCard = React.memo(function PhoneCard({
             title="Add to Cart"
             className={`group/cart col-span-4 flex items-center justify-center py-2.5 px-2 rounded-xl text-xs font-bold transition-all btn-press ${
               isSelectionInStock
-                ? 'bg-slate-950 hover:bg-slate-800 text-white cursor-pointer shadow-md shadow-slate-950/20 hover:shadow-lg hover:shadow-slate-950/30'
+                ? 'bg-[#136ab5] hover:bg-[#0f5492] text-white cursor-pointer shadow-md shadow-[#136ab5]/20 hover:shadow-lg hover:shadow-[#136ab5]/30'
                 : 'bg-slate-100 text-slate-300 cursor-not-allowed'
             }`}
           >
-            <ShoppingCart className="w-4 h-4 text-cyan-400 group-hover/cart:scale-120 transition-transform duration-200" />
+            <ShoppingCart className="w-4 h-4 text-white group-hover/cart:scale-120 transition-transform duration-200" />
           </button>
         </div>
       </div>

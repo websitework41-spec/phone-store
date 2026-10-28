@@ -145,7 +145,7 @@ export default function OrdersHistoryPage() {
         <Navbar />
         <div className="flex-1 max-w-5xl mx-auto w-full p-6 sm:p-12 flex items-center justify-center">
           <div className="text-center space-y-3">
-            <div className="w-10 h-10 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto" />
+            <div className="w-10 h-10 border-4 border-[#48afff] border-t-transparent rounded-full animate-spin mx-auto" />
             <p className="text-xs font-bold text-slate-500">Checking authentication...</p>
           </div>
         </div>
@@ -159,7 +159,7 @@ export default function OrdersHistoryPage() {
       <div className="min-h-screen bg-slate-50 flex flex-col">
         <Navbar />
         <div className="flex-1 max-w-md mx-auto w-full p-6 sm:p-12 flex flex-col items-center justify-center text-center">
-          <div className="w-16 h-16 rounded-3xl bg-slate-900 border border-slate-800 text-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/10 mb-4">
+          <div className="w-16 h-16 rounded-3xl bg-slate-900 border border-slate-800 text-[#48afff] flex items-center justify-center shadow-lg shadow-[#48afff]/10 mb-4">
             <ShoppingBag className="w-8 h-8 stroke-[1.8]" />
           </div>
           <h1 className="text-2xl font-black text-slate-950">My Smartphone Orders</h1>
@@ -168,7 +168,7 @@ export default function OrdersHistoryPage() {
           </p>
           <button
             onClick={() => openAuthModal('login')}
-            className="mt-6 py-3 px-6 rounded-2xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-xs tracking-wide shadow-md shadow-cyan-600/20 cursor-pointer transition-all"
+            className="mt-6 py-3 px-6 rounded-2xl bg-[#136ab5] hover:bg-[#0f5492] text-white font-bold text-xs tracking-wide shadow-md shadow-cyan-600/20 cursor-pointer transition-all"
           >
             Log In to View Orders
           </button>
@@ -185,11 +185,11 @@ export default function OrdersHistoryPage() {
       <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Breadcrumb Navigation */}
         <nav className="flex items-center gap-2 text-xs text-slate-500 mb-6">
-          <Link href="/" className="hover:text-cyan-700 transition-colors">
+          <Link href="/" className="hover:text-[#136ab5] transition-colors">
             Home
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <Link href="/account" className="hover:text-cyan-700 transition-colors">
+          <Link href="/account" className="hover:text-[#136ab5] transition-colors">
             My Account
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
@@ -220,7 +220,7 @@ export default function OrdersHistoryPage() {
         {/* Orders List */}
         {loadingOrders ? (
           <div className="bg-white rounded-3xl p-12 border border-slate-200 text-center space-y-3">
-            <div className="w-8 h-8 border-3 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto" />
+            <div className="w-8 h-8 border-3 border-[#48afff] border-t-transparent rounded-full animate-spin mx-auto" />
             <p className="text-xs font-bold text-slate-500">Retrieving your order records...</p>
           </div>
         ) : orders.length > 0 ? (
@@ -232,17 +232,17 @@ export default function OrdersHistoryPage() {
               return (
                 <div
                   key={order.orderId}
-                  className="bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden hover:border-cyan-400 hover:shadow-md transition-all"
+                  className="bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden hover:border-[#48afff] hover:shadow-md transition-all"
                 >
                   {/* Order Top Bar */}
                   <div className="bg-slate-900 text-white p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 text-xs">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center font-bold">
+                      <div className="w-8 h-8 rounded-xl bg-[#48afff]/20 text-[#48afff] border border-[#48afff]/30 flex items-center justify-center font-bold">
                         <Package className="w-4 h-4" />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-sm text-cyan-400">
+                          <span className="font-mono font-bold text-sm text-[#48afff]">
                             {order.orderId}
                           </span>
                           <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
@@ -256,7 +256,7 @@ export default function OrdersHistoryPage() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-cyan-300 border border-white/10">
+                      <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-sky-300 border border-white/10">
                         <PackageCheck className="w-3 h-3 text-emerald-400" /> Open-Parcel Verification
                       </span>
                     </div>
@@ -276,7 +276,7 @@ export default function OrdersHistoryPage() {
                           <div key={idx} className="py-3 flex items-center justify-between gap-4 first:pt-0 last:pb-0">
                             <div className="flex items-center gap-3">
                               <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 flex-shrink-0">
-                                <ShoppingBag className="w-4 h-4 text-cyan-600" />
+                                <ShoppingBag className="w-4 h-4 text-[#136ab5]" />
                               </div>
                               <div>
                                 <h4 className="text-xs font-bold text-slate-900">{itemTitle}</h4>
@@ -301,7 +301,7 @@ export default function OrdersHistoryPage() {
                     <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs">
                       <div className="space-y-1">
                         <div className="flex items-center gap-1.5 text-slate-600">
-                          <MapPin className="w-3.5 h-3.5 text-cyan-600 flex-shrink-0" />
+                          <MapPin className="w-3.5 h-3.5 text-[#136ab5] flex-shrink-0" />
                           <span className="truncate max-w-sm">
                             {order.address ? `${order.address}, ${order.city || 'Pakistan'}` : 'Delivery to address on file'}
                           </span>

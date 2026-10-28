@@ -227,7 +227,7 @@ export default function ProductDetailPage() {
   ).slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 flex flex-col">
+    <div className="min-h-screen bg-[#f1f3f6] text-slate-900 flex flex-col">
       <Navbar
         compareCount={comparingPhones.length}
         cartCount={cartItems.reduce((sum, i) => sum + i.quantity, 0)}
@@ -260,7 +260,7 @@ export default function ProductDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column: Media & Gallery */}
           <div className="lg:col-span-6 space-y-4">
-            <div className="relative w-full h-96 sm:h-[450px] bg-white dark:bg-neutral-900 rounded-3xl p-8 border border-neutral-200/80 dark:border-neutral-800 shadow-sm flex items-center justify-center">
+            <div className="relative w-full h-96 sm:h-[450px] bg-white rounded-2xl p-8 border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.04)] flex items-center justify-center">
               <PhoneImageWithFallback
                 src={selectedColor.image}
                 alt={`${phone.name} - ${selectedColor.name}`}
@@ -269,8 +269,8 @@ export default function ProductDetailPage() {
               />
 
               {phone.discountPercent > 0 && (
-                <span className="absolute top-5 left-5 px-3 py-1 rounded-full text-xs font-bold bg-rose-600 text-white shadow-sm">
-                  -{phone.discountPercent}% OFF
+                <span className="absolute top-5 left-5 px-3 py-1 rounded-full text-xs font-black bg-[#fef3eb] text-[#f47708] border border-[#fcd5b8] shadow-xs">
+                  {phone.discountPercent}% OFF
                 </span>
               )}
 
@@ -278,7 +278,7 @@ export default function ProductDetailPage() {
                 onClick={() => handleToggleCompare(phone)}
                 className={`absolute top-5 right-5 flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                   comparingPhones.some((p) => p.id === phone.id)
-                    ? 'bg-blue-600 text-white shadow-sm'
+                    ? 'bg-[#136ab5] text-white shadow-sm ring-2 ring-[#48afff]'
                     : 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'
                 }`}
               >
@@ -334,7 +334,7 @@ export default function ProductDetailPage() {
           <div className="lg:col-span-6 space-y-6">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase tracking-wide bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-black uppercase tracking-wider bg-sky-50 text-[#136ab5] border border-sky-100">
                   {phone.brand}
                 </span>
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200/50">
@@ -377,14 +377,15 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Price Box */}
-            <div className="p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-sm space-y-2">
+            <div className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.04)] space-y-2">
               <div className="flex items-baseline gap-3">
-                <span className="text-3xl font-black text-neutral-950 dark:text-white">
-                  {formatPKR(currentPrice)}
+                <span className="text-base font-bold text-slate-500">Rs</span>
+                <span className="text-3xl sm:text-4xl font-black text-slate-950">
+                  {currentPrice.toLocaleString()}
                 </span>
                 {currentOriginalPrice > currentPrice && (
                   <span className="text-sm text-neutral-400 line-through">
-                    {formatPKR(currentOriginalPrice)}
+                    Rs {currentOriginalPrice.toLocaleString()}
                   </span>
                 )}
               </div>
@@ -457,7 +458,7 @@ export default function ProductDetailPage() {
                     onClick={() => setSelectedTenure(tenure)}
                     className={`flex-1 py-1 rounded-xl text-[11px] font-bold transition-all ${
                       selectedTenure === tenure
-                        ? 'bg-blue-600 text-white shadow-sm'
+                        ? 'bg-[#136ab5] text-white shadow-sm ring-2 ring-[#48afff]'
                         : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200'
                     }`}
                   >
@@ -494,7 +495,7 @@ export default function ProductDetailPage() {
                 disabled={!isSelectionInStock}
                 className={`py-3.5 px-4 rounded-2xl text-xs font-extrabold transition-all shadow-md flex items-center justify-center gap-2 ${
                   isSelectionInStock
-                    ? 'bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200 cursor-pointer'
+                    ? 'bg-[#136ab5] hover:bg-[#0f5492] text-white cursor-pointer shadow-[#136ab5]/20'
                     : 'bg-neutral-200 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 cursor-not-allowed border border-neutral-300 dark:border-neutral-700 shadow-none'
                 }`}
               >
@@ -511,7 +512,7 @@ export default function ProductDetailPage() {
                 disabled={!isSelectionInStock}
                 className={`py-3.5 px-4 rounded-2xl text-xs font-extrabold transition-all shadow-lg flex items-center justify-center gap-2 ${
                   isSelectionInStock
-                    ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/30 cursor-pointer'
+                    ? 'bg-[#48afff] hover:bg-[#229eff] text-white shadow-[#48afff]/30 cursor-pointer'
                     : 'bg-neutral-200 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 cursor-not-allowed border border-neutral-300 dark:border-neutral-700 shadow-none'
                 }`}
               >

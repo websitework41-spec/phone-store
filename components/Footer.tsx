@@ -63,12 +63,12 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {/* Pillar 1: Open Parcel */}
-            <div className="flex items-start gap-4 p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 card-hover-fx group cursor-default">
-              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+            <div className="flex items-start gap-4 p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-[#48afff]/50 card-hover-fx group cursor-default">
+              <div className="w-12 h-12 rounded-2xl bg-[#48afff]/10 border border-[#48afff]/30 text-[#48afff] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                 <PackageCheck className="w-6 h-6 stroke-[2]" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white flex items-center gap-1.5 font-sans group-hover:text-cyan-400 transition-colors">
+                <h4 className="text-sm font-bold text-white flex items-center gap-1.5 font-sans group-hover:text-[#48afff] transition-colors">
                   <span>Open Parcel Delivery</span>
                   <span className="text-[10px] font-extrabold uppercase px-1.5 py-0.2 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded">
                     Safe
@@ -88,7 +88,7 @@ export function Footer() {
               <div>
                 <h4 className="text-sm font-bold text-white flex items-center gap-1.5 font-sans group-hover:text-emerald-400 transition-colors">
                   <span>100% PTA Approved</span>
-                  <span className="text-[10px] font-extrabold uppercase px-1.5 py-0.2 bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded">
+                  <span className="text-[10px] font-extrabold uppercase px-1.5 py-0.2 bg-[#48afff]/20 text-[#48afff] border border-[#48afff]/40 rounded">
                     DIRBS
                   </span>
                 </h4>
@@ -135,9 +135,9 @@ export function Footer() {
       {/* 2. Newsletter & WhatsApp Price Alert Subscription */}
       <div className="border-b border-slate-850 bg-slate-900/40 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900 to-cyan-950 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900 to-[#0b2848] border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-1.5 text-center md:text-left">
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-400 uppercase tracking-wider">
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#48afff] uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Price Drop &amp; Restock Alerts</span>
               </div>
@@ -176,11 +176,11 @@ export function Footer() {
                       value={emailOrPhone}
                       onChange={(e) => setEmailOrPhone(e.target.value)}
                       placeholder="Enter WhatsApp # or Email"
-                      className="w-full sm:w-72 px-4 py-3 rounded-full bg-slate-950 border border-slate-700 text-white placeholder:text-slate-500 text-xs focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                      className="w-full sm:w-72 px-4 py-3 rounded-full bg-slate-950 border border-slate-700 text-white placeholder:text-slate-500 text-xs focus:outline-none focus:ring-2 focus:ring-[#48afff]"
                     />
                     <button
                       type="submit"
-                      className="w-full sm:w-auto px-6 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black shadow-md flex items-center justify-center gap-1.5 flex-shrink-0 cursor-pointer btn-press btn-shimmer"
+                      className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#48afff] hover:bg-[#229eff] text-slate-950 text-xs font-black shadow-md flex items-center justify-center gap-1.5 flex-shrink-0 cursor-pointer btn-press btn-shimmer"
                     >
                       <span>Get Alerts</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -204,12 +204,12 @@ export function Footer() {
           {/* Column 1: Brand & About */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1 space-y-4">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-cyan-400 shadow-md">
+              <div className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-[#48afff] shadow-md">
                 <Zap className="w-5 h-5 fill-cyan-400 stroke-cyan-400" />
               </div>
               <span className="text-xl font-black tracking-tight text-white font-sans">
-                HAMZA <span className="text-cyan-400">PHONE STORE</span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 ml-1 rounded bg-slate-800 text-cyan-300">
+                HAMZA <span className="text-[#48afff]">PHONE STORE</span>
+                <span className="text-[10px] font-bold px-1.5 py-0.5 ml-1 rounded bg-slate-800 text-sky-300">
                   PK
                 </span>
               </span>
@@ -223,7 +223,7 @@ export function Footer() {
                 <span className="text-[11px] font-semibold text-slate-300">256-Bit SSL Encrypted Checkout</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#48afff]" />
                 <span className="text-[11px] font-semibold text-slate-300">DIRBS Customs Tax Cleared</span>
               </div>
             </div>
@@ -236,42 +236,42 @@ export function Footer() {
             </h5>
             <ul className="space-y-2 text-slate-400">
               <li>
-                <Link href="/?brand=Samsung#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?brand=Samsung#catalog" className="hover:text-[#48afff] transition-colors">
                   Samsung Galaxy (25)
                 </Link>
               </li>
               <li>
-                <Link href="/?brand=Apple#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?brand=Apple#catalog" className="hover:text-[#48afff] transition-colors">
                   Apple iPhone Series (7)
                 </Link>
               </li>
               <li>
-                <Link href="/?brand=Xiaomi#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?brand=Xiaomi#catalog" className="hover:text-[#48afff] transition-colors">
                   Xiaomi, Redmi &amp; Poco (18)
                 </Link>
               </li>
               <li>
-                <Link href="/?brand=Infinix#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?brand=Infinix#catalog" className="hover:text-[#48afff] transition-colors">
                   Infinix Note &amp; Hot (9)
                 </Link>
               </li>
               <li>
-                <Link href="/?brand=Tecno#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?brand=Tecno#catalog" className="hover:text-[#48afff] transition-colors">
                   Tecno Camon &amp; Spark (11)
                 </Link>
               </li>
               <li>
-                <Link href="/?brand=Vivo#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?brand=Vivo#catalog" className="hover:text-[#48afff] transition-colors">
                   Vivo V &amp; Y Series (11)
                 </Link>
               </li>
               <li>
-                <Link href="/?brand=Nokia#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?brand=Nokia#catalog" className="hover:text-[#48afff] transition-colors">
                   Nokia Keypad Mobiles (16)
                 </Link>
               </li>
               <li>
-                <Link href="/?brand=Itel#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?brand=Itel#catalog" className="hover:text-[#48afff] transition-colors">
                   Itel Button Phones (6)
                 </Link>
               </li>
@@ -285,37 +285,37 @@ export function Footer() {
             </h5>
             <ul className="space-y-2 text-slate-400">
               <li>
-                <Link href="/?maxPrice=25000#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?maxPrice=25000#catalog" className="hover:text-[#48afff] transition-colors">
                   Phones Under Rs. 25,000
                 </Link>
               </li>
               <li>
-                <Link href="/?maxPrice=40000#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?maxPrice=40000#catalog" className="hover:text-[#48afff] transition-colors">
                   Phones Under Rs. 40,000
                 </Link>
               </li>
               <li>
-                <Link href="/?maxPrice=60000#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?maxPrice=60000#catalog" className="hover:text-[#48afff] transition-colors">
                   Phones Under Rs. 60,000
                 </Link>
               </li>
               <li>
-                <Link href="/?maxPrice=100000#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?maxPrice=100000#catalog" className="hover:text-[#48afff] transition-colors">
                   Phones Under Rs. 100,000
                 </Link>
               </li>
               <li>
-                <Link href="/?minPrice=150000#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?minPrice=150000#catalog" className="hover:text-[#48afff] transition-colors">
                   Flagship Mobiles (150K+)
                 </Link>
               </li>
               <li>
-                <Link href="/?search=5G#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?search=5G#catalog" className="hover:text-[#48afff] transition-colors">
                   Best 5G Gaming Phones
                 </Link>
               </li>
               <li>
-                <Link href="/?spec=120hz-amoled#catalog" className="hover:text-cyan-400 transition-colors">
+                <Link href="/?spec=120hz-amoled#catalog" className="hover:text-[#48afff] transition-colors">
                   120Hz AMOLED Displays
                 </Link>
               </li>
@@ -329,42 +329,42 @@ export function Footer() {
             </h5>
             <ul className="space-y-2 text-slate-400">
               <li>
-                <Link href="/policies#open-parcel" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#open-parcel" className="hover:text-[#48afff] transition-colors">
                   Open-Parcel Delivery Policy
                 </Link>
               </li>
               <li>
-                <Link href="/policies#pta-guide" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#pta-guide" className="hover:text-[#48afff] transition-colors">
                   PTA DIRBS Verification Guide
                 </Link>
               </li>
               <li>
-                <Link href="/policies#installments" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#installments" className="hover:text-[#48afff] transition-colors">
                   0% Markup EMI Installments
                 </Link>
               </li>
               <li>
-                <Link href="/policies#warranty" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#warranty" className="hover:text-[#48afff] transition-colors">
                   1-Year Official Brand Warranty
                 </Link>
               </li>
               <li>
-                <Link href="/policies#cod-terms" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#cod-terms" className="hover:text-[#48afff] transition-colors">
                   Cash on Delivery Terms
                 </Link>
               </li>
               <li>
-                <Link href="/policies#replacement-guarantee" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#replacement-guarantee" className="hover:text-[#48afff] transition-colors">
                   7-Day Replacement Guarantee
                 </Link>
               </li>
               <li>
-                <Link href="/policies#privacy-security" className="hover:text-cyan-400 transition-colors">
+                <Link href="/policies#privacy-security" className="hover:text-[#48afff] transition-colors">
                   Privacy Policy &amp; Security
                 </Link>
               </li>
               <li className="pt-2">
-                <Link href="/admin" className="text-cyan-400 font-bold hover:underline flex items-center gap-1.5 text-xs">
+                <Link href="/admin" className="text-[#48afff] font-bold hover:underline flex items-center gap-1.5 text-xs">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   Store Admin &amp; Inventory Hub
                 </Link>
@@ -380,9 +380,9 @@ export function Footer() {
               <div className="space-y-2 text-slate-300">
                 <a
                   href="tel:+923135221200"
-                  className="flex items-center gap-2 text-white font-bold hover:text-cyan-400 transition-colors"
+                  className="flex items-center gap-2 text-white font-bold hover:text-[#48afff] transition-colors"
                 >
-                  <Phone className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
+                  <Phone className="w-3.5 h-3.5 text-[#48afff] flex-shrink-0" />
                   <span>+92 313 5221200</span>
                 </a>
                 <a
@@ -395,7 +395,7 @@ export function Footer() {
                   <span>WhatsApp: +92 313 5221200</span>
                 </a>
                 <div className="flex items-center gap-2 text-slate-400">
-                  <Mail className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
+                  <Mail className="w-3.5 h-3.5 text-[#48afff] flex-shrink-0" />
                   <span>support@hamzaphonestore.pk</span>
                 </div>
               </div>
@@ -416,11 +416,11 @@ export function Footer() {
         <div className="mt-12 pt-6 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
           <div className="flex flex-wrap items-center gap-2">
             <span className="font-bold text-slate-300 mr-1">Payment Methods:</span>
-            <span className="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 hover:border-cyan-500/50 hover:text-white hover:scale-105 transition-all duration-200 cursor-default">Cash on Delivery (COD)</span>
-            <span className="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 hover:border-cyan-500/50 hover:text-white hover:scale-105 transition-all duration-200 cursor-default">Meezan Bank</span>
-            <span className="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 hover:border-cyan-500/50 hover:text-white hover:scale-105 transition-all duration-200 cursor-default">Bank Alfalah</span>
-            <span className="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 hover:border-cyan-500/50 hover:text-white hover:scale-105 transition-all duration-200 cursor-default">EasyPaisa / JazzCash</span>
-            <span className="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 hover:border-cyan-500/50 hover:text-white hover:scale-105 transition-all duration-200 cursor-default">Raast / 1Link</span>
+            <span className="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 hover:border-[#48afff]/50 hover:text-white hover:scale-105 transition-all duration-200 cursor-default">Cash on Delivery (COD)</span>
+            <span className="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 hover:border-[#48afff]/50 hover:text-white hover:scale-105 transition-all duration-200 cursor-default">Meezan Bank</span>
+            <span className="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 hover:border-[#48afff]/50 hover:text-white hover:scale-105 transition-all duration-200 cursor-default">Bank Alfalah</span>
+            <span className="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 hover:border-[#48afff]/50 hover:text-white hover:scale-105 transition-all duration-200 cursor-default">EasyPaisa / JazzCash</span>
+            <span className="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 hover:border-[#48afff]/50 hover:text-white hover:scale-105 transition-all duration-200 cursor-default">Raast / 1Link</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">

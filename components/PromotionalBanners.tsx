@@ -34,22 +34,22 @@ interface BannerProps {
  */
 export function CatalogBannerS24Ultra({ onSelectBrand }: BannerProps) {
   return (
-    <div className="group col-span-full my-6 overflow-hidden rounded-3xl bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950 border border-slate-800 shadow-xl hover:shadow-2xl hover:border-cyan-400/80 hover:-translate-y-1.5 transition-all duration-500 relative">
+    <div className="group col-span-full my-6 overflow-hidden rounded-2xl bg-gradient-to-r from-[#0b2b4a] via-[#0f497a] to-[#136ab5] border border-sky-800 shadow-xl hover:shadow-2xl hover:border-[#48afff] hover:-translate-y-1.5 transition-all duration-500 relative">
       {/* Decorative Glow with Scale on Hover */}
-      <div className="absolute -top-24 -right-24 w-80 h-80 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
-      <div className="absolute -bottom-24 left-1/3 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#48afff]/20 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+      <div className="absolute -bottom-24 left-1/3 w-64 h-64 bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 p-6 sm:p-8 items-center">
         {/* Left Information Column */}
         <div className="md:col-span-7 space-y-3.5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-[11px] font-extrabold uppercase tracking-wider shadow-xs">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#48afff]/25 border border-[#48afff]/40 text-sky-200 text-[11px] font-extrabold uppercase tracking-wider shadow-xs">
               <Sparkles className="w-3.5 h-3.5 animate-pulse" /> Flagship Spotlight
             </span>
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[11px] font-bold">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-[11px] font-bold">
               <ShieldCheck className="w-3.5 h-3.5" /> 100% PTA Approved
             </span>
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400 text-[11px] font-bold">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-200 text-[11px] font-bold">
               <PackageCheck className="w-3.5 h-3.5" /> Open Parcel COD
             </span>
           </div>
@@ -57,25 +57,28 @@ export function CatalogBannerS24Ultra({ onSelectBrand }: BannerProps) {
           <div>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-sans">
               Samsung Galaxy S24 Ultra{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#48afff] to-[#99d5ff]">
                 • Galaxy AI
               </span>
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-200 mt-1 max-w-xl leading-relaxed">
               Titanium frame, 200MP AI Quad-Telephoto zoom, Snapdragon 8 Gen 3 for Galaxy, and 7 years of Android OS updates. Matched with nationwide official retail pricing.
             </p>
           </div>
 
           {/* Pricing Highlight Pill */}
           <div className="flex flex-wrap items-baseline gap-3 pt-1">
-            <div className="text-2xl sm:text-3xl font-black text-cyan-400">
-              {formatPKR(316999)}
+            <div className="flex items-baseline gap-1">
+              <span className="text-sm font-bold text-sky-200">Rs</span>
+              <span className="text-2xl sm:text-3xl font-black text-white">
+                {(316999).toLocaleString()}
+              </span>
             </div>
-            <div className="text-sm line-through text-slate-400">
-              {formatPKR(469999)}
+            <div className="text-sm line-through text-slate-300">
+              Rs {(469999).toLocaleString()}
             </div>
-            <div className="text-xs font-black px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-              Save Rs. 153,000 (33% OFF)
+            <div className="text-xs font-black px-2.5 py-0.5 rounded-full bg-[#f88b2a] text-white shadow-sm">
+              33% OFF
             </div>
           </div>
 
@@ -83,14 +86,14 @@ export function CatalogBannerS24Ultra({ onSelectBrand }: BannerProps) {
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <Link
               href="/product/samsung-galaxy-s24-ultra"
-              className="btn-shimmer btn-press inline-flex items-center gap-2 px-6 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-extrabold transition-all shadow-md shadow-cyan-500/25 hover:shadow-lg hover:shadow-cyan-400/40 cursor-pointer"
+              className="btn-shimmer btn-press inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#48afff] hover:bg-[#229eff] text-white text-xs font-extrabold transition-all shadow-md shadow-[#48afff]/25 hover:shadow-lg hover:shadow-[#48afff]/40 cursor-pointer"
             >
               <span>View S24 Ultra Specs</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <button
               onClick={() => onSelectBrand && onSelectBrand('Samsung')}
-              className="btn-press inline-flex items-center gap-2 px-5 py-3 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 hover:border-cyan-400/60 transition-all cursor-pointer shadow-xs"
+              className="btn-press inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold border border-white/20 hover:border-white/40 transition-all cursor-pointer shadow-xs backdrop-blur-sm"
             >
               <span>All 25 Samsung Phones</span>
             </button>
@@ -100,7 +103,7 @@ export function CatalogBannerS24Ultra({ onSelectBrand }: BannerProps) {
         {/* Right Phone Visual Column with Hover Zoom */}
         <div className="md:col-span-5 flex items-center justify-center relative">
           <div className="relative w-48 h-48 sm:w-56 sm:h-56 group/img">
-            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-blue-500/20 rounded-full blur-xl group-hover:scale-120 transition-transform duration-700" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#48afff]/25 to-blue-500/20 rounded-full blur-xl group-hover:scale-120 transition-transform duration-700" />
             <PhoneImageWithFallback
               src="https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-d4s6b-500x500.webp"
               alt="Samsung Galaxy S24 Ultra"
@@ -175,36 +178,36 @@ export function CatalogBannerDualCards({
       </div>
 
       {/* Card 2: Nokia & Itel Keypad Legend */}
-      <div className="group rounded-3xl p-6 bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 shadow-sm hover:shadow-xl hover:border-cyan-400 hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden text-white flex flex-col justify-between">
+      <div className="group rounded-2xl p-6 bg-gradient-to-br from-[#136ab5] to-[#0a3f6d] border border-sky-700 shadow-sm hover:shadow-xl hover:border-[#48afff] hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden text-white flex flex-col justify-between">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 text-[11px] font-black uppercase tracking-wider">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-[11px] font-black uppercase tracking-wider backdrop-blur-xs">
               <Smartphone className="w-3.5 h-3.5" />
               Keypad Classics
             </span>
-            <span className="text-xs font-bold text-cyan-400 bg-cyan-950 px-2.5 py-0.5 rounded-full border border-cyan-800">
+            <span className="text-xs font-bold text-sky-200 bg-black/20 px-2.5 py-0.5 rounded-full border border-white/10">
               22 Verified Models
             </span>
           </div>
 
           <div>
-            <h4 className="text-xl font-extrabold text-white font-sans group-hover:text-cyan-300 transition-colors">
+            <h4 className="text-xl font-extrabold text-white font-sans group-hover:text-sky-200 transition-colors">
               Nokia 105, 110 &amp; Itel Keypad Phones
             </h4>
-            <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+            <p className="text-xs text-sky-100 mt-1 leading-relaxed">
               Super long 1-week battery backup, loud wireless FM radio, big speaker, and PTA tax cleared for lifetime uninterrupted SIM calling.
             </p>
           </div>
 
           <div className="flex items-baseline gap-2 pt-1">
-            <span className="text-xs text-slate-400 font-medium">Starting from</span>
-            <span className="text-xl font-black text-cyan-400">Rs. 2,999</span>
+            <span className="text-xs text-sky-200 font-medium">Starting from</span>
+            <span className="text-xl font-black text-white">Rs. 2,999</span>
           </div>
         </div>
 
-        <div className="pt-4 mt-2 flex items-center justify-between border-t border-slate-800">
-          <span className="text-[11px] text-slate-400 flex items-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+        <div className="pt-4 mt-2 flex items-center justify-between border-t border-white/15">
+          <span className="text-[11px] text-sky-200 flex items-center gap-1">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-300" />
             100% PTA Approved
           </span>
           <button
@@ -215,7 +218,7 @@ export function CatalogBannerDualCards({
                 onFilterCategory('keypad', ['Nokia', 'Itel']);
               }
             }}
-            className="btn-shimmer btn-press inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black transition-all cursor-pointer shadow-md shadow-cyan-500/25 hover:shadow-cyan-400/40"
+            className="btn-shimmer btn-press inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-white hover:bg-slate-100 text-[#136ab5] text-xs font-black transition-all cursor-pointer shadow-md"
           >
             <span>View All Keypad Phones</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -231,10 +234,10 @@ export function CatalogBannerDualCards({
  */
 export function CatalogBannerBankEMI({ onOpenEMIModal }: BannerProps) {
   return (
-    <div className="group col-span-full my-6 rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-cyan-950 via-slate-900 to-indigo-950 text-white border border-cyan-900/60 shadow-xl hover:shadow-2xl hover:border-cyan-400/80 hover:-translate-y-1.5 transition-all duration-500 relative overflow-hidden">
+    <div className="group col-span-full my-6 rounded-2xl p-6 sm:p-8 bg-gradient-to-r from-[#0b2b4a] via-[#104d7d] to-[#136ab5] text-white border border-sky-800 shadow-xl hover:shadow-2xl hover:border-[#48afff] hover:-translate-y-1.5 transition-all duration-500 relative overflow-hidden">
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
         <div className="md:col-span-8 space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-[11px] font-extrabold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#48afff]/25 border border-[#48afff]/40 text-sky-200 text-[11px] font-extrabold uppercase tracking-wider">
             <CreditCard className="w-3.5 h-3.5" /> 0% Markup Financing
           </div>
 
@@ -242,17 +245,17 @@ export function CatalogBannerBankEMI({ onOpenEMIModal }: BannerProps) {
             Buy Any Flagship Smartphone on Easy Monthly Installments
           </h3>
 
-          <p className="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-200 max-w-xl leading-relaxed">
             Zero markup (interest-free) plans up to 12 months with Meezan Bank, Bank Alfalah, HBL, Standard Chartered, and Silk Bank credit cards.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
-            <div className="flex items-center gap-2 text-xs font-bold text-slate-300 bg-slate-800/80 px-3.5 py-1.5 rounded-full border border-slate-700">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <div className="flex items-center gap-2 text-xs font-bold text-sky-100 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">
+              <CheckCircle2 className="w-4 h-4 text-emerald-300" />
               <span>No Hidden Charges</span>
             </div>
-            <div className="flex items-center gap-2 text-xs font-bold text-slate-300 bg-slate-800/80 px-3.5 py-1.5 rounded-full border border-slate-700">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <div className="flex items-center gap-2 text-xs font-bold text-sky-100 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">
+              <CheckCircle2 className="w-4 h-4 text-emerald-300" />
               <span>Instant Bank Approval</span>
             </div>
           </div>
@@ -262,13 +265,13 @@ export function CatalogBannerBankEMI({ onOpenEMIModal }: BannerProps) {
           {onOpenEMIModal && (
             <button
               onClick={onOpenEMIModal}
-              className="btn-shimmer btn-press w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs sm:text-sm font-black transition-all shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40 cursor-pointer"
+              className="btn-shimmer btn-press w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#48afff] hover:bg-[#229eff] text-white text-xs sm:text-sm font-black transition-all shadow-lg shadow-[#48afff]/30 hover:shadow-[#48afff]/50 cursor-pointer"
             >
               <span>Calculate Your Monthly EMI</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           )}
-          <span className="text-[11px] text-slate-400">
+          <span className="text-[11px] text-sky-200">
             Also accepts EasyPaisa &amp; JazzCash installments
           </span>
         </div>

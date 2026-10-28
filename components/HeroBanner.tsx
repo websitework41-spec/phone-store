@@ -52,7 +52,7 @@ const HERO_SLIDES: SlideItem[] = [
   {
     id: 's24-ultra',
     badge: 'Flagship Launch Offer',
-    badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-400/40',
+    badgeColor: 'bg-[#48afff]/25 text-sky-200 border-[#48afff]/40',
     title: 'Samsung Galaxy S24 Ultra',
     highlight: 'Galaxy AI is Here',
     subtitle: 'Titanium frame, 200MP Quad-Telephoto zoom, Snapdragon 8 Gen 3, and 7 years of Android OS updates. 100% PTA Approved with Open-Parcel delivery.',
@@ -65,12 +65,12 @@ const HERO_SLIDES: SlideItem[] = [
     image: 'https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-d4s6b-500x500.webp',
     link: '/product/samsung-galaxy-s24-ultra',
     ctaText: 'Shop S24 Ultra Deal',
-    gradient: 'from-slate-950 via-slate-900 to-cyan-950',
+    gradient: 'from-[#0b2b4a] via-[#0f497a] to-[#136ab5]',
   },
   {
     id: 'iphone-flagships',
     badge: '100% Official PTA Approved',
-    badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40',
+    badgeColor: 'bg-emerald-500/25 text-emerald-200 border-emerald-400/40',
     title: 'Apple iPhone 17 Pro Series',
     highlight: 'Zero Customs Hassle',
     subtitle: 'Official Mercantile & Airlink warranty backed by PTA DIRBS registration. 0% EMI Installments available with major Pakistani bank credit cards.',
@@ -83,12 +83,12 @@ const HERO_SLIDES: SlideItem[] = [
     image: 'https://images.priceoye.pk/apple-iphone-17-pro-pakistan-priceoye-wflsi-500x500.webp',
     link: '/product/apple-iphone-17-pro',
     ctaText: 'View iPhone 17 Pro',
-    gradient: 'from-slate-950 via-slate-900 to-indigo-950',
+    gradient: 'from-[#08182b] via-[#103254] to-[#1c5d99]',
   },
   {
     id: 'redmi-15c',
     badge: 'Pakistan’s Best Budget King',
-    badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-400/40',
+    badgeColor: 'bg-amber-500/25 text-amber-200 border-amber-400/40',
     title: 'Xiaomi Redmi 15C Series',
     highlight: 'Starting Rs. 42,999',
     subtitle: 'Smooth 120Hz display, 50MP AI Dual Camera, massive 6000mAh battery with Fast Charging. In-stock with official 1-year warranty.',
@@ -101,7 +101,7 @@ const HERO_SLIDES: SlideItem[] = [
     image: 'https://images.priceoye.pk/xiaomi-redmi-15c-pakistan-priceoye-92xh3-500x500.webp',
     link: '/product/xiaomi-redmi-15c',
     ctaText: 'Grab Redmi Deal',
-    gradient: 'from-slate-950 via-slate-900 to-amber-950/40',
+    gradient: 'from-[#0c2e4e] via-[#145388] to-[#1a6bb0]',
   },
 ];
 
@@ -164,25 +164,28 @@ export function HeroBanner({
               <div>
                 <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight text-white font-sans">
                   {slide.title}
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 text-xl sm:text-2xl font-bold mt-1">
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#48afff] to-[#99d5ff] text-xl sm:text-2xl font-bold mt-1">
                     {slide.highlight}
                   </span>
                 </h1>
-                <p className="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed max-w-md line-clamp-3">
+                <p className="text-xs sm:text-sm text-slate-200 mt-2 leading-relaxed max-w-md line-clamp-3">
                   {slide.subtitle}
                 </p>
               </div>
 
               {/* Pricing Display */}
               <div className="flex flex-wrap items-baseline gap-3 pt-1">
-                <div className="text-2xl sm:text-3xl font-black text-cyan-400">
-                  {formatPKR(slide.pricePKR)}
+                <div className="flex items-baseline gap-1">
+                  <span className="text-sm font-bold text-sky-200">Rs</span>
+                  <span className="text-2xl sm:text-3xl font-black text-white">
+                    {slide.pricePKR.toLocaleString()}
+                  </span>
                 </div>
-                <div className="text-sm line-through text-slate-400">
-                  {formatPKR(slide.originalPricePKR)}
+                <div className="text-sm line-through text-slate-300">
+                  Rs {slide.originalPricePKR.toLocaleString()}
                 </div>
-                <div className="text-xs font-black px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40">
-                  Save {slide.discountPercent}%
+                <div className="text-xs font-black px-2.5 py-0.5 rounded-full bg-[#f88b2a] text-white shadow-sm">
+                  {slide.discountPercent}% OFF
                 </div>
               </div>
 
@@ -190,7 +193,7 @@ export function HeroBanner({
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <Link
                   href={slide.link}
-                  className="btn-shimmer btn-press inline-flex items-center gap-2 px-6 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs sm:text-sm font-black transition-all shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40 cursor-pointer"
+                  className="btn-shimmer btn-press inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#48afff] hover:bg-[#229eff] text-white text-xs sm:text-sm font-black transition-all shadow-lg shadow-[#48afff]/30 hover:shadow-[#48afff]/50 cursor-pointer"
                 >
                   <span>{slide.ctaText}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -198,9 +201,9 @@ export function HeroBanner({
                 {onOpenEMIModal && (
                   <button
                     onClick={onOpenEMIModal}
-                    className="btn-press inline-flex items-center gap-2 px-5 py-3 rounded-full bg-slate-800/90 hover:bg-slate-700 text-slate-200 hover:text-white text-xs sm:text-sm font-semibold border border-slate-700 hover:border-cyan-400/60 transition-all cursor-pointer shadow-md"
+                    className="btn-press inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold border border-white/25 hover:border-white/40 transition-all cursor-pointer shadow-md backdrop-blur-sm"
                   >
-                    <CreditCard className="w-4 h-4 text-cyan-400" />
+                    <CreditCard className="w-4 h-4 text-sky-300" />
                     <span>0% EMI Calculator</span>
                   </button>
                 )}
@@ -232,7 +235,7 @@ export function HeroBanner({
                   onClick={() => setCurrentSlideIndex(idx)}
                   className={`h-2 rounded-full transition-all cursor-pointer ${
                     currentSlideIndex === idx
-                      ? 'w-8 bg-cyan-400 shadow-sm shadow-cyan-400/50'
+                      ? 'w-8 bg-[#48afff] shadow-sm shadow-[#48afff]/50'
                       : 'w-2 bg-slate-600 hover:bg-slate-400 hover:scale-125'
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}
@@ -270,17 +273,17 @@ export function HeroBanner({
                 window.location.href = '/?maxPrice=35000#catalog';
               }
             }}
-            className="flex-1 bg-white rounded-3xl p-5 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-cyan-400 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group cursor-pointer"
+            className="flex-1 bg-white rounded-2xl p-5 border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-xl hover:border-[#48afff] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group cursor-pointer"
           >
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-50 text-amber-700 border border-amber-200">
-                  <Flame className="w-3 h-3 text-amber-500 fill-amber-500 animate-pulse" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#fef3eb] text-[#f47708] border border-[#fcd5b8]">
+                  <Flame className="w-3 h-3 text-[#f47708] fill-[#f47708] animate-pulse" />
                   Budget Kings
                 </span>
                 <span className="text-xs font-bold text-slate-400">Under 35K</span>
               </div>
-              <h3 className="text-base font-extrabold text-slate-900 group-hover:text-cyan-700 transition-colors">
+              <h3 className="text-base font-extrabold text-slate-900 group-hover:text-[#136ab5] transition-colors">
                 High Performance on a Budget
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
@@ -291,7 +294,7 @@ export function HeroBanner({
             <div className="pt-3 mt-2 border-t border-slate-100 flex items-center justify-between">
               <div>
                 <span className="text-[11px] text-slate-400 block font-medium">Starting From</span>
-                <span className="text-base font-black text-slate-950 group-hover:text-cyan-700 transition-colors">Rs. 18,999</span>
+                <span className="text-base font-black text-slate-950 group-hover:text-[#136ab5] transition-colors">Rs. 18,999</span>
               </div>
               <Link
                 href="/?maxPrice=35000#catalog"
@@ -302,10 +305,10 @@ export function HeroBanner({
                     onFilterBudget();
                   }
                 }}
-                className="btn-press inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-950 hover:bg-cyan-500 hover:text-slate-950 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+                className="btn-press inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#48afff] hover:bg-[#229eff] text-white text-xs font-bold transition-all shadow-md shadow-[#48afff]/25 cursor-pointer"
               >
                 <span>Explore</span>
-                <ArrowRight className="w-3.5 h-3.5 text-cyan-400 hover:text-slate-950 group-hover:translate-x-0.5 transition-all" />
+                <ArrowRight className="w-3.5 h-3.5 text-white group-hover:translate-x-0.5 transition-all" />
               </Link>
             </div>
           </div>
@@ -319,30 +322,30 @@ export function HeroBanner({
                 window.location.href = '/?category=keypad#catalog';
               }
             }}
-            className="flex-1 bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl p-5 border border-slate-800 shadow-sm hover:shadow-xl hover:border-cyan-400 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between text-white relative overflow-hidden group cursor-pointer"
+            className="flex-1 bg-gradient-to-br from-[#136ab5] to-[#0a3f6d] rounded-2xl p-5 border border-[#136ab5]/60 shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-xl hover:border-[#48afff] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between text-white relative overflow-hidden group cursor-pointer"
           >
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-white/20 text-white border border-white/30 backdrop-blur-sm">
                   <Smartphone className="w-3 h-3" />
                   Keypad Mobiles
                 </span>
-                <span className="text-xs font-bold text-cyan-400 bg-cyan-950 px-2.5 py-0.5 rounded-full border border-cyan-800">
+                <span className="text-xs font-bold text-sky-200 bg-black/20 px-2.5 py-0.5 rounded-full border border-white/10">
                   22+ Models
                 </span>
               </div>
-              <h3 className="text-base font-extrabold text-white group-hover:text-cyan-300 transition-colors">
+              <h3 className="text-base font-extrabold text-white group-hover:text-sky-200 transition-colors">
                 Nokia &amp; Itel Classic Keypad
               </h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
+              <p className="text-xs text-sky-100 leading-relaxed">
                 Super long 1-week battery backup, wireless FM radio, Dual SIM PTA approved phones starting from Rs. 2,999.
               </p>
             </div>
 
-            <div className="pt-3 mt-2 border-t border-slate-800 flex items-center justify-between">
+            <div className="pt-3 mt-2 border-t border-white/15 flex items-center justify-between">
               <div>
-                <span className="text-[11px] text-slate-400 block font-medium">From Only</span>
-                <span className="text-base font-black text-cyan-400 group-hover:text-cyan-300 transition-colors">Rs. 2,999</span>
+                <span className="text-[11px] text-sky-200 block font-medium">From Only</span>
+                <span className="text-base font-black text-white group-hover:text-sky-200 transition-colors">Rs. 2,999</span>
               </div>
               <Link
                 href="/?category=keypad#catalog"
@@ -353,7 +356,7 @@ export function HeroBanner({
                     onFilterKeypad();
                   }
                 }}
-                className="btn-shimmer btn-press inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold transition-all shadow-md shadow-cyan-500/20 cursor-pointer"
+                className="btn-shimmer btn-press inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-slate-100 text-[#136ab5] text-xs font-bold transition-all shadow-md cursor-pointer"
               >
                 <span>View Keypad</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -363,22 +366,22 @@ export function HeroBanner({
         </div>
       </div>
 
-      {/* 4-Pillar Google Stitch Kinetic Trust Bar with Interactive Hover Tilt & Lift */}
+      {/* 4-Pillar PriceOye Assured Kinetic Trust Bar */}
       <div className="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* Pillar 1: Open Parcel */}
-        <div className="group flex items-center gap-3 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-cyan-400 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default">
-          <div className="w-10 h-10 rounded-xl bg-cyan-50 border border-cyan-200/80 text-cyan-700 flex items-center justify-center flex-shrink-0 group-hover:scale-115 group-hover:rotate-6 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300">
+        <div className="group flex items-center gap-3 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:border-[#48afff] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default">
+          <div className="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 text-[#136ab5] flex items-center justify-center flex-shrink-0 group-hover:scale-115 group-hover:rotate-6 group-hover:bg-[#48afff] group-hover:text-white transition-all duration-300">
             <PackageCheck className="w-5 h-5 stroke-[2.2]" />
           </div>
           <div>
-            <h4 className="text-xs sm:text-sm font-bold text-slate-950 group-hover:text-cyan-700 transition-colors">Open Parcel COD</h4>
+            <h4 className="text-xs sm:text-sm font-bold text-slate-950 group-hover:text-[#136ab5] transition-colors">Open Parcel COD</h4>
             <p className="text-[11px] text-slate-500 mt-0.5">Inspect phone before payment</p>
           </div>
         </div>
 
         {/* Pillar 2: 100% PTA Approved */}
-        <div className="group flex items-center gap-3 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-400 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default">
-          <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/80 text-emerald-700 flex items-center justify-center flex-shrink-0 group-hover:scale-115 group-hover:rotate-6 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
+        <div className="group flex items-center gap-3 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:border-emerald-400 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default">
+          <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0 group-hover:scale-115 group-hover:rotate-6 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
             <ShieldCheck className="w-5 h-5 stroke-[2.2]" />
           </div>
           <div>
@@ -388,23 +391,23 @@ export function HeroBanner({
         </div>
 
         {/* Pillar 3: 1-Year Brand Warranty */}
-        <div className="group flex items-center gap-3 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-indigo-400 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default">
-          <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200/80 text-indigo-700 flex items-center justify-center flex-shrink-0 group-hover:scale-115 group-hover:rotate-6 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-300">
+        <div className="group flex items-center gap-3 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:border-amber-400 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default">
+          <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0 group-hover:scale-115 group-hover:rotate-6 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300">
             <Award className="w-5 h-5 stroke-[2.2]" />
           </div>
           <div>
-            <h4 className="text-xs sm:text-sm font-bold text-slate-950 group-hover:text-indigo-700 transition-colors">1-Year Warranty</h4>
+            <h4 className="text-xs sm:text-sm font-bold text-slate-950 group-hover:text-amber-700 transition-colors">1-Year Warranty</h4>
             <p className="text-[11px] text-slate-500 mt-0.5">Direct official service claims</p>
           </div>
         </div>
 
         {/* Pillar 4: 0% Markup Installments */}
-        <div className="group flex items-center gap-3 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-amber-400 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default">
-          <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200/80 text-amber-700 flex items-center justify-center flex-shrink-0 group-hover:scale-115 group-hover:rotate-6 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300">
+        <div className="group flex items-center gap-3 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:border-blue-400 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default">
+          <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-[#136ab5] flex items-center justify-center flex-shrink-0 group-hover:scale-115 group-hover:rotate-6 group-hover:bg-[#136ab5] group-hover:text-white transition-all duration-300">
             <Percent className="w-5 h-5 stroke-[2.2]" />
           </div>
           <div>
-            <h4 className="text-xs sm:text-sm font-bold text-slate-950 group-hover:text-amber-700 transition-colors">0% Markup EMI</h4>
+            <h4 className="text-xs sm:text-sm font-bold text-slate-950 group-hover:text-[#136ab5] transition-colors">0% Markup EMI</h4>
             <p className="text-[11px] text-slate-500 mt-0.5">Up to 12 months with bank cards</p>
           </div>
         </div>

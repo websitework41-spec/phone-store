@@ -85,7 +85,7 @@ export default function AccountPage() {
         <Navbar />
         <div className="flex-1 max-w-5xl mx-auto w-full p-6 sm:p-12 flex items-center justify-center">
           <div className="text-center space-y-3">
-            <div className="w-10 h-10 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto" />
+            <div className="w-10 h-10 border-4 border-[#48afff] border-t-transparent rounded-full animate-spin mx-auto" />
             <p className="text-xs font-bold text-slate-500">Loading your Hamza Phone Store profile...</p>
           </div>
         </div>
@@ -99,7 +99,7 @@ export default function AccountPage() {
       <div className="min-h-screen bg-slate-50 flex flex-col">
         <Navbar />
         <div className="flex-1 max-w-lg mx-auto w-full p-6 sm:p-12 flex flex-col items-center justify-center text-center">
-          <div className="w-16 h-16 rounded-3xl bg-slate-900 border border-slate-800 text-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/10 mb-4">
+          <div className="w-16 h-16 rounded-3xl bg-slate-900 border border-slate-800 text-[#48afff] flex items-center justify-center shadow-lg shadow-[#48afff]/10 mb-4">
             <User className="w-8 h-8 stroke-[1.8]" />
           </div>
           <h1 className="text-2xl font-black text-slate-950">Customer Account</h1>
@@ -115,7 +115,7 @@ export default function AccountPage() {
             </button>
             <button
               onClick={() => openAuthModal('signup')}
-              className="flex-1 py-3 px-5 rounded-2xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-xs tracking-wide shadow-md shadow-cyan-600/20 cursor-pointer transition-all"
+              className="flex-1 py-3 px-5 rounded-2xl bg-[#136ab5] hover:bg-[#0f5492] text-white font-bold text-xs tracking-wide shadow-md shadow-cyan-600/20 cursor-pointer transition-all"
             >
               Sign Up
             </button>
@@ -263,7 +263,7 @@ export default function AccountPage() {
       <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Breadcrumb Navigation */}
         <nav className="flex items-center gap-2 text-xs text-slate-500 mb-6">
-          <Link href="/" className="hover:text-cyan-700 transition-colors">
+          <Link href="/" className="hover:text-[#136ab5] transition-colors">
             Home
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
@@ -273,7 +273,7 @@ export default function AccountPage() {
         {/* Account Header Hero */}
         <div className="bg-gradient-to-r from-slate-900 via-cyan-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 flex items-center justify-center font-black text-2xl uppercase shadow-md shadow-cyan-500/20">
+            <div className="w-16 h-16 rounded-2xl bg-[#48afff]/20 border border-[#48afff]/40 text-[#48afff] flex items-center justify-center font-black text-2xl uppercase shadow-md shadow-[#48afff]/20">
               {(profile?.name?.charAt(0) || user.displayName?.charAt(0) || 'U')}
             </div>
             <div>
@@ -286,7 +286,7 @@ export default function AccountPage() {
                 </span>
               </div>
               <p className="text-xs text-slate-400 mt-1 flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-cyan-400" />
+                <Phone className="w-3.5 h-3.5 text-[#48afff]" />
                 <span>{profile?.phone || (user.email ? user.email.replace(/@(hamzaphonestore\.pk|voltphone\.pk)/, '') : '')}</span>
                 <span className="text-slate-600">•</span>
                 <span className="text-slate-400">Open-Parcel Delivery Member</span>
@@ -299,7 +299,7 @@ export default function AccountPage() {
               href="/account/orders"
               className="btn-press flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold transition-all shadow-xs"
             >
-              <ShoppingBag className="w-4 h-4 text-cyan-400" />
+              <ShoppingBag className="w-4 h-4 text-[#48afff]" />
               <span>View My Orders</span>
             </Link>
           </div>
@@ -317,7 +317,7 @@ export default function AccountPage() {
                   : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200/80'
               }`}
             >
-              <User className={`w-4 h-4 ${activeTab === 'profile' ? 'text-cyan-400' : 'text-slate-400'}`} />
+              <User className={`w-4 h-4 ${activeTab === 'profile' ? 'text-[#48afff]' : 'text-slate-400'}`} />
               <span>Profile &amp; Personal Info</span>
             </button>
 
@@ -330,11 +330,11 @@ export default function AccountPage() {
               }`}
             >
               <div className="flex items-center gap-3">
-                <MapPin className={`w-4 h-4 ${activeTab === 'addresses' ? 'text-cyan-400' : 'text-slate-400'}`} />
+                <MapPin className={`w-4 h-4 ${activeTab === 'addresses' ? 'text-[#48afff]' : 'text-slate-400'}`} />
                 <span>Saved Addresses</span>
               </div>
               <span className={`text-[10px] px-2 py-0.5 rounded-full font-black ${
-                activeTab === 'addresses' ? 'bg-cyan-500 text-slate-950' : 'bg-slate-100 text-slate-600'
+                activeTab === 'addresses' ? 'bg-[#48afff] text-slate-950' : 'bg-slate-100 text-slate-600'
               }`}>
                 {profile?.addresses?.length || 0}
               </span>
@@ -348,16 +348,16 @@ export default function AccountPage() {
                   : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200/80'
               }`}
             >
-              <Lock className={`w-4 h-4 ${activeTab === 'security' ? 'text-cyan-400' : 'text-slate-400'}`} />
+              <Lock className={`w-4 h-4 ${activeTab === 'security' ? 'text-[#48afff]' : 'text-slate-400'}`} />
               <span>Change Password</span>
             </button>
 
             <Link
               href="/account/orders"
-              className="w-full flex items-center justify-between px-4 py-3 rounded-2xl text-xs font-bold bg-white hover:bg-cyan-50/60 text-slate-700 hover:text-cyan-800 border border-slate-200/80 transition-all text-left"
+              className="w-full flex items-center justify-between px-4 py-3 rounded-2xl text-xs font-bold bg-white hover:bg-sky-50/60 text-slate-700 hover:text-[#136ab5] border border-slate-200/80 transition-all text-left"
             >
               <div className="flex items-center gap-3">
-                <ShoppingBag className="w-4 h-4 text-cyan-600" />
+                <ShoppingBag className="w-4 h-4 text-[#136ab5]" />
                 <span>Order History</span>
               </div>
               <ChevronRight className="w-4 h-4 text-slate-400" />
@@ -404,7 +404,7 @@ export default function AccountPage() {
                       value={nameInput}
                       onChange={(e) => setNameInput(e.target.value)}
                       placeholder="e.g. Muhammad Ali"
-                      className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-xs text-slate-900 font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all"
+                      className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-xs text-slate-900 font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:border-[#48afff] transition-all"
                     />
                   </div>
 
@@ -444,7 +444,7 @@ export default function AccountPage() {
                     <button
                       type="submit"
                       disabled={isUpdatingProfile}
-                      className="py-2.5 px-6 rounded-2xl bg-cyan-600 hover:bg-cyan-700 active:scale-98 text-white font-bold text-xs tracking-wide transition-all shadow-md shadow-cyan-600/20 cursor-pointer disabled:opacity-60"
+                      className="py-2.5 px-6 rounded-2xl bg-[#136ab5] hover:bg-[#0f5492] active:scale-98 text-white font-bold text-xs tracking-wide transition-all shadow-md shadow-cyan-600/20 cursor-pointer disabled:opacity-60"
                     >
                       {isUpdatingProfile ? 'Saving...' : 'Save Changes'}
                     </button>
@@ -465,7 +465,7 @@ export default function AccountPage() {
                   </div>
                   <button
                     onClick={handleOpenNewAddress}
-                    className="btn-press inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-xs tracking-wide shadow-md shadow-cyan-600/20 transition-all cursor-pointer self-start sm:self-auto"
+                    className="btn-press inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#136ab5] hover:bg-[#0f5492] text-white font-bold text-xs tracking-wide shadow-md shadow-cyan-600/20 transition-all cursor-pointer self-start sm:self-auto"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Add New Address</span>
@@ -480,7 +480,7 @@ export default function AccountPage() {
                         key={addr.id}
                         className={`p-5 rounded-2xl border transition-all flex flex-col justify-between ${
                           addr.isDefault
-                            ? 'bg-cyan-50/40 border-cyan-400 ring-2 ring-cyan-500/20'
+                            ? 'bg-sky-50/40 border-[#48afff] ring-2 ring-[#48afff]/20'
                             : 'bg-white border-slate-200 hover:border-slate-300'
                         }`}
                       >
@@ -488,15 +488,15 @@ export default function AccountPage() {
                           <div className="flex items-center justify-between gap-2">
                             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200">
                               {addr.label === 'Office' ? (
-                                <Building className="w-3 h-3 text-cyan-600" />
+                                <Building className="w-3 h-3 text-[#136ab5]" />
                               ) : (
-                                <Home className="w-3 h-3 text-cyan-600" />
+                                <Home className="w-3 h-3 text-[#136ab5]" />
                               )}
                               <span>{addr.label}</span>
                             </span>
 
                             {addr.isDefault && (
-                              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-cyan-600 text-white shadow-xs">
+                              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#136ab5] text-white shadow-xs">
                                 <Check className="w-3 h-3" /> Default Address
                               </span>
                             )}
@@ -516,7 +516,7 @@ export default function AccountPage() {
                             {!addr.isDefault && (
                               <button
                                 onClick={() => setDefaultAddress(addr.id)}
-                                className="text-cyan-700 hover:text-cyan-900 font-bold transition-colors cursor-pointer text-[11px]"
+                                className="text-[#136ab5] hover:text-[#0d4775] font-bold transition-colors cursor-pointer text-[11px]"
                               >
                                 Set as Default
                               </button>
@@ -603,7 +603,7 @@ export default function AccountPage() {
                       value={currentPassword}
                       onChange={(e) => setCurrentPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-xs text-slate-900 font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all"
+                      className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-xs text-slate-900 font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:border-[#48afff] transition-all"
                     />
                   </div>
 
@@ -617,7 +617,7 @@ export default function AccountPage() {
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-xs text-slate-900 font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all"
+                      className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-xs text-slate-900 font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:border-[#48afff] transition-all"
                     />
                   </div>
 
@@ -631,7 +631,7 @@ export default function AccountPage() {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-xs text-slate-900 font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all"
+                      className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-xs text-slate-900 font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:border-[#48afff] transition-all"
                     />
                   </div>
 
@@ -639,7 +639,7 @@ export default function AccountPage() {
                     <button
                       type="submit"
                       disabled={isUpdatingPassword}
-                      className="py-2.5 px-6 rounded-2xl bg-cyan-600 hover:bg-cyan-700 active:scale-98 text-white font-bold text-xs tracking-wide transition-all shadow-md shadow-cyan-600/20 cursor-pointer disabled:opacity-60"
+                      className="py-2.5 px-6 rounded-2xl bg-[#136ab5] hover:bg-[#0f5492] active:scale-98 text-white font-bold text-xs tracking-wide transition-all shadow-md shadow-cyan-600/20 cursor-pointer disabled:opacity-60"
                     >
                       {isUpdatingPassword ? 'Updating...' : 'Update Password'}
                     </button>
@@ -708,7 +708,7 @@ export default function AccountPage() {
                     value={recipientName}
                     onChange={(e) => setRecipientName(e.target.value)}
                     placeholder="Muhammad Ali"
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50 focus:bg-white focus:ring-2 focus:ring-cyan-500"
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50 focus:bg-white focus:ring-2 focus:ring-[#48afff]"
                   />
                 </div>
                 <div>
@@ -721,7 +721,7 @@ export default function AccountPage() {
                     value={addressPhone}
                     onChange={(e) => setAddressPhone(e.target.value)}
                     placeholder="03001234567"
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50 focus:bg-white focus:ring-2 focus:ring-cyan-500"
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50 focus:bg-white focus:ring-2 focus:ring-[#48afff]"
                   />
                 </div>
               </div>
@@ -736,7 +736,7 @@ export default function AccountPage() {
                   value={streetAddress}
                   onChange={(e) => setStreetAddress(e.target.value)}
                   placeholder="House # 12, Street 4, Sector F-7/2"
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50 focus:bg-white focus:ring-2 focus:ring-cyan-500"
+                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50 focus:bg-white focus:ring-2 focus:ring-[#48afff]"
                 />
               </div>
 
@@ -748,7 +748,7 @@ export default function AccountPage() {
                   <select
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50 focus:bg-white focus:ring-2 focus:ring-cyan-500"
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50 focus:bg-white focus:ring-2 focus:ring-[#48afff]"
                   >
                     {PAKISTAN_CITIES.map((c) => (
                       <option key={c} value={c}>
@@ -764,7 +764,7 @@ export default function AccountPage() {
                   <select
                     value={province}
                     onChange={(e) => setProvince(e.target.value)}
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50 focus:bg-white focus:ring-2 focus:ring-cyan-500"
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50 focus:bg-white focus:ring-2 focus:ring-[#48afff]"
                   >
                     <option value="Punjab">Punjab</option>
                     <option value="Sindh">Sindh</option>
@@ -783,7 +783,7 @@ export default function AccountPage() {
                   id="defaultAddressCheckbox"
                   checked={isDefaultAddress}
                   onChange={(e) => setIsDefaultAddress(e.target.checked)}
-                  className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500"
+                  className="w-4 h-4 rounded text-[#136ab5] focus:ring-[#48afff]"
                 />
                 <label htmlFor="defaultAddressCheckbox" className="text-xs text-slate-700 font-medium">
                   Set as default delivery address
@@ -801,7 +801,7 @@ export default function AccountPage() {
                 <button
                   type="submit"
                   disabled={isSavingAddress}
-                  className="px-5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-bold shadow-md shadow-cyan-600/20 transition-all cursor-pointer disabled:opacity-60"
+                  className="px-5 py-2 rounded-xl bg-[#136ab5] hover:bg-[#0f5492] text-white text-xs font-bold shadow-md shadow-cyan-600/20 transition-all cursor-pointer disabled:opacity-60"
                 >
                   {isSavingAddress ? 'Saving...' : 'Save Address'}
                 </button>

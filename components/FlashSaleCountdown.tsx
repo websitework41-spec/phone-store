@@ -56,18 +56,18 @@ export const FlashSaleCountdown = memo(function FlashSaleCountdown() {
 
   if (!timeLeft) {
     return (
-      <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-950 text-white text-xs font-bold shadow-md shadow-slate-950/20 border border-slate-800">
-        <Clock className="w-3.5 h-3.5 text-cyan-400" />
-        <span className="text-slate-400 text-[11px]">Daily Flash Deals</span>
+      <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#136ab5] text-white text-xs font-bold shadow-md shadow-[#136ab5]/20 border border-[#48afff]/40">
+        <Clock className="w-3.5 h-3.5 text-white" />
+        <span className="text-sky-200 text-[11px]">Daily Flash Deals</span>
       </div>
     );
   }
 
   return (
-    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-950 text-white text-xs font-bold shadow-md shadow-slate-950/20 border border-slate-800 hover:scale-105 transition-all duration-200 cursor-default">
-      <Clock className="w-3.5 h-3.5 text-cyan-400 animate-spin" style={{ animationDuration: '6s' }} />
-      <span className="text-slate-400 text-[11px]">Deals Expire In:</span>
-      <span className="font-mono text-cyan-300 font-extrabold tracking-wider">
+    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#136ab5] text-white text-xs font-bold shadow-md shadow-[#136ab5]/25 border border-[#48afff]/50 hover:scale-105 transition-all duration-200 cursor-default">
+      <Clock className="w-3.5 h-3.5 text-[#48afff] animate-spin" style={{ animationDuration: '6s' }} />
+      <span className="text-sky-100 text-[11px]">Deals Expire In:</span>
+      <span className="font-mono text-white font-extrabold tracking-wider bg-black/20 px-2 py-0.5 rounded-lg border border-white/20">
         {String(timeLeft.hours).padStart(2, '0')}:
         {String(timeLeft.minutes).padStart(2, '0')}:
         {String(timeLeft.seconds).padStart(2, '0')}

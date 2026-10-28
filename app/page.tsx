@@ -510,8 +510,8 @@ function HomeContent() {
     Boolean(filters.specFilter);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
-      {/* Google Stitch Kinetic Navbar */}
+    <div className="min-h-screen bg-[#f1f3f6] text-slate-900 flex flex-col font-sans">
+      {/* PriceOye Inspired Navbar */}
       <Navbar
         compareCount={comparingPhones.length}
         cartCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
@@ -535,27 +535,130 @@ function HomeContent() {
           onOpenEMIModal={() => setActivePolicyModal('installments')}
         />
 
-        {/* Google Stitch Flash Deals Bar with Live Countdown Timer */}
-        <section className="mt-8 p-5 sm:p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm relative overflow-hidden transition-all duration-300 hover:shadow-md">
-          {/* Subtle decorative glowing background accent */}
-          <div className="absolute -top-24 -right-24 w-48 h-48 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
-          
+        {/* PriceOye Inspired: Shop by Brand Avatar Grid */}
+        <section className="mt-8">
+          <div className="flex items-center justify-between mb-3 px-1">
+            <div>
+              <h2 className="text-lg sm:text-xl font-black text-slate-950 tracking-tight font-sans">
+                Shop by Brand
+              </h2>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Official Pakistani PTA DIRBS compliant stock from top manufacturers
+              </p>
+            </div>
+            <button
+              onClick={() => handleSelectBrand('All Brands')}
+              className="text-xs font-bold text-[#136ab5] hover:text-[#48afff] transition-colors cursor-pointer"
+            >
+              View All Brands →
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-2.5 sm:gap-3">
+            {[
+              { name: 'Apple', logo: '', color: 'bg-black text-white' },
+              { name: 'Samsung', logo: 'SAMSUNG', color: 'bg-[#1428a0] text-white' },
+              { name: 'Xiaomi', logo: 'mi', color: 'bg-[#ff6900] text-white' },
+              { name: 'Infinix', logo: 'INFINIX', color: 'bg-black text-[#00b050]' },
+              { name: 'Tecno', logo: 'TECNO', color: 'bg-[#0033a0] text-white' },
+              { name: 'Vivo', logo: 'vivo', color: 'bg-[#0047ba] text-white' },
+              { name: 'Oppo', logo: 'OPPO', color: 'bg-[#008544] text-white' },
+              { name: 'Realme', logo: 'realme', color: 'bg-[#ffc915] text-black' },
+              { name: 'Nokia', logo: 'NOKIA', color: 'bg-[#124191] text-white' },
+              { name: 'Itel', logo: 'itel', color: 'bg-[#d32f2f] text-white' },
+            ].map((b) => {
+              const isSelected = filters.selectedBrands.includes(b.name);
+              const count = catalog.filter((p) => p.brand.toLowerCase() === b.name.toLowerCase()).length;
+              return (
+                <button
+                  key={b.name}
+                  onClick={() => handleSelectBrand(b.name)}
+                  className={`group flex flex-col items-center justify-center p-3 rounded-2xl bg-white border transition-all duration-200 cursor-pointer ${
+                    isSelected
+                      ? 'border-[#48afff] ring-2 ring-[#48afff]/30 shadow-md bg-sky-50/40'
+                      : 'border-slate-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:border-[#48afff] hover:shadow-lg hover:-translate-y-1'
+                  }`}
+                >
+                  <div className={`w-11 h-11 rounded-full flex items-center justify-center font-black text-xs shadow-xs group-hover:scale-110 transition-transform ${b.color}`}>
+                    {b.name === 'Apple' ? '' : b.name === 'Xiaomi' ? 'mi' : b.name.slice(0, 3).toUpperCase()}
+                  </div>
+                  <span className={`text-xs font-bold mt-2 truncate transition-colors ${
+                    isSelected ? 'text-[#136ab5]' : 'text-slate-800 group-hover:text-[#136ab5]'
+                  }`}>
+                    {b.name}
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-medium">
+                    {count} {count === 1 ? 'model' : 'models'}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* PriceOye Inspired: Shop by Budget Rail */}
+        <section className="mt-5 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-black uppercase text-slate-500 tracking-wider">
+              Shop by Budget:
+            </span>
+          </div>
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+            {[
+              { label: 'All Budgets', range: [0, 700000] },
+              { label: 'Under 25K', range: [0, 25000] },
+              { label: '25K - 40K', range: [25000, 40000] },
+              { label: '40K - 60K', range: [40000, 60000] },
+              { label: '60K - 100K', range: [60000, 100000] },
+              { label: '100K - 150K', range: [100000, 150000] },
+              { label: '150K+ Flagships', range: [150000, 700000] },
+            ].map((budget) => {
+              const isSelected =
+                filters.priceRange[0] === budget.range[0] &&
+                filters.priceRange[1] === budget.range[1];
+              return (
+                <button
+                  key={budget.label}
+                  onClick={() => {
+                    setFilters((prev) => ({
+                      ...prev,
+                      priceRange: [budget.range[0], budget.range[1]],
+                      selectedBrands: [],
+                    }));
+                    const cat = document.getElementById('catalog');
+                    if (cat) cat.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className={`btn-press whitespace-nowrap text-xs font-bold px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
+                    isSelected
+                      ? 'bg-[#136ab5] text-white shadow-sm ring-2 ring-[#48afff]'
+                      : 'bg-[#f1f3f6] hover:bg-slate-200/80 text-slate-700 hover:text-slate-950 border border-slate-200/70'
+                  }`}
+                >
+                  {budget.label}
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* PriceOye Flash Deals & Price Drops Bar with Live Countdown Timer */}
+        <section className="mt-8 p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.04)] relative overflow-hidden transition-all duration-300">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 relative z-10">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center flex-shrink-0 animate-soft-bounce">
-                <Flame className="w-5 h-5 fill-rose-500 stroke-rose-500 animate-pulse" />
+              <div className="w-10 h-10 rounded-xl bg-[#fef3eb] border border-[#fcd5b8] text-[#f47708] flex items-center justify-center flex-shrink-0 animate-soft-bounce">
+                <Flame className="w-5 h-5 fill-[#f47708] stroke-[#f47708] animate-pulse" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="text-lg sm:text-xl font-black text-slate-950 tracking-tight font-sans">
                     Flash Deals &amp; Price Drops
                   </h3>
-                  <span className="relative flex items-center gap-1.5 text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-600 border border-rose-200">
+                  <span className="relative flex items-center gap-1.5 text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-[#fef3eb] text-[#f47708] border border-[#fcd5b8]">
                     <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#f88b2a] opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#f47708]"></span>
                     </span>
-                    Live Now
+                    Up to 40% OFF
                   </span>
                 </div>
                 <p className="text-xs text-slate-500 mt-0.5">
@@ -564,7 +667,7 @@ function HomeContent() {
               </div>
             </div>
 
-            {/* Live Countdown Pill (Isolated component prevents full-page re-renders) */}
+            {/* Live Countdown Pill */}
             <FlashSaleCountdown />
           </div>
 
@@ -592,7 +695,7 @@ function HomeContent() {
                 <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-950 font-sans">
                   Mobile Phones Catalog
                 </h2>
-                <span className="px-3 py-1 rounded-full text-xs font-black bg-cyan-100 text-cyan-800 border border-cyan-200">
+                <span className="px-3 py-1 rounded-full text-xs font-black bg-sky-100 text-[#136ab5] border border-sky-200">
                   {filteredPhones.length} Verified Mobiles
                 </span>
                 <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5 shadow-xs">
@@ -612,9 +715,9 @@ function HomeContent() {
             <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
               <button
                 onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
-                className="lg:hidden flex items-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold bg-slate-950 text-white cursor-pointer shadow-sm"
+                className="lg:hidden flex items-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold bg-[#136ab5] text-white cursor-pointer shadow-sm"
               >
-                <Filter className="w-3.5 h-3.5 text-cyan-400" />
+                <Filter className="w-3.5 h-3.5 text-sky-200" />
                 <span>Filters ({filters.selectedBrands.length + (filters.ptaApprovedOnly ? 1 : 0)})</span>
               </button>
 
@@ -630,7 +733,7 @@ function HomeContent() {
                       sortBy: e.target.value as FilterState['sortBy'],
                     }))
                   }
-                  className="px-4 py-2 rounded-full text-xs font-bold bg-white border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500 cursor-pointer shadow-sm"
+                  className="px-4 py-2 rounded-full text-xs font-bold bg-white border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#48afff] cursor-pointer shadow-sm"
                 >
                   <option value="popularity">Most Popular</option>
                   <option value="price-asc">Price: Low to High</option>
@@ -648,16 +751,16 @@ function HomeContent() {
               <span className="text-xs text-slate-400 font-bold mr-1">Active:</span>
 
               {filters.searchQuery.trim() && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-50 text-cyan-800 border border-cyan-200">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-[#136ab5] border border-sky-200">
                   Search: &quot;{filters.searchQuery}&quot;
-                  <button onClick={() => handleClearFilter('search')} aria-label="Remove search filter" className="hover:text-cyan-950 p-0.5 cursor-pointer">
+                  <button onClick={() => handleClearFilter('search')} aria-label="Remove search filter" className="hover:text-[#0b4372] p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
                   </button>
                 </span>
               )}
 
               {filters.selectedBrands.map((b) => (
-                <span key={b} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
+                <span key={b} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white text-slate-800 border border-slate-200 shadow-2xs">
                   {b}
                   <button onClick={() => handleClearFilter('brand', b)} aria-label={`Remove brand filter ${b}`} className="hover:text-rose-600 p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
@@ -666,7 +769,7 @@ function HomeContent() {
               ))}
 
               {(filters.priceRange[0] > 0 || filters.priceRange[1] < 700000) && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white text-slate-800 border border-slate-200 shadow-2xs">
                   {filters.priceRange[0] > 0 && filters.priceRange[1] < 700000
                     ? `${formatPKR(filters.priceRange[0])} - ${formatPKR(filters.priceRange[1])}`
                     : filters.priceRange[0] > 0
@@ -679,7 +782,7 @@ function HomeContent() {
               )}
 
               {filters.selectedRam.map((r) => (
-                <span key={r} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
+                <span key={r} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white text-slate-800 border border-slate-200 shadow-2xs">
                   RAM: {r}
                   <button onClick={() => handleClearFilter('ram', r)} aria-label={`Remove RAM filter ${r}`} className="hover:text-rose-600 p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
@@ -688,7 +791,7 @@ function HomeContent() {
               ))}
 
               {filters.selectedStorage.map((s) => (
-                <span key={s} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
+                <span key={s} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white text-slate-800 border border-slate-200 shadow-2xs">
                   Storage: {s}
                   <button onClick={() => handleClearFilter('storage', s)} aria-label={`Remove storage filter ${s}`} className="hover:text-rose-600 p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
@@ -697,7 +800,7 @@ function HomeContent() {
               ))}
 
               {filters.ptaApprovedOnly && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-2xs">
                   PTA Approved Only
                   <button onClick={() => handleClearFilter('pta')} aria-label="Remove PTA Approved filter" className="hover:text-emerald-950 p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
@@ -706,18 +809,18 @@ function HomeContent() {
               )}
 
               {filters.inStockOnly && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-50 text-cyan-800 border border-cyan-200">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-[#136ab5] border border-sky-200 shadow-2xs">
                   In Stock Only
-                  <button onClick={() => handleClearFilter('inStock')} aria-label="Remove In Stock filter" className="hover:text-cyan-950 p-0.5 cursor-pointer">
+                  <button onClick={() => handleClearFilter('inStock')} aria-label="Remove In Stock filter" className="hover:text-[#0b4372] p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
                   </button>
                 </span>
               )}
 
               {filters.specFilter && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-50 text-cyan-800 border border-cyan-200">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-[#136ab5] border border-sky-200 shadow-2xs">
                   Spec: {filters.specFilter === '120hz-amoled' ? '120Hz AMOLED Displays' : filters.specFilter}
-                  <button onClick={() => handleClearFilter('spec')} aria-label="Remove display spec filter" className="hover:text-cyan-950 p-0.5 cursor-pointer">
+                  <button onClick={() => handleClearFilter('spec')} aria-label="Remove display spec filter" className="hover:text-[#0b4372] p-0.5 cursor-pointer">
                     <X className="w-3 h-3" />
                   </button>
                 </span>
@@ -843,7 +946,7 @@ function HomeContent() {
                       </div>
                       <div className="w-full max-w-xs mx-auto bg-slate-100 h-2.5 rounded-full overflow-hidden">
                         <div
-                          className="bg-cyan-500 h-full transition-all duration-300"
+                          className="bg-[#48afff] h-full transition-all duration-300"
                           style={{
                             width: `${(displayedPhones.length / filteredPhones.length) * 100}%`,
                           }}
@@ -852,7 +955,7 @@ function HomeContent() {
                       <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                         <button
                           onClick={() => setVisibleCount((prev) => prev + 24)}
-                          className="px-6 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs sm:text-sm font-black shadow-md shadow-cyan-500/20 cursor-pointer btn-press btn-shimmer"
+                          className="px-6 py-3 rounded-full bg-[#48afff] hover:bg-[#229eff] text-white text-xs sm:text-sm font-black shadow-md shadow-[#48afff]/25 cursor-pointer btn-press btn-shimmer"
                         >
                           Load Next 24 Mobiles (Page {Math.floor(displayedPhones.length / 24) + 1})
                         </button>
@@ -890,7 +993,7 @@ function HomeContent() {
                         sortBy: 'popularity',
                       })
                     }
-                    className="mt-4 px-6 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black transition-colors cursor-pointer btn-press"
+                    className="mt-4 px-6 py-2.5 rounded-full bg-[#48afff] hover:bg-[#229eff] text-white text-xs font-black transition-colors cursor-pointer btn-press"
                   >
                     Reset All Filters
                   </button>
@@ -903,8 +1006,8 @@ function HomeContent() {
         {/* Customer Assurances & Official Policies Section */}
         <section id="policies" className="mt-16 pt-12 border-t border-slate-200 scroll-mt-24">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-700 text-xs font-bold uppercase tracking-wider mb-2">
-              <ShieldCheck className="w-3.5 h-3.5 text-cyan-600" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-100 text-[#136ab5] text-xs font-bold uppercase tracking-wider mb-2">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#136ab5]" />
               100% Customer Protection
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 font-sans tracking-tight">
@@ -922,12 +1025,12 @@ function HomeContent() {
               onClick={() => setActivePolicyModal('open-parcel')}
               className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3 cursor-pointer card-hover-fx group scroll-mt-24"
             >
-              <div className="w-11 h-11 rounded-2xl bg-cyan-50 border border-cyan-200 text-cyan-700 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+              <div className="w-11 h-11 rounded-2xl bg-sky-50 border border-sky-100 text-[#136ab5] flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                 <PackageCheck className="w-6 h-6 stroke-[2.2]" />
               </div>
               <h3 className="text-sm font-bold text-slate-950 flex items-center justify-between font-sans">
-                <span className="group-hover:text-cyan-700 transition-colors">Open-Parcel Delivery Policy</span>
-                <ArrowRight className="w-4 h-4 text-cyan-600 group-hover:translate-x-1.5 transition-transform" />
+                <span className="group-hover:text-[#136ab5] transition-colors">Open-Parcel Delivery Policy</span>
+                <ArrowRight className="w-4 h-4 text-[#136ab5] group-hover:translate-x-1.5 transition-transform" />
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
                 When the courier rider arrives, open the flyer and inspect the phone box and factory seals before paying cash. 100% scam-free doorstep inspection.
@@ -935,7 +1038,7 @@ function HomeContent() {
               <Link
                 href="/policies#open-parcel"
                 onClick={(e) => e.stopPropagation()}
-                className="pt-2 text-xs font-bold text-cyan-600 flex items-center gap-1 hover:underline cursor-pointer"
+                className="pt-2 text-xs font-bold text-[#136ab5] flex items-center gap-1 hover:underline cursor-pointer"
               >
                 <span>View Full Open-Parcel Policy</span>
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -1084,7 +1187,7 @@ function HomeContent() {
                     <ShieldCheck className="w-6 h-6 stroke-[2.2]" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-slate-950 font-sans group-hover:text-cyan-700 transition-colors">
+                    <h3 className="text-sm font-bold text-slate-950 font-sans group-hover:text-[#136ab5] transition-colors">
                       Privacy Policy &amp; Bank-Grade Security
                     </h3>
                     <p className="text-xs text-slate-500 mt-0.5">
@@ -1162,7 +1265,7 @@ function HomeContent() {
           <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 shadow-2xl border border-slate-200 space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div className="flex items-center gap-2">
-                {activePolicyModal === 'open-parcel' && <PackageCheck className="w-5 h-5 text-cyan-600" />}
+                {activePolicyModal === 'open-parcel' && <PackageCheck className="w-5 h-5 text-[#136ab5]" />}
                 {activePolicyModal === 'pta-guide' && <ShieldCheck className="w-5 h-5 text-emerald-600" />}
                 {activePolicyModal === 'warranty' && <Award className="w-5 h-5 text-indigo-600" />}
                 {activePolicyModal === 'cod-terms' && <Truck className="w-5 h-5 text-amber-600" />}
@@ -1254,7 +1357,7 @@ function HomeContent() {
 
             <button
               onClick={() => setActivePolicyModal(null)}
-              className="w-full py-2.5 rounded-full bg-slate-950 text-white text-xs font-bold hover:bg-cyan-600 transition-colors cursor-pointer"
+              className="w-full py-2.5 rounded-full bg-slate-950 text-white text-xs font-bold hover:bg-[#136ab5] transition-colors cursor-pointer"
             >
               Understood
             </button>

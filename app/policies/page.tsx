@@ -56,17 +56,17 @@ export default function PoliciesPage() {
       id: 'open-parcel',
       title: 'Open-Parcel Delivery Policy',
       badge: 'Zero Risk Guarantee',
-      badgeColor: 'bg-cyan-500/10 text-cyan-700 border-cyan-500/20',
-      icon: <PackageCheck className="w-6 h-6 text-cyan-600" />,
+      badgeColor: 'bg-[#48afff]/10 text-[#136ab5] border-[#48afff]/20',
+      icon: <PackageCheck className="w-6 h-6 text-[#136ab5]" />,
       summary: 'Inspect your sealed smartphone box before handing over payment to the courier rider.',
       content: (
         <div className="space-y-4 text-sm text-slate-700 leading-relaxed">
           <p className="font-semibold text-slate-900">
             Hamza Phone Store is proud to pioneer 100% Open-Parcel Cash on Delivery across 150+ Pakistani cities with our logistics partners (TCS Express, Leopards, Trax, and PostEx).
           </p>
-          <div className="rounded-2xl bg-cyan-50/60 p-4 border border-cyan-200/80 space-y-2">
+          <div className="rounded-2xl bg-sky-50/60 p-4 border border-sky-200/80 space-y-2">
             <h4 className="font-bold text-cyan-950 flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-cyan-600" />
+              <CheckCircle2 className="w-4 h-4 text-[#136ab5]" />
               <span>Step-by-Step Doorstep Verification:</span>
             </h4>
             <ol className="list-decimal pl-5 space-y-2 text-xs sm:text-sm text-slate-800">
@@ -106,7 +106,7 @@ export default function PoliciesPage() {
             All 222 smartphones and keypad phones cataloged on Hamza Phone Store are registered in the Pakistan Telecommunication Authority (PTA) Device Identification, Registration and Blocking System (DIRBS).
           </p>
           <div className="rounded-2xl bg-slate-900 text-white p-5 space-y-3 font-mono text-xs sm:text-sm shadow-md">
-            <div className="text-cyan-400 font-bold font-sans flex items-center gap-1.5">
+            <div className="text-[#48afff] font-bold font-sans flex items-center gap-1.5">
               <BadgeCheck className="w-4 h-4" />
               <span>Official PTA Verification Methods:</span>
             </div>
@@ -319,7 +319,7 @@ export default function PoliciesPage() {
       {/* Header Banner */}
       <div className="bg-slate-950 text-white py-12 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
         <div className="max-w-5xl mx-auto space-y-4">
-          <div className="flex items-center gap-2 text-xs text-cyan-400 font-bold uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-xs text-[#48afff] font-bold uppercase tracking-wider">
             <Link href="/" className="hover:underline">Home</Link>
             <ChevronRight className="w-3.5 h-3.5" />
             <span>Customer Assurances &amp; Policies</span>
@@ -342,7 +342,7 @@ export default function PoliciesPage() {
             <a
               key={sec.id}
               href={`#${sec.id}`}
-              className="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 hover:bg-cyan-50 text-slate-700 hover:text-cyan-800 border border-slate-200/80 hover:border-cyan-300 transition-all"
+              className="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 hover:bg-sky-50 text-slate-700 hover:text-[#136ab5] border border-slate-200/80 hover:border-sky-300 transition-all"
             >
               {sec.title}
             </a>
@@ -394,7 +394,7 @@ export default function PoliciesPage() {
               href="tel:+923135221200"
               className="px-5 py-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold flex items-center gap-2 transition-colors"
             >
-              <Phone className="w-4 h-4 text-cyan-400" />
+              <Phone className="w-4 h-4 text-[#48afff]" />
               <span>+92 313 5221200</span>
             </a>
             <a

@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${plusJakartaSans.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 font-sans">
+      <body className="min-h-full flex flex-col bg-[#f1f3f6] text-[#0f1111] font-sans">
         <AuthProvider>
           <ButtonRipple />
           {children}
