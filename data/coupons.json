@@ -1,0 +1,54 @@
+[
+  {
+    "id": "coup-welcome1000",
+    "code": "WELCOME1000",
+    "discountType": "fixed",
+    "discountValue": 1000,
+    "minOrderAmount": 20000,
+    "maxDiscountAmount": 1000,
+    "timesUsed": 18,
+    "usageLimit": 200,
+    "isActive": true,
+    "description": "Rs. 1,000 OFF on your first smartphone purchase (Min order Rs. 20,000)",
+    "createdAt": "2026-10-01T00:00:00.000Z"
+  },
+  {
+    "id": "coup-hamza500",
+    "code": "HAMZA500",
+    "discountType": "fixed",
+    "discountValue": 500,
+    "minOrderAmount": 10000,
+    "maxDiscountAmount": 500,
+    "timesUsed": 42,
+    "usageLimit": 500,
+    "isActive": true,
+    "description": "Flat Rs. 500 OFF storewide instant voucher",
+    "createdAt": "2026-10-01T00:00:00.000Z"
+  },
+  {
+    "id": "coup-eidmega",
+    "code": "EIDMEGA",
+    "discountType": "percentage",
+    "discountValue": 5,
+    "minOrderAmount": 40000,
+    "maxDiscountAmount": 5000,
+    "timesUsed": 29,
+    "usageLimit": 100,
+    "isActive": true,
+    "description": "5% OFF on flagship smartphones (Up to Rs. 5,000 max discount)",
+    "createdAt": "2026-10-01T00:00:00.000Z"
+  },
+  {
+    "id": "coup-freeship",
+    "code": "FREESHIP",
+    "discountType": "fixed",
+    "discountValue": 350,
+    "minOrderAmount": 5000,
+    "maxDiscountAmount": 350,
+    "timesUsed": 65,
+    "usageLimit": 1000,
+    "isActive": true,
+    "description": "Free TCS Express courier delivery waiver (Rs. 350 value)",
+    "createdAt": "2026-10-01T00:00:00.000Z"
+  }
+]

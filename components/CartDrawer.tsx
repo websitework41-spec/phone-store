@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { CartItem } from '@/types';
+import { CartItem, Coupon } from '@/types';
 import { formatPKR, PAKISTAN_CITIES } from '@/data/smartphones';
 import { PhoneImageWithFallback } from './PhoneImageWithFallback';
 import {
@@ -12,6 +12,7 @@ import {
   ShieldCheck,
   PackageCheck,
   CheckCircle,
+  CheckCircle2,
   Truck,
   ArrowRight,
   CreditCard,
@@ -19,6 +20,8 @@ import {
   Building,
   MessageSquare,
   ShoppingBag,
+  Tag,
+  Sparkles,
 } from 'lucide-react';
 
 import {
@@ -64,6 +67,14 @@ export function CartDrawer({
   const [honeypot, setHoneypot] = useState(''); // Anti-bot honeypot
   const [validationError, setValidationError] = useState('');
 
+  // Promo Code / Coupon state
+  const [couponCodeInput, setCouponCodeInput] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
+  const [discountAmount, setDiscountAmount] = useState(0);
+  const [couponError, setCouponError] = useState('');
+  const [couponSuccess, setCouponSuccess] = useState('');
+  const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
+
   // Auto-prefill customer info when logged in
   useEffect(() => {
     if (user && profile) {
@@ -85,8 +96,6 @@ export function CartDrawer({
     }
   }, [user, profile, isCheckoutStep]);
 
-  if (!isOpen) return null;
-
   const subtotalPKR = items.reduce(
     (sum, item) => sum + item.selectedVariant.pricePKR * item.quantity,
     0
@@ -98,6 +107,74 @@ export function CartDrawer({
         item.quantity,
     0
   );
+
+  const finalTotalPKR = Math.max(0, subtotalPKR - discountAmount);
+
+  // Recalculate discount if subtotal changes
+  useEffect(() => {
+    if (appliedCoupon) {
+      if (appliedCoupon.minOrderAmount && subtotalPKR < appliedCoupon.minOrderAmount) {
+        setAppliedCoupon(null);
+        setDiscountAmount(0);
+        setCouponError(
+          `Coupon removed: minimum order of Rs. ${appliedCoupon.minOrderAmount.toLocaleString()} required.`
+        );
+        setCouponSuccess('');
+      } else {
+        let newDisc = 0;
+        if (appliedCoupon.discountType === 'fixed') {
+          newDisc = appliedCoupon.discountValue;
+        } else if (appliedCoupon.discountType === 'percentage') {
+          const raw = Math.round((subtotalPKR * appliedCoupon.discountValue) / 100);
+          newDisc = appliedCoupon.maxDiscountAmount
+            ? Math.min(appliedCoupon.maxDiscountAmount, raw)
+            : raw;
+        }
+        setDiscountAmount(Math.min(newDisc, subtotalPKR));
+      }
+    }
+  }, [subtotalPKR, appliedCoupon]);
+
+  const handleApplyCoupon = async (codeToApply?: string) => {
+    const code = (codeToApply || couponCodeInput).trim();
+    if (!code) {
+      setCouponError('Please enter a promo code.');
+      return;
+    }
+    setIsApplyingCoupon(true);
+    setCouponError('');
+    setCouponSuccess('');
+    try {
+      const res = await fetch('/api/coupons', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'validate', code, orderTotal: subtotalPKR }),
+      });
+      const data = await res.json();
+      if (data.success && data.coupon) {
+        setAppliedCoupon(data.coupon);
+        setDiscountAmount(data.discountAmount);
+        setCouponSuccess(`Coupon "${data.coupon.code}" applied! Saved Rs. ${data.discountAmount.toLocaleString()}`);
+        setCouponCodeInput(data.coupon.code);
+      } else {
+        setCouponError(data.error || 'Invalid promo code.');
+      }
+    } catch {
+      setCouponError('Unable to apply coupon. Please try again.');
+    } finally {
+      setIsApplyingCoupon(false);
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null);
+    setDiscountAmount(0);
+    setCouponSuccess('');
+    setCouponError('');
+    setCouponCodeInput('');
+  };
+
+  if (!isOpen) return null;
 
   const hasOutOfStockItems = items.some(
     (i) => !i.phone.inStock || i.selectedColor.inStock === false || i.selectedVariant.inStock === false
@@ -165,7 +242,9 @@ export function CartDrawer({
             quantity: i.quantity,
             color: i.selectedColor.name,
           })),
-          totalPKR: subtotalPKR,
+          totalPKR: finalTotalPKR,
+          couponCode: appliedCoupon?.code || '',
+          discountPKR: discountAmount,
           paymentMethod,
           status: 'Placed',
           createdAt: serverTimestamp(),
@@ -187,7 +266,9 @@ export function CartDrawer({
           (i) =>
             `${i.phone.name} (${i.selectedVariant.ram}/${i.selectedVariant.storage}) x${i.quantity}`
         ),
-        totalPKR: subtotalPKR,
+        totalPKR: finalTotalPKR,
+        couponCode: appliedCoupon?.code || '',
+        discountPKR: discountAmount,
         paymentMethod: paymentMethod === 'cod' ? 'Cash on Delivery (Open-Parcel)' : paymentMethod,
         status:
           'Order Confirmed — Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.',
@@ -222,13 +303,24 @@ export function CartDrawer({
               quantity: i.quantity,
               color: i.selectedColor.name,
             })),
-            totalPKR: subtotalPKR,
+            totalPKR: finalTotalPKR,
+            couponCode: appliedCoupon?.code || '',
+            discountPKR: discountAmount,
             paymentMethod,
             status: 'Placed',
             courier: 'TCS Express',
           },
         }),
       }).catch(() => {});
+
+      // Increment coupon usage
+      if (appliedCoupon) {
+        fetch('/api/coupons', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'redeem', code: appliedCoupon.code }),
+        }).catch(() => {});
+      }
     } catch {}
 
     trackPurchase(randomOrderId);
@@ -314,9 +406,15 @@ export function CartDrawer({
                     {paymentMethod === 'cod' ? 'Cash on Delivery (Open Parcel)' : paymentMethod}
                   </span>
                 </div>
+                {discountAmount > 0 && (
+                  <div className="flex justify-between text-emerald-700">
+                    <span className="font-medium">Promo Discount ({appliedCoupon?.code}):</span>
+                    <span className="font-bold">-{formatPKR(discountAmount)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between pt-2 border-t border-slate-200 font-bold">
                   <span>Total Amount:</span>
-                  <span className="text-[#0b3c68] font-black">{formatPKR(subtotalPKR)}</span>
+                  <span className="text-[#0b3c68] font-black">{formatPKR(finalTotalPKR)}</span>
                 </div>
               </div>
 
@@ -491,11 +589,26 @@ export function CartDrawer({
 
               {/* Order Submit */}
               <div className="pt-3 border-t border-slate-100 space-y-3">
-                <div className="flex justify-between text-xs font-bold">
-                  <span className="text-slate-600">Total Payable:</span>
-                  <span className="text-base font-black text-[#0b3c68]">
-                    {formatPKR(subtotalPKR)}
-                  </span>
+                <div className="space-y-1.5 text-xs">
+                  <div className="flex justify-between text-slate-500 font-medium">
+                    <span>Subtotal:</span>
+                    <span className="text-slate-800 font-bold">{formatPKR(subtotalPKR)}</span>
+                  </div>
+                  {discountAmount > 0 && (
+                    <div className="flex justify-between text-emerald-700 font-bold">
+                      <span className="flex items-center gap-1">
+                        <Tag className="w-3 h-3 text-emerald-600" />
+                        Promo Discount ({appliedCoupon?.code}):
+                      </span>
+                      <span>-{formatPKR(discountAmount)}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between text-xs font-black text-slate-900 pt-1 border-t border-slate-100">
+                    <span>Total Payable:</span>
+                    <span className="text-base font-black text-[#0b3c68]">
+                      {formatPKR(finalTotalPKR)}
+                    </span>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 pb-2">
@@ -621,11 +734,108 @@ export function CartDrawer({
               {/* Cart Footer Summary */}
               {items.length > 0 && (
                 <div className="p-4 sm:p-5 border-t border-slate-100 space-y-3 bg-slate-50/80 shrink-0">
+                  {/* Promo Code Entry Widget */}
+                  <div className="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-2xs space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
+                        <Tag className="w-3.5 h-3.5 text-[#0b3c68]" />
+                        Have a Promo / Discount Code?
+                      </span>
+                      {appliedCoupon && (
+                        <span className="text-[10px] font-extrabold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                          Applied
+                        </span>
+                      )}
+                    </div>
+
+                    {appliedCoupon ? (
+                      <div className="flex items-center justify-between p-2 rounded-xl bg-emerald-50/70 border border-emerald-200 text-xs">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <div>
+                            <span className="font-extrabold text-emerald-800 tracking-wider">
+                              {appliedCoupon.code}
+                            </span>
+                            <span className="text-[11px] text-emerald-700 ml-1.5">
+                              (-{formatPKR(discountAmount)})
+                            </span>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleRemoveCoupon}
+                          className="text-[11px] font-bold text-rose-600 hover:text-rose-800 underline ml-2 cursor-pointer"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="space-y-1.5">
+                        <div className="flex gap-1.5">
+                          <input
+                            type="text"
+                            value={couponCodeInput}
+                            onChange={(e) => setCouponCodeInput(e.target.value.toUpperCase())}
+                            placeholder="Enter Code (e.g. WELCOME1000)"
+                            className="flex-1 px-3 py-1.5 text-xs font-mono font-bold uppercase rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] text-slate-900"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => handleApplyCoupon()}
+                            disabled={isApplyingCoupon || !couponCodeInput.trim()}
+                            className="px-3.5 py-1.5 bg-[#0b3c68] hover:bg-[#072847] disabled:bg-slate-200 text-white disabled:text-slate-400 text-xs font-black rounded-xl transition-all cursor-pointer shadow-xs disabled:cursor-not-allowed"
+                          >
+                            {isApplyingCoupon ? '...' : 'Apply'}
+                          </button>
+                        </div>
+
+                        {/* Quick Suggestion Chips */}
+                        <div className="flex items-center gap-1.5 pt-0.5">
+                          <span className="text-[10px] text-slate-400 font-medium">Try:</span>
+                          <button
+                            type="button"
+                            onClick={() => handleApplyCoupon('WELCOME1000')}
+                            className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-sky-50 text-[#0b3c68] border border-sky-100 hover:bg-sky-100 transition-colors cursor-pointer"
+                          >
+                            WELCOME1000
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleApplyCoupon('HAMZA500')}
+                            className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-sky-50 text-[#0b3c68] border border-sky-100 hover:bg-sky-100 transition-colors cursor-pointer"
+                          >
+                            HAMZA500
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {couponError && (
+                      <p className="text-[11px] font-medium text-rose-600">
+                        {couponError}
+                      </p>
+                    )}
+                    {couponSuccess && !appliedCoupon && (
+                      <p className="text-[11px] font-medium text-emerald-600">
+                        {couponSuccess}
+                      </p>
+                    )}
+                  </div>
+
                   <div className="space-y-1.5 text-xs">
                     <div className="flex justify-between text-slate-500 font-medium">
                       <span>Subtotal</span>
                       <span className="text-slate-900 font-bold">{formatPKR(subtotalPKR)}</span>
                     </div>
+                    {discountAmount > 0 && (
+                      <div className="flex justify-between text-emerald-700 font-bold">
+                        <span className="flex items-center gap-1">
+                          <Tag className="w-3 h-3 text-emerald-600" />
+                          Promo Discount ({appliedCoupon?.code})
+                        </span>
+                        <span>-{formatPKR(discountAmount)}</span>
+                      </div>
+                    )}
                     {totalSavingsPKR > 0 && (
                       <div className="flex justify-between text-emerald-700 font-bold">
                         <span>Total Savings</span>
@@ -639,7 +849,7 @@ export function CartDrawer({
                     <div className="pt-2 border-t border-slate-200 flex justify-between font-black text-sm text-slate-900">
                       <span>Total Amount:</span>
                       <span className="text-base text-[#0b3c68] font-black">
-                        {formatPKR(subtotalPKR)}
+                        {formatPKR(finalTotalPKR)}
                       </span>
                     </div>
                   </div>

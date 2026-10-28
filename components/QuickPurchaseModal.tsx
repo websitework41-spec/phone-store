@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Smartphone, SmartphoneColor, SmartphoneVariant } from '@/types';
+import { Smartphone, SmartphoneColor, SmartphoneVariant, Coupon } from '@/types';
 import { formatPKR, PAKISTAN_CITIES } from '@/data/smartphones';
 import { PhoneImageWithFallback } from './PhoneImageWithFallback';
 import {
@@ -19,6 +19,7 @@ import {
   ArrowRight,
   MessageSquare,
   Check,
+  Tag,
 } from 'lucide-react';
 
 import {
@@ -66,6 +67,14 @@ export function QuickPurchaseModal({
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
   const [generatedOrderId, setGeneratedOrderId] = useState('');
 
+  // Promo Code / Coupon state
+  const [couponCodeInput, setCouponCodeInput] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
+  const [discountAmount, setDiscountAmount] = useState(0);
+  const [couponError, setCouponError] = useState('');
+  const [couponSuccess, setCouponSuccess] = useState('');
+  const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
+
   // Auto-prefill customer info when logged in
   useEffect(() => {
     if (user && profile && isOpen) {
@@ -92,6 +101,67 @@ export function QuickPurchaseModal({
   const currentVariant = selectedVariant || phone.variants.find((v) => v.inStock) || phone.variants[0];
   const currentColor = selectedColor || phone.colors.find((c) => c.inStock) || phone.colors[0];
   const price = currentVariant ? currentVariant.pricePKR : phone.basePricePKR;
+  const finalPrice = Math.max(0, price - discountAmount);
+
+  // Recalculate discount if device price changes
+  useEffect(() => {
+    if (appliedCoupon) {
+      if (appliedCoupon.minOrderAmount && price < appliedCoupon.minOrderAmount) {
+        setAppliedCoupon(null);
+        setDiscountAmount(0);
+        setCouponError(`Coupon removed: minimum order of Rs. ${appliedCoupon.minOrderAmount.toLocaleString()} required.`);
+        setCouponSuccess('');
+      } else {
+        let newDisc = 0;
+        if (appliedCoupon.discountType === 'fixed') {
+          newDisc = appliedCoupon.discountValue;
+        } else if (appliedCoupon.discountType === 'percentage') {
+          const raw = Math.round((price * appliedCoupon.discountValue) / 100);
+          newDisc = appliedCoupon.maxDiscountAmount ? Math.min(appliedCoupon.maxDiscountAmount, raw) : raw;
+        }
+        setDiscountAmount(Math.min(newDisc, price));
+      }
+    }
+  }, [price, appliedCoupon]);
+
+  const handleApplyCoupon = async (codeToApply?: string) => {
+    const code = (codeToApply || couponCodeInput).trim();
+    if (!code) {
+      setCouponError('Please enter a promo code.');
+      return;
+    }
+    setIsApplyingCoupon(true);
+    setCouponError('');
+    setCouponSuccess('');
+    try {
+      const res = await fetch('/api/coupons', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'validate', code, orderTotal: price }),
+      });
+      const data = await res.json();
+      if (data.success && data.coupon) {
+        setAppliedCoupon(data.coupon);
+        setDiscountAmount(data.discountAmount);
+        setCouponSuccess(`Coupon "${data.coupon.code}" applied! Saved Rs. ${data.discountAmount.toLocaleString()}`);
+        setCouponCodeInput(data.coupon.code);
+      } else {
+        setCouponError(data.error || 'Invalid promo code.');
+      }
+    } catch {
+      setCouponError('Unable to apply coupon. Please try again.');
+    } finally {
+      setIsApplyingCoupon(false);
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null);
+    setDiscountAmount(0);
+    setCouponSuccess('');
+    setCouponError('');
+    setCouponCodeInput('');
+  };
 
   const handleSubmitOrder = (e: React.FormEvent) => {
     e.preventDefault();
@@ -169,7 +239,9 @@ export function QuickPurchaseModal({
             address: cleanAddress,
             notes: cleanNotes,
             items: orderItems,
-            totalPKR: orderTotal,
+            totalPKR: finalPrice,
+            couponCode: appliedCoupon?.code || '',
+            discountPKR: discountAmount,
             paymentMethod,
             status: 'Placed',
             createdAt: serverTimestamp(),
@@ -188,7 +260,9 @@ export function QuickPurchaseModal({
           city: city || 'Pakistan',
           address: cleanAddress,
           items: phone ? [`${phone.name} (${selectedVariant?.ram || ''}/${selectedVariant?.storage || ''})`] : [],
-          totalPKR: orderTotal,
+          totalPKR: finalPrice,
+          couponCode: appliedCoupon?.code || '',
+          discountPKR: discountAmount,
           status: 'Order Confirmed — Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.',
           createdAt: new Date().toISOString(),
         };
@@ -221,13 +295,24 @@ export function QuickPurchaseModal({
                     },
                   ]
                 : [],
-              totalPKR: orderTotal,
+              totalPKR: finalPrice,
+              couponCode: appliedCoupon?.code || '',
+              discountPKR: discountAmount,
               paymentMethod: 'Cash on Delivery (Open-Parcel)',
               status: 'Placed',
               courier: 'TCS Express',
             },
           }),
         }).catch(() => {});
+
+        // Redeem coupon usage counter
+        if (appliedCoupon) {
+          fetch('/api/coupons', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'redeem', code: appliedCoupon.code }),
+          }).catch(() => {});
+        }
       } catch {}
 
       trackPurchase(randomOrder);
@@ -244,6 +329,11 @@ export function QuickPurchaseModal({
     setAltPhone('');
     setDeliveryAddress('');
     setDeliveryNotes('');
+    setAppliedCoupon(null);
+    setDiscountAmount(0);
+    setCouponCodeInput('');
+    setCouponError('');
+    setCouponSuccess('');
     onClose();
   };
 
@@ -516,12 +606,104 @@ export function QuickPurchaseModal({
                 </p>
               </div>
 
+              {/* Promo Code Widget */}
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
+                    <Tag className="w-3.5 h-3.5 text-[#0b3c68]" />
+                    Have a Promo / Coupon Code?
+                  </span>
+                  {appliedCoupon && (
+                    <span className="text-[10px] font-extrabold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                      Applied
+                    </span>
+                  )}
+                </div>
+
+                {appliedCoupon ? (
+                  <div className="flex items-center justify-between p-2 rounded-lg bg-emerald-50 border border-emerald-200 text-xs">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <div>
+                        <span className="font-extrabold text-emerald-800 tracking-wider">
+                          {appliedCoupon.code}
+                        </span>
+                        <span className="text-[11px] text-emerald-700 ml-1.5">
+                          (-{formatPKR(discountAmount)})
+                        </span>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleRemoveCoupon}
+                      className="text-[11px] font-bold text-rose-600 hover:text-rose-800 underline ml-2 cursor-pointer"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-1.5">
+                    <div className="flex gap-1.5">
+                      <input
+                        type="text"
+                        value={couponCodeInput}
+                        onChange={(e) => setCouponCodeInput(e.target.value.toUpperCase())}
+                        placeholder="Enter Promo Code (e.g. WELCOME1000)"
+                        className="flex-1 px-3 py-1.5 text-xs font-mono font-bold uppercase rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] text-slate-900"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleApplyCoupon()}
+                        disabled={isApplyingCoupon || !couponCodeInput.trim()}
+                        className="px-3.5 py-1.5 bg-[#0b3c68] hover:bg-[#072847] disabled:bg-slate-200 text-white disabled:text-slate-400 text-xs font-black rounded-lg transition-all cursor-pointer disabled:cursor-not-allowed"
+                      >
+                        {isApplyingCoupon ? '...' : 'Apply'}
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 pt-0.5">
+                      <span className="text-[10px] text-slate-400 font-medium">Try:</span>
+                      <button
+                        type="button"
+                        onClick={() => handleApplyCoupon('WELCOME1000')}
+                        className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-sky-50 text-[#0b3c68] border border-sky-100 hover:bg-sky-100 transition-colors cursor-pointer"
+                      >
+                        WELCOME1000
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleApplyCoupon('HAMZA500')}
+                        className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-sky-50 text-[#0b3c68] border border-sky-100 hover:bg-sky-100 transition-colors cursor-pointer"
+                      >
+                        HAMZA500
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {couponError && (
+                  <p className="text-[11px] font-medium text-rose-600">{couponError}</p>
+                )}
+                {couponSuccess && !appliedCoupon && (
+                  <p className="text-[11px] font-medium text-emerald-600">{couponSuccess}</p>
+                )}
+              </div>
+
               {/* Price Breakdown */}
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs">
                 <div className="flex justify-between text-slate-600">
                   <span>Device Price:</span>
                   <span className="font-bold">{formatPKR(price)}</span>
                 </div>
+                {discountAmount > 0 && (
+                  <div className="flex justify-between text-emerald-700 font-bold">
+                    <span className="flex items-center gap-1">
+                      <Tag className="w-3 h-3 text-emerald-600" />
+                      Promo Discount ({appliedCoupon?.code}):
+                    </span>
+                    <span>-{formatPKR(discountAmount)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-slate-600">
                   <span>PTA DIRBS Customs Tax:</span>
                   <span className="text-emerald-700 font-bold">100% INCLUDED (Paid)</span>
@@ -536,7 +718,7 @@ export function QuickPurchaseModal({
               <div className="sticky bottom-0 bg-white/95 backdrop-blur-md pt-3 pb-2 border-t border-slate-100 -mx-4 sm:-mx-6 px-4 sm:px-6 shadow-md mt-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-bold text-slate-500">Total Payable on Delivery:</span>
-                  <span className="text-base font-black text-[#0b3c68]">{formatPKR(price)}</span>
+                  <span className="text-base font-black text-[#0b3c68]">{formatPKR(finalPrice)}</span>
                 </div>
 
                 <button
@@ -548,7 +730,7 @@ export function QuickPurchaseModal({
                     <span>Booking Open-Parcel Consignment...</span>
                   ) : (
                     <>
-                      <span>Confirm Order with Open Parcel ({formatPKR(price)})</span>
+                      <span>Confirm Order with Open Parcel ({formatPKR(finalPrice)})</span>
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}
@@ -593,9 +775,15 @@ export function QuickPurchaseModal({
                   {paymentMethod === 'cod' ? 'Cash on Delivery (Open Parcel)' : paymentMethod}
                 </span>
               </div>
+              {discountAmount > 0 && (
+                <div className="flex justify-between text-emerald-700">
+                  <span className="font-medium">Promo Discount ({appliedCoupon?.code}):</span>
+                  <span className="font-bold">-{formatPKR(discountAmount)}</span>
+                </div>
+              )}
               <div className="flex justify-between pt-2 border-t border-slate-200 font-bold">
                 <span>Total Amount:</span>
-                <span className="text-[#0b3c68] font-black">{formatPKR(price)}</span>
+                <span className="text-[#0b3c68] font-black">{formatPKR(finalPrice)}</span>
               </div>
             </div>
 

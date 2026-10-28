@@ -1,3 +1,18 @@
+export interface Coupon {
+  id: string;
+  code: string;
+  discountType: 'fixed' | 'percentage';
+  discountValue: number;
+  minOrderAmount?: number;
+  maxDiscountAmount?: number;
+  expiresAt?: string;
+  usageLimit?: number;
+  timesUsed: number;
+  isActive: boolean;
+  description?: string;
+  createdAt: string;
+}
+
 export interface SmartphoneColor {
   name: string;
   hex: string;

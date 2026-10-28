@@ -29,6 +29,8 @@ export interface AdminOrder {
     image?: string;
   }> | string[];
   totalPKR: number;
+  couponCode?: string;
+  discountPKR?: number;
   paymentMethod: string;
   status: string;
   confirmationStatus?: 'Unconfirmed' | 'WhatsApp Sent' | 'Confirmed' | 'Cancelled';
@@ -120,6 +122,8 @@ export async function POST(request: Request) {
       address: orderData.address || '',
       items: orderData.items || [],
       totalPKR: Number(orderData.totalPKR),
+      couponCode: orderData.couponCode || '',
+      discountPKR: Number(orderData.discountPKR || 0),
       paymentMethod: orderData.paymentMethod || 'Cash on Delivery (Open-Parcel)',
       status: orderData.status || 'Placed',
       confirmationStatus: orderData.confirmationStatus || 'Unconfirmed',
