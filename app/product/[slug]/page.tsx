@@ -729,23 +729,7 @@ export default function ProductDetailPage() {
         onClose={() => setIsQuickBuyOpen(false)}
       />
 
-      {/* Floating Live WhatsApp & Helpline Support Assistant */}
-      <aside aria-label="Quick WhatsApp Helpline" className="fixed bottom-6 right-6 z-40 flex items-center">
-        <a
-          href={`https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20need%20assistance%20with%20${encodeURIComponent(phone.name)}.`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2.5 px-4 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-emerald-600/30 btn-press card-hover-fx group cursor-pointer border border-emerald-400/40"
-          title="Direct WhatsApp Helpline: +92 313 5221200 - Real Mobile Specialists (Mon-Sat 9AM-10PM)"
-        >
-          <span className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-80"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
-          </span>
-          <MessageSquare className="w-4 h-4 fill-white/20 group-hover:scale-115 transition-transform duration-200" />
-          <span className="font-sans tracking-tight">WhatsApp (+92 313 5221200)</span>
-        </a>
-      </aside>
+      
     </div>
   );
 }

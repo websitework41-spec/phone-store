@@ -309,28 +309,26 @@ Or tap a quick question below to get started!`,
       {!isOpen && (
         <aside
           aria-label="HamzaBot AI Assistant"
-          className="fixed bottom-22 sm:bottom-22 right-6 z-40 flex items-center"
+          className="fixed bottom-[76px] sm:bottom-[88px] right-5 sm:right-6 z-40 flex items-center"
         >
           <button
-            onClick={() => setIsOpen(true)}
-            className="flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-cyan-600 via-sky-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-cyan-600/30 btn-press card-hover-fx group cursor-pointer border border-[#48afff]/40 transition-all duration-300 transform hover:scale-105"
-            title="Ask HamzaBot AI - 24/7 Mobile Helper & FAQ Assistant"
+            onClick={() => {
+              setIsOpen(true);
+              setHasUnread(false);
+            }}
+            aria-label="Ask HamzaBot AI Assistant"
+            title="Ask HamzaBot AI - 24/7 Mobile Specialist"
+            className="relative flex items-center justify-center w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-gradient-to-tr from-[#0b3c68] via-[#136ab5] to-[#48afff] hover:brightness-110 text-white shadow-xl shadow-cyan-900/30 hover:shadow-cyan-900/50 hover:scale-110 active:scale-95 transition-all duration-200 border-2 border-white/40 group cursor-pointer"
           >
-            <span className="relative flex h-3 w-3">
-              {hasUnread && (
+            {/* Ping indicator */}
+            {hasUnread && (
+              <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-300 opacity-90"></span>
-              )}
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
-            </span>
+                <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-white border-2 border-[#48afff]"></span>
+              </span>
+            )}
 
-            <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm group-hover:rotate-12 transition-transform">
-              <Bot className="w-4 h-4 text-white" />
-            </div>
-
-            <span className="font-sans tracking-tight flex items-center gap-1.5">
-              <span>HamzaBot AI</span>
-              <Sparkles className="w-3.5 h-3.5 text-cyan-200 fill-cyan-200/50" />
-            </span>
+            <Bot className="w-6 h-6 sm:w-7 sm:h-7 text-white transition-transform duration-200 group-hover:rotate-12" />
           </button>
         </aside>
       )}

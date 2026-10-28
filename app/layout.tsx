@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { HelperBot } from "@/components/HelperBot";
+import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
 import { AuthProvider } from "@/context/AuthContext";
 import { AuthModal } from "@/components/AuthModal";
 import { ButtonRipple } from "@/components/ButtonRipple";
@@ -32,6 +33,7 @@ export default function RootLayout({
           {children}
           <AuthModal />
           <HelperBot />
+          <WhatsAppFloatingButton />
         </AuthProvider>
       </body>
     </html>
