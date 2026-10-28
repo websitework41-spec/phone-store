@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { SMARTPHONES, BRANDS, formatPKR, getPhonePrice } from '@/data/smartphones';
 import { getActiveCatalog } from '@/lib/catalog';
+import { matchesSearchQuery } from '@/lib/search';
 import { Smartphone, FilterState, CartItem, SmartphoneVariant, SmartphoneColor } from '@/types';
 import { Navbar } from '@/components/Navbar';
 import { HeroBanner } from '@/components/HeroBanner';
@@ -170,7 +171,10 @@ function HomeContent() {
   useEffect(() => {
     if (!searchParams) return;
     const brandParam = sanitizeText(searchParams.get('brand') || '', 40);
-    const searchParam = sanitizeText(searchParams.get('search') || '', 100);
+    const searchParam = sanitizeText(
+      searchParams.get('search') || searchParams.get('q') || searchParams.get('query') || '',
+      100
+    );
     const maxPriceParam = searchParams.get('maxPrice');
     const minPriceParam = searchParams.get('minPrice');
     const categoryParam = searchParams.get('category');
@@ -182,35 +186,9 @@ function HomeContent() {
         updated.selectedBrands = brandParam === 'All Brands' ? [] : [brandParam];
       }
       if (searchParam) {
-        const lowerSearch = searchParam.toLowerCase();
-        if (lowerSearch.includes('under 25') || lowerSearch.includes('25000') || lowerSearch.includes('25,000')) {
-          updated.priceRange = [0, 25000];
+        updated.searchQuery = searchParam;
+        if (!brandParam) {
           updated.selectedBrands = [];
-          updated.searchQuery = '';
-        } else if (lowerSearch.includes('under 40') || lowerSearch.includes('40000') || lowerSearch.includes('40,000')) {
-          updated.priceRange = [0, 40000];
-          updated.selectedBrands = [];
-          updated.searchQuery = '';
-        } else if (lowerSearch.includes('under 60') || lowerSearch.includes('60000') || lowerSearch.includes('60,000')) {
-          updated.priceRange = [0, 60000];
-          updated.selectedBrands = [];
-          updated.searchQuery = '';
-        } else if (lowerSearch.includes('under 100') || lowerSearch.includes('100000') || lowerSearch.includes('100,000') || lowerSearch.includes('1 lac') || lowerSearch.includes('1 lakh')) {
-          updated.priceRange = [0, 100000];
-          updated.selectedBrands = [];
-          updated.searchQuery = '';
-        } else if (lowerSearch.includes('150k') || lowerSearch.includes('150000') || lowerSearch.includes('flagship')) {
-          updated.priceRange = [150000, 700000];
-          updated.selectedBrands = [];
-          updated.searchQuery = '';
-        } else if (lowerSearch.includes('120hz') || lowerSearch.includes('amoled')) {
-          updated.specFilter = '120hz-amoled';
-          updated.searchQuery = '';
-        } else if (lowerSearch.includes('keypad')) {
-          updated.selectedBrands = ['Nokia', 'Itel'];
-          updated.searchQuery = '';
-        } else {
-          updated.searchQuery = searchParam;
         }
       }
       if (maxPriceParam) {
@@ -236,6 +214,15 @@ function HomeContent() {
       }
       return updated;
     });
+
+    if (searchParam) {
+      setTimeout(() => {
+        const catalogEl = document.getElementById('catalog');
+        if (catalogEl) {
+          catalogEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
   }, [searchParams]);
 
   // Reset pagination when filters change
@@ -280,34 +267,10 @@ function HomeContent() {
       const phonePrice = getPhonePrice(phone);
 
       // Search (Name, Brand, Chipset, Network, Budget phrase)
+      // Search (Multi-token, Name, Brand, Chipset, Specs, Normalized, and Budget phrases)
       if (filters.searchQuery.trim()) {
-        const q = filters.searchQuery.toLowerCase();
-        if (q.includes('under 25') || q.includes('25k') || q.includes('25000')) {
-          if (phonePrice > 25000) return false;
-        } else if (q.includes('under 40') || q.includes('40k') || q.includes('40000')) {
-          if (phonePrice > 40000) return false;
-        } else if (q.includes('under 60') || q.includes('60k') || q.includes('60000')) {
-          if (phonePrice > 60000) return false;
-        } else if (q.includes('under 100') || q.includes('100k') || q.includes('100000')) {
-          if (phonePrice > 100000) return false;
-        } else if (q.includes('150k') || q.includes('flagship')) {
-          if (phonePrice < 150000) return false;
-        } else if ((q.includes('120hz') || q.includes('120 hz')) && (q.includes('amoled') || q.includes('oled'))) {
-          const is120Hz =
-            phone.specs.refreshRate?.includes('120') ||
-            phone.specs.displayType?.includes('120') ||
-            phone.specs.screen?.includes('120');
-          const isAmoled =
-            /amoled|oled/i.test(phone.specs.displayType || '') ||
-            /amoled|oled/i.test(phone.specs.screen || '') ||
-            /amoled|oled/i.test(phone.keyHighlights?.display || '');
-          if (!is120Hz || !isAmoled) return false;
-        } else {
-          const matchesName = phone.name.toLowerCase().includes(q);
-          const matchesBrand = phone.brand.toLowerCase().includes(q);
-          const matchesChip = phone.specs.chipsetBrand?.toLowerCase().includes(q);
-          const matchesNetwork = phone.specs.network?.toLowerCase().includes(q);
-          if (!matchesName && !matchesBrand && !matchesChip && !matchesNetwork) return false;
+        if (!matchesSearchQuery(phone, filters.searchQuery)) {
+          return false;
         }
       }
 
@@ -363,6 +326,24 @@ function HomeContent() {
       }
       if (filters.sortBy === 'discount') return b.discountPercent - a.discountPercent;
       if (filters.sortBy === 'rating') return b.rating - a.rating;
+
+      // When search query is active, rank exact / starting name matches and brand matches first
+      if (filters.searchQuery.trim()) {
+        const cleanLower = filters.searchQuery.trim().toLowerCase();
+        const aName = a.name.toLowerCase();
+        const bName = b.name.toLowerCase();
+        if (aName === cleanLower && bName !== cleanLower) return -1;
+        if (bName === cleanLower && aName !== cleanLower) return 1;
+        const aStarts = aName.startsWith(cleanLower);
+        const bStarts = bName.startsWith(cleanLower);
+        if (aStarts && !bStarts) return -1;
+        if (!aStarts && bStarts) return 1;
+        const aBrand = a.brand.toLowerCase() === cleanLower;
+        const bBrand = b.brand.toLowerCase() === cleanLower;
+        if (aBrand && !bBrand) return -1;
+        if (!aBrand && bBrand) return 1;
+      }
+
       // Default: popularity
       return b.reviewCount - a.reviewCount;
     });
@@ -469,6 +450,58 @@ function HomeContent() {
     }
   }, []);
 
+  const handleSearch = useCallback((query: string) => {
+    const clean = sanitizeText(query, 100).trim();
+    setFilters((prev) => ({
+      ...prev,
+      searchQuery: clean,
+      selectedBrands: [], // Clear previously locked brand filters so the search isn't blocked!
+      priceRange: [0, 700000],
+      specFilter: undefined,
+    }));
+
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      if (clean) {
+        url.searchParams.set('search', clean);
+        url.searchParams.delete('q');
+        url.searchParams.delete('query');
+      } else {
+        url.searchParams.delete('search');
+        url.searchParams.delete('q');
+        url.searchParams.delete('query');
+      }
+      url.hash = 'catalog';
+      window.history.pushState({}, '', url.toString());
+    }
+
+    setTimeout(() => {
+      const catalogEl = document.getElementById('catalog');
+      if (catalogEl) {
+        catalogEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 50);
+  }, []);
+
+  const handleResetAllFilters = useCallback(() => {
+    setFilters({
+      searchQuery: '',
+      selectedBrands: [],
+      priceRange: [0, 700000],
+      selectedRam: [],
+      selectedStorage: [],
+      ptaApprovedOnly: false,
+      inStockOnly: false,
+      sortBy: 'popularity',
+      specFilter: undefined,
+    });
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.search = '';
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, []);
+
   const handleClearFilter = (key: string, val?: string) => {
     if (key === 'brand' && val) {
       setFilters((prev) => ({
@@ -477,6 +510,13 @@ function HomeContent() {
       }));
     } else if (key === 'search') {
       setFilters((prev) => ({ ...prev, searchQuery: '' }));
+      if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('search');
+        url.searchParams.delete('q');
+        url.searchParams.delete('query');
+        window.history.replaceState({}, '', url.toString());
+      }
     } else if (key === 'ram' && val) {
       setFilters((prev) => ({
         ...prev,
@@ -518,7 +558,8 @@ function HomeContent() {
         onOpenCompare={() => setIsCompareModalOpen(true)}
         onOpenCart={() => setIsCartOpen(true)}
         onSelectBrand={handleSelectBrand}
-        onSearch={(query) => setFilters((prev) => ({ ...prev, searchQuery: query }))}
+        onSearch={handleSearch}
+        initialSearchQuery={filters.searchQuery}
         activeBrand={
           filters.selectedBrands.length === 1
             ? filters.selectedBrands[0]
@@ -827,19 +868,7 @@ function HomeContent() {
               )}
 
               <button
-                onClick={() =>
-                  setFilters({
-                    searchQuery: '',
-                    selectedBrands: [],
-                    priceRange: [0, 700000],
-                    selectedRam: [],
-                    selectedStorage: [],
-                    ptaApprovedOnly: false,
-                    inStockOnly: false,
-                    sortBy: 'popularity',
-                    specFilter: undefined,
-                  })
-                }
+                onClick={handleResetAllFilters}
                 className="text-xs text-rose-600 hover:underline font-bold ml-auto cursor-pointer"
               >
                 Clear All
@@ -977,18 +1006,7 @@ function HomeContent() {
                     Try adjusting your price slider or resetting brand and RAM filters.
                   </p>
                   <button
-                    onClick={() =>
-                      setFilters({
-                        searchQuery: '',
-                        selectedBrands: [],
-                        priceRange: [0, 700000],
-                        selectedRam: [],
-                        selectedStorage: [],
-                        ptaApprovedOnly: false,
-                        inStockOnly: false,
-                        sortBy: 'popularity',
-                      })
-                    }
+                    onClick={handleResetAllFilters}
                     className="mt-4 px-6 py-2.5 rounded-full bg-[#48afff] hover:bg-[#229eff] text-white text-xs font-black transition-colors cursor-pointer btn-press"
                   >
                     Reset All Filters

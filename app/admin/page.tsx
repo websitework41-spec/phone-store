@@ -222,31 +222,25 @@ export default function AdminPortalPage() {
         return false;
       }
       if (productSearch.trim()) {
-        const q = productSearch.toLowerCase();
-        return (
-          p.name.toLowerCase().includes(q) ||
-          p.brand.toLowerCase().includes(q) ||
-          p.slug.toLowerCase().includes(q)
-        );
+        const tokens = productSearch.toLowerCase().trim().split(/[\s,+/_-]+/).filter(Boolean);
+        const searchable = `${p.name} ${p.brand} ${p.slug} ${p.specs?.processor || ''} ${p.specs?.network || ''}`.toLowerCase();
+        return tokens.every((token) => searchable.includes(token));
       }
       return true;
     });
   }, [products, brandFilter, stockFilter, productSearch]);
 
-  // Filtered Orders
+  // Filtered Orders (Multi-token match on Order ID, customer, phone, city, address, or item names)
   const filteredOrders = useMemo(() => {
     return orders.filter((o) => {
       if (orderStatusFilter !== 'all' && o.status.toLowerCase() !== orderStatusFilter.toLowerCase()) {
         return false;
       }
       if (orderSearch.trim()) {
-        const q = orderSearch.toLowerCase();
-        return (
-          o.orderId.toLowerCase().includes(q) ||
-          o.customerName.toLowerCase().includes(q) ||
-          o.phone.includes(q) ||
-          o.city.toLowerCase().includes(q)
-        );
+        const tokens = orderSearch.toLowerCase().trim().split(/[\s,+/_-]+/).filter(Boolean);
+        const itemNames = (o.items || []).map((i) => (typeof i === 'string' ? i : i?.name || '')).join(' ');
+        const searchable = `${o.orderId} ${o.customerName} ${o.phone} ${o.city} ${o.address || ''} ${itemNames}`.toLowerCase();
+        return tokens.every((token) => searchable.includes(token));
       }
       return true;
     });

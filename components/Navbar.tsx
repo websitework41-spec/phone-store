@@ -34,6 +34,7 @@ import {
 } from 'lucide-react';
 import { sanitizeText } from '@/lib/security';
 import { useAuth } from '@/context/AuthContext';
+import { searchSmartphones } from '@/lib/search';
 
 interface NavbarProps {
   compareCount?: number;
@@ -43,6 +44,7 @@ interface NavbarProps {
   onSelectBrand?: (brand: string) => void;
   activeBrand?: string;
   onSearch?: (query: string) => void;
+  initialSearchQuery?: string;
 }
 
 export function Navbar({
@@ -53,11 +55,27 @@ export function Navbar({
   onSelectBrand,
   activeBrand = 'All Brands',
   onSearch,
+  initialSearchQuery,
 }: NavbarProps) {
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery || '');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+
+  // Sync internal search input state with initialSearchQuery or URL param
+  useEffect(() => {
+    if (initialSearchQuery !== undefined) {
+      setSearchQuery(initialSearchQuery);
+      return;
+    }
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const urlQuery = params.get('search') || params.get('q') || params.get('query');
+      if (urlQuery) {
+        setSearchQuery(urlQuery);
+      }
+    }
+  }, [initialSearchQuery]);
   const [isTrackOrderOpen, setIsTrackOrderOpen] = useState(false);
   const [trackPhoneOrOrder, setTrackPhoneOrOrder] = useState('');
   const [trackResult, setTrackResult] = useState<string | null>(null);
@@ -94,16 +112,11 @@ export function Navbar({
     return counts;
   }, [activeCatalog]);
 
-  // Search filtering on active catalog
-  const searchResults = searchQuery.trim()
-    ? activeCatalog.filter(
-        (p) =>
-          p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.specs.chipsetBrand?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.slug.toLowerCase().includes(searchQuery.toLowerCase())
-      ).slice(0, 6)
-    : [];
+  // Search filtering on active catalog using smart multi-token engine
+  const searchResults = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    return searchSmartphones(activeCatalog, searchQuery).slice(0, 6);
+  }, [activeCatalog, searchQuery]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -588,7 +601,7 @@ export function Navbar({
             {/* Mobile Search Drawer */}
             {isMobileSearchOpen && (
               <div ref={mobileSearchRef} className="md:hidden pb-3 pt-1 border-t border-white/20 animate-in fade-in duration-200">
-                <form onSubmit={handleSearchSubmit} className="relative">
+                <form onSubmit={handleSearchSubmit} className="relative flex items-center">
                   <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
                   <input
                     type="text"
@@ -597,8 +610,8 @@ export function Navbar({
                       setSearchQuery(e.target.value);
                       setIsSearchOpen(true);
                     }}
-                    placeholder="Search 222 phones..."
-                    className="w-full pl-10 pr-9 py-2.5 rounded-full text-base sm:text-xs bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-white/40 shadow-sm font-medium"
+                    placeholder="Search 222 phones (e.g. S24, iPhone, under 40k)..."
+                    className="w-full pl-10 pr-18 py-2.5 rounded-full text-base sm:text-xs bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-white/40 shadow-sm font-medium"
                   />
                   {searchQuery && (
                     <button
@@ -606,30 +619,68 @@ export function Navbar({
                       onClick={() => setSearchQuery('')}
                       aria-label="Clear search"
                       title="Clear search"
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
+                      className="absolute right-10 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
                   )}
+                  <button
+                    type="submit"
+                    className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-[#0b3c68] text-white flex items-center justify-center cursor-pointer shadow-xs active:scale-95"
+                    title="Search"
+                    aria-label="Submit Search"
+                  >
+                    <Search className="w-3.5 h-3.5 text-white" />
+                  </button>
                 </form>
 
                 {/* Mobile Search Results */}
                 {isSearchOpen && searchQuery.trim() && (
                   <div className="mt-2 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden divide-y divide-slate-100 text-slate-900">
-                    {searchResults.map((phone) => (
-                      <Link
-                        key={phone.id}
-                        href={`/product/${phone.slug}`}
-                        onClick={() => {
-                          setIsSearchOpen(false);
-                          setIsMobileSearchOpen(false);
-                        }}
-                        className="flex items-center justify-between p-3 hover:bg-slate-50 text-xs active:bg-sky-50"
-                      >
-                        <div className="truncate font-bold text-slate-900">{phone.name}</div>
-                        <div className="font-extrabold text-[#136ab5]">{formatPKR(phone.basePricePKR)}</div>
-                      </Link>
-                    ))}
+                    {searchResults.length > 0 ? (
+                      <>
+                        {searchResults.map((phone) => (
+                          <Link
+                            key={phone.id}
+                            href={`/product/${phone.slug}`}
+                            onClick={() => {
+                              setIsSearchOpen(false);
+                              setIsMobileSearchOpen(false);
+                            }}
+                            className="flex items-center justify-between p-3 hover:bg-slate-50 text-xs active:bg-sky-50 gap-2"
+                          >
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              <div className="w-9 h-9 rounded-lg bg-white border border-slate-200 p-0.5 shrink-0 flex items-center justify-center">
+                                {phone.colors?.[0]?.image ? (
+                                  <PhoneImageWithFallback
+                                    src={phone.colors[0].image}
+                                    alt={phone.name}
+                                    brand={phone.brand}
+                                    className="w-full h-full object-contain"
+                                  />
+                                ) : (
+                                  <SmartphoneIcon className="w-4 h-4 text-slate-400" />
+                                )}
+                              </div>
+                              <div className="truncate font-bold text-slate-900">{phone.name}</div>
+                            </div>
+                            <div className="font-extrabold text-[#136ab5] shrink-0">{formatPKR(phone.basePricePKR)}</div>
+                          </Link>
+                        ))}
+                        <button
+                          type="button"
+                          onClick={() => handleSearchSubmit()}
+                          className="w-full p-2.5 text-center text-xs font-bold text-[#136ab5] hover:bg-sky-50 flex items-center justify-center gap-1.5 transition-colors cursor-pointer bg-slate-50"
+                        >
+                          <span>View all results for &quot;{searchQuery}&quot;</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+                      </>
+                    ) : (
+                      <div className="p-4 text-center text-xs text-slate-500">
+                        No phones matching &quot;{searchQuery}&quot;
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

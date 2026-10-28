@@ -93,19 +93,18 @@ export async function GET(request: Request) {
   try {
     const phones = getSmartphonesFromDisk();
     const { searchParams } = new URL(request.url);
-    const search = searchParams.get('q')?.toLowerCase() || '';
+    const search = (searchParams.get('q') || searchParams.get('search') || '').toLowerCase().trim();
     const brand = searchParams.get('brand') || '';
     const stockStatus = searchParams.get('status') || '';
 
     let filtered = phones;
 
     if (search) {
-      filtered = filtered.filter(
-        (p) =>
-          p.name.toLowerCase().includes(search) ||
-          p.brand.toLowerCase().includes(search) ||
-          p.slug.toLowerCase().includes(search)
-      );
+      const tokens = search.split(/[\s,+/_-]+/).filter(Boolean);
+      filtered = filtered.filter((p) => {
+        const searchable = `${p.name} ${p.brand} ${p.slug} ${p.specs?.processor || ''} ${p.specs?.network || ''}`.toLowerCase();
+        return tokens.every((token) => searchable.includes(token));
+      });
     }
 
     if (brand && brand !== 'All Brands') {
