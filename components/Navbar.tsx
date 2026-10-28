@@ -75,9 +75,11 @@ export function Navbar({
 
   useEffect(() => {
     const handleSync = () => setActiveCatalog(getActiveCatalog());
+    window.addEventListener('hamzastore_products_updated', handleSync);
     window.addEventListener('voltphone_products_updated', handleSync);
     window.addEventListener('storage', handleSync);
     return () => {
+      window.removeEventListener('hamzastore_products_updated', handleSync);
       window.removeEventListener('voltphone_products_updated', handleSync);
       window.removeEventListener('storage', handleSync);
     };
@@ -161,7 +163,7 @@ export function Navbar({
 
     let matchedOrder: { orderId: string; customerName: string; status: string } | null = null;
     try {
-      const stored = localStorage.getItem('voltphone_orders');
+      const stored = localStorage.getItem('hamzastore_orders') || localStorage.getItem('voltphone_orders');
       if (stored) {
         const orders = JSON.parse(stored);
         if (Array.isArray(orders)) {
@@ -176,9 +178,9 @@ export function Navbar({
       // ignore
     }
 
-    if (!matchedOrder && (cleanTrack.toUpperCase() === 'VPK-786110' || cleanTrack === '03001234567')) {
+    if (!matchedOrder && (cleanTrack.toUpperCase() === 'HPS-786110' || cleanTrack.toUpperCase() === 'VPK-786110' || cleanTrack === '03001234567')) {
       matchedOrder = {
-        orderId: 'VPK-786110',
+        orderId: cleanTrack.toUpperCase().includes('VPK') ? 'VPK-786110' : 'HPS-786110',
         customerName: 'Muhammad Ali',
         status: 'Dispatched via TCS Express. In transit to destination (Lahore). Expected delivery today with Open-Parcel inspection.',
       };
@@ -192,7 +194,7 @@ export function Navbar({
     } else {
       setTrackError(true);
       setTrackResult(
-        `No order found with Tracking ID "${cleanTrack}". Please verify your order number (e.g. VPK-786110) or contact our WhatsApp helpline at +92 313 5221200.`
+        `No order found with Tracking ID "${cleanTrack}". Please verify your order number (e.g. HPS-786110) or contact our WhatsApp helpline at +92 313 5221200.`
       );
     }
   };
@@ -245,7 +247,7 @@ export function Navbar({
               </a>
               <span className="text-slate-700 hidden sm:inline">•</span>
               <a
-                href="https://wa.me/923135221200?text=Hi%20VoltPhone%20PK!%20I%20have%20an%20inquiry%20regarding%20mobile%20phones."
+                href="https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20have%20an%20inquiry%20regarding%20mobile%20phones."
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-emerald-300 flex items-center gap-1.5 transition-all font-bold text-emerald-400 hover:scale-105 active:scale-95"
@@ -261,7 +263,7 @@ export function Navbar({
         {/* 2. Main Navigation Bar */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20 gap-4">
-            {/* VoltPhone Brand Logo with Interactive Glow & Hover Tilt */}
+            {/* Hamza Phone Store Brand Logo with Interactive Glow & Hover Tilt */}
             <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-cyan-400 shadow-md shadow-cyan-500/10 group-hover:scale-110 group-hover:rotate-6 group-hover:border-cyan-400 group-hover:shadow-cyan-400/30 transition-all duration-300">
                 <Zap className="w-5 h-5 sm:w-6 sm:h-6 fill-cyan-400 stroke-cyan-400 group-hover:animate-bounce" />
@@ -269,7 +271,7 @@ export function Navbar({
               <div>
                 <div className="flex items-center gap-1.5">
                   <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-950 font-sans group-hover:text-cyan-700 transition-colors">
-                    VOLT<span className="text-cyan-600">PHONE</span>
+                    HAMZA <span className="text-cyan-600">PHONE STORE</span>
                   </span>
                   <span className="text-[10px] font-black px-1.5 py-0.5 rounded bg-cyan-100 text-cyan-800 border border-cyan-200 group-hover:scale-105 transition-transform">
                     PK
@@ -477,7 +479,7 @@ export function Navbar({
                           {profile?.name || user.displayName || 'Customer'}
                         </p>
                         <p className="text-[11px] text-slate-500 truncate">
-                          {profile?.phone || (user.email ? user.email.replace('@voltphone.pk', '') : '')}
+                          {profile?.phone || (user.email ? user.email.replace(/@(hamzaphonestore\.pk|voltphone\.pk)/, '') : '')}
                         </p>
                       </div>
 
@@ -690,7 +692,7 @@ export function Navbar({
                 required
                 value={trackPhoneOrOrder}
                 onChange={(e) => setTrackPhoneOrOrder(e.target.value)}
-                placeholder="e.g. 03001234567 or VPK-786110"
+                placeholder="e.g. 03001234567 or HPS-786110"
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-cyan-500"
               />
               <button

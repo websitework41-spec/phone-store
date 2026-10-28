@@ -3,7 +3,7 @@
 import React, { useState, useEffect, memo } from 'react';
 import { Clock } from 'lucide-react';
 
-const DEADLINE_KEY = 'voltphone_flash_sale_deadline';
+const DEADLINE_KEY = 'hamzastore_flash_sale_deadline';
 
 function getOrSetFixedDeadline(): number {
   if (typeof window === 'undefined') return 0;

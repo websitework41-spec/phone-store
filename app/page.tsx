@@ -107,10 +107,12 @@ function HomeContent() {
     syncCatalog();
     fetchCatalog();
 
+    window.addEventListener('hamzastore_products_updated', syncCatalog);
     window.addEventListener('voltphone_products_updated', syncCatalog);
     window.addEventListener('storage', syncCatalog);
 
     return () => {
+      window.removeEventListener('hamzastore_products_updated', syncCatalog);
       window.removeEventListener('voltphone_products_updated', syncCatalog);
       window.removeEventListener('storage', syncCatalog);
     };
@@ -1231,7 +1233,7 @@ function HomeContent() {
                     <li><strong>Nokia &amp; Itel:</strong> HMD Global and authorized nationwide centers.</li>
                   </ul>
                   <p className="text-[11px] text-slate-400">
-                    Your VoltPhone invoice serves as your valid proof of purchase for all warranty claims.
+                    Your Hamza Phone Store invoice serves as your valid proof of purchase for all warranty claims.
                   </p>
                 </>
               )}
@@ -1262,7 +1264,7 @@ function HomeContent() {
       {/* Floating Live WhatsApp & Helpline Support Assistant */}
       <aside aria-label="Quick WhatsApp Helpline" className="fixed bottom-6 right-6 z-40 flex items-center">
         <a
-          href="https://wa.me/923135221200?text=Hi%20VoltPhone%20PK!%20I%20am%20looking%20for%20a%20smartphone%20with%20Open-Parcel%20COD"
+          href="https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20am%20looking%20for%20a%20smartphone%20with%20Open-Parcel%20COD"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2.5 px-4 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-emerald-600/30 btn-press card-hover-fx group cursor-pointer border border-emerald-400/40"
@@ -1285,7 +1287,7 @@ export default function Home() {
     <Suspense
       fallback={
         <div className="min-h-screen bg-slate-50 flex items-center justify-center text-slate-500 font-bold">
-          Loading VoltPhone PK Catalog...
+          Loading Hamza Phone Store Catalog...
         </div>
       }
     >

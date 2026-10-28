@@ -167,8 +167,8 @@ export function HelperBot() {
     {
       id: 'welcome',
       sender: 'bot',
-      text: `👋 **Welcome to VoltPhone PK!**
-I'm **VoltBot**, your AI shopping specialist.
+      text: `👋 **Welcome to Hamza Phone Store!**
+I'm **HamzaBot**, your AI shopping specialist.
 
 Ask me anything about:
 - 📦 **Open-Parcel Cash on Delivery** (inspect before paying)
@@ -297,7 +297,7 @@ Or tap a quick question below to get started!`,
       {
         id: `welcome-${Date.now()}`,
         sender: 'bot',
-        text: `👋 Chat reset! How can I assist you today with VoltPhone PK smartphones or orders?`,
+        text: `👋 Chat reset! How can I assist you today with Hamza Phone Store smartphones or orders?`,
         timestamp: 'Just now',
       },
     ]);
@@ -308,13 +308,13 @@ Or tap a quick question below to get started!`,
       {/* Floating Trigger Launcher Button */}
       {!isOpen && (
         <aside
-          aria-label="VoltBot AI Assistant"
+          aria-label="HamzaBot AI Assistant"
           className="fixed bottom-22 sm:bottom-22 right-6 z-40 flex items-center"
         >
           <button
             onClick={() => setIsOpen(true)}
             className="flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-cyan-600 via-sky-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-cyan-600/30 btn-press card-hover-fx group cursor-pointer border border-cyan-400/40 transition-all duration-300 transform hover:scale-105"
-            title="Ask VoltBot AI - 24/7 Mobile Helper & FAQ Assistant"
+            title="Ask HamzaBot AI - 24/7 Mobile Helper & FAQ Assistant"
           >
             <span className="relative flex h-3 w-3">
               {hasUnread && (
@@ -328,7 +328,7 @@ Or tap a quick question below to get started!`,
             </div>
 
             <span className="font-sans tracking-tight flex items-center gap-1.5">
-              <span>VoltBot AI</span>
+              <span>HamzaBot AI</span>
               <Sparkles className="w-3.5 h-3.5 text-cyan-200 fill-cyan-200/50" />
             </span>
           </button>
@@ -338,7 +338,7 @@ Or tap a quick question below to get started!`,
       {/* Floating Chat Modal Window */}
       {isOpen && (
         <section
-          aria-label="VoltBot AI Chat Window"
+          aria-label="HamzaBot AI Chat Window"
           className="fixed bottom-4 sm:bottom-6 right-3 sm:right-6 z-50 w-[calc(100vw-24px)] sm:w-[410px] h-[580px] max-h-[90vh] rounded-2xl shadow-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200"
         >
           {/* Header */}
@@ -353,7 +353,7 @@ Or tap a quick question below to get started!`,
               <div>
                 <div className="flex items-center gap-1.5">
                   <h3 className="text-sm font-black tracking-tight text-white flex items-center gap-1">
-                    VoltBot AI
+                    HamzaBot AI
                     <Sparkles className="w-3 h-3 text-cyan-400 fill-cyan-400/40" />
                   </h3>
                   <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
@@ -393,7 +393,7 @@ Or tap a quick question below to get started!`,
               Helpline: <strong className="font-bold">+92 313 5221200</strong>
             </span>
             <a
-              href="https://wa.me/923135221200?text=Hi%20VoltPhone%20PK!%20I%20have%20a%20question"
+              href="https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20have%20a%20question"
               target="_blank"
               rel="noopener noreferrer"
               className="text-emerald-700 dark:text-emerald-400 hover:underline font-bold flex items-center gap-1"
@@ -450,7 +450,7 @@ Or tap a quick question below to get started!`,
                   <span className="w-2 h-2 rounded-full bg-cyan-500 animate-bounce [animation-delay:0.2s]"></span>
                   <span className="w-2 h-2 rounded-full bg-cyan-500 animate-bounce [animation-delay:0.4s]"></span>
                   <span className="text-[11px] text-slate-400 ml-1.5 font-medium">
-                    VoltBot is thinking...
+                    HamzaBot is thinking...
                   </span>
                 </div>
               </div>

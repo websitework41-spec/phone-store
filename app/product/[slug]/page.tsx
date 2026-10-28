@@ -391,7 +391,7 @@ export default function ProductDetailPage() {
 
               {savings > 0 && (
                 <div className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-                  {`⚡ VoltPhone Special: You save ${formatPKR(savings)} with Free Shipping!`}
+                  {`⚡ Hamza Phone Store Special: You save ${formatPKR(savings)} with Free Shipping!`}
                 </div>
               )}
             </div>
@@ -522,7 +522,7 @@ export default function ProductDetailPage() {
 
             {/* Direct WhatsApp Instant Order Button */}
             <a
-              href={`https://wa.me/923135221200?text=Hi%20VoltPhone%20PK!%20I%20want%20to%20order%20the%20${encodeURIComponent(phone.name)}%20(${encodeURIComponent(selectedColor.name)},%20${encodeURIComponent(selectedVariant.ram)}/${encodeURIComponent(selectedVariant.storage)})%20for%20${encodeURIComponent(formatPKR(currentPrice))}.`}
+              href={`https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20want%20to%20order%20the%20${encodeURIComponent(phone.name)}%20(${encodeURIComponent(selectedColor.name)},%20${encodeURIComponent(selectedVariant.ram)}/${encodeURIComponent(selectedVariant.storage)})%20for%20${encodeURIComponent(formatPKR(currentPrice))}.`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-sm transition-all shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2 cursor-pointer btn-press btn-shimmer"
@@ -731,7 +731,7 @@ export default function ProductDetailPage() {
       {/* Floating Live WhatsApp & Helpline Support Assistant */}
       <aside aria-label="Quick WhatsApp Helpline" className="fixed bottom-6 right-6 z-40 flex items-center">
         <a
-          href={`https://wa.me/923135221200?text=Hi%20VoltPhone%20PK!%20I%20need%20assistance%20with%20${encodeURIComponent(phone.name)}.`}
+          href={`https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20need%20assistance%20with%20${encodeURIComponent(phone.name)}.`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2.5 px-4 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-emerald-600/30 btn-press card-hover-fx group cursor-pointer border border-emerald-400/40"

@@ -62,7 +62,7 @@ export default function PoliciesPage() {
       content: (
         <div className="space-y-4 text-sm text-slate-700 leading-relaxed">
           <p className="font-semibold text-slate-900">
-            VoltPhone PK is proud to pioneer 100% Open-Parcel Cash on Delivery across 150+ Pakistani cities with our logistics partners (TCS Express, Leopards, Trax, and PostEx).
+            Hamza Phone Store is proud to pioneer 100% Open-Parcel Cash on Delivery across 150+ Pakistani cities with our logistics partners (TCS Express, Leopards, Trax, and PostEx).
           </p>
           <div className="rounded-2xl bg-cyan-50/60 p-4 border border-cyan-200/80 space-y-2">
             <h4 className="font-bold text-cyan-950 flex items-center gap-2">
@@ -99,11 +99,11 @@ export default function PoliciesPage() {
       badge: '100% Tax Cleared',
       badgeColor: 'bg-emerald-500/10 text-emerald-700 border-emerald-500/20',
       icon: <ShieldCheck className="w-6 h-6 text-emerald-600" />,
-      summary: 'Every mobile phone on VoltPhone PK is legally imported with full customs duty and lifetime PTA SIM approval.',
+      summary: 'Every mobile phone on Hamza Phone Store is legally imported with full customs duty and lifetime PTA SIM approval.',
       content: (
         <div className="space-y-4 text-sm text-slate-700 leading-relaxed">
           <p>
-            All 222 smartphones and keypad phones cataloged on VoltPhone PK are registered in the Pakistan Telecommunication Authority (PTA) Device Identification, Registration and Blocking System (DIRBS).
+            All 222 smartphones and keypad phones cataloged on Hamza Phone Store are registered in the Pakistan Telecommunication Authority (PTA) Device Identification, Registration and Blocking System (DIRBS).
           </p>
           <div className="rounded-2xl bg-slate-900 text-white p-5 space-y-3 font-mono text-xs sm:text-sm shadow-md">
             <div className="text-cyan-400 font-bold font-sans flex items-center gap-1.5">
@@ -142,7 +142,7 @@ export default function PoliciesPage() {
       content: (
         <div className="space-y-4 text-sm text-slate-700 leading-relaxed">
           <p>
-            VoltPhone PK partners with leading Pakistani financial institutions to offer 0% Markup Easy Monthly Installments (EMI) on credit cards.
+            Hamza Phone Store partners with leading Pakistani financial institutions to offer 0% Markup Easy Monthly Installments (EMI) on credit cards.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
             <div className="p-3.5 rounded-2xl bg-white border border-slate-200 space-y-1">
@@ -186,7 +186,7 @@ export default function PoliciesPage() {
       badge: 'Authorized Centers',
       badgeColor: 'bg-indigo-500/10 text-indigo-700 border-indigo-500/20',
       icon: <RotateCcw className="w-6 h-6 text-indigo-600" />,
-      summary: 'Claim nationwide manufacturer support at official brand care centers with your VoltPhone PK tax invoice.',
+      summary: 'Claim nationwide manufacturer support at official brand care centers with your Hamza Phone Store tax invoice.',
       content: (
         <div className="space-y-4 text-sm text-slate-700 leading-relaxed">
           <p>
@@ -213,7 +213,7 @@ export default function PoliciesPage() {
             </li>
           </ul>
           <p className="text-xs text-slate-500">
-            Your printed VoltPhone PK invoice and digital order confirmation serve as your valid official proof of purchase for all warranty claims.
+            Your printed Hamza Phone Store invoice and digital order confirmation serve as your valid official proof of purchase for all warranty claims.
           </p>
         </div>
       ),
@@ -257,7 +257,7 @@ export default function PoliciesPage() {
       content: (
         <div className="space-y-4 text-sm text-slate-700 leading-relaxed">
           <p>
-            In the rare event that your new smartphone arrives with an out-of-the-box hardware defect or functional fault, VoltPhone PK provides a 7-Day Replacement Guarantee.
+            In the rare event that your new smartphone arrives with an out-of-the-box hardware defect or functional fault, Hamza Phone Store provides a 7-Day Replacement Guarantee.
           </p>
           <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 space-y-2 text-xs sm:text-sm text-rose-950">
             <h4 className="font-bold">Conditions for Replacement:</h4>
@@ -281,7 +281,7 @@ export default function PoliciesPage() {
       content: (
         <div className="space-y-4 text-sm text-slate-700 leading-relaxed">
           <p>
-            At VoltPhone PK, we take customer privacy and data security with utmost seriousness.
+            At Hamza Phone Store, we take customer privacy and data security with utmost seriousness.
           </p>
           <div className="space-y-3 text-xs sm:text-sm">
             <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
@@ -325,7 +325,7 @@ export default function PoliciesPage() {
             <span>Customer Assurances &amp; Policies</span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white font-sans">
-            VoltPhone PK Customer Policies &amp; Assurances
+            Hamza Phone Store Customer Policies &amp; Assurances
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
             Pakistan&apos;s most trusted mobile phone marketplace. Complete transparency on Open-Parcel Cash on Delivery, official PTA DIRBS compliance, 0% EMI installments, and manufacturer warranties.
@@ -398,7 +398,7 @@ export default function PoliciesPage() {
               <span>+92 313 5221200</span>
             </a>
             <a
-              href="https://wa.me/923135221200?text=Hi%20VoltPhone%20PK!%20I%20have%20a%20question%20about%20store%20policies."
+              href="https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20have%20a%20question%20about%20store%20policies."
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black flex items-center gap-2 shadow-md transition-all"

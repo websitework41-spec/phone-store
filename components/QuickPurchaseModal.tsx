@@ -134,7 +134,7 @@ export function QuickPurchaseModal({
     setIsSubmitting(true);
     // Simulate secure order placement with sanitized values
     setTimeout(async () => {
-      const randomOrder = `VPK-${Math.floor(100000 + Math.random() * 900000)}`;
+      const randomOrder = `HPS-${Math.floor(100000 + Math.random() * 900000)}`;
       setGeneratedOrderId(randomOrder);
       setFullName(cleanName);
       setPhoneNumber(phoneCheck.cleanPhone);
@@ -191,8 +191,8 @@ export function QuickPurchaseModal({
           status: 'Order Confirmed — Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.',
           createdAt: new Date().toISOString(),
         };
-        const existing = JSON.parse(localStorage.getItem('voltphone_orders') || '[]');
-        localStorage.setItem('voltphone_orders', JSON.stringify([newOrder, ...existing]));
+        const existing = JSON.parse(localStorage.getItem('hamzastore_orders') || localStorage.getItem('voltphone_orders') || '[]');
+        localStorage.setItem('hamzastore_orders', JSON.stringify([newOrder, ...existing]));
       } catch {
         // ignore
       }
@@ -610,7 +610,7 @@ export function QuickPurchaseModal({
             </div>
 
             <a
-              href={`https://wa.me/923135221200?text=Hi%20VoltPhone%20PK!%20I%20have%20an%20inquiry%20regarding%20my%20order%20${encodeURIComponent(generatedOrderId)}.`}
+              href={`https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20have%20an%20inquiry%20regarding%20my%20order%20${encodeURIComponent(generatedOrderId)}.`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full max-w-md mx-auto p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs flex items-center justify-center gap-2 hover:bg-emerald-100 transition-colors cursor-pointer"

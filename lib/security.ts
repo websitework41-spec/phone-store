@@ -1,5 +1,5 @@
 /**
- * VoltPhone PK - Security Hardening & Input Sanitization Engine
+ * Hamza Phone Store - Security Hardening & Input Sanitization Engine
  * 
  * Provides defense against:
  * - Cross-Site Scripting (XSS)

@@ -127,13 +127,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             } else {
               // Create user doc if not yet existing
               const phoneFromEmail = currentUser.email
-                ? currentUser.email.replace('@voltphone.pk', '')
+                ? currentUser.email.replace(/@(hamzaphonestore\.pk|voltphone\.pk)/, '')
                 : '';
               const newProfile: UserProfile = {
                 uid: currentUser.uid,
-                name: currentUser.displayName || 'VoltPhone Customer',
+                name: currentUser.displayName || 'Hamza Phone Store Customer',
                 phone: phoneFromEmail,
-                email: currentUser.email || `${phoneFromEmail}@voltphone.pk`,
+                email: currentUser.email || `${phoneFromEmail}@hamzaphonestore.pk`,
                 addresses: [],
                 createdAt: serverTimestamp(),
               };
@@ -152,8 +152,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             // Fallback profile if Firestore is restricted
             setProfile({
               uid: currentUser.uid,
-              name: currentUser.displayName || 'VoltPhone Customer',
-              phone: currentUser.email ? currentUser.email.replace('@voltphone.pk', '') : '',
+              name: currentUser.displayName || 'Hamza Phone Store Customer',
+              phone: currentUser.email ? currentUser.email.replace(/@(hamzaphonestore\.pk|voltphone\.pk)/, '') : '',
               email: currentUser.email || '',
               addresses: [],
             });
@@ -256,6 +256,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await signInWithEmailAndPassword(auth, syntheticEmail, password);
       return { success: true };
     } catch (err: any) {
+      // Legacy fallback: check if account was originally created with @voltphone.pk
+      if (
+        (err.code === 'auth/invalid-credential' ||
+          err.code === 'auth/user-not-found' ||
+          err.code === 'auth/wrong-password') &&
+        syntheticEmail.endsWith('@hamzaphonestore.pk')
+      ) {
+        try {
+          const legacyEmail = `${phoneCheck.cleanPhone}@voltphone.pk`;
+          await signInWithEmailAndPassword(auth, legacyEmail, password);
+          return { success: true };
+        } catch {
+          // Continue to standard error reporting
+        }
+      }
+
       console.error('Login error:', err);
       if (
         err.code === 'auth/invalid-credential' ||

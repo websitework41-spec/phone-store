@@ -116,7 +116,9 @@ export default function AdminPortalPage() {
   useEffect(() => {
     try {
       const isAuth =
+        sessionStorage.getItem('hamzastore_admin_auth') ||
         sessionStorage.getItem('voltphone_admin_auth') ||
+        localStorage.getItem('hamzastore_admin_auth') ||
         localStorage.getItem('voltphone_admin_auth');
       if (isAuth === 'granted') {
         setIsAuthenticated(true);
@@ -160,16 +162,23 @@ export default function AdminPortalPage() {
     setAuthError('');
     const savedPin =
       typeof window !== 'undefined'
-        ? localStorage.getItem('voltphone_admin_pin') || 'admin786'
+        ? localStorage.getItem('hamzastore_admin_pin') ||
+          localStorage.getItem('voltphone_admin_pin') ||
+          'admin786'
         : 'admin786';
 
+    const normalizedPasscode = passcode.trim();
     if (
-      passcode.trim() === savedPin ||
-      passcode.trim() === 'admin786' ||
-      passcode.trim() === 'voltphone2026'
+      normalizedPasscode === savedPin ||
+      normalizedPasscode === 'admin786' ||
+      normalizedPasscode === 'hamza2026' ||
+      normalizedPasscode === 'hamza786' ||
+      normalizedPasscode === 'voltphone2026'
     ) {
       setIsAuthenticated(true);
+      sessionStorage.setItem('hamzastore_admin_auth', 'granted');
       sessionStorage.setItem('voltphone_admin_auth', 'granted');
+      localStorage.setItem('hamzastore_admin_auth', 'granted');
       localStorage.setItem('voltphone_admin_auth', 'granted');
       showToast('Welcome back, Hamza! Access granted.');
     } else {
@@ -179,7 +188,9 @@ export default function AdminPortalPage() {
 
   const handleAdminLogout = () => {
     setIsAuthenticated(false);
+    sessionStorage.removeItem('hamzastore_admin_auth');
     sessionStorage.removeItem('voltphone_admin_auth');
+    localStorage.removeItem('hamzastore_admin_auth');
     localStorage.removeItem('voltphone_admin_auth');
     showToast('Admin session locked.');
   };
@@ -189,6 +200,7 @@ export default function AdminPortalPage() {
       showToast('Passcode must be at least 4 characters');
       return;
     }
+    localStorage.setItem('hamzastore_admin_pin', newAdminPin.trim());
     localStorage.setItem('voltphone_admin_pin', newAdminPin.trim());
     setNewAdminPin('');
     showToast('Admin Passcode updated successfully!');
@@ -458,8 +470,8 @@ export default function AdminPortalPage() {
   if (authChecking) {
     return (
       <div className="min-h-screen bg-[#f1f2f4] flex flex-col items-center justify-center space-y-4">
-        <div className="w-12 h-12 rounded-2xl bg-[#008060] flex items-center justify-center text-white font-black text-xl shadow-md animate-pulse">
-          VP
+        <div className="w-12 h-12 rounded-2xl bg-[#008060] flex items-center justify-center text-white font-black text-sm shadow-md animate-pulse">
+          HPS
         </div>
         <p className="text-sm font-semibold text-slate-500">Loading Shopify Store Admin...</p>
       </div>
@@ -471,10 +483,10 @@ export default function AdminPortalPage() {
       <div className="min-h-screen bg-gradient-to-b from-[#f6f6f7] to-[#ebedf0] text-slate-900 flex items-center justify-center p-4 antialiased">
         <div className="w-full max-w-md bg-white border border-slate-200/90 rounded-3xl p-8 shadow-[0_10px_30px_rgba(0,0,0,0.06)] space-y-6">
           <div className="text-center space-y-2">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#008060] to-[#004c3f] mx-auto flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-[#008060]/20">
-              VP
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#008060] to-[#004c3f] mx-auto flex items-center justify-center text-white text-xl font-black shadow-lg shadow-[#008060]/20">
+              HPS
             </div>
-            <h1 className="text-xl font-bold text-slate-900 tracking-tight">VoltPhone PK Admin</h1>
+            <h1 className="text-xl font-bold text-slate-900 tracking-tight">Hamza Phone Store Admin</h1>
             <p className="text-xs text-slate-500 max-w-xs mx-auto">
               Shopify-grade Merchant Portal for Inventory, Orders, and Catalog Fulfillment.
             </p>
@@ -528,7 +540,7 @@ export default function AdminPortalPage() {
               href="/"
               className="text-xs text-slate-500 hover:text-[#008060] transition-colors inline-flex items-center gap-1 font-semibold"
             >
-              ← Back to VoltPhone Storefront
+              ← Back to Hamza Phone Store
             </Link>
           </div>
         </div>
@@ -594,12 +606,12 @@ export default function AdminPortalPage() {
         {/* Brand Header */}
         <div className="p-4 border-b border-[#202123] flex items-center justify-between">
           <Link href="/admin" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-xl bg-[#008060] flex items-center justify-center text-white font-extrabold text-sm shadow-md group-hover:scale-105 transition-transform">
-              VP
+            <div className="w-8 h-8 rounded-xl bg-[#008060] flex items-center justify-center text-white font-extrabold text-xs shadow-md group-hover:scale-105 transition-transform">
+              HPS
             </div>
             <div>
               <div className="font-bold text-sm tracking-tight text-white flex items-center gap-1.5">
-                VoltPhone <span className="text-[#00a47c] text-xs">PK</span>
+                Hamza Phone <span className="text-[#00a47c] text-xs">Store</span>
               </div>
               <div className="text-[10px] font-semibold text-slate-400">Shopify Store Admin</div>
             </div>
@@ -810,7 +822,7 @@ export default function AdminPortalPage() {
                     Welcome back, Hamza 👋
                   </h2>
                   <p className="text-xs text-slate-500 mt-1">
-                    Here is what is happening in your VoltPhone PK mobile store today.
+                    Here is what is happening in your Hamza Phone Store mobile store today.
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1841,7 +1853,7 @@ export default function AdminPortalPage() {
               <div className="p-5 bg-white border border-slate-200/90 rounded-2xl shadow-xs">
                 <h3 className="font-bold text-slate-900 text-base">Registered Buyers</h3>
                 <p className="text-xs text-slate-500">
-                  Customers who have placed orders through VoltPhone PK.
+                  Customers who have placed orders through Hamza Phone Store.
                 </p>
               </div>
 
@@ -1906,7 +1918,7 @@ export default function AdminPortalPage() {
                     </label>
                     <input
                       type="text"
-                      defaultValue="VoltPhone PK"
+                      defaultValue="Hamza Phone Store"
                       className="w-full bg-[#f9fafb] border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#008060]"
                     />
                   </div>
@@ -2112,7 +2124,7 @@ export default function AdminPortalPage() {
 
             <div className="border-b border-slate-200 pb-5 flex items-start justify-between">
               <div>
-                <h2 className="text-2xl font-black text-slate-900">VoltPhone PK</h2>
+                <h2 className="text-2xl font-black text-slate-900">Hamza Phone Store</h2>
                 <p className="text-xs text-slate-500">Official Mobile Marketplace &amp; Logistics</p>
                 <p className="text-xs text-slate-500">PTA-Approved Direct Dispatch Delivery Note</p>
               </div>
@@ -2841,7 +2853,7 @@ function ProductFormModal({ product, onClose, onSaved }: ProductFormModalProps) 
                   <option value="draft">Draft / Archived</option>
                 </select>
                 <p className="text-[11px] text-slate-500">
-                  This product will be immediately purchasable on VoltPhone PK when active.
+                  This product will be immediately purchasable on Hamza Phone Store when active.
                 </p>
               </div>
 

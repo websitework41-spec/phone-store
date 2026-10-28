@@ -1,9 +1,11 @@
 import { Smartphone } from '@/types';
 import { SMARTPHONES } from '@/data/smartphones';
 
-const DELETED_KEY = 'voltphone_deleted_ids';
-const CUSTOM_KEY = 'voltphone_custom_products';
-const SYNC_KEY = 'voltphone_catalog_version';
+const DELETED_KEY = 'hamzastore_deleted_ids';
+const CUSTOM_KEY = 'hamzastore_custom_products';
+const SYNC_KEY = 'hamzastore_catalog_version';
+const LEGACY_DELETED_KEY = 'voltphone_deleted_ids';
+const LEGACY_CUSTOM_KEY = 'voltphone_custom_products';
 
 /**
  * Returns an array of phone IDs or slugs that have been marked deleted by the admin.
@@ -11,7 +13,7 @@ const SYNC_KEY = 'voltphone_catalog_version';
 export function getLocalDeletedIds(): string[] {
   if (typeof window === 'undefined') return [];
   try {
-    const raw = localStorage.getItem(DELETED_KEY);
+    const raw = localStorage.getItem(DELETED_KEY) || localStorage.getItem(LEGACY_DELETED_KEY);
     return raw ? JSON.parse(raw) : [];
   } catch {
     return [];
@@ -24,7 +26,7 @@ export function getLocalDeletedIds(): string[] {
 export function getLocalCustomProducts(): Smartphone[] {
   if (typeof window === 'undefined') return [];
   try {
-    const raw = localStorage.getItem(CUSTOM_KEY);
+    const raw = localStorage.getItem(CUSTOM_KEY) || localStorage.getItem(LEGACY_CUSTOM_KEY);
     return raw ? JSON.parse(raw) : [];
   } catch {
     return [];
@@ -94,6 +96,7 @@ export function markProductDeletedLocally(phoneId: string, slug?: string) {
 
   // Dispatch sync event for immediate reactive state updates
   localStorage.setItem(SYNC_KEY, Date.now().toString());
+  window.dispatchEvent(new Event('hamzastore_products_updated'));
   window.dispatchEvent(new Event('voltphone_products_updated'));
 }
 
@@ -118,5 +121,6 @@ export function saveProductLocally(product: Smartphone) {
 
   // Dispatch sync
   localStorage.setItem(SYNC_KEY, Date.now().toString());
+  window.dispatchEvent(new Event('hamzastore_products_updated'));
   window.dispatchEvent(new Event('voltphone_products_updated'));
 }

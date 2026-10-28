@@ -109,7 +109,7 @@ export async function POST(request: Request) {
 
     const orders = getOrdersFromDisk();
     const newOrder: AdminOrder = {
-      orderId: orderData.orderId || `VPK-${Math.floor(100000 + Math.random() * 900000)}`,
+      orderId: orderData.orderId || `HPS-${Math.floor(100000 + Math.random() * 900000)}`,
       customerName: orderData.customerName,
       phone: orderData.phone,
       city: orderData.city || 'Pakistan',

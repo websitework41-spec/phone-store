@@ -56,9 +56,11 @@ export function FilterSidebar({
 
   useEffect(() => {
     const handleSync = () => setActiveCatalog(getActiveCatalog());
+    window.addEventListener('hamzastore_products_updated', handleSync);
     window.addEventListener('voltphone_products_updated', handleSync);
     window.addEventListener('storage', handleSync);
     return () => {
+      window.removeEventListener('hamzastore_products_updated', handleSync);
       window.removeEventListener('voltphone_products_updated', handleSync);
       window.removeEventListener('storage', handleSync);
     };

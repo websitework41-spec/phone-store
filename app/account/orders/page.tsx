@@ -76,8 +76,8 @@ export default function OrdersHistoryPage() {
 
       // Merge with local storage orders placed with same phone
       try {
-        const local = JSON.parse(localStorage.getItem('voltphone_orders') || '[]');
-        const cleanUserPhone = profile?.phone || (user.email ? user.email.replace('@voltphone.pk', '') : '');
+        const local = JSON.parse(localStorage.getItem('hamzastore_orders') || localStorage.getItem('voltphone_orders') || '[]');
+        const cleanUserPhone = profile?.phone || (user.email ? user.email.replace(/@(hamzaphonestore\.pk|voltphone\.pk)/, '') : '');
         
         local.forEach((lo: any) => {
           const matchPhone = lo.phone && cleanUserPhone && lo.phone.replace(/\D/g, '') === cleanUserPhone.replace(/\D/g, '');
@@ -326,7 +326,7 @@ export default function OrdersHistoryPage() {
 
                         <a
                           href={`https://wa.me/923135221200?text=${encodeURIComponent(
-                            `Hi VoltPhone PK! I am inquiring about my order #${order.orderId}.`
+                            `Hi Hamza Phone Store! I am inquiring about my order #${order.orderId}.`
                           )}`}
                           target="_blank"
                           rel="noreferrer"

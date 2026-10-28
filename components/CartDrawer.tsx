@@ -147,7 +147,7 @@ export function CartDrawer({
     setCustomerPhone(phoneCheck.cleanPhone);
     setCustomerAddress(cleanAddress);
 
-    const orderId = `VPK-${Math.floor(100000 + Math.random() * 900000)}`;
+    const orderId = `HPS-${Math.floor(100000 + Math.random() * 900000)}`;
     setConfirmedOrderId(orderId);
 
     const orderItemsSummary = items.map(
@@ -194,8 +194,8 @@ export function CartDrawer({
         status: 'Order Confirmed — Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.',
         createdAt: new Date().toISOString(),
       };
-      const existing = JSON.parse(localStorage.getItem('voltphone_orders') || '[]');
-      localStorage.setItem('voltphone_orders', JSON.stringify([newOrder, ...existing]));
+      const existing = JSON.parse(localStorage.getItem('hamzastore_orders') || localStorage.getItem('voltphone_orders') || '[]');
+      localStorage.setItem('hamzastore_orders', JSON.stringify([newOrder, ...existing]));
     } catch {
       // ignore
     }
@@ -286,7 +286,7 @@ export function CartDrawer({
                 <div className="flex justify-between">
                   <span className="text-neutral-400">Tracking Code:</span>
                   <span className="font-mono font-bold text-blue-600">
-                    {confirmedOrderId || 'VPK-786110'}
+                    {confirmedOrderId || 'HPS-786110'}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -316,7 +316,7 @@ export function CartDrawer({
               </div>
 
               <a
-                href="https://wa.me/923135221200?text=Hi%20VoltPhone%20PK!%20I%20just%20placed%20an%20order%20and%20need%20tracking%20details."
+                href="https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20just%20placed%20an%20order%20and%20need%20tracking%20details."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-4 w-full p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs flex items-center justify-center gap-2 hover:bg-emerald-100 transition-colors cursor-pointer"
