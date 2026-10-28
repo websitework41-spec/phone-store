@@ -31,6 +31,9 @@ export interface AdminOrder {
   totalPKR: number;
   paymentMethod: string;
   status: string;
+  confirmationStatus?: 'Unconfirmed' | 'WhatsApp Sent' | 'Confirmed' | 'Cancelled';
+  confirmationSentAt?: string;
+  confirmedAt?: string;
   courier?: string;
   trackingNumber?: string;
   createdAt: string;
@@ -119,6 +122,7 @@ export async function POST(request: Request) {
       totalPKR: Number(orderData.totalPKR),
       paymentMethod: orderData.paymentMethod || 'Cash on Delivery (Open-Parcel)',
       status: orderData.status || 'Placed',
+      confirmationStatus: orderData.confirmationStatus || 'Unconfirmed',
       courier: orderData.courier || 'TCS Express',
       trackingNumber: orderData.trackingNumber || '',
       createdAt: orderData.createdAt || new Date().toISOString(),
@@ -144,7 +148,7 @@ export async function POST(request: Request) {
 export async function PATCH(request: Request) {
   try {
     const body = await request.json();
-    const { orderId, status, courier, trackingNumber } = body;
+    const { orderId, status, courier, trackingNumber, confirmationStatus, confirmationSentAt, confirmedAt } = body;
 
     if (!orderId) {
       return NextResponse.json({ success: false, error: 'orderId is required' }, { status: 400 });
@@ -160,6 +164,9 @@ export async function PATCH(request: Request) {
     if (status) orders[index].status = status;
     if (courier !== undefined) orders[index].courier = courier;
     if (trackingNumber !== undefined) orders[index].trackingNumber = trackingNumber;
+    if (confirmationStatus !== undefined) orders[index].confirmationStatus = confirmationStatus;
+    if (confirmationSentAt !== undefined) orders[index].confirmationSentAt = confirmationSentAt;
+    if (confirmedAt !== undefined) orders[index].confirmedAt = confirmedAt;
 
     saveOrdersToDisk(orders);
 
