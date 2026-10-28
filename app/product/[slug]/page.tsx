@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { SMARTPHONES, getPhoneBySlug, formatPKR } from '@/data/smartphones';
+import { getActiveCatalog, getLocalDeletedIds } from '@/lib/catalog';
 import { Smartphone, SmartphoneColor, SmartphoneVariant, CartItem } from '@/types';
 import { PhoneImageWithFallback } from '@/components/PhoneImageWithFallback';
 import { Navbar } from '@/components/Navbar';
@@ -41,18 +42,28 @@ export default function ProductDetailPage() {
   const [phone, setPhone] = useState<Smartphone>(() => getPhoneBySlug(slug) || SMARTPHONES[0]);
 
   useEffect(() => {
-    fetch('/api/admin/products')
+    // Check if product is marked deleted
+    const deleted = getLocalDeletedIds();
+    if (deleted.some((d) => d.toLowerCase() === slug.toLowerCase())) {
+      router.push('/');
+      return;
+    }
+
+    fetch('/api/admin/products?_t=' + Date.now(), { cache: 'no-store' })
       .then((res) => res.json())
       .then((data) => {
         if (data.success && Array.isArray(data.products)) {
-          const found = data.products.find((p: Smartphone) => p.slug === slug || p.id === slug);
+          const active = getActiveCatalog(data.products);
+          const found = active.find((p: Smartphone) => p.slug === slug || p.id === slug);
           if (found) {
             setPhone(found);
+          } else {
+            router.push('/');
           }
         }
       })
       .catch(() => {});
-  }, [slug]);
+  }, [slug, router]);
 
   // Find first in-stock color & variant if available
   const initialColor = phone?.colors.find((c) => {

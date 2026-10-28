@@ -2,6 +2,15 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+const NO_CACHE_HEADERS = {
+  'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+  Pragma: 'no-cache',
+  Expires: '0',
+};
+
 const ordersFilePath = path.join(process.cwd(), 'data', 'orders.json');
 
 export interface AdminOrder {

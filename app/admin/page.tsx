@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Smartphone, SmartphoneColor, SmartphoneVariant } from '@/types';
 import { BRANDS, PAKISTAN_CITIES, formatPKR } from '@/data/smartphones';
 import { AdminOrder } from '@/app/api/admin/orders/route';
+import { getActiveCatalog, markProductDeletedLocally, saveProductLocally } from '@/lib/catalog';
 import {
   LayoutDashboard,
   Package,
@@ -92,27 +93,28 @@ export default function AdminPortalPage() {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  // Fetch products and orders
+  // Fetch products and orders with no-cache and local sync merge
   const fetchData = async () => {
     setIsRefreshing(true);
     try {
       const [prodRes, orderRes] = await Promise.all([
-        fetch('/api/admin/products'),
-        fetch('/api/admin/orders'),
+        fetch('/api/admin/products?_t=' + Date.now(), { cache: 'no-store' }),
+        fetch('/api/admin/orders?_t=' + Date.now(), { cache: 'no-store' }),
       ]);
 
       const prodData = await prodRes.json();
       const orderData = await orderRes.json();
 
       if (prodData.success) {
-        setProducts(prodData.products || []);
+        setProducts(getActiveCatalog(prodData.products || []));
+      } else {
+        setProducts(getActiveCatalog());
       }
       if (orderData.success) {
         setOrders(orderData.orders || []);
       }
     } catch (err) {
-      console.error('Failed to load admin data:', err);
-      showToast('Error loading data from server.');
+      setProducts(getActiveCatalog());
     } finally {
       setIsLoading(false);
       setIsRefreshing(false);
@@ -306,23 +308,22 @@ export default function AdminPortalPage() {
 
   // Delete Product Handler
   const handleDeleteProduct = async (phone: Smartphone) => {
+    // 1. Instantly mark deleted locally in client storage (broadcasts to all tabs)
+    markProductDeletedLocally(phone.id, phone.slug);
+
+    // 2. Remove immediately from local admin state
+    setProducts((prev) => prev.filter((p) => p.id !== phone.id && p.slug !== phone.slug));
+    setDeleteConfirmationTarget(null);
+    showToast(`Product "${phone.name}" deleted successfully.`);
+
+    // 3. Sync deletion to server storage & disk
     try {
-      const res = await fetch(`/api/admin/products?id=${phone.id}`, {
+      await fetch(`/api/admin/products?id=${encodeURIComponent(phone.id)}&slug=${encodeURIComponent(phone.slug)}&_t=${Date.now()}`, {
         method: 'DELETE',
+        headers: { 'Cache-Control': 'no-store' },
       });
-      const data = await res.json();
-      if (data.success) {
-        showToast(`Product "${phone.name}" deleted.`);
-        setDeleteConfirmationTarget(null);
-        if (typeof window !== 'undefined') {
-          window.dispatchEvent(new Event('voltphone_products_updated'));
-        }
-        fetchData();
-      } else {
-        showToast(data.error || 'Failed to delete');
-      }
-    } catch {
-      showToast('Network error deleting product');
+    } catch (err) {
+      console.warn('Server sync note:', err);
     }
   };
 
@@ -336,25 +337,17 @@ export default function AdminPortalPage() {
     clone.stockQty = 10;
     clone.inStock = true;
 
+    saveProductLocally(clone);
+    setProducts((prev) => [clone, ...prev]);
+    showToast(`Duplicated into "${clone.name}"!`);
+
     try {
-      const res = await fetch('/api/admin/products', {
+      await fetch('/api/admin/products', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
         body: JSON.stringify({ product: clone }),
       });
-      const data = await res.json();
-      if (data.success) {
-        showToast(`Duplicated into "${clone.name}"!`);
-        if (typeof window !== 'undefined') {
-          window.dispatchEvent(new Event('voltphone_products_updated'));
-        }
-        fetchData();
-      } else {
-        showToast(data.error || 'Duplicate failed');
-      }
-    } catch {
-      showToast('Error duplicating product');
-    }
+    } catch {}
   };
 
   // Update Order Status
@@ -2128,6 +2121,7 @@ function ProductFormModal({ product, onClose, onSaved }: ProductFormModalProps) 
       const url = '/api/admin/products';
       const method = isEditing ? 'PUT' : 'POST';
 
+      saveProductLocally(payload);
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },

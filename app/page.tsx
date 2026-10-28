@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect, useCallback, useRef, Suspense } fr
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { SMARTPHONES, BRANDS, formatPKR, getPhonePrice } from '@/data/smartphones';
+import { getActiveCatalog } from '@/lib/catalog';
 import { Smartphone, FilterState, CartItem, SmartphoneVariant, SmartphoneColor } from '@/types';
 import { Navbar } from '@/components/Navbar';
 import { HeroBanner } from '@/components/HeroBanner';
@@ -79,30 +80,39 @@ function HomeContent() {
 
   // Pagination state
   const [visibleCount, setVisibleCount] = useState<number>(24);
-  const [catalog, setCatalog] = useState<Smartphone[]>(SMARTPHONES);
+  const [catalog, setCatalog] = useState<Smartphone[]>(() => getActiveCatalog(SMARTPHONES));
 
-  // Sync catalog with dynamic database / disk updates from admin
+  // Sync catalog with dynamic database / disk updates & local deletions from admin
   useEffect(() => {
-    const fetchCatalog = () => {
-      fetch('/api/admin/products')
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.success && Array.isArray(data.products) && data.products.length > 0) {
-            setCatalog(data.products);
-          }
-        })
-        .catch(() => {});
+    const syncCatalog = () => {
+      setCatalog(getActiveCatalog());
     };
 
+    const fetchCatalog = () => {
+      fetch('/api/admin/products?_t=' + Date.now(), { cache: 'no-store' })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && Array.isArray(data.products)) {
+            setCatalog(getActiveCatalog(data.products));
+          } else {
+            syncCatalog();
+          }
+        })
+        .catch(() => {
+          syncCatalog();
+        });
+    };
+
+    // Initial sync and fetch
+    syncCatalog();
     fetchCatalog();
 
-    const handleSync = () => fetchCatalog();
-    window.addEventListener('voltphone_products_updated', handleSync);
-    window.addEventListener('storage', handleSync);
+    window.addEventListener('voltphone_products_updated', syncCatalog);
+    window.addEventListener('storage', syncCatalog);
 
     return () => {
-      window.removeEventListener('voltphone_products_updated', handleSync);
-      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('voltphone_products_updated', syncCatalog);
+      window.removeEventListener('storage', syncCatalog);
     };
   }, []);
 

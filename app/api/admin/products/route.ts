@@ -3,14 +3,73 @@ import fs from 'fs';
 import path from 'path';
 import { Smartphone } from '@/types';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 const dataFilePath = path.join(process.cwd(), 'data', 'smartphones.json');
+const deletedFilePath = path.join(process.cwd(), 'data', 'deleted_products.json');
+
+const NO_CACHE_HEADERS = {
+  'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+  Pragma: 'no-cache',
+  Expires: '0',
+};
+
+// Helper to read deleted IDs from disk
+function getDeletedIdsFromDisk(): string[] {
+  try {
+    if (fs.existsSync(deletedFilePath)) {
+      const data = fs.readFileSync(deletedFilePath, 'utf-8');
+      return JSON.parse(data) as string[];
+    }
+  } catch (err) {
+    console.error('Error reading deleted_products.json:', err);
+  }
+  return [];
+}
+
+// Helper to write deleted IDs to disk
+function saveDeletedIdToDisk(id: string, slug?: string) {
+  try {
+    const list = getDeletedIdsFromDisk();
+    const idLower = id.toLowerCase();
+    if (!list.includes(idLower)) list.push(idLower);
+    if (slug) {
+      const slugLower = slug.toLowerCase();
+      if (!list.includes(slugLower)) list.push(slugLower);
+    }
+    fs.writeFileSync(deletedFilePath, JSON.stringify(list, null, 2), 'utf-8');
+  } catch (err) {
+    console.error('Error writing deleted_products.json:', err);
+  }
+}
+
+// Remove from deleted list if product is added or updated
+function removeDeletedIdFromDisk(id: string, slug?: string) {
+  try {
+    const list = getDeletedIdsFromDisk();
+    const idLower = id.toLowerCase();
+    const slugLower = slug?.toLowerCase();
+    const filtered = list.filter((item) => item !== idLower && item !== slugLower);
+    fs.writeFileSync(deletedFilePath, JSON.stringify(filtered, null, 2), 'utf-8');
+  } catch {}
+}
 
 // Helper to read current smartphones
 function getSmartphonesFromDisk(): Smartphone[] {
   try {
     if (fs.existsSync(dataFilePath)) {
       const fileData = fs.readFileSync(dataFilePath, 'utf-8');
-      return JSON.parse(fileData) as Smartphone[];
+      const phones = JSON.parse(fileData) as Smartphone[];
+      const deletedIds = getDeletedIdsFromDisk();
+
+      if (deletedIds.length > 0) {
+        const deletedSet = new Set(deletedIds);
+        return phones.filter(
+          (p) => !deletedSet.has(p.id?.toLowerCase()) && !deletedSet.has(p.slug?.toLowerCase())
+        );
+      }
+      return phones;
     }
   } catch (err) {
     console.error('Error reading smartphones.json:', err);
@@ -61,16 +120,19 @@ export async function GET(request: Request) {
       filtered = filtered.filter((p) => !p.inStock || (p.stockQty ?? 0) === 0);
     }
 
-    return NextResponse.json({
-      success: true,
-      totalCount: phones.length,
-      filteredCount: filtered.length,
-      products: filtered,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        totalCount: phones.length,
+        filteredCount: filtered.length,
+        products: filtered,
+      },
+      { headers: NO_CACHE_HEADERS }
+    );
   } catch (error: any) {
     return NextResponse.json(
       { success: false, error: error.message || 'Failed to fetch products' },
-      { status: 500 }
+      { status: 500, headers: NO_CACHE_HEADERS }
     );
   }
 }
@@ -84,7 +146,7 @@ export async function POST(request: Request) {
     if (!newProduct || !newProduct.name || !newProduct.brand || !newProduct.basePricePKR) {
       return NextResponse.json(
         { success: false, error: 'Product name, brand, and base price are required.' },
-        { status: 400 }
+        { status: 400, headers: NO_CACHE_HEADERS }
       );
     }
 
@@ -103,6 +165,9 @@ export async function POST(request: Request) {
     }
     newProduct.slug = uniqueSlug;
     newProduct.id = id;
+
+    // Ensure it's cleared from deleted list if re-added
+    removeDeletedIdFromDisk(newProduct.id, newProduct.slug);
 
     // Ensure colors and variants have basic fallbacks
     if (!newProduct.colors || newProduct.colors.length === 0) {
@@ -156,23 +221,20 @@ export async function POST(request: Request) {
     // Prepend new product so it appears at top of catalog
     phones.unshift(newProduct);
 
-    const saved = saveSmartphonesToDisk(phones);
-    if (!saved) {
-      return NextResponse.json(
-        { success: false, error: 'Failed to write product data to storage.' },
-        { status: 500 }
-      );
-    }
+    saveSmartphonesToDisk(phones);
 
-    return NextResponse.json({
-      success: true,
-      message: 'Product added successfully!',
-      product: newProduct,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: 'Product added successfully!',
+        product: newProduct,
+      },
+      { headers: NO_CACHE_HEADERS }
+    );
   } catch (error: any) {
     return NextResponse.json(
       { success: false, error: error.message || 'Failed to add product' },
-      { status: 500 }
+      { status: 500, headers: NO_CACHE_HEADERS }
     );
   }
 }
@@ -186,9 +248,12 @@ export async function PUT(request: Request) {
     if (!updatedProduct || (!updatedProduct.id && !updatedProduct.slug)) {
       return NextResponse.json(
         { success: false, error: 'Product ID or Slug is required for updating.' },
-        { status: 400 }
+        { status: 400, headers: NO_CACHE_HEADERS }
       );
     }
+
+    // Clear deleted list in case it was previously marked
+    removeDeletedIdFromDisk(updatedProduct.id, updatedProduct.slug);
 
     const phones = getSmartphonesFromDisk();
     const index = phones.findIndex(
@@ -198,7 +263,7 @@ export async function PUT(request: Request) {
     if (index === -1) {
       return NextResponse.json(
         { success: false, error: 'Product not found in catalog.' },
-        { status: 404 }
+        { status: 404, headers: NO_CACHE_HEADERS }
       );
     }
 
@@ -221,23 +286,20 @@ export async function PUT(request: Request) {
 
     phones[index] = { ...phones[index], ...updatedProduct };
 
-    const saved = saveSmartphonesToDisk(phones);
-    if (!saved) {
-      return NextResponse.json(
-        { success: false, error: 'Failed to write updated product to storage.' },
-        { status: 500 }
-      );
-    }
+    saveSmartphonesToDisk(phones);
 
-    return NextResponse.json({
-      success: true,
-      message: 'Product updated successfully!',
-      product: phones[index],
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: 'Product updated successfully!',
+        product: phones[index],
+      },
+      { headers: NO_CACHE_HEADERS }
+    );
   } catch (error: any) {
     return NextResponse.json(
       { success: false, error: error.message || 'Failed to update product' },
-      { status: 500 }
+      { status: 500, headers: NO_CACHE_HEADERS }
     );
   }
 }
@@ -252,46 +314,39 @@ export async function DELETE(request: Request) {
       try {
         const body = await request.json();
         id = body.id || body.slug;
-      } catch {
-        // body not provided
-      }
+      } catch {}
     }
 
     if (!id) {
       return NextResponse.json(
         { success: false, error: 'Product ID or Slug is required to delete.' },
-        { status: 400 }
+        { status: 400, headers: NO_CACHE_HEADERS }
       );
     }
 
+    // 1. Record ID in deleted_products.json so it never resurrects
+    saveDeletedIdToDisk(id);
+
+    // 2. Also remove from smartphones.json
     const phones = getSmartphonesFromDisk();
-    const initialLen = phones.length;
-    const remaining = phones.filter((p) => p.id !== id && p.slug !== id);
+    const remaining = phones.filter(
+      (p) => p.id?.toLowerCase() !== id?.toLowerCase() && p.slug?.toLowerCase() !== id?.toLowerCase()
+    );
 
-    if (remaining.length === initialLen) {
-      return NextResponse.json(
-        { success: false, error: 'Product not found in catalog.' },
-        { status: 404 }
-      );
-    }
+    saveSmartphonesToDisk(remaining);
 
-    const saved = saveSmartphonesToDisk(remaining);
-    if (!saved) {
-      return NextResponse.json(
-        { success: false, error: 'Failed to write deletion to storage.' },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({
-      success: true,
-      message: 'Product deleted successfully!',
-      deletedId: id,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: 'Product deleted successfully!',
+        deletedId: id,
+      },
+      { headers: NO_CACHE_HEADERS }
+    );
   } catch (error: any) {
     return NextResponse.json(
       { success: false, error: error.message || 'Failed to delete product' },
-      { status: 500 }
+      { status: 500, headers: NO_CACHE_HEADERS }
     );
   }
 }
@@ -305,7 +360,7 @@ export async function PATCH(request: Request) {
     if (!id) {
       return NextResponse.json(
         { success: false, error: 'Product ID is required.' },
-        { status: 400 }
+        { status: 400, headers: NO_CACHE_HEADERS }
       );
     }
 
@@ -315,7 +370,7 @@ export async function PATCH(request: Request) {
     if (index === -1) {
       return NextResponse.json(
         { success: false, error: 'Product not found.' },
-        { status: 404 }
+        { status: 404, headers: NO_CACHE_HEADERS }
       );
     }
 
@@ -327,7 +382,6 @@ export async function PATCH(request: Request) {
         product.stockQty = Math.max(0, (product.stockQty || 0) + addQty);
         product.inStock = product.stockQty > 0;
 
-        // Also restock variants & colors if empty
         if (product.variants && product.variants.length > 0) {
           product.variants = product.variants.map((v) => ({
             ...v,
@@ -391,7 +445,7 @@ export async function PATCH(request: Request) {
 
       case 'update_color': {
         if (!colorName) {
-          return NextResponse.json({ success: false, error: 'colorName is required' }, { status: 400 });
+          return NextResponse.json({ success: false, error: 'colorName is required' }, { status: 400, headers: NO_CACHE_HEADERS });
         }
         if (product.colors) {
           const col = product.colors.find((c) => c.name.toLowerCase() === colorName.toLowerCase());
@@ -406,7 +460,6 @@ export async function PATCH(request: Request) {
           stockQty: typeof colorStockQty === 'number' ? Math.max(0, colorStockQty) : 5,
         };
 
-        // Recalculate total product stock
         const totalColorStock = product.colors?.reduce((acc, c) => acc + (c.stockQty || 0), 0) ?? 0;
         product.stockQty = totalColorStock;
         product.inStock = totalColorStock > 0;
@@ -415,7 +468,7 @@ export async function PATCH(request: Request) {
 
       case 'update_variant': {
         if (!variantId) {
-          return NextResponse.json({ success: false, error: 'variantId is required' }, { status: 400 });
+          return NextResponse.json({ success: false, error: 'variantId is required' }, { status: 400, headers: NO_CACHE_HEADERS });
         }
         if (product.variants) {
           const v = product.variants.find((item) => item.id === variantId);
@@ -430,24 +483,24 @@ export async function PATCH(request: Request) {
       }
 
       default:
-        return NextResponse.json({ success: false, error: 'Invalid PATCH action specified.' }, { status: 400 });
+        return NextResponse.json({ success: false, error: 'Invalid PATCH action specified.' }, { status: 400, headers: NO_CACHE_HEADERS });
     }
 
     phones[index] = product;
-    const saved = saveSmartphonesToDisk(phones);
-    if (!saved) {
-      return NextResponse.json({ success: false, error: 'Failed to write update to storage.' }, { status: 500 });
-    }
+    saveSmartphonesToDisk(phones);
 
-    return NextResponse.json({
-      success: true,
-      message: 'Stock updated successfully!',
-      product,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: 'Stock updated successfully!',
+        product,
+      },
+      { headers: NO_CACHE_HEADERS }
+    );
   } catch (error: any) {
     return NextResponse.json(
       { success: false, error: error.message || 'Failed to update stock' },
-      { status: 500 }
+      { status: 500, headers: NO_CACHE_HEADERS }
     );
   }
 }

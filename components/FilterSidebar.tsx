@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { BRANDS, RAM_OPTIONS, STORAGE_OPTIONS, formatPKR, PAKISTAN_CITIES, SMARTPHONES } from '@/data/smartphones';
-import { FilterState } from '@/types';
+import { getActiveCatalog } from '@/lib/catalog';
+import { FilterState, Smartphone } from '@/types';
 import {
   RotateCcw,
   ShieldCheck,
@@ -51,16 +52,28 @@ export function FilterSidebar({
   const [assistSubmitted, setAssistSubmitted] = useState(false);
   const [assistError, setAssistError] = useState('');
 
-  // Compute live counts for all brands (reflecting verified in-stock models, matching rendered results)
+  const [activeCatalog, setActiveCatalog] = useState<Smartphone[]>(() => getActiveCatalog(SMARTPHONES));
+
+  useEffect(() => {
+    const handleSync = () => setActiveCatalog(getActiveCatalog());
+    window.addEventListener('voltphone_products_updated', handleSync);
+    window.addEventListener('storage', handleSync);
+    return () => {
+      window.removeEventListener('voltphone_products_updated', handleSync);
+      window.removeEventListener('storage', handleSync);
+    };
+  }, []);
+
+  // Compute live counts for all brands from active catalog
   const brandModelCounts = useMemo(() => {
     const counts: Record<string, number> = {};
-    SMARTPHONES.forEach((p) => {
+    activeCatalog.forEach((p) => {
       if (p.inStock) {
         counts[p.brand] = (counts[p.brand] || 0) + 1;
       }
     });
     return counts;
-  }, []);
+  }, [activeCatalog]);
 
   const pricePresets = [
     { label: 'All Prices', min: 0, max: 700000 },

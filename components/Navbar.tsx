@@ -4,9 +4,11 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { SMARTPHONES, formatPKR, BRANDS } from '@/data/smartphones';
+import { getActiveCatalog } from '@/lib/catalog';
+import { Smartphone } from '@/types';
 import { PhoneImageWithFallback } from './PhoneImageWithFallback';
 import {
-  Smartphone,
+  Smartphone as SmartphoneIcon,
   Search,
   ShoppingCart,
   Layers,
@@ -68,18 +70,31 @@ export function Navbar({
 
   const { user, profile, loading: authLoading, openAuthModal, logout } = useAuth();
 
-  // Dynamic Brand Counts from catalog
+  // Active synced catalog for Navbar
+  const [activeCatalog, setActiveCatalog] = useState<Smartphone[]>(() => getActiveCatalog(SMARTPHONES));
+
+  useEffect(() => {
+    const handleSync = () => setActiveCatalog(getActiveCatalog());
+    window.addEventListener('voltphone_products_updated', handleSync);
+    window.addEventListener('storage', handleSync);
+    return () => {
+      window.removeEventListener('voltphone_products_updated', handleSync);
+      window.removeEventListener('storage', handleSync);
+    };
+  }, []);
+
+  // Dynamic Brand Counts from active catalog
   const brandCounts = useMemo(() => {
-    const counts: Record<string, number> = { 'All Brands': SMARTPHONES.length };
-    SMARTPHONES.forEach((p) => {
+    const counts: Record<string, number> = { 'All Brands': activeCatalog.length };
+    activeCatalog.forEach((p) => {
       counts[p.brand] = (counts[p.brand] || 0) + 1;
     });
     return counts;
-  }, []);
+  }, [activeCatalog]);
 
-  // Search filtering
+  // Search filtering on active catalog
   const searchResults = searchQuery.trim()
-    ? SMARTPHONES.filter(
+    ? activeCatalog.filter(
         (p) =>
           p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
           p.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -329,7 +344,7 @@ export function Navbar({
                                     className="w-full h-full object-contain"
                                   />
                                 ) : (
-                                  <Smartphone className="w-6 h-6 text-slate-400" />
+                                  <SmartphoneIcon className="w-6 h-6 text-slate-400" />
                                 )}
                               </div>
                               <div className="flex-1 min-w-0">
