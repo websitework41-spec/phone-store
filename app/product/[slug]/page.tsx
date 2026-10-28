@@ -38,7 +38,21 @@ export default function ProductDetailPage() {
   const params = useParams();
   const rawSlug = (params?.slug as string) || '';
   const slug = sanitizeText(rawSlug, 100);
-  const phone = getPhoneBySlug(slug) || SMARTPHONES[0];
+  const [phone, setPhone] = useState<Smartphone>(() => getPhoneBySlug(slug) || SMARTPHONES[0]);
+
+  useEffect(() => {
+    fetch('/api/admin/products')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.products)) {
+          const found = data.products.find((p: Smartphone) => p.slug === slug || p.id === slug);
+          if (found) {
+            setPhone(found);
+          }
+        }
+      })
+      .catch(() => {});
+  }, [slug]);
 
   // Find first in-stock color & variant if available
   const initialColor = phone?.colors.find((c) => {

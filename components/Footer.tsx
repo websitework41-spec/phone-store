@@ -363,6 +363,12 @@ export function Footer() {
                   Privacy Policy &amp; Security
                 </Link>
               </li>
+              <li className="pt-2">
+                <Link href="/admin" className="text-cyan-400 font-bold hover:underline flex items-center gap-1.5 text-xs">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  Store Admin &amp; Inventory Hub
+                </Link>
+              </li>
             </ul>
           </div>
 

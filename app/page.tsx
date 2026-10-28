@@ -79,6 +79,32 @@ function HomeContent() {
 
   // Pagination state
   const [visibleCount, setVisibleCount] = useState<number>(24);
+  const [catalog, setCatalog] = useState<Smartphone[]>(SMARTPHONES);
+
+  // Sync catalog with dynamic database / disk updates from admin
+  useEffect(() => {
+    const fetchCatalog = () => {
+      fetch('/api/admin/products')
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && Array.isArray(data.products) && data.products.length > 0) {
+            setCatalog(data.products);
+          }
+        })
+        .catch(() => {});
+    };
+
+    fetchCatalog();
+
+    const handleSync = () => fetchCatalog();
+    window.addEventListener('voltphone_products_updated', handleSync);
+    window.addEventListener('storage', handleSync);
+
+    return () => {
+      window.removeEventListener('voltphone_products_updated', handleSync);
+      window.removeEventListener('storage', handleSync);
+    };
+  }, []);
 
   const isInitialMount = useRef(true);
 
@@ -217,15 +243,15 @@ function HomeContent() {
 
   // Flash deals calculation (top 4 discount items)
   const flashSalePhones = useMemo(() => {
-    return [...SMARTPHONES]
+    return [...catalog]
       .filter((p) => p.inStock && p.discountPercent >= 20)
       .sort((a, b) => b.discountPercent - a.discountPercent)
       .slice(0, 4);
-  }, []);
+  }, [catalog]);
 
   // Filter & Sort Logic
   const filteredPhones = useMemo(() => {
-    return SMARTPHONES.filter((phone) => {
+    return catalog.filter((phone) => {
       // Spec Filter
       if (filters.specFilter === '120hz-amoled') {
         const is120Hz =
@@ -328,7 +354,7 @@ function HomeContent() {
       // Default: popularity
       return b.reviewCount - a.reviewCount;
     });
-  }, [filters]);
+  }, [filters, catalog]);
 
   // Currently displayed slice
   const displayedPhones = filteredPhones.slice(0, visibleCount);
@@ -717,7 +743,7 @@ function HomeContent() {
               <FilterSidebar
                 filters={filters}
                 setFilters={setFilters}
-                totalCount={SMARTPHONES.length}
+                totalCount={catalog.length}
                 filteredCount={filteredPhones.length}
               />
             </div>

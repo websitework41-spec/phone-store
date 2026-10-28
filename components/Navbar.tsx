@@ -483,6 +483,14 @@ export function Navbar({
                           <ShoppingBag className="w-4 h-4 text-cyan-600" />
                           <span>My Orders</span>
                         </Link>
+                        <Link
+                          href="/admin"
+                          onClick={() => setIsUserMenuOpen(false)}
+                          className="flex items-center gap-2.5 px-4 py-2.5 text-xs font-bold text-cyan-700 bg-cyan-50/50 hover:bg-cyan-100/70 transition-colors"
+                        >
+                          <ShieldCheck className="w-4 h-4 text-cyan-600" />
+                          <span>Store Admin & Stock</span>
+                        </Link>
                       </div>
 
                       <div className="border-t border-slate-100 pt-1">
@@ -536,6 +544,16 @@ export function Navbar({
                   </span>
                 )}
               </button>
+
+              {/* Admin Portal Button */}
+              <Link
+                href="/admin"
+                className="btn-press hidden sm:flex items-center gap-1.5 px-3 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white transition-all border border-slate-700/80 hover:border-cyan-400 text-xs font-bold shadow-xs hover:shadow-md"
+                title="Open Store Admin Portal & Inventory"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Admin</span>
+              </Link>
             </div>
           </div>
 

@@ -196,6 +196,38 @@ export function QuickPurchaseModal({
       } catch {
         // ignore
       }
+      // Sync to admin orders backend
+      try {
+        fetch('/api/admin/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            order: {
+              orderId: randomOrder,
+              customerName: cleanName,
+              phone: phoneCheck.cleanPhone,
+              city: city || 'Pakistan',
+              address: cleanAddress,
+              items: phone
+                ? [
+                    {
+                      name: phone.name,
+                      variant: `${selectedVariant?.ram || ''}/${selectedVariant?.storage || ''}`,
+                      pricePKR: orderTotal,
+                      quantity: 1,
+                      color: selectedColor?.name || 'Default',
+                    },
+                  ]
+                : [],
+              totalPKR: orderTotal,
+              paymentMethod: 'Cash on Delivery (Open-Parcel)',
+              status: 'Placed',
+              courier: 'TCS Express',
+            },
+          }),
+        }).catch(() => {});
+      } catch {}
+
       setIsSubmitting(false);
       setIsOrderConfirmed(true);
     }, 600);

@@ -200,6 +200,34 @@ export function CartDrawer({
       // ignore
     }
 
+    // Sync order to admin orders backend
+    try {
+      fetch('/api/admin/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          order: {
+            orderId,
+            customerName: cleanName,
+            phone: phoneCheck.cleanPhone,
+            city: selectedCity,
+            address: cleanAddress,
+            items: items.map((i) => ({
+              name: i.phone.name,
+              variant: `${i.selectedVariant.ram}/${i.selectedVariant.storage}`,
+              pricePKR: i.selectedVariant.pricePKR,
+              quantity: i.quantity,
+              color: i.selectedColor.name,
+            })),
+            totalPKR: subtotalPKR,
+            paymentMethod,
+            status: 'Placed',
+            courier: 'TCS Express',
+          },
+        }),
+      }).catch(() => {});
+    } catch {}
+
     setOrderSuccess(true);
   };
 

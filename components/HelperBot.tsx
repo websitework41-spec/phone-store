@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   Bot,
   Sparkles,
@@ -153,10 +154,15 @@ function FormattedBotMessage({ text }: { text: string }) {
 }
 
 export function HelperBot() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [hasUnread, setHasUnread] = useState(true);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',

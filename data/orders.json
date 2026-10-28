@@ -1,0 +1,68 @@
+[
+  {
+    "orderId": "VPK-982145",
+    "customerName": "Hamza Latif",
+    "phone": "03001234567",
+    "city": "Lahore",
+    "address": "House 42, Street 5, Phase 5 DHA",
+    "items": [
+      {
+        "name": "Samsung Galaxy S22 Ultra",
+        "variant": "12GB/256GB",
+        "pricePKR": 254999,
+        "quantity": 1,
+        "color": "Phantom Black"
+      }
+    ],
+    "totalPKR": 254999,
+    "paymentMethod": "Cash on Delivery (Open-Parcel)",
+    "status": "Dispatched",
+    "courier": "TCS Express",
+    "trackingNumber": "TCS-99281745PK",
+    "createdAt": "2026-10-27T14:20:00.000Z"
+  },
+  {
+    "orderId": "VPK-874219",
+    "customerName": "Bilal Ahmed",
+    "phone": "03219876543",
+    "city": "Karachi",
+    "address": "Flat 304, Clifton Block 2",
+    "items": [
+      {
+        "name": "Apple iPhone 15 Pro Max",
+        "variant": "8GB/256GB",
+        "pricePKR": 489999,
+        "quantity": 1,
+        "color": "Natural Titanium"
+      }
+    ],
+    "totalPKR": 489999,
+    "paymentMethod": "0% EMI Bank Installment (Meezan Bank)",
+    "status": "Processing",
+    "courier": "Leopard Courier",
+    "trackingNumber": "",
+    "createdAt": "2026-10-28T09:15:00.000Z"
+  },
+  {
+    "orderId": "VPK-761930",
+    "customerName": "Zainab Tariq",
+    "phone": "03335551212",
+    "city": "Islamabad",
+    "address": "Sector F-7/2, Street 18, House 9",
+    "items": [
+      {
+        "name": "Xiaomi Redmi Note 13 Pro+",
+        "variant": "12GB/512GB",
+        "pricePKR": 114999,
+        "quantity": 1,
+        "color": "Midnight Black"
+      }
+    ],
+    "totalPKR": 114999,
+    "paymentMethod": "Cash on Delivery (Open-Parcel)",
+    "status": "Placed",
+    "courier": "TCS Express",
+    "trackingNumber": "",
+    "createdAt": "2026-10-28T10:45:00.000Z"
+  }
+]
