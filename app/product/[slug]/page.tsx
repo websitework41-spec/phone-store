@@ -339,7 +339,7 @@ export default function ProductDetailPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f1f3f6] text-slate-900 flex flex-col font-sans selection:bg-[#48afff] selection:text-white w-full overflow-x-clip">
+    <div className="min-h-screen bg-[#f1f3f6] text-slate-900 flex flex-col font-sans selection:bg-[#48afff] selection:text-white w-full max-w-full overflow-x-hidden">
       {/* Universal Store Header */}
       <Navbar
         compareCount={comparingPhones.length}

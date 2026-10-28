@@ -81,7 +81,7 @@ export default function AccountPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col w-full overflow-x-clip">
+      <div className="min-h-screen bg-slate-50 flex flex-col w-full max-w-full overflow-x-hidden">
         <Navbar />
         <div className="flex-1 max-w-5xl mx-auto w-full p-6 sm:p-12 flex items-center justify-center">
           <div className="text-center space-y-3">
@@ -96,7 +96,7 @@ export default function AccountPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col w-full overflow-x-clip">
+      <div className="min-h-screen bg-slate-50 flex flex-col w-full max-w-full overflow-x-hidden">
         <Navbar />
         <div className="flex-1 max-w-lg mx-auto w-full p-6 sm:p-12 flex flex-col items-center justify-center text-center">
           <div className="w-16 h-16 rounded-3xl bg-slate-900 border border-slate-800 text-[#48afff] flex items-center justify-center shadow-lg shadow-[#48afff]/10 mb-4">
@@ -257,7 +257,7 @@ export default function AccountPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans w-full overflow-x-clip">
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans w-full max-w-full overflow-x-hidden">
       <Navbar />
 
       <main className="flex-1 max-w-6xl mx-auto w-full px-3 sm:px-6 lg:px-8 py-6 sm:py-12">

@@ -309,7 +309,7 @@ export default function PoliciesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans w-full overflow-x-clip">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans w-full max-w-full overflow-x-hidden">
       <Navbar
         compareCount={0}
         cartCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
@@ -317,7 +317,7 @@ export default function PoliciesPage() {
       />
 
       {/* Header Banner */}
-      <div className="bg-slate-950 text-white py-8 sm:py-12 px-3 sm:px-6 lg:px-8 border-b border-slate-800 overflow-x-clip">
+      <div className="bg-slate-950 text-white py-8 sm:py-12 px-3 sm:px-6 lg:px-8 border-b border-slate-800 overflow-hidden">
         <div className="max-w-5xl mx-auto space-y-4">
           <div className="flex items-center gap-2 text-xs text-[#48afff] font-bold uppercase tracking-wider">
             <Link href="/" className="hover:underline">Home</Link>

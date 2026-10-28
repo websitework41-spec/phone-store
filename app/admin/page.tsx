@@ -1088,7 +1088,7 @@ export default function AdminPortalPage() {
   // AUTHENTIC SHOPIFY POLARIS ADMIN DASHBOARD
   // ==========================================
   return (
-    <div className="min-h-screen bg-[#f1f2f4] text-slate-800 flex flex-col md:flex-row antialiased font-sans w-full overflow-x-clip">
+    <div className="min-h-screen bg-[#f1f2f4] text-slate-800 flex flex-col md:flex-row antialiased font-sans w-full max-w-full overflow-x-hidden">
       {/* Toast Notification Pill */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#1a1a1a] text-white px-5 py-3 rounded-2xl shadow-2xl font-semibold text-xs flex items-center gap-2.5 animate-in slide-in-from-bottom duration-200 border border-white/10">

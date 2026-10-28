@@ -34,8 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${plusJakartaSans.variable} h-full antialiased overflow-x-clip`}>
-      <body className="min-h-full flex flex-col bg-[#f1f3f6] text-[#0f1111] font-sans overflow-x-clip w-full">
+    <html lang="en" className={`${plusJakartaSans.variable} h-full antialiased overflow-x-hidden`}>
+      <body className="min-h-full flex flex-col bg-[#f1f3f6] text-[#0f1111] font-sans overflow-x-hidden w-full max-w-full">
         <AuthProvider>
           <AnalyticsTracker />
           <ButtonRipple />

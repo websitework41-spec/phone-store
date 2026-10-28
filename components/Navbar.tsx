@@ -223,15 +223,15 @@ export function Navbar({
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full transition-all shadow-md overflow-x-clip">
+      <header className="sticky top-0 z-40 w-full transition-all shadow-md overflow-hidden">
         {/* 1. PriceOye Signature Deep Blue Top Utility Bar */}
-        <div className="bg-[#0b3c68] text-white text-[10px] sm:text-xs py-1.5 sm:py-2 px-3 sm:px-4 font-semibold border-b border-[#082e50] overflow-x-clip">
-          <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
+        <div className="bg-[#0b3c68] text-white text-[10px] sm:text-xs py-1.5 sm:py-2 px-2.5 sm:px-4 font-semibold border-b border-[#082e50] overflow-hidden">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-1.5 sm:gap-4">
             <div className="flex items-center gap-2 sm:gap-3 overflow-hidden text-ellipsis whitespace-nowrap min-w-0">
-              <span className="flex items-center gap-1 sm:gap-1.5 font-black bg-white/15 text-white border border-white/25 px-2 sm:px-3 py-0.5 rounded-full text-[9px] sm:text-[10px] tracking-wider uppercase shadow-xs shrink-0">
+              <span className="flex items-center gap-1 sm:gap-1.5 font-bold bg-white/15 text-white border border-white/25 px-2 sm:px-3 py-0.5 rounded-full text-[9px] sm:text-[10px] tracking-wider uppercase shadow-xs shrink-0">
                 <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2.4] text-emerald-300" />
-                <span className="hidden xs:inline">100% PTA APPROVED (DIRBS)</span>
-                <span className="xs:hidden">PTA APPROVED</span>
+                <span className="hidden sm:inline">100% PTA APPROVED (DIRBS)</span>
+                <span className="sm:hidden">PTA APPROVED</span>
               </span>
               <span className="hidden md:inline-flex items-center gap-1.5 text-white/95 font-medium">
                 <PackageCheck className="w-3.5 h-3.5 text-emerald-300" />
@@ -277,23 +277,23 @@ export function Navbar({
         </div>
 
         {/* 2. PriceOye Signature Electric Sky Blue Navigation Bar */}
-        <div className="bg-[#48afff] text-white overflow-x-clip">
-          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-14 sm:h-20 gap-2 sm:gap-4">
+        <div className="bg-[#48afff] text-white overflow-hidden">
+          <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-14 sm:h-20 gap-1.5 sm:gap-4">
               {/* Hamza Phone Store Brand Logo */}
-              <Link href="/" className="flex items-center gap-1.5 sm:gap-3 shrink min-w-0 group">
-                <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-white text-[#0b3c68] flex items-center justify-center shadow-lg group-hover:scale-105 transition-all shrink-0">
-                  <Zap className="w-4 h-4 sm:w-6 sm:h-6 fill-[#0b3c68] stroke-[#0b3c68]" />
+              <Link href="/" className="flex items-center gap-1 sm:gap-3 shrink min-w-0 group">
+                <div className="w-7 h-7 sm:w-11 sm:h-11 rounded-lg sm:rounded-2xl bg-white text-[#0b3c68] flex items-center justify-center shadow-md group-hover:scale-105 transition-all shrink-0">
+                  <Zap className="w-3.5 h-3.5 sm:w-6 sm:h-6 fill-[#0b3c68] stroke-[#0b3c68]" />
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-1 sm:gap-1.5">
-                    <span className="text-sm xs:text-base sm:text-2xl font-black tracking-tight text-white font-sans flex items-center gap-0.5 sm:gap-1">
+                    <span className="text-xs sm:text-2xl font-black tracking-tight text-white font-sans flex items-center gap-0.5 sm:gap-1">
                       <span>HAMZA</span>
-                      <span className="bg-white text-[#0b3c68] px-1 sm:px-2 py-0.5 rounded-md sm:rounded-lg text-[10px] xs:text-xs sm:text-lg font-black shadow-xs tracking-normal">
+                      <span className="bg-white text-[#0b3c68] px-1 sm:px-2 py-0.5 rounded sm:rounded-lg text-[9px] sm:text-lg font-black shadow-xs tracking-normal">
                         PHONE STORE
                       </span>
                     </span>
-                    <span className="text-[8px] sm:text-[10px] font-black px-1 sm:px-2 py-0.5 rounded-full bg-[#f88b2a] text-white shadow-xs tracking-wider shrink-0">
+                    <span className="text-[7px] sm:text-[10px] font-black px-1 sm:px-2 py-0.5 rounded-full bg-[#f88b2a] text-white shadow-xs tracking-wider shrink-0">
                       PK
                     </span>
                   </div>
@@ -452,26 +452,26 @@ export function Navbar({
               </div>
 
               {/* Quick Action Navigation Buttons */}
-              <div className="flex items-center gap-1 sm:gap-2.5 shrink-0">
+              <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
                 {/* Mobile Search Toggle */}
                 <button
                   type="button"
                   onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
-                  className="md:hidden p-2 rounded-full text-white hover:bg-white/10 active:scale-95 transition-all cursor-pointer"
+                  className="md:hidden w-8 h-8 rounded-full text-white hover:bg-white/10 active:scale-95 transition-all flex items-center justify-center cursor-pointer"
                   aria-label="Toggle Search"
                 >
-                  <Search className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                  <Search className="w-4 h-4 text-white" />
                 </button>
 
                 {/* Customer Account / Auth State Button */}
                 {authLoading ? (
-                  <div className="w-8 sm:w-28 h-8 sm:h-9 rounded-full bg-white/20 animate-pulse" />
+                  <div className="w-8 h-8 sm:w-28 sm:h-9 rounded-full bg-white/20 animate-pulse" />
                 ) : !user ? (
                   <button
                     type="button"
                     onClick={() => openAuthModal('login')}
                     aria-label="Customer Login or Sign Up"
-                    className="btn-press relative flex items-center gap-1.5 p-2 sm:px-4 sm:py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0b3c68] font-black text-xs shadow-sm transition-all cursor-pointer hover:shadow-md"
+                    className="btn-press relative flex items-center justify-center w-8 h-8 sm:w-auto sm:px-3.5 sm:py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0b3c68] font-black text-xs shadow-sm transition-all cursor-pointer hover:shadow-md"
                     title="Customer Login or Sign Up"
                   >
                     <User className="w-4 h-4 text-[#0b3c68]" />
@@ -484,7 +484,7 @@ export function Navbar({
                       onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                       aria-label="Customer Account Menu"
                       aria-expanded={isUserMenuOpen}
-                      className="btn-press relative flex items-center gap-1.5 p-2 sm:px-3.5 sm:py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0b3c68] transition-all cursor-pointer text-xs font-black shadow-sm"
+                      className="btn-press relative flex items-center justify-center w-8 h-8 sm:w-auto sm:px-3.5 sm:py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0b3c68] transition-all cursor-pointer text-xs font-black shadow-sm"
                     >
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#0b3c68] text-white flex items-center justify-center text-[9px] sm:text-[10px] font-black uppercase">
                         {(profile?.name?.charAt(0) || user.displayName?.charAt(0) || 'U')}
@@ -560,13 +560,13 @@ export function Navbar({
                   type="button"
                   onClick={handleCompareClick}
                   aria-label="Compare phones side-by-side"
-                  className="btn-press relative flex items-center gap-1.5 p-2 sm:px-3.5 sm:py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0b3c68] font-extrabold text-xs shadow-sm hover:shadow-md transition-all cursor-pointer"
+                  className="btn-press relative flex items-center justify-center w-8 h-8 sm:w-auto sm:px-3.5 sm:py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0b3c68] font-extrabold text-xs shadow-sm hover:shadow-md transition-all cursor-pointer"
                   title="Compare phones side-by-side"
                 >
                   <Layers className="w-4 h-4 text-[#0b3c68]" />
                   <span className="hidden sm:inline">Compare</span>
                   {compareCount > 0 && (
-                    <span className="absolute -top-1 -right-1 sm:static w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#f88b2a] text-white text-[9px] sm:text-[10px] font-black flex items-center justify-center shadow-xs">
+                    <span className="absolute -top-1 -right-1 sm:static sm:ml-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#f88b2a] text-white text-[9px] sm:text-[10px] font-black flex items-center justify-center shadow-xs">
                       {compareCount}
                     </span>
                   )}
@@ -577,13 +577,13 @@ export function Navbar({
                   type="button"
                   onClick={onOpenCart}
                   aria-label="View shopping cart"
-                  className="btn-shimmer btn-press relative flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2.5 rounded-full bg-[#0b3c68] hover:bg-[#072847] text-white transition-all shadow-md cursor-pointer text-xs font-black border border-white/25 shrink-0"
+                  className="btn-shimmer btn-press relative flex items-center justify-center w-8 h-8 sm:w-auto sm:px-4 sm:py-2.5 rounded-full bg-[#0b3c68] hover:bg-[#072847] text-white transition-all shadow-md cursor-pointer text-xs font-black border border-white/25 shrink-0"
                   title="View your cart"
                 >
                   <ShoppingCart className="w-4 h-4 text-white" />
                   <span className="hidden sm:inline">Cart</span>
                   {cartCount > 0 && (
-                    <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#f88b2a] text-white text-[9px] sm:text-[10px] font-black flex items-center justify-center shadow-sm animate-heartbeat">
+                    <span className="absolute -top-1 -right-1 sm:static sm:ml-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#f88b2a] text-white text-[9px] sm:text-[10px] font-black flex items-center justify-center shadow-sm animate-heartbeat">
                       {cartCount}
                     </span>
                   )}
@@ -692,8 +692,8 @@ export function Navbar({
         </div>
 
         {/* 3. PriceOye Clean White Brand & Quick-Category Navigation Bar */}
-        <div className="bg-white border-b border-slate-200/90 shadow-xs overflow-x-clip">
-          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="bg-white border-b border-slate-200/90 shadow-xs overflow-hidden w-full max-w-full">
+          <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8">
             <div className="flex items-center gap-2 py-2 sm:py-2.5 overflow-x-auto scrollbar-none">
               {BRANDS.map((brand) => {
                 const isActive = activeBrand === brand;

@@ -550,7 +550,7 @@ function HomeContent() {
     Boolean(filters.specFilter);
 
   return (
-    <div className="min-h-screen bg-[#f1f3f6] text-slate-900 flex flex-col font-sans w-full overflow-x-clip">
+    <div className="min-h-screen bg-[#f1f3f6] text-slate-900 flex flex-col font-sans w-full max-w-full overflow-x-hidden">
       {/* PriceOye Inspired Navbar */}
       <Navbar
         compareCount={comparingPhones.length}
