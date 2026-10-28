@@ -360,7 +360,7 @@ export default function ProductDetailPage() {
                   src={selectedColor.image}
                   alt={`${phone.name} - ${selectedColor.name}`}
                   brand={phone.brand}
-                  className="w-full h-full object-contain drop-shadow-md"
+                  className="w-full h-full object-contain"
                 />
               </div>
 
@@ -433,7 +433,7 @@ export default function ProductDetailPage() {
                       } ${!isColInStock ? 'opacity-50' : ''}`}
                     >
                       {/* Mini Image thumbnail */}
-                      <div className="w-9 h-9 rounded-lg bg-slate-50 flex items-center justify-center p-0.5 border border-slate-200 shrink-0">
+                      <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center p-0.5 border border-slate-200 shrink-0">
                         <PhoneImageWithFallback
                           src={color.image}
                           alt={color.name}
@@ -1381,7 +1381,7 @@ export default function ProductDetailPage() {
                   >
                     <div>
                       {/* Image container */}
-                      <div className="relative w-full h-40 sm:h-48 mb-3 bg-slate-50/50 rounded-2xl p-4 flex items-center justify-center overflow-hidden">
+                      <div className="relative w-full h-40 sm:h-48 mb-3 bg-white rounded-2xl p-3 flex items-center justify-center overflow-hidden">
                         <PhoneImageWithFallback
                           src={p.colors[0]?.image}
                           alt={p.name}
@@ -1431,7 +1431,7 @@ export default function ProductDetailPage() {
       {/* Sticky Bottom Buy Bar on Mobile Viewports */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-3 flex items-center justify-between shadow-2xl">
         <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200 p-0.5 shrink-0 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 p-0.5 shrink-0 flex items-center justify-center">
             <PhoneImageWithFallback
               src={selectedColor.image}
               alt={phone.name}

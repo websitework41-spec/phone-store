@@ -112,17 +112,17 @@ export const PhoneCard = React.memo(function PhoneCard({
           )}
         </div>
 
-        {/* Product Image Canvas with Interactive Hover Zoom & Lift */}
+        {/* Product Image Canvas */}
         <Link
           href={`/product/${phone.slug}`}
-          className="block relative w-full h-48 sm:h-52 my-1.5 bg-gradient-to-b from-slate-50/90 to-white rounded-2xl p-3 overflow-hidden"
+          className="block relative w-full h-48 sm:h-52 my-1.5 bg-white p-2 overflow-hidden flex items-center justify-center"
         >
-          <div className="w-full h-full flex items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-1.5">
+          <div className="w-full h-full flex items-center justify-center transition-transform duration-500 ease-out group-hover:scale-105">
             <PhoneImageWithFallback
               src={activeColor.image}
               alt={`${phone.name} - ${activeColor.name}`}
               brand={phone.brand}
-              className="w-full h-full object-contain filter drop-shadow-sm group-hover:drop-shadow-xl transition-all duration-500"
+              className="w-full h-full object-contain"
             />
           </div>
         </Link>

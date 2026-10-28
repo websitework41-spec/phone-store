@@ -26,17 +26,17 @@ export const PhoneImageWithFallback = memo(function PhoneImageWithFallback({
   if (hasError || !src) {
     return (
       <div
-        className={`flex flex-col items-center justify-center bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-900 dark:to-neutral-800 rounded-2xl p-6 text-neutral-400 ${className}`}
+        className={`flex flex-col items-center justify-center bg-white rounded-2xl p-4 text-slate-400 ${className}`}
         aria-label={safeAlt}
       >
-        <div className="relative w-24 h-40 border-4 border-neutral-300 dark:border-neutral-700 rounded-2xl flex flex-col items-center justify-between p-2 shadow-inner">
-          <div className="w-8 h-1 bg-neutral-400 dark:bg-neutral-600 rounded-full" />
-          <PhoneIcon className="w-8 h-8 text-neutral-400 dark:text-neutral-500 stroke-[1.5]" />
-          <span className="text-[9px] font-semibold tracking-wider uppercase text-neutral-500">
+        <div className="relative w-20 h-32 border-2 border-slate-200 rounded-2xl flex flex-col items-center justify-between p-2 shadow-inner bg-slate-50">
+          <div className="w-6 h-1 bg-slate-300 rounded-full" />
+          <PhoneIcon className="w-7 h-7 text-slate-400 stroke-[1.5]" />
+          <span className="text-[9px] font-bold tracking-wider uppercase text-slate-400">
             {safeBrand || 'PHONE'}
           </span>
         </div>
-        <span className="mt-3 text-xs font-medium text-neutral-500 text-center line-clamp-1 max-w-[180px]">
+        <span className="mt-2 text-[11px] font-medium text-slate-400 text-center line-clamp-1 max-w-[160px]">
           {safeAlt}
         </span>
       </div>
@@ -44,7 +44,7 @@ export const PhoneImageWithFallback = memo(function PhoneImageWithFallback({
   }
 
   return (
-    <div className={`relative w-full h-full flex items-center justify-center overflow-hidden ${className}`}>
+    <div className={`relative w-full h-full flex items-center justify-center overflow-hidden bg-transparent ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
@@ -53,7 +53,7 @@ export const PhoneImageWithFallback = memo(function PhoneImageWithFallback({
         decoding="async"
         fetchPriority={priority ? 'high' : 'auto'}
         referrerPolicy="no-referrer"
-        className="w-full h-full object-contain transition-transform duration-300 will-change-transform group-hover:scale-110"
+        className="w-full h-full object-contain mix-blend-multiply transition-transform duration-300 will-change-transform"
         onError={() => setHasError(true)}
       />
     </div>

@@ -1258,12 +1258,12 @@ export default function AdminPortalPage() {
                             {/* Product Info */}
                             <td className="px-5 py-3.5">
                               <div className="flex items-center gap-3">
-                                <div className="w-11 h-11 rounded-xl bg-slate-50 border border-slate-200 overflow-hidden shrink-0 flex items-center justify-center p-1">
+                                <div className="w-11 h-11 rounded-xl bg-white border border-slate-200 overflow-hidden shrink-0 flex items-center justify-center p-1">
                                   {phone.colors?.[0]?.image ? (
                                     <img
                                       src={phone.colors[0].image}
                                       alt={phone.name}
-                                      className="w-full h-full object-contain"
+                                      className="w-full h-full object-contain mix-blend-multiply"
                                     />
                                   ) : (
                                     <Package className="w-5 h-5 text-slate-400" />
@@ -1451,11 +1451,11 @@ export default function AdminPortalPage() {
                             >
                               <td className="px-5 py-3.5">
                                 <div className="flex items-center gap-3">
-                                  <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center p-1">
+                                  <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center p-1">
                                     <img
                                       src={phone.colors?.[0]?.image}
                                       alt={phone.name}
-                                      className="w-full h-full object-contain"
+                                      className="w-full h-full object-contain mix-blend-multiply"
                                     />
                                   </div>
                                   <div>

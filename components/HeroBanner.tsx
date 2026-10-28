@@ -213,14 +213,15 @@ export function HeroBanner({
             {/* Right Visual Image with Gentle Floating Animation & Zoom */}
             <div className="sm:col-span-5 flex items-center justify-center relative">
               <div className="relative w-48 h-48 sm:w-60 sm:h-60 group/img">
-                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-indigo-500/20 rounded-full blur-2xl group-hover:scale-120 transition-transform duration-700" />
                 <Link href={slide.link} className="relative block w-full h-full animate-float">
-                  <PhoneImageWithFallback
-                    src={slide.image}
-                    alt={slide.phoneName}
-                    brand={slide.brand}
-                    className="w-full h-full object-contain filter drop-shadow-2xl group-hover/img:scale-110 group-hover/img:rotate-1 transition-all duration-500"
-                  />
+                  <div className="w-full h-full bg-white rounded-3xl p-4 sm:p-5 shadow-2xl border border-white/30 flex items-center justify-center overflow-hidden">
+                    <PhoneImageWithFallback
+                      src={slide.image}
+                      alt={slide.phoneName}
+                      brand={slide.brand}
+                      className="w-full h-full object-contain group-hover/img:scale-105 transition-transform duration-500"
+                    />
+                  </div>
                 </Link>
               </div>
             </div>

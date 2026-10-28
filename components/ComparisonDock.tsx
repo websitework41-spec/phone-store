@@ -75,7 +75,7 @@ export function ComparisonDock({
           {comparingPhones.map((phone) => (
             <div
               key={phone.id}
-              className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-900 p-1 border border-white/20 flex items-center justify-center"
+              className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1 border border-white/40 shadow-xs flex items-center justify-center"
             >
               <PhoneImageWithFallback
                 src={phone.colors[0]?.image}
@@ -193,7 +193,7 @@ export function ComparisonDock({
                       {comparingPhones.map((phone) => (
                         <div
                           key={phone.id}
-                          className="flex flex-col items-center text-center p-3 sm:p-4 bg-slate-50 rounded-2xl border border-slate-200/80"
+                          className="flex flex-col items-center text-center p-3 sm:p-4 bg-white rounded-2xl border border-slate-200/80 shadow-xs"
                         >
                           <Link
                             href={`/product/${phone.slug}`}

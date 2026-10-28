@@ -544,7 +544,7 @@ export function CartDrawer({
                     return (
                       <div key={`${item.phone.id}-${index}`} className="py-3.5 flex gap-3 items-center">
                         {/* Thumbnail */}
-                        <div className="w-16 h-20 rounded-xl bg-slate-50 border border-slate-200 p-1.5 flex items-center justify-center shrink-0 relative">
+                        <div className="w-16 h-20 rounded-xl bg-white border border-slate-200 p-1.5 flex items-center justify-center shrink-0 relative">
                           <PhoneImageWithFallback
                             src={item.selectedColor.image}
                             alt={item.phone.name}

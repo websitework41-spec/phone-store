@@ -348,7 +348,7 @@ export function Navbar({
                                 onClick={() => setIsSearchOpen(false)}
                                 className="flex items-center gap-3.5 p-3 px-4 hover:bg-sky-50/70 hover:translate-x-1 transition-all duration-200 group"
                               >
-                                <div className="w-12 h-12 rounded-xl bg-slate-50 p-1.5 flex items-center justify-center flex-shrink-0 border border-slate-200/80 group-hover:border-[#48afff] group-hover:scale-105 transition-all">
+                                <div className="w-12 h-12 rounded-xl bg-white p-1 flex items-center justify-center flex-shrink-0 border border-slate-200/80 group-hover:border-[#48afff] group-hover:scale-105 transition-all">
                                   {phone.colors?.[0]?.image ? (
                                     <PhoneImageWithFallback
                                       src={phone.colors[0].image}
