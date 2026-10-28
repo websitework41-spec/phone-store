@@ -339,7 +339,7 @@ export default function ProductDetailPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f1f3f6] text-slate-900 flex flex-col font-sans selection:bg-[#48afff] selection:text-white">
+    <div className="min-h-screen bg-[#f1f3f6] text-slate-900 flex flex-col font-sans selection:bg-[#48afff] selection:text-white w-full overflow-x-clip">
       {/* Universal Store Header */}
       <Navbar
         compareCount={comparingPhones.length}
@@ -349,7 +349,7 @@ export default function ProductDetailPage() {
         activeBrand={phone.brand}
       />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 pb-24 lg:pb-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-5 pb-24 lg:pb-8">
         {/* PriceOye Styled Breadcrumbs */}
         <nav
           aria-label="Breadcrumb"

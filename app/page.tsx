@@ -550,7 +550,7 @@ function HomeContent() {
     Boolean(filters.specFilter);
 
   return (
-    <div className="min-h-screen bg-[#f1f3f6] text-slate-900 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#f1f3f6] text-slate-900 flex flex-col font-sans w-full overflow-x-clip">
       {/* PriceOye Inspired Navbar */}
       <Navbar
         compareCount={comparingPhones.length}
@@ -567,7 +567,7 @@ function HomeContent() {
         }
       />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-5">
         {/* Hero Banner Showcase */}
         <HeroBanner
           onQuickFilter={handleSelectBrand}

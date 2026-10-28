@@ -81,7 +81,7 @@ export default function AccountPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col">
+      <div className="min-h-screen bg-slate-50 flex flex-col w-full overflow-x-clip">
         <Navbar />
         <div className="flex-1 max-w-5xl mx-auto w-full p-6 sm:p-12 flex items-center justify-center">
           <div className="text-center space-y-3">
@@ -96,7 +96,7 @@ export default function AccountPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col">
+      <div className="min-h-screen bg-slate-50 flex flex-col w-full overflow-x-clip">
         <Navbar />
         <div className="flex-1 max-w-lg mx-auto w-full p-6 sm:p-12 flex flex-col items-center justify-center text-center">
           <div className="w-16 h-16 rounded-3xl bg-slate-900 border border-slate-800 text-[#48afff] flex items-center justify-center shadow-lg shadow-[#48afff]/10 mb-4">
@@ -257,10 +257,10 @@ export default function AccountPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans w-full overflow-x-clip">
       <Navbar />
 
-      <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <main className="flex-1 max-w-6xl mx-auto w-full px-3 sm:px-6 lg:px-8 py-6 sm:py-12">
         {/* Breadcrumb Navigation */}
         <nav className="flex items-center gap-2 text-xs text-slate-500 mb-6">
           <Link href="/" className="hover:text-[#136ab5] transition-colors">

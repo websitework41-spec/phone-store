@@ -223,13 +223,15 @@ export function Navbar({
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full transition-all shadow-md">
+      <header className="sticky top-0 z-40 w-full transition-all shadow-md overflow-x-clip">
         {/* 1. PriceOye Signature Deep Blue Top Utility Bar */}
-        <div className="bg-[#0b3c68] text-white text-[11px] sm:text-xs py-2 px-4 font-semibold border-b border-[#082e50]">
-          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3 overflow-hidden text-ellipsis whitespace-nowrap">
-              <span className="flex items-center gap-1.5 font-black bg-white/15 text-white border border-white/25 px-3 py-0.5 rounded-full text-[10px] tracking-wider uppercase shadow-xs">
-                <ShieldCheck className="w-3.5 h-3.5 stroke-[2.4] text-emerald-300" /> 100% PTA APPROVED (DIRBS)
+        <div className="bg-[#0b3c68] text-white text-[10px] sm:text-xs py-1.5 sm:py-2 px-3 sm:px-4 font-semibold border-b border-[#082e50] overflow-x-clip">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-3 overflow-hidden text-ellipsis whitespace-nowrap min-w-0">
+              <span className="flex items-center gap-1 sm:gap-1.5 font-black bg-white/15 text-white border border-white/25 px-2 sm:px-3 py-0.5 rounded-full text-[9px] sm:text-[10px] tracking-wider uppercase shadow-xs shrink-0">
+                <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2.4] text-emerald-300" />
+                <span className="hidden xs:inline">100% PTA APPROVED (DIRBS)</span>
+                <span className="xs:hidden">PTA APPROVED</span>
               </span>
               <span className="hidden md:inline-flex items-center gap-1.5 text-white/95 font-medium">
                 <PackageCheck className="w-3.5 h-3.5 text-emerald-300" />
@@ -241,12 +243,12 @@ export function Navbar({
               </span>
             </div>
 
-            <div className="flex items-center gap-4 text-white text-[11px] font-semibold whitespace-nowrap">
+            <div className="flex items-center gap-2 sm:gap-4 text-white text-[10px] sm:text-[11px] font-semibold whitespace-nowrap shrink-0">
               <button
                 onClick={() => setIsTrackOrderOpen(true)}
                 className="hover:text-amber-300 flex items-center gap-1 transition-all cursor-pointer hover:scale-105 active:scale-95"
               >
-                <Truck className="w-3.5 h-3.5 text-white" />
+                <Truck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
                 <span>Track Order</span>
               </button>
               <span className="text-white/40 hidden sm:inline">•</span>
@@ -263,38 +265,39 @@ export function Navbar({
                 href="https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20have%20an%20inquiry%20regarding%20mobile%20phones."
                 target="_blank"
                 rel="noreferrer"
-                className="hover:bg-white/20 flex items-center gap-1.5 transition-all text-white font-bold hover:scale-105 active:scale-95 bg-white/10 px-2.5 py-0.5 rounded-full border border-white/20"
+                className="hover:bg-white/20 flex items-center gap-1 sm:gap-1.5 transition-all text-white font-bold hover:scale-105 active:scale-95 bg-white/10 px-2 sm:px-2.5 py-0.5 rounded-full border border-white/20"
                 title="Chat with Us on WhatsApp"
               >
-                <MessageSquare className="w-3.5 h-3.5 text-emerald-300" />
-                <span>WhatsApp: +92 313 5221200</span>
+                <MessageSquare className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-300" />
+                <span className="hidden sm:inline">WhatsApp: +92 313 5221200</span>
+                <span className="sm:hidden">WhatsApp</span>
               </a>
             </div>
           </div>
         </div>
 
         {/* 2. PriceOye Signature Electric Sky Blue Navigation Bar */}
-        <div className="bg-[#48afff] text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16 sm:h-20 gap-4">
+        <div className="bg-[#48afff] text-white overflow-x-clip">
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-14 sm:h-20 gap-2 sm:gap-4">
               {/* Hamza Phone Store Brand Logo */}
-              <Link href="/" className="flex items-center gap-2 sm:gap-3 shrink-0 group">
-                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-white text-[#0b3c68] flex items-center justify-center shadow-lg group-hover:scale-105 transition-all">
-                  <Zap className="w-5 h-5 sm:w-6 sm:h-6 fill-[#0b3c68] stroke-[#0b3c68]" />
+              <Link href="/" className="flex items-center gap-1.5 sm:gap-3 shrink min-w-0 group">
+                <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-white text-[#0b3c68] flex items-center justify-center shadow-lg group-hover:scale-105 transition-all shrink-0">
+                  <Zap className="w-4 h-4 sm:w-6 sm:h-6 fill-[#0b3c68] stroke-[#0b3c68]" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="flex items-center gap-1 sm:gap-1.5">
-                    <span className="text-base sm:text-2xl font-black tracking-tight text-white font-sans flex items-center gap-1">
+                    <span className="text-sm xs:text-base sm:text-2xl font-black tracking-tight text-white font-sans flex items-center gap-0.5 sm:gap-1">
                       <span>HAMZA</span>
-                      <span className="bg-white text-[#0b3c68] px-1.5 sm:px-2 py-0.5 rounded-lg text-xs sm:text-lg font-black shadow-xs tracking-normal">
+                      <span className="bg-white text-[#0b3c68] px-1 sm:px-2 py-0.5 rounded-md sm:rounded-lg text-[10px] xs:text-xs sm:text-lg font-black shadow-xs tracking-normal">
                         PHONE STORE
                       </span>
                     </span>
-                    <span className="text-[9px] sm:text-[10px] font-black px-1.5 sm:px-2 py-0.5 rounded-full bg-[#f88b2a] text-white shadow-xs tracking-wider">
+                    <span className="text-[8px] sm:text-[10px] font-black px-1 sm:px-2 py-0.5 rounded-full bg-[#f88b2a] text-white shadow-xs tracking-wider shrink-0">
                       PK
                     </span>
                   </div>
-                  <div className="hidden xs:flex sm:flex items-center gap-1.5 text-[9px] sm:text-[10px] font-bold text-white/95 -mt-0.5">
+                  <div className="hidden sm:flex items-center gap-1.5 text-[9px] sm:text-[10px] font-bold text-white/95 -mt-0.5">
                     <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-80" />
                       <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-emerald-400" />
@@ -449,26 +452,26 @@ export function Navbar({
               </div>
 
               {/* Quick Action Navigation Buttons */}
-              <div className="flex items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-1 sm:gap-2.5 shrink-0">
                 {/* Mobile Search Toggle */}
                 <button
                   type="button"
                   onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
-                  className="md:hidden p-2.5 rounded-full text-white hover:bg-white/10 active:scale-95 transition-all cursor-pointer"
+                  className="md:hidden p-2 rounded-full text-white hover:bg-white/10 active:scale-95 transition-all cursor-pointer"
                   aria-label="Toggle Search"
                 >
-                  <Search className="w-5 h-5 text-white" />
+                  <Search className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </button>
 
                 {/* Customer Account / Auth State Button */}
                 {authLoading ? (
-                  <div className="w-9 sm:w-28 h-9 rounded-full bg-white/20 animate-pulse" />
+                  <div className="w-8 sm:w-28 h-8 sm:h-9 rounded-full bg-white/20 animate-pulse" />
                 ) : !user ? (
                   <button
                     type="button"
                     onClick={() => openAuthModal('login')}
                     aria-label="Customer Login or Sign Up"
-                    className="btn-press relative flex items-center gap-1.5 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0b3c68] font-black text-xs shadow-sm transition-all cursor-pointer hover:shadow-md"
+                    className="btn-press relative flex items-center gap-1.5 p-2 sm:px-4 sm:py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0b3c68] font-black text-xs shadow-sm transition-all cursor-pointer hover:shadow-md"
                     title="Customer Login or Sign Up"
                   >
                     <User className="w-4 h-4 text-[#0b3c68]" />
@@ -481,16 +484,16 @@ export function Navbar({
                       onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                       aria-label="Customer Account Menu"
                       aria-expanded={isUserMenuOpen}
-                      className="btn-press relative flex items-center gap-1.5 px-3.5 py-2 sm:py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0b3c68] transition-all cursor-pointer text-xs font-black shadow-sm"
+                      className="btn-press relative flex items-center gap-1.5 p-2 sm:px-3.5 sm:py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0b3c68] transition-all cursor-pointer text-xs font-black shadow-sm"
                     >
-                      <div className="w-5 h-5 rounded-full bg-[#0b3c68] text-white flex items-center justify-center text-[10px] font-black uppercase">
+                      <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#0b3c68] text-white flex items-center justify-center text-[9px] sm:text-[10px] font-black uppercase">
                         {(profile?.name?.charAt(0) || user.displayName?.charAt(0) || 'U')}
                       </div>
                       <span className="hidden sm:inline">
                         {profile?.name ? profile.name.trim().split(' ')[0] : user.displayName ? user.displayName.trim().split(' ')[0] : 'My Account'}
                       </span>
                       <ChevronDown
-                        className={`w-3.5 h-3.5 text-slate-500 transition-transform duration-200 ${
+                        className={`w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-500 transition-transform duration-200 hidden sm:inline ${
                           isUserMenuOpen ? 'rotate-180' : ''
                         }`}
                       />
@@ -557,13 +560,13 @@ export function Navbar({
                   type="button"
                   onClick={handleCompareClick}
                   aria-label="Compare phones side-by-side"
-                  className="btn-press relative flex items-center gap-1.5 px-3.5 py-2 sm:py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0b3c68] font-extrabold text-xs shadow-sm hover:shadow-md transition-all cursor-pointer"
+                  className="btn-press relative flex items-center gap-1.5 p-2 sm:px-3.5 sm:py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0b3c68] font-extrabold text-xs shadow-sm hover:shadow-md transition-all cursor-pointer"
                   title="Compare phones side-by-side"
                 >
                   <Layers className="w-4 h-4 text-[#0b3c68]" />
                   <span className="hidden sm:inline">Compare</span>
                   {compareCount > 0 && (
-                    <span className="w-5 h-5 rounded-full bg-[#f88b2a] text-white text-[10px] font-black flex items-center justify-center shadow-xs">
+                    <span className="absolute -top-1 -right-1 sm:static w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#f88b2a] text-white text-[9px] sm:text-[10px] font-black flex items-center justify-center shadow-xs">
                       {compareCount}
                     </span>
                   )}
@@ -574,13 +577,13 @@ export function Navbar({
                   type="button"
                   onClick={onOpenCart}
                   aria-label="View shopping cart"
-                  className="btn-shimmer btn-press relative flex items-center gap-1.5 px-4 py-2 sm:py-2.5 rounded-full bg-[#0b3c68] hover:bg-[#072847] text-white transition-all shadow-md cursor-pointer text-xs font-black border border-white/25"
+                  className="btn-shimmer btn-press relative flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2.5 rounded-full bg-[#0b3c68] hover:bg-[#072847] text-white transition-all shadow-md cursor-pointer text-xs font-black border border-white/25 shrink-0"
                   title="View your cart"
                 >
                   <ShoppingCart className="w-4 h-4 text-white" />
                   <span className="hidden sm:inline">Cart</span>
                   {cartCount > 0 && (
-                    <span className="w-5 h-5 rounded-full bg-[#f88b2a] text-white text-[10px] font-black flex items-center justify-center shadow-sm animate-heartbeat">
+                    <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#f88b2a] text-white text-[9px] sm:text-[10px] font-black flex items-center justify-center shadow-sm animate-heartbeat">
                       {cartCount}
                     </span>
                   )}
@@ -689,9 +692,9 @@ export function Navbar({
         </div>
 
         {/* 3. PriceOye Clean White Brand & Quick-Category Navigation Bar */}
-        <div className="bg-white border-b border-slate-200/90 shadow-xs">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center gap-2 py-2.5 overflow-x-auto scrollbar-none">
+        <div className="bg-white border-b border-slate-200/90 shadow-xs overflow-x-clip">
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div className="flex items-center gap-2 py-2 sm:py-2.5 overflow-x-auto scrollbar-none">
               {BRANDS.map((brand) => {
                 const isActive = activeBrand === brand;
                 const count = brandCounts[brand] || 0;

@@ -154,7 +154,7 @@ export function HeroBanner({
   const slide = HERO_SLIDES[currentSlideIndex];
 
   return (
-    <section className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-6">
+    <section className="relative w-full pb-6">
       {/* Top Split Layout: Main Dynamic Hero Carousel + Side Quick Promo Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Main Hero Slider (8 cols) */}
@@ -171,7 +171,7 @@ export function HeroBanner({
           <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
 
           {/* Slide Content */}
-          <div className="relative z-10 p-5 sm:p-10 flex-1 grid grid-cols-1 sm:grid-cols-12 gap-5 sm:gap-6 items-center">
+          <div className="relative z-10 p-4 sm:p-10 flex-1 grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-6 items-center">
             {/* Left Copy & Actions */}
             <div className="sm:col-span-7 space-y-3.5 sm:space-y-4">
               <div className="flex flex-wrap items-center gap-2">
