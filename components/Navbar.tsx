@@ -598,7 +598,7 @@ export function Navbar({
                       setIsSearchOpen(true);
                     }}
                     placeholder="Search 222 phones..."
-                    className="w-full pl-10 pr-9 py-2.5 rounded-full text-xs bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-white/40 shadow-sm"
+                    className="w-full pl-10 pr-9 py-2.5 rounded-full text-base sm:text-xs bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-white/40 shadow-sm font-medium"
                   />
                   {searchQuery && (
                     <button

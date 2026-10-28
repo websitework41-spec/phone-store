@@ -309,7 +309,7 @@ Or tap a quick question below to get started!`,
       {!isOpen && (
         <aside
           aria-label="HamzaBot AI Assistant"
-          className="fixed bottom-[76px] sm:bottom-[88px] right-5 sm:right-6 z-40 flex items-center"
+          className="fixed bottom-[128px] sm:bottom-[88px] right-4 sm:right-6 z-40 flex items-center"
         >
           <button
             onClick={() => {
@@ -481,7 +481,7 @@ Or tap a quick question below to get started!`,
               onKeyDown={handleKeyDown}
               disabled={isLoading}
               placeholder="Ask about phones, PTA, EMI, Open-Parcel..."
-              className="flex-1 px-3.5 py-2.5 text-xs sm:text-sm bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl border border-transparent focus:border-[#48afff] focus:bg-white dark:focus:bg-slate-950 focus:outline-none transition-all placeholder:text-slate-400"
+              className="flex-1 px-3.5 py-2.5 text-base sm:text-sm bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl border border-transparent focus:border-[#48afff] focus:bg-white dark:focus:bg-slate-950 focus:outline-none transition-all placeholder:text-slate-400 font-medium"
             />
             <button
               onClick={() => handleSendMessage()}

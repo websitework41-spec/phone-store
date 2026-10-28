@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Smartphone, SmartphoneColor, SmartphoneVariant } from '@/types';
 import { formatPKR, PAKISTAN_CITIES } from '@/data/smartphones';
 import { PhoneImageWithFallback } from './PhoneImageWithFallback';
@@ -16,9 +16,9 @@ import {
   Banknote,
   Percent,
   Sparkles,
-  Printer,
   ArrowRight,
   MessageSquare,
+  Check,
 } from 'lucide-react';
 
 import {
@@ -66,7 +66,7 @@ export function QuickPurchaseModal({
   const [generatedOrderId, setGeneratedOrderId] = useState('');
 
   // Auto-prefill customer info when logged in
-  React.useEffect(() => {
+  useEffect(() => {
     if (user && profile && isOpen) {
       if (!fullName && (profile.name || user.displayName)) {
         setFullName(profile.name || user.displayName || '');
@@ -196,6 +196,7 @@ export function QuickPurchaseModal({
       } catch {
         // ignore
       }
+
       // Sync to admin orders backend
       try {
         fetch('/api/admin/orders', {
@@ -245,20 +246,23 @@ export function QuickPurchaseModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-white dark:bg-neutral-900 rounded-3xl shadow-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden my-6">
-        {/* Top Header */}
-        <div className="flex items-center justify-between p-5 border-b border-neutral-100 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950/40">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center">
-              <PackageCheck className="w-4 h-4" />
+    <div className="fixed inset-0 z-50 flex flex-col justify-end sm:justify-center sm:items-center p-0 sm:p-4 bg-slate-950/70 backdrop-blur-xs overflow-y-auto animate-in fade-in duration-200">
+      <div className="relative w-full max-w-2xl bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl border border-slate-200 flex flex-col max-h-[92vh] sm:max-h-[88vh] overflow-hidden">
+        {/* Mobile Drag Indicator Bar */}
+        <div className="sm:hidden w-12 h-1.5 rounded-full bg-slate-300 mx-auto mt-2.5 mb-1 shrink-0" />
+
+        {/* Modal Top Header (Sticky) */}
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b border-slate-100 bg-slate-50/70 shrink-0">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-sky-100 text-[#0b3c68] flex items-center justify-center shrink-0">
+              <PackageCheck className="w-4 h-4 text-[#0b3c68]" />
             </div>
             <div>
-              <h3 className="text-base font-extrabold text-neutral-900 dark:text-white">
-                {isOrderConfirmed ? 'Order Confirmed!' : 'Quick Purchase & Fast Checkout'}
+              <h3 className="text-sm sm:text-base font-black text-slate-900 tracking-tight">
+                {isOrderConfirmed ? 'Order Confirmed!' : 'Quick Buy (Cash on Delivery)'}
               </h3>
-              <p className="text-[11px] text-neutral-500">
-                100% PTA Approved • Official Warranty • Open Parcel COD
+              <p className="text-[10px] sm:text-xs text-slate-500 font-medium">
+                100% PTA Approved • Open-Parcel Inspection Before Payment
               </p>
             </div>
           </div>
@@ -266,7 +270,7 @@ export function QuickPurchaseModal({
           <button
             onClick={handleResetAndClose}
             aria-label="Close quick purchase modal"
-            className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-500 hover:text-neutral-900 dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 flex items-center justify-center transition-colors cursor-pointer shrink-0"
           >
             <X className="w-4 h-4" />
           </button>
@@ -274,10 +278,10 @@ export function QuickPurchaseModal({
 
         {/* Content Body */}
         {!isOrderConfirmed ? (
-          <div className="p-5 sm:p-6 space-y-5 max-h-[80vh] overflow-y-auto">
-            {/* Phone Product Summary Card */}
-            <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-950/60 border border-neutral-200/80 dark:border-neutral-800 flex items-center gap-4">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-white dark:bg-neutral-900 p-2 border border-neutral-200/60 dark:border-neutral-800 flex items-center justify-center flex-shrink-0">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
+            {/* Phone Product Summary Card (Compact & Responsive on Mobile) */}
+            <div className="p-3 sm:p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center gap-3 sm:gap-4">
+              <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-xl bg-white p-1.5 border border-slate-200 flex items-center justify-center shrink-0">
                 <PhoneImageWithFallback
                   src={currentColor.image}
                   alt={phone.name}
@@ -287,31 +291,32 @@ export function QuickPurchaseModal({
               </div>
 
               <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between gap-2">
-                  <h4 className="text-sm font-black text-neutral-900 dark:text-white truncate">
-                    {phone.name}
-                  </h4>
-                  <span className="text-sm sm:text-base font-black text-blue-600 dark:text-blue-400 whitespace-nowrap">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <span className="text-[10px] font-black uppercase text-slate-400">
+                      {phone.brand}
+                    </span>
+                    <h4 className="text-xs sm:text-sm font-black text-slate-900 truncate">
+                      {phone.name}
+                    </h4>
+                  </div>
+                  <span className="text-sm sm:text-base font-black text-[#0b3c68] whitespace-nowrap">
                     {formatPKR(price)}
                   </span>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-2 mt-1">
-                  <span className="text-xs text-neutral-600 dark:text-neutral-300 font-medium">
-                    Color: <strong>{currentColor.name}</strong>
-                  </span>
-                  <span className="text-neutral-300 dark:text-neutral-700">•</span>
-                  <span className="text-xs text-neutral-600 dark:text-neutral-300 font-medium">
-                    Specs: <strong>{currentVariant?.ram} RAM / {currentVariant?.storage} Storage</strong>
-                  </span>
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1 text-[11px] text-slate-600">
+                  <span>Color: <strong className="text-slate-900">{currentColor.name}</strong></span>
+                  <span className="text-slate-300">•</span>
+                  <span>Config: <strong className="text-slate-900">{currentVariant?.ram} / {currentVariant?.storage}</strong></span>
                 </div>
 
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-200/50">
-                    <ShieldCheck className="w-3 h-3" /> PTA DIRBS Approved
+                <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    <ShieldCheck className="w-3 h-3 text-emerald-600" /> PTA Approved
                   </span>
-                  <span className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded border border-blue-200/50">
-                    <Truck className="w-3 h-3" /> Free Express Shipping
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#0b3c68] bg-sky-50 px-2 py-0.5 rounded border border-sky-100">
+                    <Truck className="w-3 h-3 text-[#48afff]" /> Free Shipping
                   </span>
                 </div>
               </div>
@@ -319,7 +324,7 @@ export function QuickPurchaseModal({
 
             {/* Quick Order Form */}
             <form onSubmit={handleSubmitOrder} className="space-y-4">
-              {/* Anti-Bot Security Honeypot (Hidden from human users, traps automated attack bots) */}
+              {/* Anti-Bot Security Honeypot */}
               <input
                 type="text"
                 name="_hp_security_check"
@@ -332,16 +337,17 @@ export function QuickPurchaseModal({
               />
 
               {validationError && (
-                <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-300 text-xs font-semibold flex items-center gap-2 animate-in fade-in">
+                <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center gap-2 animate-in fade-in">
                   <span>⚠️</span>
                   <span>{validationError}</span>
                 </div>
               )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              {/* Responsive Inputs: text-base on mobile to completely prevent iOS auto-zoom */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {/* Full Name */}
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
+                  <label className="text-xs font-bold text-slate-700">
                     Full Name <span className="text-rose-500">*</span>
                   </label>
                   <input
@@ -350,13 +356,13 @@ export function QuickPurchaseModal({
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Muhammad Ali"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-neutral-900 dark:text-white"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:bg-white text-slate-900 transition-all font-medium"
                   />
                 </div>
 
                 {/* Mobile Phone Number */}
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
+                  <label className="text-xs font-bold text-slate-700">
                     Mobile Number (WhatsApp) <span className="text-rose-500">*</span>
                   </label>
                   <input
@@ -365,19 +371,19 @@ export function QuickPurchaseModal({
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     placeholder="0300 1234567"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-neutral-900 dark:text-white"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:bg-white text-slate-900 transition-all font-medium"
                   />
                 </div>
 
                 {/* City Dropdown */}
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
+                  <label className="text-xs font-bold text-slate-700">
                     Delivery City <span className="text-rose-500">*</span>
                   </label>
                   <select
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-neutral-900 dark:text-white"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:bg-white text-slate-900 transition-all font-medium"
                   >
                     {PAKISTAN_CITIES.map((c) => (
                       <option key={c} value={c}>
@@ -389,7 +395,7 @@ export function QuickPurchaseModal({
 
                 {/* Alternate Phone */}
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
+                  <label className="text-xs font-bold text-slate-700">
                     Alternative Phone (Optional)
                   </label>
                   <input
@@ -397,243 +403,218 @@ export function QuickPurchaseModal({
                     value={altPhone}
                     onChange={(e) => setAltPhone(e.target.value)}
                     placeholder="0321 7654321"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-neutral-900 dark:text-white"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:bg-white text-slate-900 transition-all font-medium"
                   />
                 </div>
               </div>
 
               {/* Complete Address */}
               <div className="space-y-1">
-                <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
-                  Complete Delivery Address <span className="text-rose-500">*</span>
+                <label className="text-xs font-bold text-slate-700">
+                  Complete Street Address <span className="text-rose-500">*</span>
                 </label>
                 <textarea
                   required
                   rows={2}
                   value={deliveryAddress}
                   onChange={(e) => setDeliveryAddress(e.target.value)}
-                  placeholder="House/Apartment #, Street name, Sector / Block / Area"
-                  className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-neutral-900 dark:text-white resize-none"
+                  placeholder="House / Apartment #, Street name, Sector / Mohalla / Area"
+                  className="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:bg-white text-slate-900 transition-all font-medium resize-none"
                 />
               </div>
 
-              {/* Payment Methods */}
-              <div className="space-y-2 pt-2">
-                <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
+              {/* Payment Method Selection (Clean, Compact Mobile-Friendly Pills) */}
+              <div className="space-y-2 pt-1">
+                <label className="text-xs font-bold text-slate-700">
                   Select Payment Method:
                 </label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {/* Cash on Delivery */}
                   <label
                     onClick={() => setPaymentMethod('cod')}
-                    className={`flex items-start gap-2.5 p-3 rounded-2xl border cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm ${
+                    className={`flex items-center gap-2.5 p-3 rounded-xl border cursor-pointer transition-all ${
                       paymentMethod === 'cod'
-                        ? 'bg-blue-50/60 dark:bg-blue-950/40 border-blue-500 ring-2 ring-blue-500/20'
-                        : 'bg-neutral-50 dark:bg-neutral-800/60 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100'
+                        ? 'bg-blue-50/70 border-[#0b3c68] ring-2 ring-[#48afff]/40 shadow-xs'
+                        : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
                     <input
                       type="radio"
-                      name="payment"
+                      name="quick_payment"
                       checked={paymentMethod === 'cod'}
                       onChange={() => setPaymentMethod('cod')}
-                      className="mt-0.5 accent-blue-600"
+                      className="accent-[#0b3c68]"
                     />
-                    <div>
-                      <div className="text-xs font-bold text-neutral-900 dark:text-white flex items-center gap-1">
-                        <Banknote className="w-3.5 h-3.5 text-emerald-500" />
+                    <div className="min-w-0">
+                      <div className="text-xs font-extrabold text-slate-900 flex items-center gap-1.5">
+                        <Banknote className="w-3.5 h-3.5 text-emerald-600" />
                         <span>Cash on Delivery</span>
                       </div>
-                      <p className="text-[10px] text-neutral-500 mt-0.5">
-                        Open Parcel: Check phone before paying cash.
-                      </p>
+                      <p className="text-[10px] text-slate-500 font-medium">Open-Parcel COD</p>
                     </div>
                   </label>
 
                   {/* Bank Transfer / Raast */}
                   <label
                     onClick={() => setPaymentMethod('bank')}
-                    className={`flex items-start gap-2.5 p-3 rounded-2xl border cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm ${
+                    className={`flex items-center gap-2.5 p-3 rounded-xl border cursor-pointer transition-all ${
                       paymentMethod === 'bank'
-                        ? 'bg-blue-50/60 dark:bg-blue-950/40 border-blue-500 ring-2 ring-blue-500/20'
-                        : 'bg-neutral-50 dark:bg-neutral-800/60 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100'
+                        ? 'bg-blue-50/70 border-[#0b3c68] ring-2 ring-[#48afff]/40 shadow-xs'
+                        : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
                     <input
                       type="radio"
-                      name="payment"
+                      name="quick_payment"
                       checked={paymentMethod === 'bank'}
                       onChange={() => setPaymentMethod('bank')}
-                      className="mt-0.5 accent-blue-600"
+                      className="accent-[#0b3c68]"
                     />
-                    <div>
-                      <div className="text-xs font-bold text-neutral-900 dark:text-white flex items-center gap-1">
-                        <CreditCard className="w-3.5 h-3.5 text-blue-500" />
+                    <div className="min-w-0">
+                      <div className="text-xs font-extrabold text-slate-900 flex items-center gap-1.5">
+                        <CreditCard className="w-3.5 h-3.5 text-blue-600" />
                         <span>Online Bank / Raast</span>
                       </div>
-                      <p className="text-[10px] text-neutral-500 mt-0.5">
-                        Meezan, Alfalah, Raast &amp; Cards.
-                      </p>
+                      <p className="text-[10px] text-slate-500 font-medium">Instant IBFT</p>
                     </div>
                   </label>
 
                   {/* 0% Installments */}
                   <label
                     onClick={() => setPaymentMethod('emi')}
-                    className={`flex items-start gap-2.5 p-3 rounded-2xl border cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm ${
+                    className={`flex items-center gap-2.5 p-3 rounded-xl border cursor-pointer transition-all ${
                       paymentMethod === 'emi'
-                        ? 'bg-blue-50/60 dark:bg-blue-950/40 border-blue-500 ring-2 ring-blue-500/20'
-                        : 'bg-neutral-50 dark:bg-neutral-800/60 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100'
+                        ? 'bg-blue-50/70 border-[#0b3c68] ring-2 ring-[#48afff]/40 shadow-xs'
+                        : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
                     <input
                       type="radio"
-                      name="payment"
+                      name="quick_payment"
                       checked={paymentMethod === 'emi'}
                       onChange={() => setPaymentMethod('emi')}
-                      className="mt-0.5 accent-blue-600"
+                      className="accent-[#0b3c68]"
                     />
-                    <div>
-                      <div className="text-xs font-bold text-neutral-900 dark:text-white flex items-center gap-1">
-                        <Percent className="w-3.5 h-3.5 text-amber-500" />
+                    <div className="min-w-0">
+                      <div className="text-xs font-extrabold text-slate-900 flex items-center gap-1.5">
+                        <Percent className="w-3.5 h-3.5 text-[#f47708]" />
                         <span>0% Installments</span>
                       </div>
-                      <p className="text-[10px] text-neutral-500 mt-0.5">
-                        3 to 12 months with credit card.
-                      </p>
+                      <p className="text-[10px] text-slate-500 font-medium">3-12 mo Credit Card</p>
                     </div>
                   </label>
                 </div>
               </div>
 
-              {/* Order Total & Price Breakdown */}
-              <div className="p-3.5 rounded-2xl bg-neutral-100/70 dark:bg-neutral-800/50 border border-neutral-200/80 dark:border-neutral-700/80 space-y-1.5 text-xs">
-                <div className="flex justify-between text-neutral-600 dark:text-neutral-400">
-                  <span>Smartphone Base Price:</span>
-                  <span>{formatPKR(price)}</span>
-                </div>
-                <div className="flex justify-between text-neutral-600 dark:text-neutral-400">
-                  <span>PTA DIRBS Duty:</span>
-                  <span className="text-emerald-600 font-semibold">100% INCLUDED (Paid)</span>
-                </div>
-                <div className="flex justify-between text-neutral-600 dark:text-neutral-400">
-                  <span>Express Delivery across Pakistan:</span>
-                  <span className="text-emerald-600 font-semibold">FREE (Rs. 0)</span>
-                </div>
-                <div className="pt-2 border-t border-neutral-200 dark:border-neutral-700 flex justify-between font-black text-neutral-900 dark:text-white text-sm">
-                  <span>Total Payable on Delivery:</span>
-                  <span className="text-blue-600 dark:text-blue-400">{formatPKR(price)}</span>
-                </div>
-              </div>
-
-              {/* Open Parcel Guarantee Banner inside Form */}
-              <div className="p-3 rounded-xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/50 flex items-start gap-2.5 text-amber-900 dark:text-amber-300 text-xs">
-                <PackageCheck className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+              {/* Open Parcel Guarantee Banner */}
+              <div className="p-3 rounded-xl bg-amber-50/90 border border-amber-200 flex items-start gap-2.5 text-amber-900 text-xs">
+                <PackageCheck className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                 <p className="text-[11px] leading-relaxed">
-                  <strong>Open-Parcel Guarantee:</strong> You will be allowed to open the outer flyer and examine the factory-sealed smartphone box, seal stickers, and warranty slip before handing over the cash payment to the courier.
+                  <strong>Open-Parcel Guarantee:</strong> You are fully authorized to open the flyer and inspect the smartphone box, seals, and warranty card before paying cash to the TCS rider!
                 </p>
               </div>
 
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-sm transition-all shadow-xl shadow-blue-600/30 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 btn-press btn-shimmer"
-              >
-                {isSubmitting ? (
-                  <span>Booking Open-Parcel Order...</span>
-                ) : (
-                  <>
-                    <span>Confirm Order with Open Parcel ({formatPKR(price)})</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
-              </button>
+              {/* Price Breakdown */}
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs">
+                <div className="flex justify-between text-slate-600">
+                  <span>Device Price:</span>
+                  <span className="font-bold">{formatPKR(price)}</span>
+                </div>
+                <div className="flex justify-between text-slate-600">
+                  <span>PTA DIRBS Customs Tax:</span>
+                  <span className="text-emerald-700 font-bold">100% INCLUDED (Paid)</span>
+                </div>
+                <div className="flex justify-between text-slate-600">
+                  <span>Nationwide Express Shipping:</span>
+                  <span className="text-emerald-700 font-bold">FREE (Rs. 0)</span>
+                </div>
+              </div>
+
+              {/* Sticky Submit Footer on Mobile so button is NEVER hidden */}
+              <div className="sticky bottom-0 bg-white/95 backdrop-blur-md pt-3 pb-2 border-t border-slate-100 -mx-4 sm:-mx-6 px-4 sm:px-6 shadow-md mt-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-slate-500">Total Payable on Delivery:</span>
+                  <span className="text-base font-black text-[#0b3c68]">{formatPKR(price)}</span>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-3.5 rounded-2xl bg-[#0b3c68] hover:bg-[#072847] text-white font-black text-xs sm:text-sm transition-all shadow-lg shadow-[#0b3c68]/20 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 btn-press"
+                >
+                  {isSubmitting ? (
+                    <span>Booking Open-Parcel Consignment...</span>
+                  ) : (
+                    <>
+                      <span>Confirm Order with Open Parcel ({formatPKR(price)})</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </>
+                  )}
+                </button>
+              </div>
             </form>
           </div>
         ) : (
           /* Order Confirmed Screen */
-          <div className="p-6 sm:p-8 text-center space-y-5 animate-in zoom-in-95 duration-200">
-            <div className="w-16 h-16 rounded-3xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/20">
+          <div className="p-6 sm:p-8 text-center space-y-4 overflow-y-auto">
+            <div className="w-16 h-16 rounded-3xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/20">
               <CheckCircle2 className="w-8 h-8" />
             </div>
 
             <div className="space-y-1">
-              <h3 className="text-2xl font-black text-neutral-900 dark:text-white">
-                Alhamdulillah! Your Order is Confirmed
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                Alhamdulillah! Order Confirmed
               </h3>
-              <p className="text-xs text-neutral-500">
-                Your open-parcel consignment has been booked and sent to logistics.
+              <p className="text-xs text-slate-500 font-medium">
+                Your open-parcel consignment has been booked and dispatched via TCS Express.
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-950/80 border border-neutral-200 dark:border-neutral-800 max-w-md mx-auto text-left space-y-2 text-xs">
-              <div className="flex justify-between items-center pb-2 border-b border-neutral-200 dark:border-neutral-800">
-                <span className="text-neutral-500">Order ID:</span>
-                <span className="font-extrabold text-blue-600 dark:text-blue-400 text-sm">
-                  {generatedOrderId}
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 max-w-md mx-auto text-left space-y-2 text-xs">
+              <div className="flex justify-between">
+                <span className="text-slate-400">Tracking Code:</span>
+                <span className="font-mono font-bold text-[#0b3c68] text-sm">
+                  {generatedOrderId || 'HPS-786110'}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-neutral-500">Customer:</span>
-                <span className="font-bold text-neutral-900 dark:text-white">{fullName}</span>
+                <span className="text-slate-400">Recipient:</span>
+                <span className="font-bold text-slate-900">{fullName}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-neutral-500">Delivery Address:</span>
-                <span className="font-medium text-neutral-800 dark:text-neutral-200 text-right max-w-[200px] truncate">
-                  {deliveryAddress}, {city}
-                </span>
+                <span className="text-slate-400">Destination:</span>
+                <span className="font-bold text-slate-900">{city}, Pakistan</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-neutral-500">Item:</span>
-                <span className="font-bold text-neutral-900 dark:text-white">
-                  {phone.name} ({currentColor.name})
+                <span className="text-slate-400">Payment:</span>
+                <span className="font-bold text-emerald-700 uppercase">
+                  {paymentMethod === 'cod' ? 'Cash on Delivery (Open Parcel)' : paymentMethod}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-neutral-500">Estimated Delivery:</span>
-                <span className="font-bold text-emerald-600 dark:text-emerald-400">
-                  24–48 Hours (TCS Express)
-                </span>
+              <div className="flex justify-between pt-2 border-t border-slate-200 font-bold">
+                <span>Total Amount:</span>
+                <span className="text-[#0b3c68] font-black">{formatPKR(price)}</span>
               </div>
-              <div className="flex justify-between pt-2 border-t border-neutral-200 dark:border-neutral-800 font-bold text-sm">
-                <span>Payable on Delivery:</span>
-                <span className="text-blue-600">{formatPKR(price)}</span>
-              </div>
-            </div>
-
-            <div className="p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 text-xs flex items-center justify-center gap-2 max-w-md mx-auto">
-              <Phone className="w-4 h-4 text-blue-600" />
-              <span>
-                SMS &amp; WhatsApp confirmation sent to <strong>{phoneNumber}</strong>
-              </span>
             </div>
 
             <a
-              href={`https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20have%20an%20inquiry%20regarding%20my%20order%20${encodeURIComponent(generatedOrderId)}.`}
+              href={`https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20just%20placed%20order%20${generatedOrderId}%20for%20${encodeURIComponent(
+                phone.name
+              )}.%20Please%20share%20tracking%20update.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full max-w-md mx-auto p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs flex items-center justify-center gap-2 hover:bg-emerald-100 transition-colors cursor-pointer"
+              className="mt-3 w-full p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center justify-center gap-2 hover:bg-emerald-100 transition-colors"
             >
               <MessageSquare className="w-4 h-4 text-emerald-600" />
-              <span>WhatsApp Official Support: <strong>+92 313 5221200</strong></span>
+              <span>Get WhatsApp Dispatch Updates: +92 313 5221200</span>
             </a>
 
-            <div className="flex items-center justify-center gap-3 pt-2">
-              <button
-                onClick={() => window.print()}
-                className="px-4 py-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 text-neutral-800 dark:text-neutral-200 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer btn-press"
-              >
-                <Printer className="w-3.5 h-3.5" />
-                <span>Print Receipt</span>
-              </button>
-              <button
-                onClick={handleResetAndClose}
-                className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-md cursor-pointer btn-press btn-shimmer"
-              >
-                Back to Smartphone Catalog
-              </button>
-            </div>
+            <button
+              onClick={handleResetAndClose}
+              className="w-full mt-2 py-3.5 rounded-2xl bg-[#0b3c68] text-white text-xs sm:text-sm font-black hover:bg-[#48afff] transition-colors shadow-md"
+            >
+              Continue Shopping
+            </button>
           </div>
         )}
       </div>

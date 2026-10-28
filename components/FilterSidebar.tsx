@@ -382,7 +382,7 @@ export function FilterSidebar({
             value={brandSearch}
             onChange={(e) => setBrandSearch(e.target.value)}
             placeholder="Search brand (Samsung, Apple, Nokia...)"
-            className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-slate-50 text-xs text-slate-900 placeholder:text-slate-400 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#48afff] transition-all"
+            className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-slate-50 text-base sm:text-xs text-slate-900 placeholder:text-slate-400 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#48afff] transition-all"
           />
         </div>
 
@@ -495,7 +495,7 @@ export function FilterSidebar({
                 value={assistName}
                 onChange={(e) => setAssistName(e.target.value)}
                 placeholder="Your Full Name"
-                className="w-full px-3 py-1.5 rounded-lg bg-black/25 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#48afff] transition-colors"
+                className="w-full px-3 py-2 rounded-lg bg-black/25 border border-white/20 text-base sm:text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#48afff] transition-colors"
               />
               <input
                 type="tel"
@@ -503,7 +503,7 @@ export function FilterSidebar({
                 value={assistPhone}
                 onChange={(e) => setAssistPhone(e.target.value)}
                 placeholder="Phone (0300-1234567)"
-                className="w-full px-3 py-1.5 rounded-lg bg-black/25 border border-white/20 text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#48afff] transition-colors"
+                className="w-full px-3 py-2 rounded-lg bg-black/25 border border-white/20 text-base sm:text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#48afff] transition-colors"
               />
               <select
                 value={assistCity}

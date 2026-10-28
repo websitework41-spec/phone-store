@@ -176,7 +176,7 @@ export function Footer() {
                       value={emailOrPhone}
                       onChange={(e) => setEmailOrPhone(e.target.value)}
                       placeholder="Enter WhatsApp # or Email"
-                      className="w-full sm:w-72 px-4 py-3 rounded-full bg-slate-950 border border-slate-700 text-white placeholder:text-slate-500 text-xs focus:outline-none focus:ring-2 focus:ring-[#48afff]"
+                      className="w-full sm:w-72 px-4 py-3 rounded-full bg-slate-950 border border-slate-700 text-white placeholder:text-slate-500 text-base sm:text-xs focus:outline-none focus:ring-2 focus:ring-[#48afff] font-medium"
                     />
                     <button
                       type="submit"

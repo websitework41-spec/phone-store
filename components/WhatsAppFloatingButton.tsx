@@ -17,7 +17,7 @@ export function WhatsAppFloatingButton() {
   return (
     <aside
       aria-label="Quick WhatsApp Helpline"
-      className="fixed bottom-5 sm:bottom-6 right-5 sm:right-6 z-40 flex items-center"
+      className="fixed bottom-[72px] sm:bottom-6 right-4 sm:right-6 z-40 flex items-center"
     >
       <a
         href={whatsappUrl}

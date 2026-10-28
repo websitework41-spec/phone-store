@@ -849,12 +849,8 @@ function HomeContent() {
 
           {/* Catalog Layout: Sidebar + Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-6">
-            {/* Filter Sidebar */}
-            <div
-              className={`lg:col-span-3 ${
-                isMobileFiltersOpen ? 'block' : 'hidden lg:block'
-              }`}
-            >
+            {/* Filter Sidebar Desktop */}
+            <div className="lg:col-span-3 hidden lg:block">
               <FilterSidebar
                 filters={filters}
                 setFilters={setFilters}
@@ -1361,6 +1357,49 @@ function HomeContent() {
             >
               Understood
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Filter Slide-over Drawer */}
+      {isMobileFiltersOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex justify-end animate-in fade-in duration-200">
+          <div className="w-full max-w-sm bg-white h-full flex flex-col shadow-2xl animate-in slide-in-from-right duration-200">
+            {/* Header */}
+            <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/70 shrink-0">
+              <div className="flex items-center gap-2">
+                <Filter className="w-4 h-4 text-[#0b3c68]" />
+                <h3 className="text-sm font-black text-slate-900">
+                  Filter Smartphones ({filteredPhones.length})
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsMobileFiltersOpen(false)}
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Scrollable Filter Options */}
+            <div className="flex-1 overflow-y-auto p-4">
+              <FilterSidebar
+                filters={filters}
+                setFilters={setFilters}
+                totalCount={catalog.length}
+                filteredCount={filteredPhones.length}
+              />
+            </div>
+
+            {/* Sticky Action Footer */}
+            <div className="p-4 border-t border-slate-100 bg-white/95 backdrop-blur-md shrink-0">
+              <button
+                onClick={() => setIsMobileFiltersOpen(false)}
+                className="w-full py-3.5 rounded-2xl bg-[#0b3c68] hover:bg-[#072847] text-white text-xs font-black shadow-md btn-press cursor-pointer flex items-center justify-center gap-2"
+              >
+                <span>Show {filteredPhones.length} Smartphones</span>
+              </button>
+            </div>
           </div>
         </div>
       )}
