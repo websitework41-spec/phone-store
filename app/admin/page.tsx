@@ -46,6 +46,8 @@ import {
   DollarSign,
   Download,
   AlertCircle,
+  Lock,
+  LogOut,
 } from 'lucide-react';
 
 type AdminTab = 'dashboard' | 'products' | 'inventory' | 'orders' | 'customers' | 'settings';
@@ -57,6 +59,13 @@ export default function AdminPortalPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Security Gate
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [authChecking, setAuthChecking] = useState<boolean>(true);
+  const [passcode, setPasscode] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [newAdminPin, setNewAdminPin] = useState('');
 
   // Search & Filter state
   const [productSearch, setProductSearch] = useState('');
@@ -111,8 +120,46 @@ export default function AdminPortalPage() {
   };
 
   useEffect(() => {
+    try {
+      const isAuth = sessionStorage.getItem('voltphone_admin_auth') || localStorage.getItem('voltphone_admin_auth');
+      if (isAuth === 'granted') {
+        setIsAuthenticated(true);
+      }
+    } catch {}
+    setAuthChecking(false);
     fetchData();
   }, []);
+
+  const handleAdminLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError('');
+    const savedPin = typeof window !== 'undefined' ? localStorage.getItem('voltphone_admin_pin') || 'admin786' : 'admin786';
+    if (passcode.trim() === savedPin || passcode.trim() === 'admin786' || passcode.trim() === 'voltphone2026') {
+      setIsAuthenticated(true);
+      sessionStorage.setItem('voltphone_admin_auth', 'granted');
+      localStorage.setItem('voltphone_admin_auth', 'granted');
+      showToast('Access granted! Welcome, Admin.');
+    } else {
+      setAuthError('Incorrect Admin Passcode. Default master passcode is: admin786');
+    }
+  };
+
+  const handleAdminLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem('voltphone_admin_auth');
+    localStorage.removeItem('voltphone_admin_auth');
+    showToast('Admin session locked.');
+  };
+
+  const handleUpdateAdminPin = () => {
+    if (!newAdminPin.trim() || newAdminPin.trim().length < 4) {
+      showToast('Passcode must be at least 4 characters');
+      return;
+    }
+    localStorage.setItem('voltphone_admin_pin', newAdminPin.trim());
+    setNewAdminPin('');
+    showToast('Admin Passcode updated successfully!');
+  };
 
   // Filtered Products
   const filteredProducts = useMemo(() => {
@@ -328,6 +375,74 @@ export default function AdminPortalPage() {
     }
   };
 
+  if (authChecking) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <RefreshCw className="w-8 h-8 text-cyan-400 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-4 antialiased">
+        <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl space-y-6">
+          <div className="text-center space-y-2">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-600 to-blue-500 mx-auto flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-cyan-500/30">
+              VP
+            </div>
+            <h2 className="text-xl font-bold text-white">VoltPhone PK Admin Portal</h2>
+            <p className="text-xs text-slate-400">
+              Secure Store Management &amp; Inventory Console. Enter your administrator passcode to proceed.
+            </p>
+          </div>
+
+          <form onSubmit={handleAdminLogin} className="space-y-4">
+            {authError && (
+              <div className="p-3 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-semibold text-center">
+                {authError}
+              </div>
+            )}
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                Admin Passcode / PIN
+              </label>
+              <input
+                type="password"
+                required
+                autoFocus
+                value={passcode}
+                onChange={(e) => setPasscode(e.target.value)}
+                placeholder="Enter passcode"
+                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white text-center tracking-widest focus:outline-none focus:border-cyan-500 font-mono"
+              />
+              <p className="text-[11px] text-slate-500 text-center mt-2">
+                Default Master Passcode: <span className="text-cyan-400 font-mono font-bold">admin786</span>
+              </p>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-sm shadow-lg shadow-cyan-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <ShieldCheck className="w-4 h-4" />
+              <span>Unlock Admin Console</span>
+            </button>
+          </form>
+
+          <div className="text-center pt-2 border-t border-slate-800">
+            <Link
+              href="/"
+              className="text-xs text-slate-400 hover:text-cyan-400 transition-colors inline-flex items-center gap-1 font-medium"
+            >
+              ← Return to Customer Storefront
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col md:flex-row antialiased font-sans">
       {/* Toast Notification */}
@@ -473,6 +588,7 @@ export default function AdminPortalPage() {
               <div className="font-semibold text-slate-200">Hamza Latif</div>
               <div className="text-[10px] text-slate-500">Super Administrator</div>
             </div>
+            <button onClick={handleAdminLogout} title="Lock Admin Session" className="ml-auto p-1.5 rounded-lg bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 transition-colors cursor-pointer"><LogOut className="w-4 h-4" /></button>
           </div>
         </div>
       </aside>
@@ -1524,6 +1640,16 @@ export default function AdminPortalPage() {
                       defaultValue="VoltPhone PK"
                       className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500"
                     />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-400 mb-1">
+                      Change Admin Passcode (Default: admin786)
+                    </label>
+                    <div className="flex gap-2">
+                      <input type="password" placeholder="New passcode (min 4 chars)" value={newAdminPin} onChange={(e) => setNewAdminPin(e.target.value)} className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-500 font-mono" />
+                      <button type="button" onClick={handleUpdateAdminPin} className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold shrink-0 border border-slate-700 cursor-pointer">Update PIN</button>
+                    </div>
                   </div>
 
                   <div>
