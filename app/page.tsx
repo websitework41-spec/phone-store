@@ -630,8 +630,8 @@ function HomeContent() {
                   }}
                   className={`btn-press whitespace-nowrap text-xs font-bold px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-[#136ab5] text-white shadow-sm ring-2 ring-[#48afff]'
-                      : 'bg-[#f1f3f6] hover:bg-slate-200/80 text-slate-700 hover:text-slate-950 border border-slate-200/70'
+                      ? 'bg-[#0b3c68] text-white shadow-sm ring-2 ring-[#0b3c68]/30'
+                      : 'bg-[#f1f3f6] hover:bg-slate-200/80 text-slate-800 hover:text-slate-950 border border-slate-200/80'
                   }`}
                 >
                   {budget.label}
