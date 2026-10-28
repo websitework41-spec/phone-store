@@ -331,7 +331,7 @@ export default function AdminPortalPage() {
     });
   }, [analyticsStats, analyticsFilter, analyticsSearch]);
 
-  // Key Dashboard Statistics
+  // Key Dashboard Statistics & Financial Margins
   const stats = useMemo(() => {
     const totalProducts = products.length;
     const inStockCount = products.filter((p) => p.inStock && (p.stockQty ?? 0) > 0).length;
@@ -339,6 +339,33 @@ export default function AdminPortalPage() {
     const outOfStockCount = products.filter((p) => !p.inStock || (p.stockQty ?? 0) === 0).length;
 
     const totalRevenue = orders.reduce((acc, o) => acc + (o.totalPKR || 0), 0);
+
+    // Cost of Goods Sold (COGS) for all orders
+    let totalCost = 0;
+    orders.forEach((o) => {
+      if (Array.isArray(o.items)) {
+        o.items.forEach((item) => {
+          if (typeof item !== 'string') {
+            const qty = item.quantity || 1;
+            const cost = item.costPricePKR || Math.round((item.pricePKR || 0) * 0.88);
+            totalCost += cost * qty;
+          }
+        });
+      }
+    });
+
+    const netProfit = totalRevenue - totalCost;
+    const profitMargin = totalRevenue > 0 ? ((netProfit / totalRevenue) * 100).toFixed(1) : '0.0';
+    const avgProfitPerOrder = orders.length > 0 ? Math.round(netProfit / orders.length) : 0;
+
+    // Total Inventory wholesale capital & potential profit
+    const totalInventoryValue = products.reduce((acc, p) => acc + ((p.stockQty ?? 0) * (p.basePricePKR || 0)), 0);
+    const totalInventoryCost = products.reduce(
+      (acc, p) => acc + ((p.stockQty ?? 0) * (p.costPricePKR || Math.round((p.basePricePKR || 0) * 0.88))),
+      0
+    );
+    const potentialInventoryProfit = totalInventoryValue - totalInventoryCost;
+
     const pendingOrders = orders.filter((o) => o.status === 'Placed' || o.status === 'Processing').length;
     const deliveredOrders = orders.filter((o) => o.status === 'Delivered').length;
 
@@ -348,6 +375,13 @@ export default function AdminPortalPage() {
       lowStockCount,
       outOfStockCount,
       totalRevenue,
+      totalCost,
+      netProfit,
+      profitMargin,
+      avgProfitPerOrder,
+      totalInventoryValue,
+      totalInventoryCost,
+      potentialInventoryProfit,
       totalOrders: orders.length,
       pendingOrders,
       deliveredOrders,
@@ -1050,7 +1084,7 @@ export default function AdminPortalPage() {
 
               {/* Polaris Stat Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {/* Total Sales */}
+                {/* Total Sales & Net Profit */}
                 <div className="bg-white border border-slate-200/90 p-5 rounded-2xl shadow-xs hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider">
                     <span>Total Sales</span>
@@ -1061,7 +1095,7 @@ export default function AdminPortalPage() {
                   </div>
                   <div className="mt-1 text-xs text-emerald-600 font-semibold flex items-center gap-1">
                     <TrendingUp className="w-3.5 h-3.5" />
-                    <span>Real-time Gross COD/EMI</span>
+                    <span>Net Profit: +{formatPKR(stats.netProfit)} ({stats.profitMargin}%)</span>
                   </div>
                 </div>
 
@@ -1110,6 +1144,116 @@ export default function AdminPortalPage() {
                   >
                     View Low Stock <ArrowRight className="w-3 h-3" />
                   </button>
+                </div>
+              </div>
+
+              {/* Financial Performance & Net Profit Analytics Center */}
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-5 sm:p-6 shadow-xs space-y-5">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-[#008060] border border-emerald-500/20 flex items-center justify-center shrink-0">
+                      <DollarSign className="w-5 h-5 text-[#008060]" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs uppercase font-extrabold tracking-wider text-[#008060]">
+                          Financial Intelligence
+                        </span>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800">
+                          {stats.profitMargin}% Net Margin
+                        </span>
+                      </div>
+                      <h3 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
+                        Cost Price &amp; Realized Net Profit
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-slate-500 font-medium">Avg Profit / Order:</span>
+                    <span className="font-black text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-xl border border-emerald-200/80">
+                      +{formatPKR(stats.avgProfitPerOrder)}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {/* Gross Revenue */}
+                  <div className="bg-[#f9fafb] border border-slate-200/80 rounded-2xl p-4">
+                    <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                      Gross Order Revenue
+                    </div>
+                    <div className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
+                      {formatPKR(stats.totalRevenue)}
+                    </div>
+                    <div className="mt-1 text-[11px] text-slate-500">
+                      From {stats.totalOrders} customer orders
+                    </div>
+                  </div>
+
+                  {/* Wholesale Cost of Goods */}
+                  <div className="bg-[#f9fafb] border border-slate-200/80 rounded-2xl p-4">
+                    <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                      Cost of Goods (COGS)
+                    </div>
+                    <div className="text-xl sm:text-2xl font-black text-slate-700 mt-1">
+                      {formatPKR(stats.totalCost)}
+                    </div>
+                    <div className="mt-1 text-[11px] text-slate-500">
+                      Wholesale purchase expenditure
+                    </div>
+                  </div>
+
+                  {/* Net Realized Profit */}
+                  <div className="bg-gradient-to-br from-emerald-50 to-teal-50/50 border border-emerald-200 rounded-2xl p-4">
+                    <div className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider flex items-center justify-between">
+                      <span>Net Realized Profit</span>
+                      <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
+                    </div>
+                    <div className="text-xl sm:text-2xl font-black text-emerald-700 mt-1">
+                      +{formatPKR(stats.netProfit)}
+                    </div>
+                    <div className="mt-1 text-[11px] text-emerald-700/80 font-semibold">
+                      Realized profit ({stats.profitMargin}% margin)
+                    </div>
+                  </div>
+
+                  {/* Inventory Wholesale Value & Potential */}
+                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50/50 border border-blue-200 rounded-2xl p-4">
+                    <div className="text-[11px] font-bold text-blue-800 uppercase tracking-wider">
+                      Warehouse Stock Value
+                    </div>
+                    <div className="text-xl sm:text-2xl font-black text-blue-900 mt-1">
+                      {formatPKR(stats.totalInventoryCost)}
+                    </div>
+                    <div className="mt-1 text-[11px] text-blue-700/80 font-semibold">
+                      Projected profit: +{formatPKR(stats.potentialInventoryProfit)}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Profit vs Cost Visual Distribution Bar */}
+                <div className="pt-1">
+                  <div className="flex items-center justify-between text-xs font-semibold mb-1.5">
+                    <span className="text-slate-600 flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block" />
+                      Wholesale Purchase Cost ({stats.totalRevenue > 0 ? (100 - Number(stats.profitMargin)).toFixed(1) : '88.0'}%)
+                    </span>
+                    <span className="text-emerald-700 font-bold flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" />
+                      Net Merchant Profit ({stats.profitMargin}%)
+                    </span>
+                  </div>
+                  <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden flex border border-slate-200">
+                    <div
+                      className="bg-slate-400 h-full transition-all"
+                      style={{ width: `${stats.totalRevenue > 0 ? 100 - Number(stats.profitMargin) : 88}%` }}
+                    />
+                    <div
+                      className="bg-[#008060] h-full transition-all"
+                      style={{ width: `${stats.totalRevenue > 0 ? stats.profitMargin : 12}%` }}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -1857,7 +2001,8 @@ export default function AdminPortalPage() {
                         <th className="px-5 py-3.5">Vendor / Brand</th>
                         <th className="px-5 py-3.5">Status</th>
                         <th className="px-5 py-3.5">Inventory</th>
-                        <th className="px-5 py-3.5">Price (PKR)</th>
+                        <th className="px-5 py-3.5">Selling Price</th>
+                        <th className="px-5 py-3.5">Cost &amp; Profit</th>
                         <th className="px-5 py-3.5 text-right">Actions</th>
                       </tr>
                     </thead>
@@ -1970,6 +2115,26 @@ export default function AdminPortalPage() {
                               )}
                             </td>
 
+                            {/* Cost & Net Profit */}
+                            <td className="px-5 py-3.5">
+                              {(() => {
+                                const cost = phone.costPricePKR || Math.round(phone.basePricePKR * 0.88);
+                                const profit = phone.basePricePKR - cost;
+                                const margin = phone.basePricePKR > 0 ? Math.round((profit / phone.basePricePKR) * 100) : 0;
+                                return (
+                                  <div>
+                                    <div className="text-xs text-slate-500 font-medium">
+                                      Cost: <span className="font-bold text-slate-800">{formatPKR(cost)}</span>
+                                    </div>
+                                    <div className="mt-1 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                      <span>+{formatPKR(profit)}</span>
+                                      <span className="text-emerald-500 font-bold">({margin}%)</span>
+                                    </div>
+                                  </div>
+                                );
+                              })()}
+                            </td>
+
                             {/* Actions */}
                             <td className="px-5 py-3.5 text-right">
                               <div className="flex items-center justify-end gap-1.5">
@@ -2059,6 +2224,7 @@ export default function AdminPortalPage() {
                         <th className="px-5 py-3.5">Product &amp; Vendor</th>
                         <th className="px-5 py-3.5">Status</th>
                         <th className="px-5 py-3.5">Available Quantity</th>
+                        <th className="px-5 py-3.5">Wholesale Capital</th>
                         <th className="px-5 py-3.5">1-Click Restock Chips</th>
                         <th className="px-5 py-3.5 text-right">Variant Matrix</th>
                       </tr>
@@ -2120,6 +2286,24 @@ export default function AdminPortalPage() {
                                   {phone.stockQty ?? 0}
                                 </span>{' '}
                                 <span className="text-[11px] text-slate-500">available</span>
+                              </td>
+
+                              {/* Wholesale Capital Locked in Stock */}
+                              <td className="px-5 py-3.5">
+                                {(() => {
+                                  const cost = phone.costPricePKR || Math.round(phone.basePricePKR * 0.88);
+                                  const totalCapital = (phone.stockQty ?? 0) * cost;
+                                  return (
+                                    <div>
+                                      <div className="font-bold text-slate-900 text-sm">
+                                        {formatPKR(totalCapital)}
+                                      </div>
+                                      <div className="text-[11px] text-slate-500">
+                                        Cost: {formatPKR(cost)} / unit
+                                      </div>
+                                    </div>
+                                  );
+                                })()}
                               </td>
 
                               {/* Restock Buttons */}
@@ -2420,6 +2604,26 @@ export default function AdminPortalPage() {
                               <div className="text-[10px] text-slate-500 mt-0.5">
                                 {order.paymentMethod}
                               </div>
+                              {(() => {
+                                let orderCost = 0;
+                                if (Array.isArray(order.items)) {
+                                  order.items.forEach((it) => {
+                                    if (typeof it !== 'string') {
+                                      const qty = it.quantity || 1;
+                                      const cost = it.costPricePKR || Math.round((it.pricePKR || 0) * 0.88);
+                                      orderCost += cost * qty;
+                                    }
+                                  });
+                                }
+                                const orderProfit = (order.totalPKR || 0) - orderCost;
+                                const orderMargin = order.totalPKR > 0 ? Math.round((orderProfit / order.totalPKR) * 100) : 0;
+                                return (
+                                  <div className="mt-1 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    <span>Profit: +{formatPKR(orderProfit)}</span>
+                                    <span className="text-emerald-500">({orderMargin}%)</span>
+                                  </div>
+                                );
+                              })()}
                             </td>
 
                             {/* Status Selector */}
@@ -2839,6 +3043,41 @@ export default function AdminPortalPage() {
               </table>
             </div>
 
+            {/* Merchant Financial Breakdown (Private Admin View) */}
+            {(() => {
+              let receiptCost = 0;
+              if (Array.isArray(viewingOrderReceipt.items)) {
+                viewingOrderReceipt.items.forEach((it: any) => {
+                  if (typeof it !== 'string') {
+                    const qty = it.quantity || 1;
+                    const cost = it.costPricePKR || Math.round((it.pricePKR || 0) * 0.88);
+                    receiptCost += cost * qty;
+                  }
+                });
+              }
+              const receiptProfit = (viewingOrderReceipt.totalPKR || 0) - receiptCost;
+              const receiptMargin =
+                viewingOrderReceipt.totalPKR > 0
+                  ? Math.round((receiptProfit / viewingOrderReceipt.totalPKR) * 100)
+                  : 0;
+              return (
+                <div className="p-4 bg-emerald-50/80 border border-emerald-200 rounded-2xl flex items-center justify-between text-xs print:hidden">
+                  <div>
+                    <span className="font-extrabold uppercase text-[10px] text-emerald-800 tracking-wider">
+                      Merchant Order Profit (Private Store View)
+                    </span>
+                    <div className="text-slate-600 mt-0.5">
+                      Revenue: <strong className="text-slate-900">{formatPKR(viewingOrderReceipt.totalPKR)}</strong> • Wholesale COGS: <strong className="text-slate-700">{formatPKR(receiptCost)}</strong>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-base font-black text-emerald-700">+{formatPKR(receiptProfit)}</div>
+                    <div className="text-[10px] font-bold text-emerald-600">{receiptMargin}% Net Margin</div>
+                  </div>
+                </div>
+              );
+            })()}
+
             <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 font-medium">
               ⚠️ Courier Instruction: Customer is allowed to open the parcel and verify box seal before paying COD. Official 1-Year brand warranty applies.
             </div>
@@ -2880,6 +3119,9 @@ function ProductFormModal({ product, onClose, onSaved }: ProductFormModalProps) 
     product?.tagline || 'Official Brand Smartphone with 1-Year Brand Warranty & PTA Approval'
   );
   const [basePricePKR, setBasePricePKR] = useState(product?.basePricePKR || 49999);
+  const [costPricePKR, setCostPricePKR] = useState(
+    product?.costPricePKR || Math.round((product?.basePricePKR || 49999) * 0.88)
+  );
   const [originalPricePKR, setOriginalPricePKR] = useState(
     product?.originalPricePKR || 59999
   );
@@ -2889,11 +3131,26 @@ function ProductFormModal({ product, onClose, onSaved }: ProductFormModalProps) 
   const [isTrending, setIsTrending] = useState(product?.isTrending || false);
   const [isBestSeller, setIsBestSeller] = useState(product?.isBestSeller || false);
 
-  // Profit Margin Calculator (Shopify Polaris feature)
-  const marginPercent = useMemo(() => {
+  // Customer Discount %
+  const customerDiscountPercent = useMemo(() => {
     if (originalPricePKR <= 0 || originalPricePKR <= basePricePKR) return 0;
     return Math.round(((originalPricePKR - basePricePKR) / originalPricePKR) * 100);
   }, [basePricePKR, originalPricePKR]);
+
+  // Merchant Net Profit & Margin Calculations
+  const merchantNetProfit = useMemo(() => {
+    return Math.max(0, basePricePKR - costPricePKR);
+  }, [basePricePKR, costPricePKR]);
+
+  const merchantMarginPercent = useMemo(() => {
+    if (basePricePKR <= 0) return 0;
+    return Math.round((merchantNetProfit / basePricePKR) * 100);
+  }, [basePricePKR, merchantNetProfit]);
+
+  const merchantMarkupPercent = useMemo(() => {
+    if (costPricePKR <= 0) return 0;
+    return Math.round((merchantNetProfit / costPricePKR) * 100);
+  }, [costPricePKR, merchantNetProfit]);
 
   // Colors
   const [colors, setColors] = useState<SmartphoneColor[]>(
@@ -2973,6 +3230,7 @@ function ProductFormModal({ product, onClose, onSaved }: ProductFormModalProps) 
         ram: '8GB',
         storage: '256GB',
         pricePKR: basePricePKR + 10000,
+        costPricePKR: costPricePKR + 8800,
         originalPricePKR: originalPricePKR + 10000,
         inStock: true,
         stockQty: 5,
@@ -2995,7 +3253,7 @@ function ProductFormModal({ product, onClose, onSaved }: ProductFormModalProps) 
     setIsSubmitting(true);
     setFormError('');
 
-    const discountPercent = marginPercent;
+    const discountPercent = customerDiscountPercent;
 
     const payload: Smartphone = {
       id:
@@ -3008,6 +3266,7 @@ function ProductFormModal({ product, onClose, onSaved }: ProductFormModalProps) 
       brand,
       tagline,
       basePricePKR: Number(basePricePKR),
+      costPricePKR: Number(costPricePKR),
       originalPricePKR: Number(originalPricePKR),
       discountPercent,
       rating: product?.rating || 4.8,
@@ -3143,20 +3402,20 @@ function ProductFormModal({ product, onClose, onSaved }: ProductFormModalProps) 
                 </div>
               </div>
 
-              {/* Pricing & Profit Margin Card */}
+              {/* Pricing, Wholesale Cost & Profit Margin Card */}
               <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                    Pricing
+                    Pricing &amp; Profitability
                   </h3>
-                  {marginPercent > 0 && (
-                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                      {marginPercent}% Discount / Customer Margin
+                  {customerDiscountPercent > 0 && (
+                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                      {customerDiscountPercent}% Customer Discount
                     </span>
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">
                       Selling Price (PKR) *
@@ -3173,6 +3432,20 @@ function ProductFormModal({ product, onClose, onSaved }: ProductFormModalProps) 
 
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">
+                      Wholesale Cost (PKR) *
+                    </label>
+                    <input
+                      type="number"
+                      required
+                      min="1"
+                      value={costPricePKR}
+                      onChange={(e) => setCostPricePKR(parseInt(e.target.value) || 0)}
+                      className="w-full bg-[#f9fafb] border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#008060] focus:bg-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
                       Compare-at Price (PKR)
                     </label>
                     <input
@@ -3182,6 +3455,37 @@ function ProductFormModal({ product, onClose, onSaved }: ProductFormModalProps) 
                       onChange={(e) => setOriginalPricePKR(parseInt(e.target.value) || 0)}
                       className="w-full bg-[#f9fafb] border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#008060] focus:bg-white"
                     />
+                  </div>
+                </div>
+
+                {/* Real-time Profit Calculation Preview Box */}
+                <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50/70 to-emerald-50 border border-emerald-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div>
+                    <div className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-800 flex items-center gap-1.5">
+                      <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Live Profit &amp; Margin Calculator</span>
+                    </div>
+                    <div className="text-xs text-slate-600 mt-0.5">
+                      Selling: <strong>{formatPKR(basePricePKR)}</strong> • Wholesale Cost: <strong>{formatPKR(costPricePKR)}</strong>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="text-right">
+                      <div className="text-[11px] font-bold text-slate-500">Expected Net Profit</div>
+                      <div className="text-base font-black text-emerald-700">+{formatPKR(merchantNetProfit)}</div>
+                    </div>
+
+                    <div className="flex items-center gap-1.5">
+                      <div className="px-3 py-1 rounded-xl bg-emerald-600 text-white font-black text-xs text-center shadow-xs">
+                        <div>{merchantMarginPercent}%</div>
+                        <div className="text-[8px] font-normal text-emerald-100 uppercase">Margin</div>
+                      </div>
+                      <div className="px-2.5 py-1 rounded-xl bg-white border border-emerald-300 text-emerald-800 font-bold text-xs text-center">
+                        <div>{merchantMarkupPercent}%</div>
+                        <div className="text-[8px] font-normal text-slate-500 uppercase">Markup</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

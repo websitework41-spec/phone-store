@@ -23,6 +23,7 @@ export interface AdminOrder {
     name: string;
     variant?: string;
     pricePKR: number;
+    costPricePKR?: number;
     quantity: number;
     color?: string;
     image?: string;

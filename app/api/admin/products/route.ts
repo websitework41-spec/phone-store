@@ -181,6 +181,11 @@ export async function POST(request: Request) {
       ];
     }
 
+    // Ensure wholesale cost price
+    if (!newProduct.costPricePKR || newProduct.costPricePKR <= 0) {
+      newProduct.costPricePKR = Math.round(newProduct.basePricePKR * 0.88);
+    }
+
     if (!newProduct.variants || newProduct.variants.length === 0) {
       newProduct.variants = [
         {
@@ -189,10 +194,16 @@ export async function POST(request: Request) {
           storage: '128GB',
           pricePKR: newProduct.basePricePKR,
           originalPricePKR: newProduct.originalPricePKR || newProduct.basePricePKR,
+          costPricePKR: newProduct.costPricePKR,
           inStock: true,
           stockQty: newProduct.stockQty || 10,
         },
       ];
+    } else {
+      newProduct.variants = newProduct.variants.map((v) => ({
+        ...v,
+        costPricePKR: v.costPricePKR && v.costPricePKR > 0 ? v.costPricePKR : Math.round(v.pricePKR * 0.88),
+      }));
     }
 
     // Initialize colorStockMap

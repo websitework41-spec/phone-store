@@ -11,7 +11,8 @@
         "variant": "12GB/256GB",
         "pricePKR": 254999,
         "quantity": 1,
-        "color": "Phantom Black"
+        "color": "Phantom Black",
+        "costPricePKR": 224400
       }
     ],
     "totalPKR": 254999,
@@ -33,7 +34,8 @@
         "variant": "8GB/256GB",
         "pricePKR": 489999,
         "quantity": 1,
-        "color": "Natural Titanium"
+        "color": "Natural Titanium",
+        "costPricePKR": 431199
       }
     ],
     "totalPKR": 489999,
@@ -55,7 +57,8 @@
         "variant": "12GB/512GB",
         "pricePKR": 114999,
         "quantity": 1,
-        "color": "Midnight Black"
+        "color": "Midnight Black",
+        "costPricePKR": 101199
       }
     ],
     "totalPKR": 114999,

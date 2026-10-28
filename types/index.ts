@@ -12,6 +12,7 @@ export interface SmartphoneVariant {
   ram: string;
   pricePKR: number;
   originalPricePKR: number;
+  costPricePKR?: number;
   inStock: boolean;
   stockQty?: number;
 }
@@ -43,6 +44,7 @@ export interface Smartphone {
   tagline: string;
   basePricePKR: number;
   originalPricePKR: number;
+  costPricePKR?: number;
   discountPercent: number;
   rating: number;
   reviewCount: number;
