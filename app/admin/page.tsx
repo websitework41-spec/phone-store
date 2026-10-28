@@ -70,6 +70,7 @@ import {
   MessageCircle,
   ShieldAlert,
   Percent,
+  Award,
 } from 'lucide-react';
 
 type AdminTab = 'dashboard' | 'analytics' | 'products' | 'inventory' | 'orders' | 'coupons' | 'customers' | 'settings';
@@ -138,6 +139,11 @@ export default function AdminPortalPage() {
   const [couponActiveInput, setCouponActiveInput] = useState(true);
   const [couponFormError, setCouponFormError] = useState('');
   const [isSavingCoupon, setIsSavingCoupon] = useState(false);
+
+  // CRM Customer Intelligence State
+  const [customerSearch, setCustomerSearch] = useState('');
+  const [customerTierFilter, setCustomerTierFilter] = useState<'all' | 'vip' | 'repeat' | 'new'>('all');
+  const [viewingCustomerHistory, setViewingCustomerHistory] = useState<any | null>(null);
 
   // Quick Restock Success Flash
   const [quickRestockSuccessId, setQuickRestockSuccessId] = useState<string | null>(null);
@@ -482,6 +488,110 @@ export default function AdminPortalPage() {
       deliveredOrders,
     };
   }, [products, orders]);
+
+  // ==========================================
+  // CUSTOMER CRM & INTELLIGENCE ENGINE
+  // ==========================================
+  const crmCustomers = useMemo(() => {
+    const customerMap = new Map<string, {
+      phone: string;
+      cleanWhatsAppPhone: string;
+      name: string;
+      city: string;
+      address: string;
+      orders: AdminOrder[];
+    }>();
+
+    orders.forEach((order) => {
+      const key = order.phone.replace(/[^0-9]/g, '') || order.customerName.toLowerCase().trim();
+      const existing = customerMap.get(key);
+      if (existing) {
+        existing.orders.push(order);
+        existing.name = order.customerName;
+        existing.address = order.address;
+        existing.city = order.city;
+      } else {
+        customerMap.set(key, {
+          phone: order.phone,
+          cleanWhatsAppPhone: formatPakistaniWhatsAppNumber(order.phone),
+          name: order.customerName,
+          city: order.city,
+          address: order.address,
+          orders: [order],
+        });
+      }
+    });
+
+    const list = Array.from(customerMap.values()).map((c) => {
+      c.orders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+      const totalOrdersCount = c.orders.length;
+      const lifetimeValuePKR = c.orders.reduce((sum, o) => sum + (o.totalPKR || 0), 0);
+      const totalDiscountsReceivedPKR = c.orders.reduce((sum, o) => sum + (o.discountPKR || 0), 0);
+      const averageOrderValuePKR = totalOrdersCount > 0 ? Math.round(lifetimeValuePKR / totalOrdersCount) : 0;
+      const firstOrderDate = c.orders[c.orders.length - 1].createdAt;
+      const latestOrderDate = c.orders[0].createdAt;
+
+      let tier: 'VIP' | 'Repeat' | 'New' = 'New';
+      if (lifetimeValuePKR >= 150000 || totalOrdersCount >= 3) {
+        tier = 'VIP';
+      } else if (totalOrdersCount > 1) {
+        tier = 'Repeat';
+      }
+
+      const hasHighRisk = c.orders.some((o) => getOrderRiskAssessment(o).isHighRisk);
+
+      return {
+        ...c,
+        totalOrdersCount,
+        lifetimeValuePKR,
+        averageOrderValuePKR,
+        totalDiscountsReceivedPKR,
+        firstOrderDate,
+        latestOrderDate,
+        tier,
+        hasHighRisk,
+      };
+    });
+
+    return list.sort((a, b) => b.lifetimeValuePKR - a.lifetimeValuePKR);
+  }, [orders]);
+
+  const crmKPIs = useMemo(() => {
+    const totalCustomers = crmCustomers.length;
+    const repeatBuyers = crmCustomers.filter((c) => c.totalOrdersCount > 1).length;
+    const repeatRate = totalCustomers > 0 ? ((repeatBuyers / totalCustomers) * 100).toFixed(1) : '0.0';
+    const totalLTV = crmCustomers.reduce((sum, c) => sum + c.lifetimeValuePKR, 0);
+    const avgLTV = totalCustomers > 0 ? Math.round(totalLTV / totalCustomers) : 0;
+    const vipCount = crmCustomers.filter((c) => c.tier === 'VIP').length;
+
+    return {
+      totalCustomers,
+      repeatBuyers,
+      repeatRate,
+      totalLTV,
+      avgLTV,
+      vipCount,
+    };
+  }, [crmCustomers]);
+
+  const filteredCrmCustomers = useMemo(() => {
+    return crmCustomers.filter((c) => {
+      if (customerTierFilter === 'vip' && c.tier !== 'VIP') return false;
+      if (customerTierFilter === 'repeat' && c.tier !== 'Repeat') return false;
+      if (customerTierFilter === 'new' && c.tier !== 'New') return false;
+
+      if (customerSearch) {
+        const q = customerSearch.toLowerCase();
+        const matchesName = c.name.toLowerCase().includes(q);
+        const matchesPhone = c.phone.includes(q);
+        const matchesCity = c.city.toLowerCase().includes(q);
+        const matchesOrder = c.orders.some((o) => o.orderId.toLowerCase().includes(q));
+        if (!matchesName && !matchesPhone && !matchesCity && !matchesOrder) return false;
+      }
+      return true;
+    });
+  }, [crmCustomers, customerTierFilter, customerSearch]);
 
   // Quick Restock Handler with animated feedback
   const handleQuickRestock = async (phoneId: string, qty: number) => {
@@ -3537,61 +3647,271 @@ export default function AdminPortalPage() {
             </div>
           )}
 
-          {/* TAB 5: CUSTOMERS */}
+          {/* TAB 5: CUSTOMER CRM & LIFETIME VALUE INTELLIGENCE */}
           {activeTab === 'customers' && (
-            <div className="space-y-4 animate-in fade-in duration-200">
-              <div className="p-5 bg-white border border-slate-200/90 rounded-2xl shadow-xs">
-                <h3 className="font-bold text-slate-900 text-base">Registered Buyers</h3>
-                <p className="text-xs text-slate-500">
-                  Customers who have placed orders through Hamza Phone Store.
-                </p>
+            <div className="space-y-6 animate-in fade-in duration-200">
+              {/* Top Banner & Export Actions */}
+              <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-indigo-500" />
+                    <h2 className="text-lg font-bold text-slate-900 tracking-tight">
+                      Customer CRM &amp; Buyer Intelligence
+                    </h2>
+                  </div>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Track buyer lifetime value (LTV), repeat purchase patterns, and launch WhatsApp re-engagement.
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    const phoneList = crmCustomers
+                      .map((c) => c.cleanWhatsAppPhone)
+                      .filter(Boolean)
+                      .join(', ');
+                    navigator.clipboard?.writeText(phoneList);
+                    showToast(`Copied ${crmCustomers.length} customer phone numbers for broadcast!`);
+                  }}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs border border-slate-200 transition-all cursor-pointer"
+                >
+                  <Copy className="w-4 h-4 text-[#008060]" />
+                  <span>Copy Broadcast Numbers ({crmCustomers.length})</span>
+                </button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {orders.map((order, i) => (
-                  <div
-                    key={i}
-                    className="p-5 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-3"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[#008060]/10 text-[#008060] font-black flex items-center justify-center text-sm border border-[#008060]/20">
-                        {order.customerName.slice(0, 2).toUpperCase()}
-                      </div>
-                      <div>
-                        <div className="font-bold text-slate-900 text-sm">{order.customerName}</div>
-                        <div className="text-xs text-slate-500">{order.city}, Pakistan</div>
-                      </div>
-                    </div>
-                    <div className="text-xs space-y-1 text-slate-600 pt-2 border-t border-slate-100">
-                      <div>
-                        <span className="text-slate-400">Phone:</span> {order.phone}
-                      </div>
-                      <div>
-                        <span className="text-slate-400">Address:</span> {order.address}
-                      </div>
-                      <div>
-                        <span className="text-slate-400">Total Spent:</span>{' '}
-                        <strong className="text-slate-900">{formatPKR(order.totalPKR)}</strong>
-                      </div>
-                    </div>
-                    <div className="pt-2 flex items-center gap-2">
-                      <a
-                        href={`https://wa.me/92${order.phone.replace(/^0/, '')}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="flex-1 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-center text-xs border border-emerald-200 transition-all"
-                      >
-                        WhatsApp
-                      </a>
-                      <a
-                        href={`tel:${order.phone}`}
-                        className="flex-1 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-center text-xs transition-all"
-                      >
-                        Call
-                      </a>
-                    </div>
+              {/* 4 CRM Metric KPI Cards */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                <div className="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-1">
+                  <div className="flex items-center justify-between text-slate-500">
+                    <span className="text-[11px] font-bold uppercase tracking-wider">Unique Buyers</span>
+                    <Users className="w-4 h-4 text-indigo-600" />
                   </div>
-                ))}
+                  <div className="text-2xl font-black text-slate-900 tracking-tight">
+                    {crmKPIs.totalCustomers}
+                  </div>
+                  <p className="text-[10px] text-slate-500 font-medium">Distinct phone numbers on record</p>
+                </div>
+
+                <div className="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-1">
+                  <div className="flex items-center justify-between text-slate-500">
+                    <span className="text-[11px] font-bold uppercase tracking-wider">Repeat Buyer Rate</span>
+                    <TrendingUp className="w-4 h-4 text-emerald-600" />
+                  </div>
+                  <div className="text-2xl font-black text-emerald-700 tracking-tight">
+                    {crmKPIs.repeatRate}%
+                  </div>
+                  <p className="text-[10px] text-emerald-700 font-medium">
+                    {crmKPIs.repeatBuyers} buyers made 2+ orders
+                  </p>
+                </div>
+
+                <div className="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-1">
+                  <div className="flex items-center justify-between text-slate-500">
+                    <span className="text-[11px] font-bold uppercase tracking-wider">Total Customer LTV</span>
+                    <DollarSign className="w-4 h-4 text-[#008060]" />
+                  </div>
+                  <div className="text-xl sm:text-2xl font-black text-[#008060] tracking-tight">
+                    {formatPKR(crmKPIs.totalLTV)}
+                  </div>
+                  <p className="text-[10px] text-slate-500 font-medium">Cumulative gross buyer spend</p>
+                </div>
+
+                <div className="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-1">
+                  <div className="flex items-center justify-between text-slate-500">
+                    <span className="text-[11px] font-bold uppercase tracking-wider">Avg Spend / Buyer</span>
+                    <Award className="w-4 h-4 text-amber-500" />
+                  </div>
+                  <div className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                    {formatPKR(crmKPIs.avgLTV)}
+                  </div>
+                  <p className="text-[10px] text-amber-700 font-medium">
+                    {crmKPIs.vipCount} VIP patrons (Rs. 150k+)
+                  </p>
+                </div>
+              </div>
+
+              {/* Search & Tier Filters Bar */}
+              <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                <div className="relative flex-1">
+                  <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="text"
+                    value={customerSearch}
+                    onChange={(e) => setCustomerSearch(e.target.value)}
+                    placeholder="Search by buyer name, phone (03XX), city, or order ID..."
+                    className="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#008060] text-slate-900"
+                  />
+                  {customerSearch && (
+                    <button
+                      onClick={() => setCustomerSearch('')}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+                  <button
+                    onClick={() => setCustomerTierFilter('all')}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      customerTierFilter === 'all'
+                        ? 'bg-slate-900 text-white'
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    }`}
+                  >
+                    All ({crmCustomers.length})
+                  </button>
+                  <button
+                    onClick={() => setCustomerTierFilter('vip')}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      customerTierFilter === 'vip'
+                        ? 'bg-amber-600 text-white'
+                        : 'bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200/60'
+                    }`}
+                  >
+                    VIP Patrons ({crmKPIs.vipCount})
+                  </button>
+                  <button
+                    onClick={() => setCustomerTierFilter('repeat')}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      customerTierFilter === 'repeat'
+                        ? 'bg-emerald-600 text-white'
+                        : 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200/60'
+                    }`}
+                  >
+                    Repeat ({crmKPIs.repeatBuyers})
+                  </button>
+                  <button
+                    onClick={() => setCustomerTierFilter('new')}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      customerTierFilter === 'new'
+                        ? 'bg-sky-600 text-white'
+                        : 'bg-sky-50 text-sky-800 hover:bg-sky-100 border border-sky-200/60'
+                    }`}
+                  >
+                    First-Time ({crmCustomers.length - crmKPIs.repeatBuyers})
+                  </button>
+                </div>
+              </div>
+
+              {/* Customer Cards Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredCrmCustomers.length === 0 ? (
+                  <div className="col-span-full bg-white border border-slate-200/90 rounded-2xl p-12 text-center text-slate-400">
+                    <Users className="w-10 h-10 mx-auto text-slate-300 mb-2" />
+                    <p className="text-sm font-bold text-slate-700">No buyers matched your filter</p>
+                    <p className="text-xs text-slate-400 mt-1">Try clearing search or changing tier filters.</p>
+                  </div>
+                ) : (
+                  filteredCrmCustomers.map((customer, i) => (
+                    <div
+                      key={i}
+                      className="p-5 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-3.5 hover:shadow-md transition-shadow flex flex-col justify-between"
+                    >
+                      <div className="space-y-3">
+                        {/* Header: Avatar, Name, Tier Badge */}
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#008060]/15 to-[#008060]/5 text-[#008060] font-black flex items-center justify-center text-sm border border-[#008060]/20 shrink-0">
+                              {customer.name.slice(0, 2).toUpperCase()}
+                            </div>
+                            <div className="min-w-0">
+                              <div className="font-bold text-slate-900 text-sm truncate">
+                                {customer.name}
+                              </div>
+                              <div className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
+                                <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
+                                <span className="truncate">{customer.city}, Pakistan</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Tier Badge */}
+                          {customer.tier === 'VIP' ? (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-50 text-amber-700 border border-amber-200 shrink-0 flex items-center gap-1">
+                              <span>🌟</span> VIP
+                            </span>
+                          ) : customer.tier === 'Repeat' ? (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
+                              Repeat
+                            </span>
+                          ) : (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold text-slate-500 bg-slate-100 shrink-0">
+                              New
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Customer Lifetime Financial Stats Strip */}
+                        <div className="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-center text-xs">
+                          <div>
+                            <div className="text-[10px] text-slate-400 uppercase font-semibold">Orders</div>
+                            <div className="font-black text-slate-900 mt-0.5">
+                              {customer.totalOrdersCount}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-[10px] text-slate-400 uppercase font-semibold">Lifetime (LTV)</div>
+                            <div className="font-black text-[#008060] mt-0.5">
+                              {formatPKR(customer.lifetimeValuePKR)}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-[10px] text-slate-400 uppercase font-semibold">Avg / Order</div>
+                            <div className="font-bold text-slate-700 mt-0.5">
+                              {formatPKR(customer.averageOrderValuePKR)}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Details */}
+                        <div className="text-xs space-y-1 text-slate-600">
+                          <div className="flex items-center gap-1.5">
+                            <Phone className="w-3 h-3 text-[#008060] shrink-0" />
+                            <span className="font-mono font-bold text-slate-800">{customer.phone}</span>
+                          </div>
+                          <div className="text-[11px] text-slate-500 line-clamp-1">
+                            {customer.address}
+                          </div>
+                          <div className="text-[10px] text-slate-400 pt-1">
+                            Last purchase: {formatTimeAgo(customer.latestOrderDate)} ({new Date(customer.latestOrderDate).toLocaleDateString()})
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="pt-2 border-t border-slate-100 flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => setViewingCustomerHistory(customer)}
+                          className="flex-1 py-1.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-center text-xs transition-all cursor-pointer flex items-center justify-center gap-1"
+                        >
+                          <ShoppingBag className="w-3.5 h-3.5 text-slate-500" />
+                          <span>History ({customer.totalOrdersCount})</span>
+                        </button>
+                        <a
+                          href={`https://wa.me/${customer.cleanWhatsAppPhone}?text=${encodeURIComponent(
+                            `Assalam o Alaikum ${customer.name}! This is Hamza from Hamza Phone Store. Thank you for your orders with us! How is your smartphone performing? Let us know if you need any warranty claim or accessory upgrade.`
+                          )}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex-1 py-1.5 px-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-center text-xs border border-emerald-200 transition-all flex items-center justify-center gap-1 cursor-pointer"
+                        >
+                          <MessageSquare className="w-3.5 h-3.5 text-emerald-600" />
+                          <span>WhatsApp</span>
+                        </a>
+                        <a
+                          href={`tel:${customer.phone}`}
+                          className="p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-all"
+                          title={`Call ${customer.phone}`}
+                        >
+                          <Phone className="w-3.5 h-3.5" />
+                        </a>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           )}
@@ -3988,6 +4308,159 @@ export default function AdminPortalPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* ==================================================== */}
+      {/* MODAL: CUSTOMER CRM ORDER HISTORY DRILL-DOWN */}
+      {/* ==================================================== */}
+      {viewingCustomerHistory && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="w-full max-w-2xl bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-2xl space-y-4 animate-in zoom-in-95 duration-150 my-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-2xl bg-[#008060]/10 text-[#008060] font-black flex items-center justify-center text-sm border border-[#008060]/20">
+                  {viewingCustomerHistory.name.slice(0, 2).toUpperCase()}
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
+                    <span>{viewingCustomerHistory.name}</span>
+                    <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">
+                      {viewingCustomerHistory.tier}
+                    </span>
+                  </h3>
+                  <div className="text-xs text-slate-500 flex items-center gap-2 mt-0.5">
+                    <span>{viewingCustomerHistory.phone}</span>
+                    <span>•</span>
+                    <span>{viewingCustomerHistory.city}, Pakistan</span>
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => setViewingCustomerHistory(null)}
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Lifetime KPI Summary */}
+            <div className="grid grid-cols-3 gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100 text-center text-xs">
+              <div>
+                <span className="text-[10px] text-slate-400 font-semibold uppercase">Total Orders</span>
+                <div className="font-black text-slate-900 text-base mt-0.5">
+                  {viewingCustomerHistory.totalOrdersCount}
+                </div>
+              </div>
+              <div>
+                <span className="text-[10px] text-slate-400 font-semibold uppercase">Lifetime Value (LTV)</span>
+                <div className="font-black text-[#008060] text-base mt-0.5">
+                  {formatPKR(viewingCustomerHistory.lifetimeValuePKR)}
+                </div>
+              </div>
+              <div>
+                <span className="text-[10px] text-slate-400 font-semibold uppercase">Avg Order Spend</span>
+                <div className="font-bold text-slate-800 text-base mt-0.5">
+                  {formatPKR(viewingCustomerHistory.averageOrderValuePKR)}
+                </div>
+              </div>
+            </div>
+
+            {/* Address */}
+            <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-100 text-xs text-slate-600 flex items-start gap-2">
+              <MapPin className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+              <div>
+                <strong className="text-slate-900">Delivery Address: </strong>
+                <span>{viewingCustomerHistory.address}</span>
+              </div>
+            </div>
+
+            {/* Orders Timeline */}
+            <div className="space-y-3 max-h-80 overflow-y-auto pr-1">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                Order History Timeline ({viewingCustomerHistory.orders.length})
+              </h4>
+              <div className="space-y-2.5">
+                {viewingCustomerHistory.orders.map((ord: AdminOrder, idx: number) => (
+                  <div
+                    key={idx}
+                    className="p-3.5 rounded-2xl border border-slate-200 bg-white shadow-2xs space-y-2 hover:border-[#008060]/50 transition-colors"
+                  >
+                    <div className="flex items-center justify-between text-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono font-black text-[#008060]">
+                          #{ord.orderId}
+                        </span>
+                        <span className="text-slate-400">•</span>
+                        <span className="text-slate-500">
+                          {new Date(ord.createdAt).toLocaleDateString('en-GB', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric',
+                          })}
+                        </span>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700">
+                        {ord.status}
+                      </span>
+                    </div>
+
+                    <div className="space-y-1 text-xs">
+                      {Array.isArray(ord.items) &&
+                        ord.items.map((it: any, itemIdx: number) => (
+                          <div key={itemIdx} className="flex justify-between text-slate-700">
+                            <span>
+                              {typeof it === 'string' ? it : `${it.name} (${it.variant || ''}) ${it.color ? `[${it.color}]` : ''}`}
+                            </span>
+                            <span className="font-bold text-slate-900">
+                              {typeof it === 'string' ? '' : formatPKR(it.pricePKR * (it.quantity || 1))}
+                            </span>
+                          </div>
+                        ))}
+                    </div>
+
+                    <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs">
+                      <div className="text-[11px] text-slate-400">
+                        Payment: <span className="font-medium text-slate-700">{ord.paymentMethod}</span>
+                        {ord.couponCode && (
+                          <span className="text-emerald-700 font-bold ml-2">
+                            (Coupon: {ord.couponCode})
+                          </span>
+                        )}
+                      </div>
+                      <div className="font-black text-slate-900 text-sm">
+                        {formatPKR(ord.totalPKR)}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <a
+                href={`https://wa.me/${viewingCustomerHistory.cleanWhatsAppPhone}?text=${encodeURIComponent(
+                  `Assalam o Alaikum ${viewingCustomerHistory.name}! This is Hamza from Hamza Phone Store.`
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+                className="py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+              >
+                <MessageSquare className="w-4 h-4" />
+                <span>Chat on WhatsApp</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={() => setViewingCustomerHistory(null)}
+                className="py-2.5 px-4 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-100 transition-colors cursor-pointer"
+              >
+                Close History
+              </button>
+            </div>
           </div>
         </div>
       )}
