@@ -61,14 +61,18 @@ const nextConfig: NextConfig = {
   // Speed: Enable Gzip / Brotli response compression
   compress: true,
 
-  // Performance: Optimize lucide-react tree-shaking for faster compilation and reduced client JS bundle
+  // Best practice: Enable React Strict Mode
+  reactStrictMode: true,
+
+  // Performance: Optimize tree-shaking for icons and utility libraries to minimize JS payload
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: ["lucide-react", "clsx", "tailwind-merge"],
   },
 
   // Image optimization & security
   images: {
     unoptimized: true,
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",

@@ -34,6 +34,7 @@ interface PhoneCardProps {
     variant: SmartphoneVariant,
     color: SmartphoneColor
   ) => void;
+  priority?: boolean;
 }
 
 export const PhoneCard = React.memo(function PhoneCard({
@@ -42,6 +43,7 @@ export const PhoneCard = React.memo(function PhoneCard({
   onToggleCompare,
   onAddToCart,
   onQuickBuy,
+  priority = false,
 }: PhoneCardProps) {
   // Default to first in-stock color if available, else first color
   const firstInStockIdx = phone.colors.findIndex((c) => c.inStock);
@@ -123,6 +125,7 @@ export const PhoneCard = React.memo(function PhoneCard({
               alt={`${phone.name} - ${activeColor.name}`}
               brand={phone.brand}
               className="w-full h-full object-contain"
+              priority={priority}
             />
           </div>
         </Link>

@@ -8,11 +8,27 @@ import { getActiveCatalog, getLocalDeletedIds } from '@/lib/catalog';
 import { Smartphone, SmartphoneColor, SmartphoneVariant, CartItem } from '@/types';
 import { PhoneImageWithFallback } from '@/components/PhoneImageWithFallback';
 import { Navbar } from '@/components/Navbar';
-import { CartDrawer } from '@/components/CartDrawer';
-import { QuickPurchaseModal } from '@/components/QuickPurchaseModal';
+import dynamic from 'next/dynamic';
+
+// Performance Optimization: Lazy-load off-screen interactive modals
+const CartDrawer = dynamic(
+  () => import('@/components/CartDrawer').then((m) => m.CartDrawer),
+  { ssr: false }
+);
+const QuickPurchaseModal = dynamic(
+  () => import('@/components/QuickPurchaseModal').then((m) => m.QuickPurchaseModal),
+  { ssr: false }
+);
+const TradeInEstimatorModal = dynamic(
+  () => import('@/components/TradeInEstimatorModal').then((m) => m.TradeInEstimatorModal),
+  { ssr: false }
+);
+const ComparisonDock = dynamic(
+  () => import('@/components/ComparisonDock').then((m) => m.ComparisonDock),
+  { ssr: false }
+);
+
 import { DeliveryEstimatorCountdown } from '@/components/DeliveryEstimatorCountdown';
-import { TradeInEstimatorModal } from '@/components/TradeInEstimatorModal';
-import { ComparisonDock } from '@/components/ComparisonDock';
 import { Footer } from '@/components/Footer';
 import { sanitizeText } from '@/lib/security';
 import { trackProductView, trackCartAdd, trackCheckoutStart } from '@/components/AnalyticsTracker';
@@ -391,6 +407,7 @@ export default function ProductDetailPage() {
                   alt={`${phone.name} - ${selectedColor.name}`}
                   brand={phone.brand}
                   className="w-full h-full object-contain"
+                  priority={true}
                 />
               </div>
 

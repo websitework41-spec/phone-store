@@ -246,6 +246,7 @@ export function HeroBanner({
                       alt={slide.phoneName}
                       brand={slide.brand}
                       className="w-full h-full object-contain group-hover/img:scale-105 transition-transform duration-500"
+                      priority={currentSlideIndex === 0}
                     />
                   </div>
                 </Link>

@@ -11,9 +11,22 @@ import { Navbar } from '@/components/Navbar';
 import { HeroBanner } from '@/components/HeroBanner';
 import { FilterSidebar } from '@/components/FilterSidebar';
 import { PhoneCard } from '@/components/PhoneCard';
-import { ComparisonDock } from '@/components/ComparisonDock';
-import { CartDrawer } from '@/components/CartDrawer';
-import { QuickPurchaseModal } from '@/components/QuickPurchaseModal';
+import dynamic from 'next/dynamic';
+
+// Performance Optimization: Defer loading interactive checkout/compare drawers to reduce initial main-thread JS
+const ComparisonDock = dynamic(
+  () => import('@/components/ComparisonDock').then((m) => m.ComparisonDock),
+  { ssr: false }
+);
+const CartDrawer = dynamic(
+  () => import('@/components/CartDrawer').then((m) => m.CartDrawer),
+  { ssr: false }
+);
+const QuickPurchaseModal = dynamic(
+  () => import('@/components/QuickPurchaseModal').then((m) => m.QuickPurchaseModal),
+  { ssr: false }
+);
+
 import { Footer } from '@/components/Footer';
 import { FlashSaleCountdown } from '@/components/FlashSaleCountdown';
 import { sanitizeText } from '@/lib/security';
@@ -922,6 +935,7 @@ function HomeContent() {
                           onToggleCompare={handleToggleCompare}
                           onAddToCart={handleAddToCart}
                           onQuickBuy={handleQuickBuy}
+                          priority={index < 4}
                         />
                         {/* Banner 1: S24 Ultra & Galaxy AI Spotlight */}
                         {index === 5 && (
