@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  Bot,
+  Headphones,
   Sparkles,
   Send,
   X,
@@ -13,7 +13,7 @@ import {
   RefreshCw,
   ExternalLink,
   ShieldCheck,
-  Package,
+  PackageCheck,
   CreditCard,
   CheckCircle2,
 } from 'lucide-react';
@@ -27,21 +27,20 @@ interface ChatMessage {
 }
 
 const FAQ_SUGGESTIONS = [
-  { label: '📦 Open-Parcel COD', prompt: 'Explain the Open-Parcel Cash on Delivery policy.' },
-  { label: '✅ Verify PTA DIRBS', prompt: 'How do I verify if my phone is PTA approved?' },
-  { label: '💳 0% EMI Banks', prompt: 'Which banks offer 0% markup installments?' },
-  { label: '🛡️ Brand Warranty', prompt: 'Where are the official warranty service centers?' },
-  { label: '📱 Best under 40k', prompt: 'What are the best smartphones under 40,000 PKR?' },
-  { label: '☎️ Human Support', prompt: 'How can I speak directly to customer support on WhatsApp?' },
+  { label: '📦 Open-Parcel COD', prompt: 'How does Open-Parcel Delivery (Check Karo, Pay Karo) work?' },
+  { label: '🛡️ Verify PTA DIRBS', prompt: 'How do I verify 100% PTA Approval for my phone?' },
+  { label: '💳 0% EMI Banks', prompt: 'Which Pakistani banks offer 0% markup installments?' },
+  { label: '⚡ Mobiles Under 50k', prompt: 'What are the best budget smartphones under 50,000 PKR?' },
+  { label: '🔥 S24 & iPhone Deals', prompt: 'Show me the latest flagship deals on Samsung Galaxy and Apple iPhone.' },
+  { label: '💬 WhatsApp Support', prompt: 'How can I connect directly with a live representative on WhatsApp?' },
 ];
 
 // Helper to format basic markdown (bold, bullets, headings, links)
 function FormattedBotMessage({ text }: { text: string }) {
-  // Split into lines to handle headers and bullet lists
   const lines = text.split('\n');
 
   return (
-    <div className="space-y-1.5 text-xs sm:text-sm text-slate-800 dark:text-slate-100 leading-relaxed break-words">
+    <div className="space-y-1.5 text-xs sm:text-sm text-slate-800 leading-relaxed break-words">
       {lines.map((line, idx) => {
         const trimmed = line.trim();
         if (!trimmed) {
@@ -51,7 +50,7 @@ function FormattedBotMessage({ text }: { text: string }) {
         // Heading 3 or 2
         if (trimmed.startsWith('### ')) {
           return (
-            <h4 key={idx} className="font-bold text-slate-950 dark:text-white text-xs sm:text-sm mt-2 mb-1 flex items-center gap-1.5">
+            <h4 key={idx} className="font-bold text-slate-950 text-xs sm:text-sm mt-2 mb-1 flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#48afff] inline-block"></span>
               {trimmed.replace(/^###\s*/, '')}
             </h4>
@@ -59,7 +58,7 @@ function FormattedBotMessage({ text }: { text: string }) {
         }
         if (trimmed.startsWith('## ')) {
           return (
-            <h3 key={idx} className="font-extrabold text-slate-950 dark:text-white text-sm sm:text-base mt-2.5 mb-1 text-[#136ab5] dark:text-[#48afff]">
+            <h3 key={idx} className="font-black text-[#0b3c68] text-sm sm:text-base mt-2.5 mb-1">
               {trimmed.replace(/^##\s*/, '')}
             </h3>
           );
@@ -71,7 +70,6 @@ function FormattedBotMessage({ text }: { text: string }) {
 
         // Render inline formatting (bold, links, code)
         const renderInline = (str: string) => {
-          // Replace markdown links [label](url)
           const linkRegex = /\[(.*?)\]\(([^\s)]+)\)/g;
           const parts: React.ReactNode[] = [];
           let lastIndex = 0;
@@ -92,7 +90,7 @@ function FormattedBotMessage({ text }: { text: string }) {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#136ab5] dark:text-[#48afff] font-semibold underline underline-offset-2 hover:text-[#136ab5] inline-flex items-center gap-0.5 mx-0.5"
+                  className="text-[#136ab5] hover:text-[#0b3c68] font-bold underline underline-offset-2 inline-flex items-center gap-0.5 mx-0.5"
                 >
                   {label.replace(/\*\*/g, '')}
                   <ExternalLink className="w-3 h-3 inline" />
@@ -101,7 +99,7 @@ function FormattedBotMessage({ text }: { text: string }) {
                 <Link
                   key={match.index}
                   href={href}
-                  className="text-[#136ab5] dark:text-[#48afff] font-bold underline underline-offset-2 hover:text-[#136ab5] inline-flex items-center gap-0.5 mx-0.5"
+                  className="text-[#136ab5] hover:text-[#0b3c68] font-bold underline underline-offset-2 inline-flex items-center gap-0.5 mx-0.5"
                 >
                   {label.replace(/\*\*/g, '')}
                 </Link>
@@ -113,22 +111,20 @@ function FormattedBotMessage({ text }: { text: string }) {
             parts.push(str.substring(lastIndex));
           }
 
-          // Next process bold **text**
           return parts.map((part, pIdx) => {
             if (typeof part !== 'string') return part;
             const boldParts = part.split(/(\*\*.*?\*\*)/g);
             return boldParts.map((bp, bIdx) => {
               if (bp.startsWith('**') && bp.endsWith('**')) {
                 return (
-                  <strong key={`${pIdx}-${bIdx}`} className="font-bold text-slate-950 dark:text-white">
+                  <strong key={`${pIdx}-${bIdx}`} className="font-bold text-slate-950">
                     {bp.slice(2, -2)}
                   </strong>
                 );
               }
-              // Code snippet `code`
               if (bp.startsWith('`') && bp.endsWith('`') && bp.length > 2) {
                 return (
-                  <code key={`${pIdx}-${bIdx}`} className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[11px] text-[#136ab5] dark:text-sky-300">
+                  <code key={`${pIdx}-${bIdx}`} className="px-1.5 py-0.5 rounded bg-slate-100 font-mono text-[11px] text-[#0b3c68] border border-slate-200">
                     {bp.slice(1, -1)}
                   </code>
                 );
@@ -163,21 +159,22 @@ export function HelperBot() {
   if (pathname?.startsWith('/admin')) {
     return null;
   }
+
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
       sender: 'bot',
-      text: `👋 **Welcome to Hamza Phone Store!**
-I'm **HamzaBot**, your AI shopping specialist.
+      text: `👋 **Hello! Welcome to Hamza Phone Store.**
 
-Ask me anything about:
-- 📦 **Open-Parcel Cash on Delivery** (inspect before paying)
-- ✅ **100% PTA Approved & DIRBS verification**
-- 💳 **0% Markup Installment Plans** (Meezan, Alfalah, Faysal, Silkbank)
-- 🛡️ **1-Year Official Brand Warranties**
-- 📱 **Mobile recommendations & live prices**
+I'm your **Personal Mobile Advisor**. Whether you're comparing smartphones, verifying PTA approval, checking 0% EMI bank installments, or inquiring about Open-Parcel delivery, I'm here to assist you.
 
-Or tap a quick question below to get started!`,
+**Key Customer Guarantees:**
+• 📦 **Open-Parcel Delivery**: Inspect and verify your parcel before paying
+• 🛡️ **100% PTA Approved**: Official DIRBS-registered authentic smartphones
+• 💳 **0% Markup EMI**: Up to 12 months installment plans on credit cards
+• ⚡ **Official Brand Warranty**: 1-year brand warranty on all devices
+
+Tap any question below or type your question to get instant guidance!`,
       timestamp: 'Just now',
     },
   ]);
@@ -227,7 +224,6 @@ Or tap a quick question below to get started!`,
     const timeoutId = setTimeout(() => controller.abort(), 6000);
 
     try {
-      // Build history payload for context
       const historyPayload = messages.slice(-5).map((m) => ({
         role: m.sender === 'user' ? ('user' as const) : ('model' as const),
         text: m.text,
@@ -252,7 +248,7 @@ Or tap a quick question below to get started!`,
       const data = await res.json();
       const botReply =
         data?.reply ||
-        "I'm here to help! You can ask about our smartphones, PTA approval, 0% EMI installments, or chat directly with our specialists on WhatsApp at +92 313 5221200!";
+        "I'm here to assist you! You can ask about smartphone specifications, live market prices, PTA approval, or connect with our customer team directly on WhatsApp at +92 313 5221200.";
 
       const botMsg: ChatMessage = {
         id: `bot-${Date.now()}`,
@@ -268,7 +264,7 @@ Or tap a quick question below to get started!`,
         const errorMsg: ChatMessage = {
           id: `bot-err-${Date.now()}`,
           sender: 'bot',
-          text: `⚠️ I'm here to assist you! If you need instant live help, you can also reach us on WhatsApp at [+92 313 5221200](https://wa.me/923135221200).`,
+          text: `⚠️ I'm here to assist you! If you need instant live help, you can also reach our mobile advisors on WhatsApp at [+92 313 5221200](https://wa.me/923135221200).`,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         };
         setMessages((prev) => [...prev, errorMsg]);
@@ -308,7 +304,7 @@ Or tap a quick question below to get started!`,
       {/* Floating Trigger Launcher Button */}
       {!isOpen && (
         <aside
-          aria-label="HamzaBot AI Assistant"
+          aria-label="Hamza Phone Store Live Support"
           className="fixed bottom-[128px] sm:bottom-[88px] right-4 sm:right-6 z-40 flex items-center"
         >
           <button
@@ -316,19 +312,18 @@ Or tap a quick question below to get started!`,
               setIsOpen(true);
               setHasUnread(false);
             }}
-            aria-label="Ask HamzaBot AI Assistant"
-            title="Ask HamzaBot AI - 24/7 Mobile Specialist"
-            className="relative flex items-center justify-center w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-gradient-to-tr from-[#0b3c68] via-[#136ab5] to-[#48afff] hover:brightness-110 text-white shadow-xl shadow-cyan-900/30 hover:shadow-cyan-900/50 hover:scale-110 active:scale-95 transition-all duration-200 border-2 border-white/40 group cursor-pointer"
+            aria-label="Ask Hamza Store Support"
+            title="Chat with Hamza Phone Store Specialist"
+            className="group relative flex items-center gap-2 pl-3.5 pr-4 py-2.5 rounded-full bg-[#0b3c68] hover:bg-[#082e50] text-white shadow-xl shadow-[#0b3c68]/30 hover:shadow-[#0b3c68]/50 hover:scale-105 active:scale-95 transition-all duration-200 border-2 border-white/60 cursor-pointer"
           >
-            {/* Ping indicator */}
-            {hasUnread && (
-              <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-300 opacity-90"></span>
-                <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-white border-2 border-[#48afff]"></span>
-              </span>
-            )}
+            {/* Online Pulse Indicator */}
+            <span className="relative flex h-3 w-3 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-80" />
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border border-white" />
+            </span>
 
-            <Bot className="w-6 h-6 sm:w-7 sm:h-7 text-white transition-transform duration-200 group-hover:rotate-12" />
+            <Headphones className="w-4 h-4 sm:w-5 sm:h-5 text-white transition-transform group-hover:scale-110" />
+            <span className="text-xs font-black tracking-wide hidden sm:inline">Ask Specialist</span>
           </button>
         </aside>
       )}
@@ -336,38 +331,38 @@ Or tap a quick question below to get started!`,
       {/* Mobile Backdrop Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs sm:hidden animate-in fade-in duration-200"
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-xs sm:hidden animate-in fade-in duration-200"
           onClick={() => setIsOpen(false)}
         />
       )}
 
-      {/* Floating Chat Modal Window (Bottom Sheet on Mobile, Floating Widget on Desktop) */}
+      {/* Floating Chat Modal Window */}
       {isOpen && (
         <section
-          aria-label="HamzaBot AI Chat Window"
-          className="fixed bottom-0 sm:bottom-6 left-0 right-0 sm:left-auto sm:right-6 z-50 w-full sm:w-[410px] h-[88vh] sm:h-[580px] max-h-[92vh] rounded-t-3xl sm:rounded-2xl shadow-2xl bg-white dark:bg-slate-900 border-t sm:border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom duration-200"
+          aria-label="Hamza Phone Store Customer Support"
+          className="fixed bottom-0 sm:bottom-6 left-0 right-0 sm:left-auto sm:right-6 z-50 w-full sm:w-[420px] h-[88vh] sm:h-[600px] max-h-[92vh] rounded-t-3xl sm:rounded-3xl shadow-2xl bg-white border border-slate-200/90 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom duration-200"
         >
-          {/* Header */}
-          <div className="px-4 py-3.5 bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950 text-white flex items-center justify-between border-b border-[#48afff]/20">
+          {/* Header matching Hamza Phone Store Blue Theme */}
+          <div className="px-4 py-3.5 bg-gradient-to-r from-[#0b3c68] via-[#0f497a] to-[#136ab5] text-white flex items-center justify-between shadow-sm">
             <div className="flex items-center gap-3">
               <div className="relative">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center shadow-md shadow-[#48afff]/20 border border-white/20">
-                  <Bot className="w-5 h-5 text-white" />
+                <div className="w-10 h-10 rounded-2xl bg-white text-[#0b3c68] flex items-center justify-center shadow-md border border-white/30">
+                  <Headphones className="w-5 h-5 text-[#0b3c68]" />
                 </div>
-                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full"></span>
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-[#0b3c68] rounded-full"></span>
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
                   <h3 className="text-sm font-black tracking-tight text-white flex items-center gap-1">
-                    HamzaBot AI
-                    <Sparkles className="w-3 h-3 text-[#48afff] fill-cyan-400/40" />
+                    Hamza Store Assistant
+                    <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
                   </h3>
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#48afff]/20 text-sky-300 border border-[#48afff]/30">
+                  <span className="text-[9px] uppercase font-black tracking-wider px-1.5 py-0.5 rounded-full bg-[#f88b2a] text-white shadow-xs">
                     Live
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-300">
-                  PTA • 0% EMI • Open-Parcel FAQ Assistant
+                <p className="text-[11px] text-sky-100 font-medium">
+                  Official Smartphone &amp; Order Advisor
                 </p>
               </div>
             </div>
@@ -376,16 +371,16 @@ Or tap a quick question below to get started!`,
               <button
                 onClick={handleResetChat}
                 aria-label="Reset conversation"
-                className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-                title="Reset conversation"
+                className="p-1.5 rounded-xl text-sky-100 hover:text-white hover:bg-white/15 transition-all cursor-pointer"
+                title="Restart Chat"
               >
                 <RefreshCw className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setIsOpen(false)}
                 aria-label="Close chat window"
-                className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-                title="Close chat"
+                className="p-1.5 rounded-xl text-sky-100 hover:text-white hover:bg-white/15 transition-all cursor-pointer"
+                title="Close"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -393,50 +388,50 @@ Or tap a quick question below to get started!`,
           </div>
 
           {/* Quick Helpline Ribbon */}
-          <div className="px-3 py-1.5 bg-sky-50 dark:bg-cyan-950/40 border-b border-cyan-100 dark:border-cyan-900/30 flex items-center justify-between text-[11px]">
-            <span className="text-cyan-950 dark:text-cyan-200 font-medium flex items-center gap-1.5">
-              <Phone className="w-3 h-3 text-[#136ab5] dark:text-[#48afff]" />
-              Helpline: <strong className="font-bold">+92 313 5221200</strong>
+          <div className="px-4 py-2 bg-sky-50 border-b border-sky-100 flex items-center justify-between text-[11px]">
+            <span className="text-slate-700 font-semibold flex items-center gap-1.5">
+              <Phone className="w-3 h-3 text-[#136ab5]" />
+              Direct Helpline: <strong className="font-bold text-[#0b3c68]">+92 313 5221200</strong>
             </span>
             <a
-              href="https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20have%20a%20question"
+              href="https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20have%20an%20inquiry%20regarding%20mobile%20phones."
               target="_blank"
               rel="noopener noreferrer"
-              className="text-emerald-700 dark:text-emerald-400 hover:underline font-bold flex items-center gap-1"
+              className="text-emerald-700 hover:text-emerald-800 font-extrabold flex items-center gap-1 bg-emerald-100/60 hover:bg-emerald-100 px-2 py-0.5 rounded-full border border-emerald-200 transition-colors"
             >
               <MessageSquare className="w-3 h-3" />
-              WhatsApp Us
+              WhatsApp
             </a>
           </div>
 
           {/* Messages Scroll Area */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/50 dark:bg-slate-900/50">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3.5 bg-[#f8fafc]">
             {messages.map((msg) => (
               <div
                 key={msg.id}
                 className={`flex gap-2.5 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {msg.sender === 'bot' && (
-                  <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center shrink-0 mt-0.5 shadow-sm text-white">
-                    <Bot className="w-4 h-4" />
+                  <div className="w-7 h-7 rounded-xl bg-white border border-slate-200 text-[#0b3c68] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                    <Headphones className="w-3.5 h-3.5 text-[#0b3c68]" />
                   </div>
                 )}
 
                 <div
-                  className={`max-w-[85%] rounded-2xl p-3.5 shadow-sm text-xs sm:text-sm ${
+                  className={`max-w-[85%] rounded-2xl p-3.5 text-xs sm:text-sm leading-relaxed ${
                     msg.sender === 'user'
-                      ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-br-xs font-medium'
-                      : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-bl-xs border border-slate-200 dark:border-slate-700/60'
+                      ? 'bg-[#0b3c68] text-white rounded-tr-xs font-medium shadow-md shadow-[#0b3c68]/15'
+                      : 'bg-white text-slate-800 rounded-tl-xs border border-slate-200/90 shadow-sm'
                   }`}
                 >
                   {msg.sender === 'bot' ? (
                     <FormattedBotMessage text={msg.text} />
                   ) : (
-                    <p className="whitespace-pre-wrap leading-relaxed">{msg.text}</p>
+                    <p className="whitespace-pre-wrap">{msg.text}</p>
                   )}
                   <span
-                    className={`block text-[10px] mt-1.5 ${
-                      msg.sender === 'user' ? 'text-white/70 text-right' : 'text-slate-400'
+                    className={`block text-[10px] mt-1.5 font-medium ${
+                      msg.sender === 'user' ? 'text-sky-200 text-right' : 'text-slate-400'
                     }`}
                   >
                     {msg.timestamp}
@@ -448,15 +443,15 @@ Or tap a quick question below to get started!`,
             {/* Typing Indicator */}
             {isLoading && (
               <div className="flex gap-2.5 justify-start items-center">
-                <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center shrink-0 shadow-sm text-white">
-                  <Bot className="w-4 h-4 animate-spin" />
+                <div className="w-7 h-7 rounded-xl bg-white border border-slate-200 text-[#0b3c68] flex items-center justify-center shrink-0 shadow-xs">
+                  <Headphones className="w-3.5 h-3.5 text-[#0b3c68]" />
                 </div>
-                <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60 rounded-2xl rounded-bl-xs px-4 py-3 flex items-center gap-1.5 shadow-sm">
+                <div className="bg-white border border-slate-200/90 rounded-2xl rounded-tl-xs px-4 py-2.5 flex items-center gap-1.5 shadow-sm">
                   <span className="w-2 h-2 rounded-full bg-[#48afff] animate-bounce"></span>
                   <span className="w-2 h-2 rounded-full bg-[#48afff] animate-bounce [animation-delay:0.2s]"></span>
                   <span className="w-2 h-2 rounded-full bg-[#48afff] animate-bounce [animation-delay:0.4s]"></span>
-                  <span className="text-[11px] text-slate-400 ml-1.5 font-medium">
-                    HamzaBot is thinking...
+                  <span className="text-[11px] text-slate-500 ml-1.5 font-semibold">
+                    Advisor is typing...
                   </span>
                 </div>
               </div>
@@ -466,13 +461,13 @@ Or tap a quick question below to get started!`,
           </div>
 
           {/* Quick FAQ Chips */}
-          <div className="px-3 py-2 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 overflow-x-auto no-scrollbar flex items-center gap-1.5">
+          <div className="px-3.5 py-2.5 bg-white border-t border-slate-100 overflow-x-auto no-scrollbar flex items-center gap-1.5">
             {FAQ_SUGGESTIONS.map((faq, index) => (
               <button
                 key={index}
                 onClick={() => handleSendMessage(faq.prompt)}
                 disabled={isLoading}
-                className="shrink-0 px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-sky-50 dark:hover:bg-cyan-950/50 hover:text-[#136ab5] dark:hover:text-[#48afff] text-slate-600 dark:text-slate-300 text-[11px] font-semibold transition-all border border-slate-200/80 dark:border-slate-700/80 cursor-pointer disabled:opacity-50"
+                className="shrink-0 px-3 py-1.5 rounded-full bg-slate-50 hover:bg-sky-50 text-slate-700 hover:text-[#0b3c68] text-[11px] font-bold transition-all border border-slate-200 hover:border-[#48afff] cursor-pointer disabled:opacity-50 shadow-2xs"
               >
                 {faq.label}
               </button>
@@ -480,7 +475,7 @@ Or tap a quick question below to get started!`,
           </div>
 
           {/* Input Form */}
-          <div className="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2">
+          <div className="p-3 bg-white border-t border-slate-200 flex items-center gap-2">
             <input
               ref={inputRef}
               type="text"
@@ -489,22 +484,22 @@ Or tap a quick question below to get started!`,
               onKeyDown={handleKeyDown}
               disabled={isLoading}
               placeholder="Ask about phones, PTA, EMI, Open-Parcel..."
-              className="flex-1 px-3.5 py-2.5 text-base sm:text-sm bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl border border-transparent focus:border-[#48afff] focus:bg-white dark:focus:bg-slate-950 focus:outline-none transition-all placeholder:text-slate-400 font-medium"
+              className="flex-1 px-4 py-2.5 text-base sm:text-xs bg-slate-50 focus:bg-white text-slate-900 rounded-full border border-slate-200 focus:border-[#48afff] focus:outline-none focus:ring-2 focus:ring-[#48afff]/20 transition-all placeholder:text-slate-400 font-medium"
             />
             <button
               onClick={() => handleSendMessage()}
               disabled={!inputMessage.trim() || isLoading}
               aria-label="Send message"
-              className="w-10 h-10 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white flex items-center justify-center shrink-0 shadow-md shadow-cyan-600/30 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
+              className="w-10 h-10 rounded-full bg-[#0b3c68] hover:bg-[#082e50] active:scale-95 text-white flex items-center justify-center shrink-0 shadow-md shadow-[#0b3c68]/20 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
               title="Send message"
             >
-              <Send className="w-4 h-4" />
+              <Send className="w-4 h-4 ml-0.5" />
             </button>
           </div>
 
           {/* Footer note */}
-          <div className="px-3 py-1 bg-slate-100 dark:bg-slate-950 text-center text-[10px] text-slate-400 dark:text-slate-500 border-t border-slate-200/60 dark:border-slate-800">
-            Powered by Google Gemini AI • Official Helpline: <strong>+92 313 5221200</strong>
+          <div className="px-3 py-1.5 bg-slate-50 text-center text-[10px] text-slate-500 border-t border-slate-100 font-medium">
+            Hamza Phone Store • 100% PTA Approved &amp; Open-Parcel Delivery
           </div>
         </section>
       )}
