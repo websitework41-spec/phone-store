@@ -17,6 +17,7 @@ export interface AdminOrder {
   orderId: string;
   customerName: string;
   phone: string;
+  email?: string;
   city: string;
   address: string;
   items: Array<{
@@ -118,6 +119,7 @@ export async function POST(request: Request) {
       orderId: orderData.orderId || `HPS-${Math.floor(100000 + Math.random() * 900000)}`,
       customerName: orderData.customerName,
       phone: orderData.phone,
+      email: orderData.email || '',
       city: orderData.city || 'Pakistan',
       address: orderData.address || '',
       items: orderData.items || [],

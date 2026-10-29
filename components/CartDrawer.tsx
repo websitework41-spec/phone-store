@@ -22,6 +22,9 @@ import {
   ShoppingBag,
   Tag,
   Sparkles,
+  Mail,
+  Copy,
+  Check,
 } from 'lucide-react';
 
 import {
@@ -61,11 +64,13 @@ export function CartDrawer({
   // Form states
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
+  const [customerEmail, setCustomerEmail] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
   const [selectedCity, setSelectedCity] = useState('Lahore');
   const [paymentMethod, setPaymentMethod] = useState<'cod' | 'bank' | 'card'>('cod');
   const [honeypot, setHoneypot] = useState(''); // Anti-bot honeypot
   const [validationError, setValidationError] = useState('');
+  const [copiedReceipt, setCopiedReceipt] = useState(false);
 
   // Promo Code / Coupon state
   const [couponCodeInput, setCouponCodeInput] = useState('');
@@ -83,6 +88,9 @@ export function CartDrawer({
       }
       if (!customerPhone && profile.phone) {
         setCustomerPhone(profile.phone);
+      }
+      if (!customerEmail && (profile.email || user.email)) {
+        setCustomerEmail(profile.email || user.email || '');
       }
       const defaultAddr = profile.addresses?.find((a) => a.isDefault) || profile.addresses?.[0];
       if (defaultAddr) {
@@ -204,14 +212,20 @@ export function CartDrawer({
     // 3. Input Sanitization
     const cleanName = sanitizeText(customerName, MAX_INPUT_LENGTHS.NAME);
     const cleanAddress = sanitizeText(customerAddress, MAX_INPUT_LENGTHS.ADDRESS);
+    const cleanEmail = sanitizeText(customerEmail, 100);
 
     if (!cleanName || cleanName.length < 3) {
       setValidationError('Please enter a valid full name (minimum 3 characters).');
       return;
     }
 
-    if (!cleanAddress || cleanAddress.length < 8) {
-      setValidationError('Please enter a complete delivery address (street, area, city).');
+    if (!cleanAddress || cleanAddress.length < 3) {
+      setValidationError('Please enter your complete delivery address (minimum 3 characters).');
+      return;
+    }
+
+    if (cleanEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+      setValidationError('Please enter a valid email address (e.g. name@gmail.com) or leave it blank.');
       return;
     }
 
@@ -233,6 +247,7 @@ export function CartDrawer({
           orderId: randomOrderId,
           customerName: cleanName,
           phone: phoneCheck.cleanPhone,
+          email: cleanEmail,
           address: cleanAddress,
           city: selectedCity,
           items: items.map((i) => ({
@@ -260,6 +275,7 @@ export function CartDrawer({
         orderId: randomOrderId,
         customerName: cleanName,
         phone: phoneCheck.cleanPhone,
+        email: cleanEmail,
         address: cleanAddress,
         city: selectedCity,
         items: items.map(
@@ -294,6 +310,7 @@ export function CartDrawer({
             orderId: randomOrderId,
             customerName: cleanName,
             phone: phoneCheck.cleanPhone,
+            email: cleanEmail,
             city: selectedCity,
             address: cleanAddress,
             items: items.map((i) => ({
@@ -332,6 +349,8 @@ export function CartDrawer({
     setIsCheckoutStep(false);
     setConfirmedOrderId('');
     setValidationError('');
+    setCustomerEmail('');
+    setCopiedReceipt(false);
     setHoneypot('');
     onClearCart();
     onClose();
@@ -372,12 +391,16 @@ export function CartDrawer({
 
           {/* Success Screen */}
           {orderSuccess ? (
-            <div className="flex-1 overflow-y-auto p-6 flex flex-col items-center justify-center text-center space-y-4">
-              <div className="w-16 h-16 rounded-3xl bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                <CheckCircle className="w-9 h-9 stroke-[2.2]" />
+            <div className="flex-1 overflow-y-auto p-5 sm:p-6 flex flex-col items-center justify-center text-center space-y-4">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-3xl bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                <CheckCircle className="w-8 h-8 sm:w-9 sm:h-9 stroke-[2.2]" />
               </div>
+
               <div className="space-y-1">
-                <h3 className="text-xl font-black text-slate-900">
+                <span className="inline-block px-3 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-extrabold text-[10px] sm:text-[11px] border border-emerald-200">
+                  ORDER BOOKED • TCS EXPRESS OPEN-PARCEL
+                </span>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
                   Mubarak! Order Placed
                 </h3>
                 <p className="text-xs text-slate-500 max-w-xs font-medium">
@@ -385,21 +408,46 @@ export function CartDrawer({
                 </p>
               </div>
 
+              {/* Order Receipt Summary Card */}
               <div className="w-full bg-slate-50 p-4 rounded-2xl border border-slate-200 text-left space-y-2 text-xs">
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Tracking Code:</span>
-                  <span className="font-mono font-bold text-[#0b3c68]">
+                <div className="flex justify-between items-center pb-2 border-b border-slate-200">
+                  <span className="text-slate-500 font-medium">Tracking Code:</span>
+                  <span className="font-mono font-black text-[#0b3c68] text-sm bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100">
                     {confirmedOrderId || 'HPS-786110'}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Recipient:</span>
+                  <span className="text-slate-500">Recipient:</span>
                   <span className="font-bold text-slate-900">{customerName}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Destination:</span>
+                  <span className="text-slate-500">Phone Number:</span>
+                  <span className="font-mono font-bold text-slate-900">{customerPhone}</span>
+                </div>
+                {customerEmail && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Email:</span>
+                    <span className="font-medium text-slate-800">{customerEmail}</span>
+                  </div>
+                )}
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Destination:</span>
                   <span className="font-bold text-slate-900">{selectedCity}, Pakistan</span>
                 </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Address:</span>
+                  <span className="font-medium text-slate-800 text-right max-w-[65%] truncate">
+                    {customerAddress}
+                  </span>
+                </div>
+                {items.length > 0 && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Items ({items.length}):</span>
+                    <span className="font-bold text-slate-900 text-right max-w-[65%] truncate">
+                      {items.map((i) => `${i.phone.name} x${i.quantity}`).join(', ')}
+                    </span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span className="text-slate-400">Payment:</span>
                   <span className="font-bold text-emerald-700 uppercase">
@@ -413,24 +461,73 @@ export function CartDrawer({
                   </div>
                 )}
                 <div className="flex justify-between pt-2 border-t border-slate-200 font-bold">
-                  <span>Total Amount:</span>
-                  <span className="text-[#0b3c68] font-black">{formatPKR(finalTotalPKR)}</span>
+                  <span className="text-slate-900">Total Amount:</span>
+                  <span className="text-[#0b3c68] font-black text-sm">{formatPKR(finalTotalPKR)}</span>
                 </div>
               </div>
 
-              <a
-                href="https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20just%20placed%20an%20order%20and%20need%20tracking%20details."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center justify-center gap-2 hover:bg-emerald-100 transition-colors"
-              >
-                <MessageSquare className="w-4 h-4 text-emerald-600" />
-                <span>WhatsApp Helpline: <strong>+92 313 5221200</strong></span>
-              </a>
+              {/* Automated Messaging & Receipt Hub */}
+              <div className="w-full space-y-2 pt-1">
+                {/* 1-Click WhatsApp Button with full pre-filled order receipt */}
+                <a
+                  href={`https://wa.me/923135221200?text=${encodeURIComponent(
+                    `📦 *HAMZA PHONE STORE — ORDER CONFIRMATION RECEIPT*\n──────────────────────\n🔖 *Order ID:* ${confirmedOrderId}\n👤 *Customer:* ${customerName}\n📞 *Mobile:* ${customerPhone}\n${customerEmail ? `✉️ *Email:* ${customerEmail}\n` : ''}📍 *Destination:* ${selectedCity}, Pakistan\n🏠 *Address:* ${customerAddress}\n📱 *Items:* ${items.map((i) => `${i.phone.name} (${i.selectedVariant.ram}/${i.selectedVariant.storage}) x${i.quantity}`).join(', ')}\n💰 *Total Payable:* ${formatPKR(finalTotalPKR)} (Open-Parcel COD)\n🚚 *Courier:* TCS Express (24-48 Hours Delivery)\n🛡️ *PTA Status:* 100% Official PTA Approved\n──────────────────────\n_I just placed this order. Please confirm dispatch tracking details._`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-black flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-all cursor-pointer btn-press"
+                >
+                  <MessageSquare className="w-4 h-4 fill-white text-white" />
+                  <span>Send Order Receipt to WhatsApp (+92 313 5221200)</span>
+                </a>
+
+                {/* Copy SMS / WhatsApp Receipt Button */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const itemsText = items.map((i) => `${i.phone.name} (${i.selectedVariant.ram}/${i.selectedVariant.storage}) x${i.quantity}`).join(', ');
+                    const receiptMsg = `📦 HAMZA PHONE STORE — ORDER RECEIPT\nOrder ID: ${confirmedOrderId}\nCustomer: ${customerName}\nPhone: ${customerPhone}\n${customerEmail ? `Email: ${customerEmail}\n` : ''}Destination: ${selectedCity}, Pakistan\nAddress: ${customerAddress}\nItems: ${itemsText}\nTotal: ${formatPKR(finalTotalPKR)} (Open-Parcel COD)\nCourier: TCS Express (24-48 Hours Delivery)\nPTA: 100% Official PTA Approved`;
+                    if (navigator.clipboard) {
+                      navigator.clipboard.writeText(receiptMsg);
+                      setCopiedReceipt(true);
+                      setTimeout(() => setCopiedReceipt(false), 2500);
+                    }
+                  }}
+                  className={`w-full py-3 px-4 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                    copiedReceipt
+                      ? 'bg-emerald-50 border-emerald-300 text-emerald-800'
+                      : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  {copiedReceipt ? (
+                    <>
+                      <Check className="w-4 h-4 text-emerald-600" />
+                      <span>Order SMS / WhatsApp Receipt Copied! ✓</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4 text-slate-500" />
+                      <span>Copy SMS / WhatsApp Order Receipt</span>
+                    </>
+                  )}
+                </button>
+
+                {/* Email / SMS Confirmation Notice */}
+                <div className="p-2.5 rounded-xl bg-blue-50/80 border border-blue-200/60 text-left flex items-start gap-2 text-[11px] text-[#0b3c68]">
+                  <Mail className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#0b3c68]" />
+                  <span>
+                    {customerEmail ? (
+                      <>Order confirmation receipt generated and linked to <strong>{customerEmail}</strong>.</>
+                    ) : (
+                      <>SMS confirmation dispatched to <strong>{customerPhone}</strong>. You can also send the receipt above directly to our WhatsApp support.</>
+                    )}
+                  </span>
+                </div>
+              </div>
 
               <button
                 onClick={handleResetOrder}
-                className="w-full py-3.5 rounded-2xl bg-[#0b3c68] text-white text-xs sm:text-sm font-black hover:bg-[#48afff] transition-colors shadow-md"
+                className="w-full py-3 rounded-2xl bg-slate-900 text-white text-xs sm:text-sm font-black hover:bg-[#0b3c68] transition-colors shadow-md cursor-pointer"
               >
                 Back to Smartphone Catalog
               </button>
@@ -496,6 +593,23 @@ export function CartDrawer({
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value.replace(/\D/g, '').slice(0, 11))}
                   placeholder="03001234567"
+                  className="w-full px-3.5 py-2.5 rounded-xl text-base sm:text-sm bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:bg-white text-slate-900 font-medium transition-all"
+                />
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-xs font-bold text-slate-700">
+                    Email Address (Optional)
+                  </label>
+                  <span className="text-[10px] text-slate-400 font-medium">For instant invoice & tracking receipt</span>
+                </div>
+                <input
+                  type="email"
+                  autoComplete="email"
+                  value={customerEmail}
+                  onChange={(e) => setCustomerEmail(e.target.value)}
+                  placeholder="e.g. yourname@gmail.com"
                   className="w-full px-3.5 py-2.5 rounded-xl text-base sm:text-sm bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:bg-white text-slate-900 font-medium transition-all"
                 />
               </div>
@@ -618,6 +732,13 @@ export function CartDrawer({
                     </span>
                   </div>
                 </div>
+
+                {validationError && (
+                  <div className="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold flex items-center gap-2 animate-in fade-in">
+                    <span className="shrink-0">⚠️</span>
+                    <span>{validationError}</span>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-2 gap-2 pb-2">
                   <button

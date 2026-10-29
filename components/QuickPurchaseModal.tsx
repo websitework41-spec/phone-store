@@ -20,6 +20,8 @@ import {
   MessageSquare,
   Check,
   Tag,
+  Mail,
+  Copy,
 } from 'lucide-react';
 
 import {
@@ -55,12 +57,14 @@ export function QuickPurchaseModal({
   const [fullName, setFullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [altPhone, setAltPhone] = useState('');
+  const [customerEmail, setCustomerEmail] = useState('');
   const [city, setCity] = useState(PAKISTAN_CITIES[0] || 'Karachi');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [paymentMethod, setPaymentMethod] = useState<'cod' | 'bank' | 'emi'>('cod');
   const [deliveryNotes, setDeliveryNotes] = useState('');
   const [honeypot, setHoneypot] = useState(''); // Anti-bot honeypot trap
   const [validationError, setValidationError] = useState('');
+  const [copiedReceipt, setCopiedReceipt] = useState(false);
 
   // Submission state
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -83,6 +87,9 @@ export function QuickPurchaseModal({
       }
       if (!phoneNumber && profile.phone) {
         setPhoneNumber(profile.phone);
+      }
+      if (!customerEmail && (profile.email || user.email)) {
+        setCustomerEmail(profile.email || user.email || '');
       }
       const defaultAddr = profile.addresses?.find((a) => a.isDefault) || profile.addresses?.[0];
       if (defaultAddr) {
@@ -184,14 +191,20 @@ export function QuickPurchaseModal({
     const cleanAddress = sanitizeText(deliveryAddress, MAX_INPUT_LENGTHS.ADDRESS);
     const cleanAltPhone = sanitizeText(altPhone, MAX_INPUT_LENGTHS.PHONE);
     const cleanNotes = sanitizeText(deliveryNotes, MAX_INPUT_LENGTHS.NOTES);
+    const cleanEmail = sanitizeText(customerEmail, 100);
 
     if (!cleanName || cleanName.length < 3) {
       setValidationError('Please enter a valid full name (minimum 3 characters).');
       return;
     }
 
-    if (!cleanAddress || cleanAddress.length < 8) {
-      setValidationError('Please enter a complete delivery address (street, area, city).');
+    if (!cleanAddress || cleanAddress.length < 3) {
+      setValidationError('Please enter your delivery address (minimum 3 characters).');
+      return;
+    }
+
+    if (cleanEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+      setValidationError('Please enter a valid email address (e.g. name@gmail.com) or leave it blank.');
       return;
     }
 
@@ -210,6 +223,7 @@ export function QuickPurchaseModal({
       setFullName(cleanName);
       setPhoneNumber(phoneCheck.cleanPhone);
       setAltPhone(cleanAltPhone);
+      setCustomerEmail(cleanEmail);
       setDeliveryAddress(cleanAddress);
       setDeliveryNotes(cleanNotes);
 
@@ -235,6 +249,7 @@ export function QuickPurchaseModal({
             customerName: cleanName,
             phone: phoneCheck.cleanPhone,
             altPhone: cleanAltPhone,
+            email: cleanEmail,
             city: city || 'Pakistan',
             address: cleanAddress,
             notes: cleanNotes,
@@ -257,12 +272,15 @@ export function QuickPurchaseModal({
           orderId: randomOrder,
           customerName: cleanName,
           phone: phoneCheck.cleanPhone,
+          altPhone: cleanAltPhone,
+          email: cleanEmail,
           city: city || 'Pakistan',
           address: cleanAddress,
           items: phone ? [`${phone.name} (${selectedVariant?.ram || ''}/${selectedVariant?.storage || ''})`] : [],
           totalPKR: finalPrice,
           couponCode: appliedCoupon?.code || '',
           discountPKR: discountAmount,
+          paymentMethod: paymentMethod === 'cod' ? 'Cash on Delivery (Open-Parcel)' : paymentMethod,
           status: 'Order Confirmed — Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.',
           createdAt: new Date().toISOString(),
         };
@@ -282,6 +300,7 @@ export function QuickPurchaseModal({
               orderId: randomOrder,
               customerName: cleanName,
               phone: phoneCheck.cleanPhone,
+              email: cleanEmail,
               city: city || 'Pakistan',
               address: cleanAddress,
               items: phone
@@ -327,6 +346,7 @@ export function QuickPurchaseModal({
     setFullName('');
     setPhoneNumber('');
     setAltPhone('');
+    setCustomerEmail('');
     setDeliveryAddress('');
     setDeliveryNotes('');
     setAppliedCoupon(null);
@@ -334,6 +354,7 @@ export function QuickPurchaseModal({
     setCouponCodeInput('');
     setCouponError('');
     setCouponSuccess('');
+    setCopiedReceipt(false);
     onClose();
   };
 
@@ -513,6 +534,24 @@ export function QuickPurchaseModal({
                     value={altPhone}
                     onChange={(e) => setAltPhone(e.target.value.replace(/\D/g, '').slice(0, 11))}
                     placeholder="03217654321"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:bg-white text-slate-900 transition-all font-medium"
+                  />
+                </div>
+
+                {/* Email Address (Optional for Order Receipt) */}
+                <div className="space-y-1 sm:col-span-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-700">
+                      Email Address (Optional)
+                    </label>
+                    <span className="text-[10px] text-slate-400 font-medium">For instant invoice & PDF receipt</span>
+                  </div>
+                  <input
+                    type="email"
+                    autoComplete="email"
+                    value={customerEmail}
+                    onChange={(e) => setCustomerEmail(e.target.value)}
+                    placeholder="e.g. name@gmail.com"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:bg-white text-slate-900 transition-all font-medium"
                   />
                 </div>
@@ -734,6 +773,13 @@ export function QuickPurchaseModal({
 
               {/* Sticky Submit Footer on Mobile so button is NEVER hidden */}
               <div className="sticky bottom-0 bg-white/95 backdrop-blur-md pt-3 pb-2 border-t border-slate-100 -mx-4 sm:-mx-6 px-4 sm:px-6 shadow-md mt-4">
+                {validationError && (
+                  <div className="mb-2.5 p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold flex items-center gap-2 animate-in fade-in">
+                    <span className="shrink-0">⚠️</span>
+                    <span>{validationError}</span>
+                  </div>
+                )}
+
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-bold text-slate-500">Total Payable on Delivery:</span>
                   <span className="text-base font-black text-[#0b3c68]">{formatPKR(finalPrice)}</span>
@@ -758,37 +804,59 @@ export function QuickPurchaseModal({
           </div>
         ) : (
           /* Order Confirmed Screen */
-          <div className="p-6 sm:p-8 text-center space-y-4 overflow-y-auto">
-            <div className="w-16 h-16 rounded-3xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/20">
-              <CheckCircle2 className="w-8 h-8" />
+          <div className="p-5 sm:p-7 text-center space-y-4 overflow-y-auto">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-3xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/20">
+              <CheckCircle2 className="w-8 h-8 sm:w-9 sm:h-9" />
             </div>
 
             <div className="space-y-1">
+              <span className="inline-block px-3 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-extrabold text-[10px] sm:text-[11px] border border-emerald-200">
+                ORDER BOOKED • TCS EXPRESS OPEN-PARCEL
+              </span>
               <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                Alhamdulillah! Order Confirmed
+                Mubarak! Order Confirmed
               </h3>
-              <p className="text-xs text-slate-500 font-medium">
-                Your open-parcel consignment has been booked and dispatched via TCS Express.
+              <p className="text-xs text-slate-500 font-medium max-w-sm mx-auto">
+                Your open-parcel consignment has been booked. You can open and inspect the sealed box before paying cash.
               </p>
             </div>
 
+            {/* Structured Receipt Summary Card */}
             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 max-w-md mx-auto text-left space-y-2 text-xs">
-              <div className="flex justify-between">
-                <span className="text-slate-400">Tracking Code:</span>
-                <span className="font-mono font-bold text-[#0b3c68] text-sm">
+              <div className="flex justify-between items-center pb-2 border-b border-slate-200">
+                <span className="text-slate-500 font-medium">Tracking Code:</span>
+                <span className="font-mono font-black text-[#0b3c68] text-sm bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100">
                   {generatedOrderId || 'HPS-786110'}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Recipient:</span>
+                <span className="text-slate-500">Recipient:</span>
                 <span className="font-bold text-slate-900">{fullName}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Destination:</span>
-                <span className="font-bold text-slate-900">{city}, Pakistan</span>
+                <span className="text-slate-500">Phone Number:</span>
+                <span className="font-mono font-bold text-slate-900">{phoneNumber}</span>
+              </div>
+              {customerEmail && (
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Email:</span>
+                  <span className="font-medium text-slate-800">{customerEmail}</span>
+                </div>
+              )}
+              <div className="flex justify-between">
+                <span className="text-slate-500">Delivery Address:</span>
+                <span className="font-medium text-slate-800 text-right max-w-[65%] truncate">
+                  {deliveryAddress}, {city}
+                </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Payment:</span>
+                <span className="text-slate-500">Device & Variant:</span>
+                <span className="font-bold text-slate-900 text-right">
+                  {phone.name} ({currentVariant?.ram || ''}/{currentVariant?.storage || ''})
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Payment:</span>
                 <span className="font-bold text-emerald-700 uppercase">
                   {paymentMethod === 'cod' ? 'Cash on Delivery (Open Parcel)' : paymentMethod}
                 </span>
@@ -800,26 +868,72 @@ export function QuickPurchaseModal({
                 </div>
               )}
               <div className="flex justify-between pt-2 border-t border-slate-200 font-bold">
-                <span>Total Amount:</span>
-                <span className="text-[#0b3c68] font-black">{formatPKR(finalPrice)}</span>
+                <span className="text-slate-900">Total Payable:</span>
+                <span className="text-[#0b3c68] font-black text-sm">{formatPKR(finalPrice)}</span>
               </div>
             </div>
 
-            <a
-              href={`https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20just%20placed%20order%20${generatedOrderId}%20for%20${encodeURIComponent(
-                phone.name
-              )}.%20Please%20share%20tracking%20update.`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 w-full p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center justify-center gap-2 hover:bg-emerald-100 transition-colors"
-            >
-              <MessageSquare className="w-4 h-4 text-emerald-600" />
-              <span>Get WhatsApp Dispatch Updates: +92 313 5221200</span>
-            </a>
+            {/* Automated Messaging & Receipt Hub */}
+            <div className="space-y-2 pt-1 max-w-md mx-auto">
+              {/* 1-Click WhatsApp Button with full pre-filled order receipt */}
+              <a
+                href={`https://wa.me/923135221200?text=${encodeURIComponent(
+                  `📦 *HAMZA PHONE STORE — ORDER CONFIRMATION RECEIPT*\n──────────────────────\n🔖 *Order ID:* ${generatedOrderId}\n👤 *Customer:* ${fullName}\n📞 *Mobile:* ${phoneNumber}\n${customerEmail ? `✉️ *Email:* ${customerEmail}\n` : ''}📍 *Destination:* ${city}, Pakistan\n🏠 *Address:* ${deliveryAddress}\n📱 *Item:* ${phone.name} (${currentVariant?.ram || ''}/${currentVariant?.storage || ''})\n🎨 *Color:* ${currentColor?.name || 'Default'}\n💰 *Total Payable:* ${formatPKR(finalPrice)} (Open-Parcel COD)\n🚚 *Courier:* TCS Express (24-48 Hours Delivery)\n🛡️ *PTA Status:* 100% Official PTA Approved\n──────────────────────\n_I just placed this order. Please confirm dispatch tracking details._`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-black flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-all cursor-pointer btn-press"
+              >
+                <MessageSquare className="w-4 h-4 fill-white text-white" />
+                <span>Send Order Receipt to WhatsApp (+92 313 5221200)</span>
+              </a>
+
+              {/* Copy SMS / WhatsApp Receipt Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  const receiptMsg = `📦 HAMZA PHONE STORE — ORDER RECEIPT\nOrder ID: ${generatedOrderId}\nCustomer: ${fullName}\nPhone: ${phoneNumber}\n${customerEmail ? `Email: ${customerEmail}\n` : ''}Address: ${deliveryAddress}, ${city}\nItem: ${phone.name} (${currentVariant?.ram || ''}/${currentVariant?.storage || ''})\nTotal: ${formatPKR(finalPrice)} (Open-Parcel COD)\nCourier: TCS Express (24-48 Hours Delivery)\nPTA Status: 100% Official PTA Approved`;
+                  if (navigator.clipboard) {
+                    navigator.clipboard.writeText(receiptMsg);
+                    setCopiedReceipt(true);
+                    setTimeout(() => setCopiedReceipt(false), 2500);
+                  }
+                }}
+                className={`w-full py-3 px-4 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                  copiedReceipt
+                    ? 'bg-emerald-50 border-emerald-300 text-emerald-800'
+                    : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
+                }`}
+              >
+                {copiedReceipt ? (
+                  <>
+                    <Check className="w-4 h-4 text-emerald-600" />
+                    <span>Order SMS / WhatsApp Receipt Copied! ✓</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4 text-slate-500" />
+                    <span>Copy SMS / WhatsApp Order Receipt</span>
+                  </>
+                )}
+              </button>
+
+              {/* Email / SMS Confirmation Notice */}
+              <div className="p-2.5 rounded-xl bg-blue-50/80 border border-blue-200/60 text-left flex items-start gap-2 text-[11px] text-[#0b3c68]">
+                <Mail className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#0b3c68]" />
+                <span>
+                  {customerEmail ? (
+                    <>Order confirmation receipt generated and linked to <strong>{customerEmail}</strong>.</>
+                  ) : (
+                    <>SMS confirmation dispatched to <strong>{phoneNumber}</strong>. You can also send the receipt above directly to our WhatsApp support.</>
+                  )}
+                </span>
+              </div>
+            </div>
 
             <button
               onClick={handleResetAndClose}
-              className="w-full mt-2 py-3.5 rounded-2xl bg-[#0b3c68] text-white text-xs sm:text-sm font-black hover:bg-[#48afff] transition-colors shadow-md"
+              className="w-full max-w-md mx-auto mt-2 py-3 rounded-2xl bg-slate-900 text-white text-xs sm:text-sm font-black hover:bg-[#0b3c68] transition-colors shadow-md cursor-pointer"
             >
               Continue Shopping
             </button>
