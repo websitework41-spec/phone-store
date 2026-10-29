@@ -1099,38 +1099,38 @@ export default function AdminPortalPage() {
 
       {/* Floating Bulk Actions Bar (Shopify style) */}
       {selectedProductIds.length > 0 && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#1a1a1a] text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700 animate-in slide-in-from-bottom duration-200">
-          <span className="text-xs font-bold px-2 py-0.5 rounded-lg bg-slate-800 text-white">
-            {selectedProductIds.length} selected
+        <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#1a1a1a] text-white px-3 sm:px-5 py-2 sm:py-3 rounded-2xl shadow-2xl flex items-center gap-1.5 sm:gap-3 border border-slate-700 animate-in slide-in-from-bottom duration-200 max-w-[96vw] overflow-x-auto scrollbar-none">
+          <span className="text-[11px] sm:text-xs font-bold px-2 py-0.5 rounded-lg bg-slate-800 text-white shrink-0">
+            {selectedProductIds.length} sel
           </span>
-          <div className="h-4 w-px bg-slate-700" />
+          <div className="h-4 w-px bg-slate-700 shrink-0" />
           <button
             onClick={() => handleBulkRestock(10)}
-            className="px-3 py-1.5 rounded-xl bg-[#008060] hover:bg-[#006e52] text-xs font-bold transition-all"
+            className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#008060] hover:bg-[#006e52] text-[11px] sm:text-xs font-bold transition-all shrink-0 cursor-pointer"
           >
-            +10 Restock
+            +10
           </button>
           <button
             onClick={() => handleBulkMarkStock(true)}
-            className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold transition-all"
+            className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-[11px] sm:text-xs font-semibold transition-all shrink-0 cursor-pointer"
           >
-            Mark In Stock
+            In Stock
           </button>
           <button
             onClick={() => handleBulkMarkStock(false)}
-            className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold transition-all"
+            className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-[11px] sm:text-xs font-semibold transition-all shrink-0 cursor-pointer"
           >
-            Mark Out of Stock
+            Out of Stock
           </button>
           <button
             onClick={handleBulkDelete}
-            className="px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-xs font-bold transition-all"
+            className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-[11px] sm:text-xs font-bold transition-all shrink-0 cursor-pointer"
           >
             Delete
           </button>
           <button
             onClick={() => setSelectedProductIds([])}
-            className="p-1 rounded-lg text-slate-400 hover:text-white"
+            className="p-1 rounded-lg text-slate-400 hover:text-white shrink-0 cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -1387,43 +1387,44 @@ export default function AdminPortalPage() {
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col min-w-0 bg-[#f1f2f4] overflow-y-auto">
         {/* Top Header Bar */}
-        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-6 py-3 flex items-center justify-between gap-3 sm:gap-4">
-          <div className="flex items-center gap-2.5 sm:gap-3">
+        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <button
               onClick={() => setIsMobileSidebarOpen(true)}
-              className="md:hidden p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
+              className="md:hidden p-1.5 sm:p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer shrink-0"
               aria-label="Open admin navigation menu"
             >
               <Menu className="w-5 h-5" />
             </button>
-            <h1 className="text-base font-bold text-slate-900 tracking-tight">
+            <h1 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight truncate max-w-[130px] xs:max-w-[200px] sm:max-w-none">
               {activeTab === 'dashboard' && 'Store Overview'}
-              {activeTab === 'analytics' && 'Live Traffic & Unpurchased Leads'}
+              {activeTab === 'analytics' && 'Live Traffic & Leads'}
               {activeTab === 'products' && 'Products'}
               {activeTab === 'inventory' && 'Inventory Matrix'}
               {activeTab === 'orders' && 'Orders'}
-              {activeTab === 'coupons' && 'Promo Coupons & Discounts'}
+              {activeTab === 'coupons' && 'Promo Coupons'}
               {activeTab === 'customers' && 'Customers'}
               {activeTab === 'settings' && 'Store Settings'}
             </h1>
             <button
               onClick={fetchData}
               disabled={isRefreshing}
-              className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-all text-xs"
+              className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-all text-xs shrink-0 cursor-pointer"
               title="Refresh Data"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-[#008060]' : ''}`} />
             </button>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             {activeTab === 'coupons' ? (
               <button
                 onClick={openCreateCouponModal}
-                className="flex items-center justify-center gap-1.5 bg-[#008060] hover:bg-[#006e52] active:scale-[0.98] text-white font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-sm transition-all cursor-pointer"
+                className="flex items-center justify-center gap-1.5 bg-[#008060] hover:bg-[#006e52] active:scale-[0.98] text-white font-bold px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs shadow-sm transition-all cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
-                <span>Create Coupon</span>
+                <span className="hidden sm:inline">Create Coupon</span>
+                <span className="sm:hidden">Coupon</span>
               </button>
             ) : (
               /* Quick Action: Add Product */
@@ -1432,52 +1433,53 @@ export default function AdminPortalPage() {
                   setEditingProduct(null);
                   setIsProductModalOpen(true);
                 }}
-                className="flex items-center justify-center gap-1.5 bg-[#008060] hover:bg-[#006e52] active:scale-[0.98] text-white font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-sm transition-all cursor-pointer"
+                className="flex items-center justify-center gap-1.5 bg-[#008060] hover:bg-[#006e52] active:scale-[0.98] text-white font-bold px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs shadow-sm transition-all cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
-                <span>Add product</span>
+                <span className="hidden sm:inline">Add product</span>
+                <span className="sm:hidden">Add</span>
               </button>
             )}
 
             <Link
               href="/"
               target="_blank"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold shadow-xs transition-all"
+              className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold shadow-xs transition-all"
             >
               <Eye className="w-3.5 h-3.5 text-[#008060]" />
-              <span>Online Store</span>
+              <span className="hidden sm:inline">Online Store</span>
             </Link>
           </div>
         </header>
 
         {/* Content Container */}
-        <div className="p-6 max-w-6xl w-full mx-auto space-y-6">
+        <div className="p-2.5 sm:p-6 max-w-6xl w-full mx-auto space-y-4 sm:space-y-6">
           {/* TAB 1: DASHBOARD (AUTHENTIC SHOPIFY HOME FEED) */}
           {activeTab === 'dashboard' && (
             <div className="space-y-6 animate-in fade-in duration-200">
               {/* Friendly Merchant Greeting Banner */}
-              <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div className="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
                     Welcome back, Hamza 👋
                   </h2>
                   <p className="text-xs text-slate-500 mt-1">
                     Here is what is happening in your Hamza Phone Store mobile store today.
                   </p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                   <button
                     onClick={() => {
                       setStockFilter('outOfStock');
                       setActiveTab('inventory');
                     }}
-                    className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all"
+                    className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all text-center cursor-pointer"
                   >
                     Manage Inventory
                   </button>
                   <button
                     onClick={() => setActiveTab('orders')}
-                    className="px-3.5 py-2 rounded-xl bg-[#008060] hover:bg-[#006e52] text-white text-xs font-bold transition-all shadow-xs"
+                    className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-[#008060] hover:bg-[#006e52] text-white text-xs font-bold transition-all shadow-xs text-center cursor-pointer"
                   >
                     Fulfill Orders ({stats.pendingOrders})
                   </button>
@@ -1486,13 +1488,13 @@ export default function AdminPortalPage() {
 
               {/* Action Required Alert Cards (Shopify Task List) */}
               {(stats.pendingOrders > 0 || stats.outOfStockCount > 0) && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                   {stats.pendingOrders > 0 && (
-                    <div className="p-4 bg-amber-50/70 border border-amber-200 rounded-2xl flex items-start gap-3.5">
-                      <div className="p-2 bg-amber-100 rounded-xl text-amber-700">
+                    <div className="p-3.5 sm:p-4 bg-amber-50/70 border border-amber-200 rounded-2xl flex items-start gap-3 sm:gap-3.5">
+                      <div className="p-2 bg-amber-100 rounded-xl text-amber-700 shrink-0">
                         <ShoppingBag className="w-5 h-5" />
                       </div>
-                      <div className="flex-1">
+                      <div className="flex-1 min-w-0">
                         <h4 className="text-xs font-bold text-amber-900">
                           {stats.pendingOrders} orders ready for dispatch
                         </h4>
@@ -1501,7 +1503,7 @@ export default function AdminPortalPage() {
                         </p>
                         <button
                           onClick={() => setActiveTab('orders')}
-                          className="mt-2 text-xs font-bold text-amber-900 hover:underline flex items-center gap-1"
+                          className="mt-2 text-xs font-bold text-amber-900 hover:underline flex items-center gap-1 cursor-pointer"
                         >
                           View Pending Orders <ArrowRight className="w-3 h-3" />
                         </button>
@@ -1510,11 +1512,11 @@ export default function AdminPortalPage() {
                   )}
 
                   {stats.outOfStockCount > 0 && (
-                    <div className="p-4 bg-rose-50/70 border border-rose-200 rounded-2xl flex items-start gap-3.5">
-                      <div className="p-2 bg-rose-100 rounded-xl text-rose-700">
+                    <div className="p-3.5 sm:p-4 bg-rose-50/70 border border-rose-200 rounded-2xl flex items-start gap-3 sm:gap-3.5">
+                      <div className="p-2 bg-rose-100 rounded-xl text-rose-700 shrink-0">
                         <AlertTriangle className="w-5 h-5" />
                       </div>
-                      <div className="flex-1">
+                      <div className="flex-1 min-w-0">
                         <h4 className="text-xs font-bold text-rose-900">
                           {stats.outOfStockCount} phones currently out of stock
                         </h4>
@@ -1526,7 +1528,7 @@ export default function AdminPortalPage() {
                             setStockFilter('outOfStock');
                             setActiveTab('inventory');
                           }}
-                          className="mt-2 text-xs font-bold text-rose-900 hover:underline flex items-center gap-1"
+                          className="mt-2 text-xs font-bold text-rose-900 hover:underline flex items-center gap-1 cursor-pointer"
                         >
                           Restock Out-of-Stock Items <ArrowRight className="w-3 h-3" />
                         </button>
@@ -1537,64 +1539,64 @@ export default function AdminPortalPage() {
               )}
 
               {/* Polaris Stat Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
                 {/* Total Sales & Net Profit */}
-                <div className="bg-white border border-slate-200/90 p-5 rounded-2xl shadow-xs hover:shadow-md transition-shadow">
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider">
+                <div className="bg-white border border-slate-200/90 p-3.5 sm:p-5 rounded-2xl shadow-xs hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">
                     <span>Total Sales</span>
                     <DollarSign className="w-4 h-4 text-[#008060]" />
                   </div>
-                  <div className="mt-3 text-2xl font-black text-slate-900">
+                  <div className="mt-2 sm:mt-3 text-lg sm:text-2xl font-black text-slate-900 truncate">
                     {formatPKR(stats.totalRevenue)}
                   </div>
-                  <div className="mt-1 text-xs text-emerald-600 font-semibold flex items-center gap-1">
-                    <TrendingUp className="w-3.5 h-3.5" />
-                    <span>Net Profit: +{formatPKR(stats.netProfit)} ({stats.profitMargin}%)</span>
+                  <div className="mt-1 text-[11px] sm:text-xs text-emerald-600 font-semibold flex items-center gap-1 truncate">
+                    <TrendingUp className="w-3.5 h-3.5 shrink-0" />
+                    <span className="truncate">+{formatPKR(stats.netProfit)} ({stats.profitMargin}%)</span>
                   </div>
                 </div>
 
                 {/* Total Orders */}
-                <div className="bg-white border border-slate-200/90 p-5 rounded-2xl shadow-xs hover:shadow-md transition-shadow">
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider">
+                <div className="bg-white border border-slate-200/90 p-3.5 sm:p-5 rounded-2xl shadow-xs hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">
                     <span>Total Orders</span>
                     <ShoppingBag className="w-4 h-4 text-blue-500" />
                   </div>
-                  <div className="mt-3 text-2xl font-black text-slate-900">{stats.totalOrders}</div>
-                  <div className="mt-1 text-xs text-slate-500">
-                    {stats.deliveredOrders} Delivered • {stats.pendingOrders} In Progress
+                  <div className="mt-2 sm:mt-3 text-lg sm:text-2xl font-black text-slate-900">{stats.totalOrders}</div>
+                  <div className="mt-1 text-[10px] sm:text-xs text-slate-500 truncate">
+                    {stats.deliveredOrders} Delivered • {stats.pendingOrders} Pend
                   </div>
                 </div>
 
                 {/* Catalog Items */}
-                <div className="bg-white border border-slate-200/90 p-5 rounded-2xl shadow-xs hover:shadow-md transition-shadow">
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider">
+                <div className="bg-white border border-slate-200/90 p-3.5 sm:p-5 rounded-2xl shadow-xs hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">
                     <span>Active Products</span>
                     <Package className="w-4 h-4 text-cyan-600" />
                   </div>
-                  <div className="mt-3 text-2xl font-black text-slate-900">{stats.totalProducts}</div>
-                  <div className="mt-1 text-xs text-emerald-600 font-semibold">
-                    {stats.inStockCount} In Stock (100% PTA)
+                  <div className="mt-2 sm:mt-3 text-lg sm:text-2xl font-black text-slate-900">{stats.totalProducts}</div>
+                  <div className="mt-1 text-[10px] sm:text-xs text-emerald-600 font-semibold truncate">
+                    {stats.inStockCount} In Stock (PTA)
                   </div>
                 </div>
 
                 {/* Stock Health */}
-                <div className="bg-white border border-slate-200/90 p-5 rounded-2xl shadow-xs hover:shadow-md transition-shadow">
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider">
+                <div className="bg-white border border-slate-200/90 p-3.5 sm:p-5 rounded-2xl shadow-xs hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">
                     <span>Stock Attention</span>
                     <AlertCircle className="w-4 h-4 text-rose-500" />
                   </div>
-                  <div className="mt-3 flex items-baseline gap-2">
-                    <span className="text-2xl font-black text-rose-600">{stats.outOfStockCount}</span>
-                    <span className="text-xs text-slate-500">Out of Stock</span>
-                    <span className="text-base font-bold text-amber-600 ml-2">/ {stats.lowStockCount}</span>
-                    <span className="text-xs text-slate-500">Low</span>
+                  <div className="mt-2 sm:mt-3 flex items-baseline gap-1 sm:gap-2 flex-wrap">
+                    <span className="text-lg sm:text-2xl font-black text-rose-600">{stats.outOfStockCount}</span>
+                    <span className="text-[10px] sm:text-xs text-slate-500">Out</span>
+                    <span className="text-sm sm:text-base font-bold text-amber-600 ml-1">/ {stats.lowStockCount}</span>
+                    <span className="text-[10px] sm:text-xs text-slate-500">Low</span>
                   </div>
                   <button
                     onClick={() => {
                       setStockFilter('lowStock');
                       setActiveTab('inventory');
                     }}
-                    className="mt-1 text-xs text-[#008060] font-bold hover:underline flex items-center gap-1"
+                    className="mt-1 text-[11px] sm:text-xs text-[#008060] font-bold hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     View Low Stock <ArrowRight className="w-3 h-3" />
                   </button>
@@ -1602,7 +1604,7 @@ export default function AdminPortalPage() {
               </div>
 
               {/* Financial Performance & Net Profit Analytics Center */}
-              <div className="bg-white border border-slate-200/90 rounded-3xl p-5 sm:p-6 shadow-xs space-y-5">
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-4 sm:p-6 shadow-xs space-y-5">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-[#008060] border border-emerald-500/20 flex items-center justify-center shrink-0">
@@ -1614,7 +1616,7 @@ export default function AdminPortalPage() {
                           Financial Intelligence
                         </span>
                         <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800">
-                          {stats.profitMargin}% Net Margin
+                          {stats.profitMargin}% Margin
                         </span>
                       </div>
                       <h3 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
@@ -1631,57 +1633,57 @@ export default function AdminPortalPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
                   {/* Gross Revenue */}
-                  <div className="bg-[#f9fafb] border border-slate-200/80 rounded-2xl p-4">
-                    <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  <div className="bg-[#f9fafb] border border-slate-200/80 rounded-2xl p-3.5 sm:p-4">
+                    <div className="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                       Gross Order Revenue
                     </div>
-                    <div className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
+                    <div className="text-base sm:text-2xl font-black text-slate-900 mt-1 truncate">
                       {formatPKR(stats.totalRevenue)}
                     </div>
-                    <div className="mt-1 text-[11px] text-slate-500">
-                      From {stats.totalOrders} customer orders
+                    <div className="mt-1 text-[10px] sm:text-[11px] text-slate-500 truncate">
+                      {stats.totalOrders} customer orders
                     </div>
                   </div>
 
                   {/* Wholesale Cost of Goods */}
-                  <div className="bg-[#f9fafb] border border-slate-200/80 rounded-2xl p-4">
-                    <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  <div className="bg-[#f9fafb] border border-slate-200/80 rounded-2xl p-3.5 sm:p-4">
+                    <div className="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                       Cost of Goods (COGS)
                     </div>
-                    <div className="text-xl sm:text-2xl font-black text-slate-700 mt-1">
+                    <div className="text-base sm:text-2xl font-black text-slate-700 mt-1 truncate">
                       {formatPKR(stats.totalCost)}
                     </div>
-                    <div className="mt-1 text-[11px] text-slate-500">
-                      Wholesale purchase expenditure
+                    <div className="mt-1 text-[10px] sm:text-[11px] text-slate-500 truncate">
+                      Wholesale purchase
                     </div>
                   </div>
 
                   {/* Net Realized Profit */}
-                  <div className="bg-gradient-to-br from-emerald-50 to-teal-50/50 border border-emerald-200 rounded-2xl p-4">
-                    <div className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider flex items-center justify-between">
-                      <span>Net Realized Profit</span>
+                  <div className="bg-gradient-to-br from-emerald-50 to-teal-50/50 border border-emerald-200 rounded-2xl p-3.5 sm:p-4">
+                    <div className="text-[10px] sm:text-[11px] font-bold text-emerald-800 uppercase tracking-wider flex items-center justify-between">
+                      <span>Net Profit</span>
                       <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
                     </div>
-                    <div className="text-xl sm:text-2xl font-black text-emerald-700 mt-1">
+                    <div className="text-base sm:text-2xl font-black text-emerald-700 mt-1 truncate">
                       +{formatPKR(stats.netProfit)}
                     </div>
-                    <div className="mt-1 text-[11px] text-emerald-700/80 font-semibold">
-                      Realized profit ({stats.profitMargin}% margin)
+                    <div className="mt-1 text-[10px] sm:text-[11px] text-emerald-700/80 font-semibold truncate">
+                      {stats.profitMargin}% margin
                     </div>
                   </div>
 
                   {/* Inventory Wholesale Value & Potential */}
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50/50 border border-blue-200 rounded-2xl p-4">
-                    <div className="text-[11px] font-bold text-blue-800 uppercase tracking-wider">
-                      Warehouse Stock Value
+                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50/50 border border-blue-200 rounded-2xl p-3.5 sm:p-4">
+                    <div className="text-[10px] sm:text-[11px] font-bold text-blue-800 uppercase tracking-wider">
+                      Warehouse Stock
                     </div>
-                    <div className="text-xl sm:text-2xl font-black text-blue-900 mt-1">
+                    <div className="text-base sm:text-2xl font-black text-blue-900 mt-1 truncate">
                       {formatPKR(stats.totalInventoryCost)}
                     </div>
-                    <div className="mt-1 text-[11px] text-blue-700/80 font-semibold">
-                      Projected profit: +{formatPKR(stats.potentialInventoryProfit)}
+                    <div className="mt-1 text-[10px] sm:text-[11px] text-blue-700/80 font-semibold truncate">
+                      +{formatPKR(stats.potentialInventoryProfit)} pot.
                     </div>
                   </div>
                 </div>
@@ -2142,38 +2144,38 @@ export default function AdminPortalPage() {
               {/* Unpurchased Visitor Leads Table (Detailed Log) */}
               <div className="bg-white border border-slate-200/90 rounded-2xl shadow-xs overflow-hidden space-y-4">
                 {/* Search & Filter Header */}
-                <div className="p-4 border-b border-slate-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 bg-slate-50/50">
-                  <div className="flex flex-wrap items-center gap-2">
+                <div className="p-3.5 sm:p-4 border-b border-slate-100 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-slate-50/50">
+                  <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
                     <button
                       onClick={() => setAnalyticsFilter('all')}
-                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                         analyticsFilter === 'all'
                           ? 'bg-[#008060] text-white shadow-xs'
                           : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
                       }`}
                     >
-                      All Unpurchased ({analyticsStats?.unpurchasedVisitors?.length || 0})
+                      All ({analyticsStats?.unpurchasedVisitors?.length || 0})
                     </button>
                     <button
                       onClick={() => setAnalyticsFilter('cart_only')}
-                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
                         analyticsFilter === 'cart_only'
                           ? 'bg-amber-600 text-white shadow-xs'
                           : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
                       }`}
                     >
                       <ShoppingBag className="w-3.5 h-3.5" />
-                      <span>Added to Cart Abandoned</span>
+                      <span>Abandoned Cart</span>
                     </button>
                     <button
                       onClick={() => setAnalyticsFilter('viewed_only')}
-                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                         analyticsFilter === 'viewed_only'
                           ? 'bg-slate-900 text-white shadow-xs'
                           : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
                       }`}
                     >
-                      Viewed Specs Only
+                      Specs Only
                     </button>
                   </div>
 
@@ -2198,8 +2200,127 @@ export default function AdminPortalPage() {
                   </div>
                 </div>
 
-                {/* Leads Table */}
-                <div className="overflow-x-auto">
+                {/* MOBILE LEADS CARDS (< sm) */}
+                <div className="block sm:hidden p-3 space-y-3">
+                  {filteredUnpurchasedVisitors.length > 0 ? (
+                    filteredUnpurchasedVisitors.map((visitor) => {
+                      const topProduct = visitor.viewedProducts?.[0];
+                      const hasAddedCart = visitor.viewedProducts.some(
+                        (p) => p.action === 'added_to_cart' || p.action === 'initiated_checkout'
+                      );
+                      const hasCheckout = visitor.viewedProducts.some(
+                        (p) => p.action === 'initiated_checkout'
+                      );
+
+                      return (
+                        <div
+                          key={visitor.visitorId}
+                          className="p-3.5 bg-slate-50/70 border border-slate-200/80 rounded-2xl space-y-2.5"
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <div>
+                              <div className="flex items-center gap-1.5">
+                                <span className="font-mono font-bold text-[#008060] text-xs">
+                                  {visitor.visitorId}
+                                </span>
+                                {visitor.isOnline && (
+                                  <span className="inline-flex items-center gap-1 px-1.5 py-0.2 rounded-full text-[9px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                    Live
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-[11px] text-slate-500 mt-0.5 flex items-center gap-1">
+                                <MapPin className="w-3 h-3 text-slate-400" />
+                                <span>{visitor.city || 'Pakistan'} • {visitor.device || 'Mobile'}</span>
+                              </div>
+                            </div>
+
+                            <div className="text-right text-[10px] text-slate-500">
+                              <div>{formatTimeAgo(visitor.lastSeen)}</div>
+                              <div className="text-slate-400">{visitor.pageViewsCount} views</div>
+                            </div>
+                          </div>
+
+                          {/* Intent Badge */}
+                          <div>
+                            {hasCheckout ? (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-purple-50 text-purple-700 border border-purple-200">
+                                <Zap className="w-3 h-3 text-purple-600" />
+                                High Intent (Checkout)
+                              </span>
+                            ) : hasAddedCart ? (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-50 text-amber-700 border border-amber-200">
+                                <ShoppingBag className="w-3 h-3 text-amber-600" />
+                                Cart Abandoned
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-50 text-sky-700 border border-sky-200">
+                                <Eye className="w-3 h-3 text-sky-600" />
+                                Viewed Specs
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Top Product Viewed */}
+                          {topProduct && (
+                            <div className="p-2 bg-white rounded-xl border border-slate-200/80 flex items-center justify-between gap-2">
+                              <div className="flex items-center gap-2 min-w-0">
+                                <div className="w-9 h-9 rounded-lg bg-white border border-slate-200 p-0.5 flex items-center justify-center shrink-0">
+                                  <PhoneImageWithFallback
+                                    src={topProduct.image}
+                                    alt={topProduct.name}
+                                    brand={topProduct.brand}
+                                    className="w-full h-full object-contain"
+                                  />
+                                </div>
+                                <div className="min-w-0">
+                                  <div className="font-bold text-slate-900 text-xs truncate">
+                                    {topProduct.name}
+                                  </div>
+                                  <div className="text-[11px] font-black text-[#008060]">
+                                    {formatPKR(topProduct.pricePKR)}
+                                  </div>
+                                </div>
+                              </div>
+
+                              {visitor.phone ? (
+                                <a
+                                  href={`https://wa.me/${visitor.phone.replace(/\D/g, '')}?text=Salam%20${encodeURIComponent(
+                                    visitor.customerName || 'Dear Customer'
+                                  )}!%20We%20noticed%20you%20were%20interested%20in%20the%20${encodeURIComponent(
+                                    topProduct?.name || 'smartphone'
+                                  )}%20at%20Hamza%20Phone%20Store.%20Would%20you%20like%20to%20place%20an%20order%20with%20our%20Open-Parcel%20Cash%20on%20Delivery%20service?`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="px-2.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-1 shrink-0 shadow-2xs"
+                                >
+                                  <MessageSquare className="w-3.5 h-3.5" />
+                                  <span>WhatsApp</span>
+                                </a>
+                              ) : (
+                                <Link
+                                  href={`/product/${topProduct.slug}`}
+                                  target="_blank"
+                                  className="p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 shrink-0"
+                                >
+                                  <ArrowUpRight className="w-3.5 h-3.5" />
+                                </Link>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="py-8 text-center text-slate-400 text-xs">
+                      No unpurchased visitor leads matching filter.
+                    </div>
+                  )}
+                </div>
+
+                {/* DESKTOP Leads Table */}
+                <div className="hidden sm:block overflow-x-auto">
                   <table className="w-full text-left text-xs">
                     <thead className="bg-[#f9fafb] text-slate-500 uppercase font-semibold border-b border-slate-200/80">
                       <tr>
@@ -2371,7 +2492,7 @@ export default function AdminPortalPage() {
           {activeTab === 'products' && (
             <div className="space-y-4 animate-in fade-in duration-200">
               {/* Polaris Search & Filter Card */}
-              <div className="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="p-3.5 sm:p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
                 {/* Search */}
                 <div className="relative w-full md:w-80">
                   <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -2380,7 +2501,7 @@ export default function AdminPortalPage() {
                     value={productSearch}
                     onChange={(e) => setProductSearch(e.target.value)}
                     placeholder="Search phones, brands, slugs..."
-                    className="w-full bg-[#f9fafb] border border-slate-200 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#008060] focus:bg-white transition-all"
+                    className="w-full bg-[#f9fafb] border border-slate-200 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#008060] focus:bg-white transition-all"
                   />
                   {productSearch && (
                     <button
@@ -2393,7 +2514,7 @@ export default function AdminPortalPage() {
                 </div>
 
                 {/* Filters */}
-                <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
                   <select
                     value={brandFilter}
                     onChange={(e) => setBrandFilter(e.target.value)}
@@ -2407,10 +2528,10 @@ export default function AdminPortalPage() {
                   </select>
 
                   {/* Stock Filter Pills */}
-                  <div className="flex bg-[#f1f2f4] p-1 rounded-xl">
+                  <div className="flex items-center gap-1 bg-[#f1f2f4] p-1 rounded-xl overflow-x-auto scrollbar-none">
                     <button
                       onClick={() => setStockFilter('all')}
-                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                         stockFilter === 'all'
                           ? 'bg-white text-slate-900 shadow-xs'
                           : 'text-slate-500 hover:text-slate-800'
@@ -2420,7 +2541,7 @@ export default function AdminPortalPage() {
                     </button>
                     <button
                       onClick={() => setStockFilter('inStock')}
-                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                         stockFilter === 'inStock'
                           ? 'bg-white text-[#008060] shadow-xs'
                           : 'text-slate-500 hover:text-slate-800'
@@ -2430,7 +2551,7 @@ export default function AdminPortalPage() {
                     </button>
                     <button
                       onClick={() => setStockFilter('lowStock')}
-                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                         stockFilter === 'lowStock'
                           ? 'bg-white text-amber-700 shadow-xs'
                           : 'text-slate-500 hover:text-slate-800'
@@ -2440,7 +2561,7 @@ export default function AdminPortalPage() {
                     </button>
                     <button
                       onClick={() => setStockFilter('outOfStock')}
-                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                         stockFilter === 'outOfStock'
                           ? 'bg-white text-rose-700 shadow-xs'
                           : 'text-slate-500 hover:text-slate-800'
@@ -2452,8 +2573,154 @@ export default function AdminPortalPage() {
                 </div>
               </div>
 
-              {/* Products Table Card */}
-              <div className="bg-white border border-slate-200/90 rounded-2xl shadow-xs overflow-hidden">
+              {/* MOBILE PRODUCT CARDS (< sm) */}
+              <div className="block sm:hidden space-y-3">
+                {filteredProducts.length === 0 ? (
+                  <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 text-slate-400 text-xs">
+                    No products match the filter.
+                  </div>
+                ) : (
+                  filteredProducts.map((phone) => {
+                    const isSelected = selectedProductIds.includes(phone.id);
+                    const isOut = !phone.inStock || (phone.stockQty ?? 0) === 0;
+                    const isLow = (phone.stockQty ?? 0) > 0 && (phone.stockQty ?? 0) <= 5;
+                    const cost = phone.costPricePKR || Math.round(phone.basePricePKR * 0.88);
+                    const profit = phone.basePricePKR - cost;
+                    const margin = phone.basePricePKR > 0 ? Math.round((profit / phone.basePricePKR) * 100) : 0;
+
+                    return (
+                      <div
+                        key={phone.id}
+                        className={`bg-white border rounded-2xl p-3.5 shadow-xs space-y-3 transition-colors ${
+                          isSelected ? 'bg-emerald-50/40 border-emerald-300' : 'border-slate-200/90'
+                        }`}
+                      >
+                        {/* Row 1: Checkbox + Image + Title + Status */}
+                        <div className="flex items-start justify-between gap-2.5">
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <input
+                              type="checkbox"
+                              checked={isSelected}
+                              onChange={() => handleToggleSelectProduct(phone.id)}
+                              className="w-4 h-4 rounded text-[#008060] focus:ring-0 cursor-pointer shrink-0"
+                            />
+                            <div className="w-11 h-11 rounded-xl bg-white border border-slate-200 overflow-hidden shrink-0 flex items-center justify-center p-1">
+                              {phone.colors?.[0]?.image ? (
+                                <img
+                                  src={phone.colors[0].image}
+                                  alt={phone.name}
+                                  className="w-full h-full object-contain mix-blend-multiply"
+                                />
+                              ) : (
+                                <Package className="w-5 h-5 text-slate-400" />
+                              )}
+                            </div>
+                            <div className="min-w-0">
+                              <Link
+                                href={`/product/${phone.slug}`}
+                                target="_blank"
+                                className="font-bold text-slate-900 text-xs hover:text-[#008060] line-clamp-1"
+                              >
+                                {phone.name}
+                              </Link>
+                              <div className="text-[11px] text-slate-500 mt-0.5 flex items-center gap-1.5 flex-wrap">
+                                <span className="font-semibold text-slate-700">{phone.brand}</span>
+                                <span>•</span>
+                                <span>{phone.colors?.length || 1} cols</span>
+                                {phone.isNew && (
+                                  <span className="px-1.5 py-0.2 rounded bg-cyan-50 text-cyan-700 font-bold text-[9px] border border-cyan-200">
+                                    NEW
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+
+                          <button
+                            onClick={() => handleToggleStock(phone)}
+                            className={`px-2.5 py-1 rounded-full text-[10px] font-bold border transition-transform active:scale-95 flex items-center gap-1 shrink-0 cursor-pointer ${
+                              isOut
+                                ? 'bg-rose-50 text-rose-700 border-rose-200'
+                                : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                            }`}
+                          >
+                            <span
+                              className={`w-1.5 h-1.5 rounded-full ${
+                                isOut ? 'bg-rose-500' : 'bg-emerald-500'
+                              }`}
+                            />
+                            <span>{phone.inStock ? 'Active' : 'Out'}</span>
+                          </button>
+                        </div>
+
+                        {/* Row 2: Price & Profit & Stock */}
+                        <div className="grid grid-cols-2 gap-2 p-2.5 rounded-xl bg-[#f9fafb] border border-slate-100 text-xs">
+                          <div>
+                            <div className="text-[10px] text-slate-500 uppercase font-semibold">Selling Price</div>
+                            <div className="font-extrabold text-slate-900 mt-0.5">
+                              {formatPKR(phone.basePricePKR)}
+                            </div>
+                            <div className={`text-[10px] font-bold mt-0.5 ${isOut ? 'text-rose-600' : isLow ? 'text-amber-600' : 'text-slate-500'}`}>
+                              {isOut ? '0 in stock' : `${phone.stockQty ?? 0} in stock`}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-[10px] text-slate-500 uppercase font-semibold">Wholesale & Profit</div>
+                            <div className="text-slate-600 text-[11px] mt-0.5 truncate">
+                              Cost: <span className="font-bold text-slate-800">{formatPKR(cost)}</span>
+                            </div>
+                            <div className="mt-1 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200">
+                              <span>+{formatPKR(profit)}</span>
+                              <span className="text-emerald-500 font-bold">({margin}%)</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Row 3: Action Buttons */}
+                        <div className="flex items-center justify-between pt-1 border-t border-slate-100 text-xs">
+                          <button
+                            onClick={() => handleQuickRestock(phone.id, 5)}
+                            className="px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-emerald-50 text-slate-700 hover:text-[#008060] font-bold text-xs transition-all cursor-pointer flex items-center gap-1"
+                          >
+                            <Plus className="w-3 h-3 text-[#008060]" />
+                            <span>5 Stock</span>
+                          </button>
+
+                          <div className="flex items-center gap-1.5">
+                            <button
+                              onClick={() => {
+                                setEditingProduct(phone);
+                                setIsProductModalOpen(true);
+                              }}
+                              className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all cursor-pointer"
+                              title="Edit product"
+                            >
+                              <Edit className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={() => handleDuplicateProduct(phone)}
+                              className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-all cursor-pointer"
+                              title="Duplicate product"
+                            >
+                              <Copy className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={() => setDeleteConfirmationTarget(phone)}
+                              className="p-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 transition-all cursor-pointer"
+                              title="Delete product"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+
+              {/* DESKTOP Products Table Card */}
+              <div className="hidden sm:block bg-white border border-slate-200/90 rounded-2xl shadow-xs overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
                     <thead className="bg-[#f9fafb] text-slate-500 uppercase font-semibold border-b border-slate-200">
@@ -2656,30 +2923,30 @@ export default function AdminPortalPage() {
           {/* TAB 3: INVENTORY (SHOPIFY INVENTORY MATRIX & QUICK CHIPS) */}
           {activeTab === 'inventory' && (
             <div className="space-y-4 animate-in fade-in duration-200">
-              <div className="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="p-3.5 sm:p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
                 <div>
                   <h3 className="font-bold text-slate-900 text-sm">Inventory &amp; Restock Control</h3>
                   <p className="text-xs text-slate-500">
                     Manage exact variant and colorway inventory numbers in real time.
                   </p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="relative">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                  <div className="relative flex-1 sm:w-56">
                     <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       value={productSearch}
                       onChange={(e) => setProductSearch(e.target.value)}
                       placeholder="Search items..."
-                      className="bg-[#f9fafb] border border-slate-200 rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#008060]"
+                      className="w-full bg-[#f9fafb] border border-slate-200 rounded-xl pl-8 pr-3 py-2 sm:py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#008060]"
                     />
                   </div>
                   <select
                     value={stockFilter}
                     onChange={(e: any) => setStockFilter(e.target.value)}
-                    className="bg-[#f9fafb] border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-slate-700"
+                    className="bg-[#f9fafb] border border-slate-200 rounded-xl px-2.5 py-2 sm:py-1.5 text-xs font-semibold text-slate-700"
                   >
-                    <option value="all">All Inventory</option>
+                    <option value="all">All Inventory ({products.length})</option>
                     <option value="outOfStock">Out of Stock Only</option>
                     <option value="lowStock">Low Stock (≤ 5)</option>
                     <option value="inStock">In Stock Only</option>
@@ -2687,8 +2954,269 @@ export default function AdminPortalPage() {
                 </div>
               </div>
 
-              {/* Inventory Table with Interactive Restock Chips */}
-              <div className="bg-white border border-slate-200/90 rounded-2xl shadow-xs overflow-hidden">
+              {/* MOBILE INVENTORY CARDS (< sm) */}
+              <div className="block sm:hidden space-y-3">
+                {filteredProducts.length === 0 ? (
+                  <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 text-slate-400 text-xs">
+                    No products match the selected inventory filter.
+                  </div>
+                ) : (
+                  filteredProducts.map((phone) => {
+                    const isExpanded = expandedInventoryId === phone.id;
+                    const isOut = !phone.inStock || (phone.stockQty ?? 0) === 0;
+                    const isSuccessFlash = quickRestockSuccessId === phone.id;
+                    const cost = phone.costPricePKR || Math.round(phone.basePricePKR * 0.88);
+                    const totalCapital = (phone.stockQty ?? 0) * cost;
+
+                    return (
+                      <div
+                        key={phone.id}
+                        className={`bg-white border rounded-2xl p-3.5 shadow-xs space-y-3 transition-colors ${
+                          isSuccessFlash
+                            ? 'bg-emerald-50/80 border-emerald-300'
+                            : 'border-slate-200/90'
+                        }`}
+                      >
+                        {/* Header: Image, Title, Price & Stock Status Pill */}
+                        <div className="flex items-start justify-between gap-2.5">
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <div className="w-11 h-11 rounded-xl bg-white border border-slate-200 flex items-center justify-center p-1 shrink-0">
+                              <img
+                                src={phone.colors?.[0]?.image}
+                                alt={phone.name}
+                                className="w-full h-full object-contain mix-blend-multiply"
+                              />
+                            </div>
+                            <div className="min-w-0">
+                              <div className="font-bold text-slate-900 text-xs leading-snug line-clamp-1">
+                                {phone.name}
+                              </div>
+                              <div className="text-[11px] text-slate-500 mt-0.5">
+                                {phone.brand} • <span className="font-semibold text-slate-700">{formatPKR(phone.basePricePKR)}</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <button
+                            onClick={() => handleToggleStock(phone)}
+                            className={`px-2.5 py-1 rounded-full text-[10px] font-bold border transition-transform active:scale-95 flex items-center gap-1 shrink-0 cursor-pointer ${
+                              isOut
+                                ? 'bg-rose-50 text-rose-700 border-rose-200'
+                                : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                            }`}
+                          >
+                            <span
+                              className={`w-1.5 h-1.5 rounded-full ${
+                                isOut ? 'bg-rose-500' : 'bg-emerald-500'
+                              }`}
+                            />
+                            <span>{phone.inStock ? 'IN STOCK' : 'OUT'}</span>
+                          </button>
+                        </div>
+
+                        {/* Stock & Wholesale Capital Strip */}
+                        <div className="grid grid-cols-2 gap-2 p-2.5 rounded-xl bg-[#f9fafb] border border-slate-100 text-xs">
+                          <div>
+                            <div className="text-[10px] text-slate-500 uppercase font-semibold">Available Qty</div>
+                            <div className="font-extrabold text-slate-900 mt-0.5 flex items-baseline gap-1">
+                              <span className={`text-base ${isOut ? 'text-rose-600' : 'text-slate-900'}`}>{phone.stockQty ?? 0}</span>
+                              <span className="text-[10px] text-slate-400 font-normal">available</span>
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-[10px] text-slate-500 uppercase font-semibold">Wholesale Capital</div>
+                            <div className="font-bold text-slate-900 mt-0.5 text-xs truncate">
+                              {formatPKR(totalCapital)}
+                            </div>
+                            <div className="text-[9px] text-slate-400 mt-0.5 truncate">
+                              Cost: {formatPKR(cost)}/unit
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* 1-Click Restock Chips */}
+                        <div className="space-y-1.5">
+                          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 flex items-center justify-between">
+                            <span>1-Click Restock:</span>
+                            {isSuccessFlash && (
+                              <span className="text-emerald-600 text-[10px] font-bold animate-pulse">✓ Restocked!</span>
+                            )}
+                          </div>
+                          <div className="grid grid-cols-4 gap-1.5">
+                            <button
+                              onClick={() => handleQuickRestock(phone.id, 5)}
+                              className="py-1.5 rounded-xl bg-slate-100 hover:bg-[#008060] hover:text-white active:scale-95 text-slate-700 text-xs font-bold transition-all shadow-2xs cursor-pointer"
+                            >
+                              +5
+                            </button>
+                            <button
+                              onClick={() => handleQuickRestock(phone.id, 10)}
+                              className="py-1.5 rounded-xl bg-slate-100 hover:bg-[#008060] hover:text-white active:scale-95 text-slate-700 text-xs font-bold transition-all shadow-2xs cursor-pointer"
+                            >
+                              +10
+                            </button>
+                            <button
+                              onClick={() => handleQuickRestock(phone.id, 25)}
+                              className="py-1.5 rounded-xl bg-slate-100 hover:bg-[#008060] hover:text-white active:scale-95 text-slate-700 text-xs font-bold transition-all shadow-2xs cursor-pointer"
+                            >
+                              +25
+                            </button>
+                            <button
+                              onClick={() => {
+                                setRestockTarget(phone);
+                                setIsRestockModalOpen(true);
+                              }}
+                              className="py-1.5 rounded-xl bg-[#008060]/10 hover:bg-[#008060]/20 active:scale-95 text-[#008060] text-xs font-bold transition-all border border-[#008060]/20 flex items-center justify-center gap-1 cursor-pointer"
+                            >
+                              <Plus className="w-3 h-3" />
+                              <span>Custom</span>
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Variant & Colorway Matrix Accordion Toggle */}
+                        <div className="pt-1 border-t border-slate-100">
+                          <button
+                            onClick={() =>
+                              setExpandedInventoryId(isExpanded ? null : phone.id)
+                            }
+                            className="w-full py-1.5 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 transition-all text-xs font-semibold flex items-center justify-between cursor-pointer"
+                          >
+                            <span className="flex items-center gap-1.5">
+                              <Tag className="w-3.5 h-3.5 text-[#008060]" />
+                              <span>Colors &amp; Storage ({phone.colors?.length || 1} colors)</span>
+                            </span>
+                            {isExpanded ? (
+                              <ChevronDown className="w-3.5 h-3.5" />
+                            ) : (
+                              <ChevronRight className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+
+                          {/* Expanded Sub-Matrix for Mobile */}
+                          {isExpanded && (
+                            <div className="mt-2.5 space-y-3 pt-2">
+                              {/* Colors */}
+                              <div className="space-y-2">
+                                <div className="text-[10px] font-bold text-slate-600 uppercase tracking-wider">
+                                  Colorways Stock
+                                </div>
+                                <div className="space-y-2">
+                                  {phone.colors?.map((col) => {
+                                    const colStock =
+                                      col.stockQty ??
+                                      phone.colorStockMap?.[col.name]?.stockQty ??
+                                      (col.inStock !== false ? 5 : 0);
+                                    const colInStock =
+                                      col.inStock !== false &&
+                                      (phone.colorStockMap?.[col.name]?.inStock !== false);
+
+                                    return (
+                                      <div
+                                        key={col.name}
+                                        className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-2"
+                                      >
+                                        <div className="flex items-center gap-2 min-w-0">
+                                          <span
+                                            style={{ backgroundColor: col.hex }}
+                                            className="w-4 h-4 rounded-full border border-slate-300 shrink-0"
+                                          />
+                                          <div className="min-w-0">
+                                            <div className="font-bold text-slate-900 text-xs truncate">
+                                              {col.name}
+                                            </div>
+                                            <div className="text-[10px] text-slate-500">
+                                              {colInStock ? 'In Stock' : 'Out of Stock'}
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <div className="flex items-center gap-1.5 shrink-0">
+                                          <input
+                                            type="number"
+                                            min="0"
+                                            defaultValue={colStock}
+                                            onBlur={(e) => {
+                                              const newQty = parseInt(e.target.value) || 0;
+                                              handleUpdateColorStock(
+                                                phone.id,
+                                                col.name,
+                                                newQty,
+                                                newQty > 0
+                                              );
+                                            }}
+                                            className="w-12 bg-white border border-slate-300 rounded-lg px-1.5 py-1 text-xs text-slate-900 text-center font-bold"
+                                          />
+                                          <button
+                                            onClick={() =>
+                                              handleUpdateColorStock(
+                                                phone.id,
+                                                col.name,
+                                                colInStock ? 0 : 5,
+                                                !colInStock
+                                              )
+                                            }
+                                            className={`text-[10px] px-2 py-1 rounded-md font-bold cursor-pointer ${
+                                              colInStock
+                                                ? 'bg-rose-50 text-rose-700 border border-rose-200'
+                                                : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                            }`}
+                                          >
+                                            {colInStock ? 'Zero' : 'Restock'}
+                                          </button>
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
+                              {/* Storage Variants */}
+                              {phone.variants && phone.variants.length > 0 && (
+                                <div className="space-y-1.5 pt-1">
+                                  <div className="text-[10px] font-bold text-slate-600 uppercase tracking-wider flex items-center gap-1">
+                                    <Layers className="w-3 h-3 text-purple-600" />
+                                    <span>RAM &amp; Storage Variants</span>
+                                  </div>
+                                  <div className="space-y-1.5">
+                                    {phone.variants.map((v) => (
+                                      <div
+                                        key={v.id}
+                                        className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-2"
+                                      >
+                                        <div>
+                                          <div className="font-bold text-slate-900 text-xs">
+                                            {v.ram} / {v.storage}
+                                          </div>
+                                          <div className="text-[11px] text-[#008060] font-bold">
+                                            {formatPKR(v.pricePKR)}
+                                          </div>
+                                        </div>
+                                        <span
+                                          className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                                            v.inStock
+                                              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                              : 'bg-rose-50 text-rose-700 border border-rose-200'
+                                          }`}
+                                        >
+                                          {v.inStock ? `${v.stockQty ?? 5} in stock` : 'Sold out'}
+                                        </span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+
+              {/* DESKTOP Inventory Table with Interactive Restock Chips */}
+              <div className="hidden sm:block bg-white border border-slate-200/90 rounded-2xl shadow-xs overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
                     <thead className="bg-[#f9fafb] text-slate-500 uppercase font-semibold border-b border-slate-200">
@@ -3103,7 +3631,7 @@ export default function AdminPortalPage() {
                 )}
               </div>
 
-              <div className="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="p-3.5 sm:p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
                 <div className="relative w-full sm:w-80">
                   <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
@@ -3115,12 +3643,12 @@ export default function AdminPortalPage() {
                   />
                 </div>
 
-                <div className="flex flex-wrap gap-1 bg-[#f1f2f4] p-1 rounded-xl">
+                <div className="flex items-center gap-1 bg-[#f1f2f4] p-1 rounded-xl overflow-x-auto scrollbar-none">
                   {['all', 'Placed', 'Processing', 'Dispatched', 'Delivered', 'Cancelled'].map((st) => (
                     <button
                       key={st}
                       onClick={() => setOrderStatusFilter(st)}
-                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                         orderStatusFilter.toLowerCase() === st.toLowerCase()
                           ? 'bg-white text-slate-900 shadow-xs'
                           : 'text-slate-500 hover:text-slate-800'
@@ -3132,8 +3660,243 @@ export default function AdminPortalPage() {
                 </div>
               </div>
 
-              {/* Orders Table */}
-              <div className="bg-white border border-slate-200/90 rounded-2xl shadow-xs overflow-hidden">
+              {/* MOBILE ORDER CARDS (< sm) */}
+              <div className="block sm:hidden space-y-3">
+                {filteredOrders.length === 0 ? (
+                  <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 text-slate-400 text-xs">
+                    No customer orders match the current filter.
+                  </div>
+                ) : (
+                  filteredOrders.map((order) => {
+                    const risk = getOrderRiskAssessment(order);
+                    const confStatus = order.confirmationStatus || 'Unconfirmed';
+                    let orderCost = 0;
+                    if (Array.isArray(order.items)) {
+                      order.items.forEach((it) => {
+                        if (typeof it !== 'string') {
+                          const qty = it.quantity || 1;
+                          const cost = it.costPricePKR || Math.round((it.pricePKR || 0) * 0.88);
+                          orderCost += cost * qty;
+                        }
+                      });
+                    }
+                    const orderProfit = (order.totalPKR || 0) - orderCost;
+                    const orderMargin = order.totalPKR > 0 ? Math.round((orderProfit / order.totalPKR) * 100) : 0;
+
+                    return (
+                      <div
+                        key={order.orderId}
+                        className="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-3"
+                      >
+                        {/* Header: Order ID, Date, Print Slip */}
+                        <div className="flex items-start justify-between gap-2 pb-2.5 border-b border-slate-100">
+                          <div>
+                            <div className="font-mono font-bold text-[#008060] text-sm">
+                              #{order.orderId}
+                            </div>
+                            <div className="text-[10px] text-slate-400 mt-0.5">
+                              {new Date(order.createdAt).toLocaleDateString('en-GB', {
+                                day: '2-digit',
+                                month: 'short',
+                                year: 'numeric',
+                              })}
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => setViewingOrderReceipt(order)}
+                              className="px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-all flex items-center gap-1 cursor-pointer"
+                            >
+                              <Printer className="w-3.5 h-3.5 text-slate-600" />
+                              <span>Slip</span>
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Customer Info */}
+                        <div className="space-y-1 text-xs">
+                          <div className="font-bold text-slate-900">{order.customerName}</div>
+                          <div className="flex items-center gap-1.5 text-slate-600 text-[11px]">
+                            <Phone className="w-3 h-3 text-[#008060] shrink-0" />
+                            <a
+                              href={`https://wa.me/${formatPakistaniWhatsAppNumber(order.phone)}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="hover:underline hover:text-[#008060] font-semibold"
+                            >
+                              {order.phone}
+                            </a>
+                          </div>
+                          <div className="flex items-start gap-1.5 text-slate-500 text-[11px]">
+                            <MapPin className="w-3 h-3 text-slate-400 shrink-0 mt-0.5" />
+                            <span>{order.city} • {order.address}</span>
+                          </div>
+                          {risk.isHighRisk && (
+                            <div className="mt-1">
+                              <span className="px-2 py-0.5 rounded-md bg-rose-50 text-rose-700 font-bold text-[10px] border border-rose-200 inline-flex items-center gap-1">
+                                <AlertTriangle className="w-3 h-3 text-rose-500" />
+                                High Risk: {risk.reason}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Items Purchased Strip */}
+                        <div className="p-2.5 rounded-xl bg-[#f9fafb] border border-slate-100 space-y-1 text-xs">
+                          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                            Purchased Items:
+                          </div>
+                          {Array.isArray(order.items) &&
+                            order.items.map((item, idx) => {
+                              if (typeof item === 'string') {
+                                return (
+                                  <div key={idx} className="text-slate-700 font-medium text-[11px]">
+                                    • {item}
+                                  </div>
+                                );
+                              }
+                              return (
+                                <div key={idx} className="text-slate-800 text-[11px] flex items-center justify-between">
+                                  <span>
+                                    <span className="font-bold">{item.name}</span>{' '}
+                                    <span className="text-slate-500 text-[10px]">
+                                      ({item.variant || ''} {item.color ? `• ${item.color}` : ''})
+                                    </span>
+                                  </span>
+                                  <span className="text-[#008060] font-extrabold ml-2">x{item.quantity}</span>
+                                </div>
+                              );
+                            })}
+                        </div>
+
+                        {/* Total & Profit Strip */}
+                        <div className="grid grid-cols-2 gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+                          <div>
+                            <div className="text-[10px] text-slate-500 uppercase font-semibold">Total & Payment</div>
+                            <div className="font-black text-slate-900 text-sm mt-0.5">
+                              {formatPKR(order.totalPKR)}
+                            </div>
+                            <div className="text-[10px] text-slate-500 mt-0.5">
+                              {order.paymentMethod}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-[10px] text-slate-500 uppercase font-semibold">Net Profit</div>
+                            <div className="mt-1 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200">
+                              <span>+{formatPKR(orderProfit)}</span>
+                              <span className="text-emerald-500">({orderMargin}%)</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* WhatsApp Verification Actions */}
+                        <div className="space-y-1.5 pt-1 border-t border-slate-100">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="text-[10px] font-bold text-slate-500 uppercase">Verification:</span>
+                            {confStatus === 'Confirmed' ? (
+                              <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300 inline-flex items-center gap-1">
+                                <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                                Confirmed
+                              </span>
+                            ) : confStatus === 'WhatsApp Sent' ? (
+                              <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-blue-100 text-blue-800 border border-blue-300 inline-flex items-center gap-1">
+                                <Clock className="w-3 h-3 text-blue-600" />
+                                WhatsApp Sent
+                              </span>
+                            ) : confStatus === 'Cancelled' ? (
+                              <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-100 text-rose-800 border border-rose-300 inline-flex items-center gap-1">
+                                <X className="w-3 h-3 text-rose-600" />
+                                Cancelled
+                              </span>
+                            ) : (
+                              <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 border border-amber-300 inline-flex items-center gap-1">
+                                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                                Unconfirmed
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                            <button
+                              onClick={() => handleSendWhatsAppConfirmation(order)}
+                              className="flex-1 py-1.5 px-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs transition-all cursor-pointer"
+                            >
+                              <MessageCircle className="w-3.5 h-3.5" />
+                              <span>Send WA</span>
+                            </button>
+
+                            {confStatus !== 'Confirmed' && (
+                              <button
+                                onClick={() =>
+                                  handleUpdateOrderConfirmation(order.orderId, 'Confirmed', true)
+                                }
+                                className="py-1.5 px-2.5 rounded-xl bg-slate-100 hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 font-bold text-xs border border-slate-200 transition-all cursor-pointer"
+                              >
+                                Confirm
+                              </button>
+                            )}
+
+                            {confStatus !== 'Cancelled' && (
+                              <button
+                                onClick={() =>
+                                  handleUpdateOrderConfirmation(order.orderId, 'Cancelled')
+                                }
+                                className="py-1.5 px-2 rounded-xl bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-700 font-bold text-xs border border-slate-200 transition-all cursor-pointer"
+                              >
+                                Cancel
+                              </button>
+                            )}
+
+                            <button
+                              onClick={() => {
+                                setConfirmingOrderModal(order);
+                                setCustomWhatsAppMsg(buildWhatsAppConfirmationText(order));
+                              }}
+                              className="py-1.5 px-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-xs transition-all cursor-pointer"
+                            >
+                              Edit
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Fulfillment Status Selector */}
+                        <div className="pt-2 border-t border-slate-100 flex items-center justify-between gap-2">
+                          <span className="text-[10px] font-bold text-slate-500 uppercase">Fulfillment:</span>
+                          <div className="flex-1 max-w-[180px]">
+                            <select
+                              value={order.status}
+                              onChange={(e) =>
+                                handleUpdateOrderStatus(order.orderId, e.target.value)
+                              }
+                              className={`w-full rounded-xl px-2.5 py-1 text-xs font-bold border focus:outline-none cursor-pointer ${
+                                order.status === 'Delivered'
+                                  ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
+                                  : order.status === 'Dispatched'
+                                  ? 'bg-blue-50 text-blue-700 border-blue-300'
+                                  : order.status === 'Processing'
+                                  ? 'bg-amber-50 text-amber-700 border-amber-300'
+                                  : order.status === 'Cancelled'
+                                  ? 'bg-rose-50 text-rose-700 border-rose-300'
+                                  : 'bg-purple-50 text-purple-700 border-purple-300'
+                              }`}
+                            >
+                              <option value="Placed">Placed</option>
+                              <option value="Processing">Processing</option>
+                              <option value="Dispatched">Dispatched</option>
+                              <option value="Delivered">Delivered</option>
+                              <option value="Cancelled">Cancelled</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+
+              {/* DESKTOP Orders Table Card */}
+              <div className="hidden sm:block bg-white border border-slate-200/90 rounded-2xl shadow-xs overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
                     <thead className="bg-[#f9fafb] text-slate-500 uppercase font-semibold border-b border-slate-200">
@@ -3387,11 +4150,11 @@ export default function AdminPortalPage() {
           {activeTab === 'coupons' && (
             <div className="space-y-6 animate-in fade-in duration-200">
               {/* Top Banner / Actions */}
-              <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-pink-500" />
-                    <h2 className="text-lg font-bold text-slate-900 tracking-tight">
+                    <h2 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
                       Promo Codes &amp; Discount Campaigns
                     </h2>
                   </div>
@@ -3401,7 +4164,7 @@ export default function AdminPortalPage() {
                 </div>
                 <button
                   onClick={openCreateCouponModal}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#008060] hover:bg-[#006e52] text-white font-bold text-xs shadow-xs transition-all cursor-pointer"
+                  className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#008060] hover:bg-[#006e52] text-white font-bold text-xs shadow-xs transition-all cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Create Promo Code</span>
@@ -3409,54 +4172,182 @@ export default function AdminPortalPage() {
               </div>
 
               {/* 4 KPI Metric Cards */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                <div className="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-1">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+                <div className="p-3.5 sm:p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-1">
                   <div className="flex items-center justify-between text-slate-500">
-                    <span className="text-[11px] font-bold uppercase tracking-wider">Active Coupons</span>
+                    <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">Active Coupons</span>
                     <Tag className="w-4 h-4 text-emerald-600" />
                   </div>
-                  <div className="text-2xl font-black text-slate-900 tracking-tight">
-                    {couponKPIs.activeCoupons} <span className="text-xs font-normal text-slate-400">/ {coupons.length} total</span>
+                  <div className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                    {couponKPIs.activeCoupons} <span className="text-xs font-normal text-slate-400">/ {coupons.length}</span>
                   </div>
-                  <p className="text-[10px] text-emerald-700 font-semibold">Active &amp; redeemable in checkout</p>
+                  <p className="text-[10px] text-emerald-700 font-semibold truncate">Active in checkout</p>
                 </div>
 
-                <div className="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-1">
+                <div className="p-3.5 sm:p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-1">
                   <div className="flex items-center justify-between text-slate-500">
-                    <span className="text-[11px] font-bold uppercase tracking-wider">Total Redemptions</span>
+                    <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">Redemptions</span>
                     <ShoppingBag className="w-4 h-4 text-blue-600" />
                   </div>
-                  <div className="text-2xl font-black text-slate-900 tracking-tight">
+                  <div className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
                     {couponKPIs.totalRedemptions}
                   </div>
-                  <p className="text-[10px] text-blue-700 font-semibold">Orders completed with promo codes</p>
+                  <p className="text-[10px] text-blue-700 font-semibold truncate">Orders completed</p>
                 </div>
 
-                <div className="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-1">
+                <div className="p-3.5 sm:p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-1">
                   <div className="flex items-center justify-between text-slate-500">
-                    <span className="text-[11px] font-bold uppercase tracking-wider">Total Discount Given</span>
+                    <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">Discount Given</span>
                     <DollarSign className="w-4 h-4 text-[#008060]" />
                   </div>
-                  <div className="text-xl sm:text-2xl font-black text-[#008060] tracking-tight">
+                  <div className="text-lg sm:text-2xl font-black text-[#008060] tracking-tight truncate">
                     {formatPKR(couponKPIs.totalDiscountsDistributed)}
                   </div>
-                  <p className="text-[10px] text-emerald-700 font-semibold">Delivered directly to customers</p>
+                  <p className="text-[10px] text-emerald-700 font-semibold truncate">Saved by shoppers</p>
                 </div>
 
-                <div className="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-1">
+                <div className="p-3.5 sm:p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-1">
                   <div className="flex items-center justify-between text-slate-500">
-                    <span className="text-[11px] font-bold uppercase tracking-wider">Avg Discount / Order</span>
+                    <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">Avg Discount</span>
                     <Percent className="w-4 h-4 text-purple-600" />
                   </div>
-                  <div className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                  <div className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight truncate">
                     {formatPKR(couponKPIs.avgDiscountSaved)}
                   </div>
-                  <p className="text-[10px] text-purple-700 font-semibold">Per discounted checkout</p>
+                  <p className="text-[10px] text-purple-700 font-semibold truncate">Per discounted order</p>
                 </div>
               </div>
 
-              {/* Coupons Table */}
-              <div className="bg-white border border-slate-200/90 rounded-2xl shadow-xs overflow-hidden">
+              {/* MOBILE COUPONS CARDS (< sm) */}
+              <div className="block sm:hidden space-y-3">
+                {coupons.length === 0 ? (
+                  <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 text-slate-400 text-xs">
+                    <Tag className="w-8 h-8 mx-auto text-slate-300 mb-2" />
+                    <p className="font-bold text-slate-700">No promo coupons yet</p>
+                    <button
+                      onClick={openCreateCouponModal}
+                      className="mt-3 px-3 py-1.5 rounded-xl bg-[#008060] text-white text-xs font-bold cursor-pointer"
+                    >
+                      Create First Coupon
+                    </button>
+                  </div>
+                ) : (
+                  coupons.map((coupon) => {
+                    const isExpired = coupon.expiresAt && new Date(coupon.expiresAt).getTime() < Date.now();
+                    const isLimitReached = coupon.usageLimit && coupon.timesUsed >= coupon.usageLimit;
+                    const effectiveActive = coupon.isActive && !isExpired && !isLimitReached;
+
+                    return (
+                      <div
+                        key={coupon.id}
+                        className="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs space-y-3"
+                      >
+                        {/* Header: Code & Copy & Status */}
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-mono font-black text-slate-900 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 tracking-wider text-xs">
+                                {coupon.code}
+                              </span>
+                              <button
+                                onClick={() => {
+                                  navigator.clipboard?.writeText(coupon.code);
+                                  showToast(`Code "${coupon.code}" copied to clipboard!`);
+                                }}
+                                title="Copy Code"
+                                className="p-1 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+                              >
+                                <Copy className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                            {coupon.description && (
+                              <p className="text-[11px] text-slate-500 mt-1 line-clamp-1">
+                                {coupon.description}
+                              </p>
+                            )}
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => handleToggleCouponActive(coupon)}
+                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold transition-all cursor-pointer shrink-0 ${
+                              effectiveActive
+                                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                : 'bg-slate-100 text-slate-500 border border-slate-200'
+                            }`}
+                          >
+                            <span
+                              className={`w-1.5 h-1.5 rounded-full ${
+                                effectiveActive ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'
+                              }`}
+                            />
+                            <span>{effectiveActive ? 'Active' : coupon.isActive ? (isExpired ? 'Expired' : 'Max Used') : 'Disabled'}</span>
+                          </button>
+                        </div>
+
+                        {/* Details Grid */}
+                        <div className="grid grid-cols-2 gap-2 p-2.5 rounded-xl bg-[#f9fafb] border border-slate-100 text-xs">
+                          <div>
+                            <div className="text-[10px] text-slate-500 uppercase font-semibold">Discount</div>
+                            <div className="font-extrabold text-emerald-700 mt-0.5 text-xs">
+                              {coupon.discountType === 'percentage'
+                                ? `${coupon.discountValue}% OFF`
+                                : `-${formatPKR(coupon.discountValue)}`}
+                            </div>
+                            {coupon.discountType === 'percentage' && coupon.maxDiscountAmount && (
+                              <div className="text-[9px] text-slate-400 mt-0.5">
+                                Cap: {formatPKR(coupon.maxDiscountAmount)}
+                              </div>
+                            )}
+                          </div>
+                          <div>
+                            <div className="text-[10px] text-slate-500 uppercase font-semibold">Min Order</div>
+                            <div className="font-semibold text-slate-800 mt-0.5 text-xs">
+                              {coupon.minOrderAmount && coupon.minOrderAmount > 0
+                                ? formatPKR(coupon.minOrderAmount)
+                                : 'No min'}
+                            </div>
+                            <div className="text-[9px] text-slate-400 mt-0.5">
+                              Used: {coupon.timesUsed || 0} {coupon.usageLimit ? `/ ${coupon.usageLimit}` : 'uses'}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Expiry & Actions */}
+                        <div className="flex items-center justify-between pt-1 border-t border-slate-100 text-xs">
+                          <div className="text-[11px] text-slate-500">
+                            {coupon.expiresAt ? (
+                              <span>Expires: {new Date(coupon.expiresAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}</span>
+                            ) : (
+                              <span>Never expires</span>
+                            )}
+                          </div>
+
+                          <div className="flex items-center gap-1">
+                            <button
+                              onClick={() => openEditCouponModal(coupon)}
+                              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors cursor-pointer"
+                              title="Edit Coupon"
+                            >
+                              <Edit className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteCoupon(coupon)}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                              title="Delete Coupon"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+
+              {/* DESKTOP Coupons Table */}
+              <div className="hidden sm:block bg-white border border-slate-200/90 rounded-2xl shadow-xs overflow-hidden">
                 <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
                   <h3 className="text-sm font-bold text-slate-900">
                     All Promotional Coupons ({coupons.length})
@@ -4009,8 +4900,8 @@ export default function AdminPortalPage() {
       {/* MODAL 0: WHATSAPP ORDER CONFIRMATION PREVIEW/EDITOR */}
       {/* ==================================================== */}
       {confirmingOrderModal && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="w-full max-w-lg bg-white rounded-3xl p-6 shadow-2xl space-y-4 animate-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="w-full max-w-lg bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-4 animate-in zoom-in-95 duration-150 max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
@@ -4488,8 +5379,8 @@ export default function AdminPortalPage() {
 
       {/* MODAL 2: QUICK RESTOCK DIALOG */}
       {isRestockModalOpen && restockTarget && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-6 shadow-2xl space-y-4 animate-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+          <div className="w-full max-w-md bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-4 animate-in zoom-in-95 duration-150">
             <div className="flex items-center justify-between">
               <h3 className="font-bold text-slate-900 text-sm flex items-center gap-2">
                 <Zap className="w-4 h-4 text-[#008060]" />
@@ -4553,8 +5444,8 @@ export default function AdminPortalPage() {
 
       {/* MODAL 3: DELETE CONFIRMATION */}
       {deleteConfirmationTarget && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="w-full max-w-sm bg-white border border-slate-200 rounded-3xl p-6 shadow-2xl space-y-4">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+          <div className="w-full max-w-sm bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-4">
             <div className="flex items-center gap-3 text-rose-600">
               <AlertTriangle className="w-6 h-6" />
               <h3 className="font-bold text-slate-900 text-base">Delete Product?</h3>
@@ -4566,13 +5457,13 @@ export default function AdminPortalPage() {
             <div className="flex items-center justify-end gap-2 pt-2">
               <button
                 onClick={() => setDeleteConfirmationTarget(null)}
-                className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold"
+                className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleDeleteProduct(deleteConfirmationTarget)}
-                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition-all shadow-sm"
+                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
               >
                 Yes, Delete
               </button>
@@ -4583,8 +5474,8 @@ export default function AdminPortalPage() {
 
       {/* MODAL 4: PACKING SLIP / INVOICE VIEW */}
       {viewingOrderReceipt && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="w-full max-w-xl bg-white text-slate-900 rounded-3xl p-8 shadow-2xl space-y-6 relative print:p-0">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="w-full max-w-xl bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl space-y-4 sm:space-y-6 relative print:p-0 max-h-[92vh] overflow-y-auto">
             <button
               onClick={() => setViewingOrderReceipt(null)}
               className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-800 print:hidden"
