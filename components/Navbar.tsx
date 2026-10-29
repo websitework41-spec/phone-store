@@ -35,6 +35,7 @@ import {
 import { sanitizeText } from '@/lib/security';
 import { useAuth } from '@/context/AuthContext';
 import { searchSmartphones } from '@/lib/search';
+import { ThemeToggle } from './ThemeToggle';
 
 interface NavbarProps {
   compareCount?: number;
@@ -588,6 +589,9 @@ export function Navbar({
                     </span>
                   )}
                 </button>
+
+                {/* Light & Dark Mode Toggle Button */}
+                <ThemeToggle />
 
                 {/* Admin Portal Button */}
                 <Link

@@ -11,6 +11,7 @@ import {
   saveProductLocally,
 } from '@/lib/catalog';
 import { PhoneImageWithFallback } from '@/components/PhoneImageWithFallback';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import {
   LayoutDashboard,
   Package,
@@ -1440,6 +1441,8 @@ export default function AdminPortalPage() {
                 <span className="sm:hidden">Add</span>
               </button>
             )}
+
+            <ThemeToggle variant="minimal" />
 
             <Link
               href="/"
