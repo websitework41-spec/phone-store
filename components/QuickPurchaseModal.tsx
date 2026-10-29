@@ -454,15 +454,23 @@ export function QuickPurchaseModal({
 
                 {/* Mobile Phone Number */}
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">
-                    Mobile Number (WhatsApp) <span className="text-rose-500">*</span>
-                  </label>
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-700">
+                      Mobile Number (WhatsApp) <span className="text-rose-500">*</span>
+                    </label>
+                    <span className={`text-[10px] font-mono font-bold ${phoneNumber.length === 11 ? 'text-emerald-600' : 'text-slate-400'}`}>
+                      {phoneNumber.length}/11
+                    </span>
+                  </div>
                   <input
                     type="tel"
+                    inputMode="numeric"
+                    autoComplete="tel"
+                    maxLength={11}
                     required
                     value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    placeholder="0300 1234567"
+                    onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 11))}
+                    placeholder="03001234567"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:bg-white text-slate-900 transition-all font-medium"
                   />
                 </div>
@@ -487,14 +495,24 @@ export function QuickPurchaseModal({
 
                 {/* Alternate Phone */}
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">
-                    Alternative Phone (Optional)
-                  </label>
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-700">
+                      Alternative Phone (Optional)
+                    </label>
+                    {altPhone.length > 0 && (
+                      <span className={`text-[10px] font-mono font-bold ${altPhone.length === 11 ? 'text-emerald-600' : 'text-slate-400'}`}>
+                        {altPhone.length}/11
+                      </span>
+                    )}
+                  </div>
                   <input
                     type="tel"
+                    inputMode="numeric"
+                    autoComplete="tel"
+                    maxLength={11}
                     value={altPhone}
-                    onChange={(e) => setAltPhone(e.target.value)}
-                    placeholder="0321 7654321"
+                    onChange={(e) => setAltPhone(e.target.value.replace(/\D/g, '').slice(0, 11))}
+                    placeholder="03217654321"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:bg-white text-slate-900 transition-all font-medium"
                   />
                 </div>

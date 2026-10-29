@@ -479,15 +479,23 @@ export function CartDrawer({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Mobile / WhatsApp Number <span className="text-rose-500">*</span>
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-xs font-bold text-slate-700">
+                    Mobile / WhatsApp Number <span className="text-rose-500">*</span>
+                  </label>
+                  <span className={`text-[10px] font-mono font-bold ${customerPhone.length === 11 ? 'text-emerald-600' : 'text-slate-400'}`}>
+                    {customerPhone.length}/11
+                  </span>
+                </div>
                 <input
                   type="tel"
+                  inputMode="numeric"
+                  autoComplete="tel"
+                  maxLength={11}
                   required
                   value={customerPhone}
-                  onChange={(e) => setCustomerPhone(e.target.value)}
-                  placeholder="0300 1234567"
+                  onChange={(e) => setCustomerPhone(e.target.value.replace(/\D/g, '').slice(0, 11))}
+                  placeholder="03001234567"
                   className="w-full px-3.5 py-2.5 rounded-xl text-base sm:text-sm bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:bg-white text-slate-900 font-medium transition-all"
                 />
               </div>

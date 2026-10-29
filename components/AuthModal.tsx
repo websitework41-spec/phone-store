@@ -40,6 +40,15 @@ export function AuthModal() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+  // Handle phone input strictly limited to 11 digits (digits-only)
+  const handlePhoneChange = (val: string) => {
+    const digitsOnly = val.replace(/\D/g, '').slice(0, 11);
+    setPhone(digitsOnly);
+    if (errorMessage) {
+      setErrorMessage('');
+    }
+  };
+
   // Reset state on open/mode change
   useEffect(() => {
     setErrorMessage('');
@@ -171,23 +180,44 @@ export function AuthModal() {
           {authModalMode === 'login' && (
             <form onSubmit={handleLoginSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Mobile Number (Pakistan)
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-xs font-bold text-slate-700">
+                    Mobile Number (Pakistan)
+                  </label>
+                  <span
+                    className={`text-[11px] font-mono font-bold transition-colors ${
+                      phone.length === 11
+                        ? 'text-emerald-600'
+                        : phone.length > 0
+                        ? 'text-sky-600'
+                        : 'text-slate-400'
+                    }`}
+                  >
+                    {phone.length}/11
+                  </span>
+                </div>
                 <div className="relative">
                   <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input
                     type="tel"
+                    inputMode="numeric"
+                    autoComplete="tel"
+                    maxLength={11}
                     required
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={(e) => handlePhoneChange(e.target.value)}
                     placeholder="03001234567"
                     className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-base sm:text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:border-[#48afff] transition-all"
                   />
                 </div>
-                <span className="text-[10px] text-slate-400 mt-1 block">
-                  Format: 11-digits starting with 03 (e.g. 03001234567)
-                </span>
+                <div className="flex items-center justify-between text-[10px] text-slate-400 mt-1">
+                  <span>Format: 11-digits starting with 03 (e.g. 03001234567)</span>
+                  {phone.length === 11 && (
+                    <span className="text-emerald-600 font-bold flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3" /> 11 Digits Complete
+                    </span>
+                  )}
+                </div>
               </div>
 
               <div>
@@ -274,23 +304,44 @@ export function AuthModal() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Mobile Number (Pakistan)
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-xs font-bold text-slate-700">
+                    Mobile Number (Pakistan)
+                  </label>
+                  <span
+                    className={`text-[11px] font-mono font-bold transition-colors ${
+                      phone.length === 11
+                        ? 'text-emerald-600'
+                        : phone.length > 0
+                        ? 'text-sky-600'
+                        : 'text-slate-400'
+                    }`}
+                  >
+                    {phone.length}/11
+                  </span>
+                </div>
                 <div className="relative">
                   <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input
                     type="tel"
+                    inputMode="numeric"
+                    autoComplete="tel"
+                    maxLength={11}
                     required
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={(e) => handlePhoneChange(e.target.value)}
                     placeholder="03001234567"
                     className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-base sm:text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] focus:border-[#48afff] transition-all"
                   />
                 </div>
-                <span className="text-[10px] text-slate-400 mt-1 block">
-                  11 digits starting with 03 (used to log in and track orders)
-                </span>
+                <div className="flex items-center justify-between text-[10px] text-slate-400 mt-1">
+                  <span>11 digits starting with 03 (used to log in and track orders)</span>
+                  {phone.length === 11 && (
+                    <span className="text-emerald-600 font-bold flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3" /> 11 Digits Complete
+                    </span>
+                  )}
+                </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

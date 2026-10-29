@@ -499,10 +499,13 @@ export function FilterSidebar({
               />
               <input
                 type="tel"
+                inputMode="numeric"
+                autoComplete="tel"
+                maxLength={11}
                 required
                 value={assistPhone}
-                onChange={(e) => setAssistPhone(e.target.value)}
-                placeholder="Phone (0300-1234567)"
+                onChange={(e) => setAssistPhone(e.target.value.replace(/\D/g, '').slice(0, 11))}
+                placeholder="Phone (03001234567)"
                 className="w-full px-3 py-2 rounded-lg bg-black/25 border border-white/20 text-base sm:text-xs text-white placeholder:text-slate-300 focus:outline-none focus:border-[#48afff] transition-colors"
               />
               <select
