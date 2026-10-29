@@ -182,36 +182,24 @@ export function QuickPurchaseModal({
     setCouponCodeInput('');
   };
 
-  const handleSubmitOrder = (e: React.FormEvent) => {
+  const handleSubmitOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     setValidationError('');
 
-    // 1. Anti-Bot Honeypot Defense
-    if (isBotSubmission(honeypot)) {
-      console.warn('Bot submission blocked via security honeypot trap.');
-      return;
-    }
-
-    // 2. Client-side Rate-Limiting Protection (Anti-Spam / Anti-Flooding)
-    if (!submissionRateLimiter.isAllowed('quick_purchase_submit', 2500)) {
-      setValidationError('Please wait 3 seconds before submitting another request.');
-      return;
-    }
-
-    // 3. Input Sanitization against XSS & script injection
+    // 1. Input Sanitization against XSS & script injection
     const cleanName = sanitizeText(fullName, MAX_INPUT_LENGTHS.NAME);
     const cleanAddress = sanitizeText(deliveryAddress, MAX_INPUT_LENGTHS.ADDRESS);
     const cleanAltPhone = sanitizeText(altPhone, MAX_INPUT_LENGTHS.PHONE);
     const cleanNotes = sanitizeText(deliveryNotes, MAX_INPUT_LENGTHS.NOTES);
     const cleanEmail = sanitizeText(customerEmail, 100);
 
-    if (!cleanName || cleanName.length < 3) {
-      setValidationError('Please enter a valid full name (minimum 3 characters).');
+    if (!cleanName || cleanName.trim().length === 0) {
+      setValidationError('Please enter your full name.');
       return;
     }
 
-    if (!cleanAddress || cleanAddress.length < 3) {
-      setValidationError('Please enter your delivery address (minimum 3 characters).');
+    if (!cleanAddress || cleanAddress.trim().length === 0) {
+      setValidationError('Please enter your complete delivery address.');
       return;
     }
 
@@ -220,7 +208,7 @@ export function QuickPurchaseModal({
       return;
     }
 
-    // 4. Strict Pakistani Mobile Validation (03XX-XXXXXXX)
+    // 2. Strict Pakistani Mobile Validation (03XX-XXXXXXX)
     const phoneCheck = validatePakistaniPhone(phoneNumber);
     if (!phoneCheck.isValid) {
       setValidationError(phoneCheck.errorMessage || 'Invalid Pakistani mobile number.');
@@ -228,67 +216,48 @@ export function QuickPurchaseModal({
     }
 
     setIsSubmitting(true);
-    // Simulate secure order placement with sanitized values
-    setTimeout(async () => {
-      const randomOrder = `HPS-${Math.floor(100000 + Math.random() * 900000)}`;
-      setGeneratedOrderId(randomOrder);
-      setFullName(cleanName);
-      setPhoneNumber(phoneCheck.cleanPhone);
-      setAltPhone(cleanAltPhone);
-      setCustomerEmail(cleanEmail);
-      setDeliveryAddress(cleanAddress);
-      setDeliveryNotes(cleanNotes);
 
-      const orderTotal = selectedVariant?.pricePKR || phone?.basePricePKR || 0;
-      const orderItems = phone
-        ? [
-            {
-              name: phone.name,
-              variant: `${selectedVariant?.ram || ''}/${selectedVariant?.storage || ''}`,
-              pricePKR: orderTotal,
-              quantity: 1,
-              color: currentColor?.name || '',
-            },
-          ]
-        : [];
+    const randomOrder = `HPS-${Math.floor(100000 + Math.random() * 900000)}`;
+    setGeneratedOrderId(randomOrder);
+    setFullName(cleanName);
+    setPhoneNumber(phoneCheck.cleanPhone);
+    setAltPhone(cleanAltPhone);
+    setCustomerEmail(cleanEmail);
+    setDeliveryAddress(cleanAddress);
+    setDeliveryNotes(cleanNotes);
 
-      const paymentLabel =
-        paymentMethod === 'bank'
-          ? `Bank Transfer / Raast (Meezan Bank)${bankTxRef ? ` — Ref: ${sanitizeText(bankTxRef, 50)}` : ''}`
-          : paymentMethod === 'emi'
-          ? '0% Installment Plan (Credit Card)'
-          : 'Cash on Delivery (Open-Parcel)';
+    const orderTotal = selectedVariant?.pricePKR || phone?.basePricePKR || 0;
+    const variantName = selectedVariant
+      ? `${selectedVariant.ram}/${selectedVariant.storage}`
+      : currentVariant
+      ? `${currentVariant.ram}/${currentVariant.storage}`
+      : 'Standard';
+    const colorName = currentColor?.name || selectedColor?.name || 'Default';
 
-      // Save to Firestore if customer is logged in
-      if (user) {
-        try {
-          const orderDocRef = doc(db, 'users', user.uid, 'orders', randomOrder);
-          await setDoc(orderDocRef, {
-            orderId: randomOrder,
-            customerName: cleanName,
-            phone: phoneCheck.cleanPhone,
-            altPhone: cleanAltPhone,
-            email: cleanEmail,
-            city: city || 'Pakistan',
-            address: cleanAddress,
-            notes: cleanNotes,
-            bankTxRef: sanitizeText(bankTxRef, 100),
-            items: orderItems,
-            totalPKR: finalPrice,
-            couponCode: appliedCoupon?.code || '',
-            discountPKR: discountAmount,
-            paymentMethod: paymentLabel,
-            status: paymentMethod === 'bank' ? 'Payment Verification Pending' : 'Placed',
-            createdAt: serverTimestamp(),
-          });
-        } catch (err) {
-          console.error('Error saving quick order to Firestore:', err);
-        }
-      }
+    const orderItems = phone
+      ? [
+          {
+            name: phone.name,
+            variant: variantName,
+            pricePKR: orderTotal,
+            quantity: 1,
+            color: colorName,
+          },
+        ]
+      : [];
 
-      // Always persist to localStorage for guest tracking & offline persistence
+    const paymentLabel =
+      paymentMethod === 'bank'
+        ? `Bank Transfer / Raast (Meezan Bank)${bankTxRef ? ` — Ref: ${sanitizeText(bankTxRef, 50)}` : ''}`
+        : paymentMethod === 'emi'
+        ? '0% Installment Plan (Credit Card)'
+        : 'Cash on Delivery (Open-Parcel)';
+
+    // Save to Firestore if customer is logged in (non-blocking)
+    if (user) {
       try {
-        const newOrder = {
+        const orderDocRef = doc(db, 'users', user.uid, 'orders', randomOrder);
+        setDoc(orderDocRef, {
           orderId: randomOrder,
           customerName: cleanName,
           phone: phoneCheck.cleanPhone,
@@ -296,73 +265,90 @@ export function QuickPurchaseModal({
           email: cleanEmail,
           city: city || 'Pakistan',
           address: cleanAddress,
+          notes: cleanNotes,
           bankTxRef: sanitizeText(bankTxRef, 100),
-          items: phone ? [`${phone.name} (${selectedVariant?.ram || ''}/${selectedVariant?.storage || ''})`] : [],
+          items: orderItems,
           totalPKR: finalPrice,
           couponCode: appliedCoupon?.code || '',
           discountPKR: discountAmount,
           paymentMethod: paymentLabel,
-          status:
-            paymentMethod === 'bank'
-              ? 'Order Placed — Send payment screenshot to WhatsApp for immediate dispatch approval.'
-              : 'Order Confirmed — Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.',
-          createdAt: new Date().toISOString(),
-        };
-        const existing = JSON.parse(localStorage.getItem('hamzastore_orders') || localStorage.getItem('voltphone_orders') || '[]');
-        localStorage.setItem('hamzastore_orders', JSON.stringify([newOrder, ...existing]));
-      } catch {
-        // ignore
+          status: paymentMethod === 'bank' ? 'Payment Verification Pending' : 'Placed',
+          createdAt: serverTimestamp(),
+        }).catch((err) => console.warn('Firestore quick order async write warning:', err));
+      } catch (err) {
+        console.warn('Firestore quick order error:', err);
       }
+    }
 
-      // Sync to admin orders backend
-      try {
-        fetch('/api/admin/orders', {
+    // Always persist to localStorage for guest tracking & offline persistence
+    try {
+      const newOrder = {
+        orderId: randomOrder,
+        customerName: cleanName,
+        phone: phoneCheck.cleanPhone,
+        altPhone: cleanAltPhone,
+        email: cleanEmail,
+        city: city || 'Pakistan',
+        address: cleanAddress,
+        bankTxRef: sanitizeText(bankTxRef, 100),
+        items: phone ? [`${phone.name} (${variantName})`] : [],
+        totalPKR: finalPrice,
+        couponCode: appliedCoupon?.code || '',
+        discountPKR: discountAmount,
+        paymentMethod: paymentLabel,
+        status:
+          paymentMethod === 'bank'
+            ? 'Order Placed — Send payment screenshot to WhatsApp for immediate dispatch approval.'
+            : 'Order Confirmed — Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.',
+        createdAt: new Date().toISOString(),
+      };
+      const existing = JSON.parse(localStorage.getItem('hamzastore_orders') || localStorage.getItem('voltphone_orders') || '[]');
+      localStorage.setItem('hamzastore_orders', JSON.stringify([newOrder, ...existing]));
+    } catch {
+      // ignore
+    }
+
+    // Sync to admin orders backend
+    try {
+      fetch('/api/admin/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          order: {
+            orderId: randomOrder,
+            customerName: cleanName,
+            phone: phoneCheck.cleanPhone,
+            email: cleanEmail,
+            city: city || 'Pakistan',
+            address: cleanAddress,
+            bankTxRef: sanitizeText(bankTxRef, 100),
+            items: orderItems,
+            totalPKR: finalPrice,
+            couponCode: appliedCoupon?.code || '',
+            discountPKR: discountAmount,
+            paymentMethod: paymentLabel,
+            status: paymentMethod === 'bank' ? 'Payment Verification Pending' : 'Placed',
+            courier: 'TCS Express',
+          },
+        }),
+      }).catch(() => {});
+
+      // Redeem coupon usage counter
+      if (appliedCoupon) {
+        fetch('/api/coupons', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            order: {
-              orderId: randomOrder,
-              customerName: cleanName,
-              phone: phoneCheck.cleanPhone,
-              email: cleanEmail,
-              city: city || 'Pakistan',
-              address: cleanAddress,
-              bankTxRef: sanitizeText(bankTxRef, 100),
-              items: phone
-                ? [
-                    {
-                      name: phone.name,
-                      variant: `${selectedVariant?.ram || ''}/${selectedVariant?.storage || ''}`,
-                      pricePKR: orderTotal,
-                      quantity: 1,
-                      color: selectedColor?.name || 'Default',
-                    },
-                  ]
-                : [],
-              totalPKR: finalPrice,
-              couponCode: appliedCoupon?.code || '',
-              discountPKR: discountAmount,
-              paymentMethod: paymentLabel,
-              status: paymentMethod === 'bank' ? 'Payment Verification Pending' : 'Placed',
-              courier: 'TCS Express',
-            },
-          }),
+          body: JSON.stringify({ action: 'redeem', code: appliedCoupon.code }),
         }).catch(() => {});
+      }
+    } catch {}
 
-        // Redeem coupon usage counter
-        if (appliedCoupon) {
-          fetch('/api/coupons', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'redeem', code: appliedCoupon.code }),
-          }).catch(() => {});
-        }
-      } catch {}
-
+    try {
       trackPurchase(randomOrder);
-      setIsSubmitting(false);
-      setIsOrderConfirmed(true);
-    }, 600);
+    } catch {}
+
+    setIsSubmitting(false);
+    setIsOrderConfirmed(true);
   };
 
   const handleResetAndClose = () => {
@@ -936,7 +922,9 @@ export function QuickPurchaseModal({
                 )}
 
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-slate-500">Total Payable on Delivery:</span>
+                  <span className="text-xs font-bold text-slate-500">
+                    {paymentMethod === 'bank' ? 'Total Amount to Transfer:' : 'Total Payable on Delivery:'}
+                  </span>
                   <span className="text-base font-black text-[#0b3c68]">{formatPKR(finalPrice)}</span>
                 </div>
 
@@ -946,7 +934,17 @@ export function QuickPurchaseModal({
                   className="w-full py-3.5 rounded-2xl bg-[#0b3c68] hover:bg-[#072847] text-white font-black text-xs sm:text-sm transition-all shadow-lg shadow-[#0b3c68]/20 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 btn-press"
                 >
                   {isSubmitting ? (
-                    <span>Booking Open-Parcel Consignment...</span>
+                    <span>Booking Consignment...</span>
+                  ) : paymentMethod === 'bank' ? (
+                    <>
+                      <span>Confirm Order (Bank Transfer) — {formatPKR(finalPrice)}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </>
+                  ) : paymentMethod === 'emi' ? (
+                    <>
+                      <span>Confirm Order (0% Installments) — {formatPKR(finalPrice)}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </>
                   ) : (
                     <>
                       <span>Confirm Order with Open Parcel ({formatPKR(finalPrice)})</span>

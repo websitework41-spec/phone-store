@@ -203,35 +203,23 @@ export function CartDrawer({
     e.preventDefault();
     setValidationError('');
 
-    // 1. Anti-Bot Honeypot Defense
-    if (isBotSubmission(honeypot)) {
-      console.warn('Bot submission blocked via security honeypot trap.');
-      return;
-    }
-
-    // 2. Client-side Rate-Limiting Protection (Anti-Spam)
-    if (!submissionRateLimiter.isAllowed('cart_checkout_submit', 2500)) {
-      setValidationError('Please wait 3 seconds before submitting another request.');
-      return;
-    }
-
     if (hasOutOfStockItems) {
       setValidationError('Please remove out of stock items from your cart before proceeding.');
       return;
     }
 
-    // 3. Input Sanitization
+    // 1. Input Sanitization
     const cleanName = sanitizeText(customerName, MAX_INPUT_LENGTHS.NAME);
     const cleanAddress = sanitizeText(customerAddress, MAX_INPUT_LENGTHS.ADDRESS);
     const cleanEmail = sanitizeText(customerEmail, 100);
 
-    if (!cleanName || cleanName.length < 3) {
-      setValidationError('Please enter a valid full name (minimum 3 characters).');
+    if (!cleanName || cleanName.trim().length === 0) {
+      setValidationError('Please enter your full name.');
       return;
     }
 
-    if (!cleanAddress || cleanAddress.length < 3) {
-      setValidationError('Please enter your complete delivery address (minimum 3 characters).');
+    if (!cleanAddress || cleanAddress.trim().length === 0) {
+      setValidationError('Please enter your complete delivery address.');
       return;
     }
 
@@ -240,7 +228,7 @@ export function CartDrawer({
       return;
     }
 
-    // 4. Mobile Phone Validation (03XX-XXXXXXX)
+    // 2. Mobile Phone Validation (03XX-XXXXXXX)
     const phoneCheck = validatePakistaniPhone(customerPhone);
     if (!phoneCheck.isValid) {
       setValidationError(phoneCheck.errorMessage || 'Please enter a valid Pakistani mobile number.');
@@ -255,11 +243,11 @@ export function CartDrawer({
         ? `Bank Transfer / Raast (Meezan Bank)${bankTxRef ? ` — Ref: ${sanitizeText(bankTxRef, 50)}` : ''}`
         : 'Cash on Delivery (Open-Parcel)';
 
-    // Save to Firestore if user is authenticated
+    // Save to Firestore if user is authenticated (non-blocking)
     if (user) {
       try {
         const orderDocRef = doc(db, 'users', user.uid, 'orders', randomOrderId);
-        await setDoc(orderDocRef, {
+        setDoc(orderDocRef, {
           orderId: randomOrderId,
           customerName: cleanName,
           phone: phoneCheck.cleanPhone,
@@ -280,9 +268,9 @@ export function CartDrawer({
           paymentMethod: paymentLabel,
           status: paymentMethod === 'bank' ? 'Payment Verification Pending' : 'Placed',
           createdAt: serverTimestamp(),
-        });
+        }).catch((err) => console.warn('Firestore cart order async write warning:', err));
       } catch (err) {
-        console.error('Error saving order to Firestore:', err);
+        console.warn('Firestore cart order error:', err);
       }
     }
 
