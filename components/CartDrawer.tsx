@@ -38,6 +38,7 @@ import { useAuth } from '@/context/AuthContext';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { trackPurchase } from './AnalyticsTracker';
+import { STORE_BANK_DETAILS } from '@/data/bankDetails';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -71,6 +72,16 @@ export function CartDrawer({
   const [honeypot, setHoneypot] = useState(''); // Anti-bot honeypot
   const [validationError, setValidationError] = useState('');
   const [copiedReceipt, setCopiedReceipt] = useState(false);
+  const [copiedBankField, setCopiedBankField] = useState<string | null>(null);
+  const [bankTxRef, setBankTxRef] = useState('');
+
+  const copyToClipboard = (text: string, fieldName: string) => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+      setCopiedBankField(fieldName);
+      setTimeout(() => setCopiedBankField(null), 2200);
+    }
+  };
 
   // Promo Code / Coupon state
   const [couponCodeInput, setCouponCodeInput] = useState('');
@@ -239,6 +250,11 @@ export function CartDrawer({
     const randomOrderId = `HPS-${Math.floor(100000 + Math.random() * 900000)}`;
     setConfirmedOrderId(randomOrderId);
 
+    const paymentLabel =
+      paymentMethod === 'bank'
+        ? `Bank Transfer / Raast (Meezan Bank)${bankTxRef ? ` — Ref: ${sanitizeText(bankTxRef, 50)}` : ''}`
+        : 'Cash on Delivery (Open-Parcel)';
+
     // Save to Firestore if user is authenticated
     if (user) {
       try {
@@ -250,6 +266,7 @@ export function CartDrawer({
           email: cleanEmail,
           address: cleanAddress,
           city: selectedCity,
+          bankTxRef: sanitizeText(bankTxRef, 100),
           items: items.map((i) => ({
             name: i.phone.name,
             variant: `${i.selectedVariant.ram}/${i.selectedVariant.storage}`,
@@ -260,8 +277,8 @@ export function CartDrawer({
           totalPKR: finalTotalPKR,
           couponCode: appliedCoupon?.code || '',
           discountPKR: discountAmount,
-          paymentMethod,
-          status: 'Placed',
+          paymentMethod: paymentLabel,
+          status: paymentMethod === 'bank' ? 'Payment Verification Pending' : 'Placed',
           createdAt: serverTimestamp(),
         });
       } catch (err) {
@@ -278,6 +295,7 @@ export function CartDrawer({
         email: cleanEmail,
         address: cleanAddress,
         city: selectedCity,
+        bankTxRef: sanitizeText(bankTxRef, 100),
         items: items.map(
           (i) =>
             `${i.phone.name} (${i.selectedVariant.ram}/${i.selectedVariant.storage}) x${i.quantity}`
@@ -285,9 +303,11 @@ export function CartDrawer({
         totalPKR: finalTotalPKR,
         couponCode: appliedCoupon?.code || '',
         discountPKR: discountAmount,
-        paymentMethod: paymentMethod === 'cod' ? 'Cash on Delivery (Open-Parcel)' : paymentMethod,
+        paymentMethod: paymentLabel,
         status:
-          'Order Confirmed — Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.',
+          paymentMethod === 'bank'
+            ? 'Order Placed — Send payment screenshot to WhatsApp for immediate dispatch approval.'
+            : 'Order Confirmed — Dispatched via TCS Express. Estimated delivery: 24-48 Hours with Open-Parcel inspection.',
         createdAt: new Date().toISOString(),
       };
       const existing = JSON.parse(
@@ -313,6 +333,7 @@ export function CartDrawer({
             email: cleanEmail,
             city: selectedCity,
             address: cleanAddress,
+            bankTxRef: sanitizeText(bankTxRef, 100),
             items: items.map((i) => ({
               name: i.phone.name,
               variant: `${i.selectedVariant.ram}/${i.selectedVariant.storage}`,
@@ -323,8 +344,8 @@ export function CartDrawer({
             totalPKR: finalTotalPKR,
             couponCode: appliedCoupon?.code || '',
             discountPKR: discountAmount,
-            paymentMethod,
-            status: 'Placed',
+            paymentMethod: paymentLabel,
+            status: paymentMethod === 'bank' ? 'Payment Verification Pending' : 'Placed',
             courier: 'TCS Express',
           },
         }),
@@ -350,6 +371,8 @@ export function CartDrawer({
     setConfirmedOrderId('');
     setValidationError('');
     setCustomerEmail('');
+    setBankTxRef('');
+    setCopiedBankField(null);
     setCopiedReceipt(false);
     setHoneypot('');
     onClearCart();
@@ -397,16 +420,88 @@ export function CartDrawer({
               </div>
 
               <div className="space-y-1">
-                <span className="inline-block px-3 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-extrabold text-[10px] sm:text-[11px] border border-emerald-200">
-                  ORDER BOOKED • TCS EXPRESS OPEN-PARCEL
+                <span className={`inline-block px-3 py-0.5 rounded-full font-extrabold text-[10px] sm:text-[11px] border ${
+                  paymentMethod === 'bank'
+                    ? 'bg-blue-50 text-blue-800 border-blue-200'
+                    : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                }`}>
+                  {paymentMethod === 'bank'
+                    ? 'ORDER BOOKED • DIRECT BANK TRANSFER'
+                    : 'ORDER BOOKED • TCS EXPRESS OPEN-PARCEL'}
                 </span>
                 <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                  Mubarak! Order Placed
+                  {paymentMethod === 'bank' ? 'Mubarak! Order Placed via Bank Transfer' : 'Mubarak! Order Placed'}
                 </h3>
                 <p className="text-xs text-slate-500 max-w-xs font-medium">
-                  Your smartphone order is confirmed with <strong>Open-Parcel Verification</strong>. Inspect before paying cash!
+                  {paymentMethod === 'bank'
+                    ? `Please transfer ${formatPKR(finalTotalPKR)} to the store bank/Raast account below and share the screenshot on WhatsApp.`
+                    : 'Your smartphone order is confirmed with Open-Parcel Verification. Inspect before paying cash!'}
                 </p>
               </div>
+
+              {/* Bank Transfer Payment Instructions (Shown when bank payment is chosen) */}
+              {paymentMethod === 'bank' && (
+                <div className="w-full p-3.5 rounded-2xl bg-gradient-to-br from-blue-50 via-sky-50 to-indigo-50 border border-blue-200 text-left space-y-2 text-xs">
+                  <div className="flex items-center justify-between border-b border-blue-200/70 pb-1.5">
+                    <span className="font-extrabold text-[#0b3c68] flex items-center gap-1.5">
+                      <Building className="w-3.5 h-3.5 text-blue-700" />
+                      Transfer {formatPKR(finalTotalPKR)} to:
+                    </span>
+                    <span className="text-[10px] font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">
+                      Meezan / Raast
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-0.5">
+                    {/* Raast */}
+                    <div className="p-2 rounded-xl bg-white border border-blue-100 space-y-0.5">
+                      <div className="flex items-center justify-between text-[10px] font-bold text-slate-500 uppercase">
+                        <span>Raast ID:</span>
+                        <button
+                          type="button"
+                          onClick={() => copyToClipboard(STORE_BANK_DETAILS.raastId, 'raast_succ')}
+                          className="text-[#0b3c68] hover:underline cursor-pointer flex items-center gap-0.5"
+                        >
+                          {copiedBankField === 'raast_succ' ? 'Copied! ✓' : 'Copy'}
+                        </button>
+                      </div>
+                      <div className="font-mono font-black text-slate-900 text-xs">{STORE_BANK_DETAILS.raastId}</div>
+                      <div className="text-[10px] text-slate-500">{STORE_BANK_DETAILS.raastTitle}</div>
+                    </div>
+
+                    {/* Meezan Account */}
+                    <div className="p-2 rounded-xl bg-white border border-blue-100 space-y-0.5">
+                      <div className="flex items-center justify-between text-[10px] font-bold text-slate-500 uppercase">
+                        <span>Meezan Account:</span>
+                        <button
+                          type="button"
+                          onClick={() => copyToClipboard(STORE_BANK_DETAILS.primaryBank.cleanAccountNumber, 'acc_succ')}
+                          className="text-[#0b3c68] hover:underline cursor-pointer flex items-center gap-0.5"
+                        >
+                          {copiedBankField === 'acc_succ' ? 'Copied! ✓' : 'Copy'}
+                        </button>
+                      </div>
+                      <div className="font-mono font-black text-slate-900 text-xs">{STORE_BANK_DETAILS.primaryBank.accountNumber}</div>
+                      <div className="text-[10px] text-slate-500">{STORE_BANK_DETAILS.primaryBank.accountTitle}</div>
+                    </div>
+                  </div>
+
+                  {/* IBAN */}
+                  <div className="p-2 rounded-xl bg-white border border-blue-100 flex items-center justify-between text-[11px]">
+                    <div>
+                      <span className="text-[10px] text-slate-400 font-bold block uppercase">Meezan IBAN:</span>
+                      <span className="font-mono font-bold text-slate-900 text-[10px] sm:text-[11px]">{STORE_BANK_DETAILS.primaryBank.iban}</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard(STORE_BANK_DETAILS.primaryBank.iban, 'iban_succ')}
+                      className="text-[10px] font-bold px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer"
+                    >
+                      {copiedBankField === 'iban_succ' ? 'Copied! ✓' : 'Copy IBAN'}
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {/* Order Receipt Summary Card */}
               <div className="w-full bg-slate-50 p-4 rounded-2xl border border-slate-200 text-left space-y-2 text-xs">
@@ -450,10 +545,16 @@ export function CartDrawer({
                 )}
                 <div className="flex justify-between">
                   <span className="text-slate-400">Payment:</span>
-                  <span className="font-bold text-emerald-700 uppercase">
-                    {paymentMethod === 'cod' ? 'Cash on Delivery (Open Parcel)' : paymentMethod}
+                  <span className={`font-bold uppercase ${paymentMethod === 'bank' ? 'text-blue-700' : 'text-emerald-700'}`}>
+                    {paymentMethod === 'bank' ? 'Direct Bank Transfer / Raast' : 'Cash on Delivery (Open Parcel)'}
                   </span>
                 </div>
+                {bankTxRef && paymentMethod === 'bank' && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Sender Ref / TID:</span>
+                    <span className="font-mono font-bold text-slate-800">{bankTxRef}</span>
+                  </div>
+                )}
                 {discountAmount > 0 && (
                   <div className="flex justify-between text-emerald-700">
                     <span className="font-medium">Promo Discount ({appliedCoupon?.code}):</span>
@@ -471,14 +572,24 @@ export function CartDrawer({
                 {/* 1-Click WhatsApp Button with full pre-filled order receipt */}
                 <a
                   href={`https://wa.me/923135221200?text=${encodeURIComponent(
-                    `📦 *HAMZA PHONE STORE — ORDER CONFIRMATION RECEIPT*\n──────────────────────\n🔖 *Order ID:* ${confirmedOrderId}\n👤 *Customer:* ${customerName}\n📞 *Mobile:* ${customerPhone}\n${customerEmail ? `✉️ *Email:* ${customerEmail}\n` : ''}📍 *Destination:* ${selectedCity}, Pakistan\n🏠 *Address:* ${customerAddress}\n📱 *Items:* ${items.map((i) => `${i.phone.name} (${i.selectedVariant.ram}/${i.selectedVariant.storage}) x${i.quantity}`).join(', ')}\n💰 *Total Payable:* ${formatPKR(finalTotalPKR)} (Open-Parcel COD)\n🚚 *Courier:* TCS Express (24-48 Hours Delivery)\n🛡️ *PTA Status:* 100% Official PTA Approved\n──────────────────────\n_I just placed this order. Please confirm dispatch tracking details._`
+                    paymentMethod === 'bank'
+                      ? `📦 *HAMZA PHONE STORE — BANK TRANSFER PAYMENT RECEIPT*\n──────────────────────\n🔖 *Order ID:* ${confirmedOrderId}\n👤 *Customer:* ${customerName}\n📞 *Mobile:* ${customerPhone}\n${customerEmail ? `✉️ *Email:* ${customerEmail}\n` : ''}📍 *Destination:* ${selectedCity}, Pakistan\n🏠 *Address:* ${customerAddress}\n📱 *Items:* ${items.map((i) => `${i.phone.name} (${i.selectedVariant.ram}/${i.selectedVariant.storage}) x${i.quantity}`).join(', ')}\n💰 *Amount Transferred:* ${formatPKR(finalTotalPKR)}\n🏦 *Method:* Direct Bank Transfer / Raast (Meezan Bank)\n${bankTxRef ? `📝 *Sender Reference / TID:* ${bankTxRef}\n` : ''}──────────────────────\n_I have completed the bank transfer. Attaching payment receipt screenshot here for verification & immediate dispatch._`
+                      : `📦 *HAMZA PHONE STORE — ORDER CONFIRMATION RECEIPT*\n──────────────────────\n🔖 *Order ID:* ${confirmedOrderId}\n👤 *Customer:* ${customerName}\n📞 *Mobile:* ${customerPhone}\n${customerEmail ? `✉️ *Email:* ${customerEmail}\n` : ''}📍 *Destination:* ${selectedCity}, Pakistan\n🏠 *Address:* ${customerAddress}\n📱 *Items:* ${items.map((i) => `${i.phone.name} (${i.selectedVariant.ram}/${i.selectedVariant.storage}) x${i.quantity}`).join(', ')}\n💰 *Total Payable:* ${formatPKR(finalTotalPKR)} (Open-Parcel COD)\n🚚 *Courier:* TCS Express (24-48 Hours Delivery)\n🛡️ *PTA Status:* 100% Official PTA Approved\n──────────────────────\n_I just placed this order. Please confirm dispatch tracking details._`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-black flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-all cursor-pointer btn-press"
+                  className={`w-full py-3.5 px-4 rounded-2xl text-white text-xs sm:text-sm font-black flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer btn-press ${
+                    paymentMethod === 'bank'
+                      ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/25'
+                      : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/25'
+                  }`}
                 >
                   <MessageSquare className="w-4 h-4 fill-white text-white" />
-                  <span>Send Order Receipt to WhatsApp (+92 313 5221200)</span>
+                  <span>
+                    {paymentMethod === 'bank'
+                      ? 'Send Payment Screenshot on WhatsApp (+92 313 5221200)'
+                      : 'Send Order Receipt to WhatsApp (+92 313 5221200)'}
+                  </span>
                 </a>
 
                 {/* Copy SMS / WhatsApp Receipt Button */}
@@ -486,7 +597,9 @@ export function CartDrawer({
                   type="button"
                   onClick={() => {
                     const itemsText = items.map((i) => `${i.phone.name} (${i.selectedVariant.ram}/${i.selectedVariant.storage}) x${i.quantity}`).join(', ');
-                    const receiptMsg = `📦 HAMZA PHONE STORE — ORDER RECEIPT\nOrder ID: ${confirmedOrderId}\nCustomer: ${customerName}\nPhone: ${customerPhone}\n${customerEmail ? `Email: ${customerEmail}\n` : ''}Destination: ${selectedCity}, Pakistan\nAddress: ${customerAddress}\nItems: ${itemsText}\nTotal: ${formatPKR(finalTotalPKR)} (Open-Parcel COD)\nCourier: TCS Express (24-48 Hours Delivery)\nPTA: 100% Official PTA Approved`;
+                    const receiptMsg = paymentMethod === 'bank'
+                      ? `📦 HAMZA PHONE STORE — BANK TRANSFER RECEIPT\nOrder ID: ${confirmedOrderId}\nCustomer: ${customerName}\nPhone: ${customerPhone}\n${customerEmail ? `Email: ${customerEmail}\n` : ''}Destination: ${selectedCity}, Pakistan\nAddress: ${customerAddress}\nItems: ${itemsText}\nTotal: ${formatPKR(finalTotalPKR)}\nPayment: Direct Bank Transfer (Meezan Bank / Raast)\n${bankTxRef ? `Sender Ref: ${bankTxRef}\n` : ''}Raast ID: ${STORE_BANK_DETAILS.raastId}\nMeezan IBAN: ${STORE_BANK_DETAILS.primaryBank.iban}`
+                      : `📦 HAMZA PHONE STORE — ORDER RECEIPT\nOrder ID: ${confirmedOrderId}\nCustomer: ${customerName}\nPhone: ${customerPhone}\n${customerEmail ? `Email: ${customerEmail}\n` : ''}Destination: ${selectedCity}, Pakistan\nAddress: ${customerAddress}\nItems: ${itemsText}\nTotal: ${formatPKR(finalTotalPKR)} (Open-Parcel COD)\nCourier: TCS Express (24-48 Hours Delivery)\nPTA: 100% Official PTA Approved`;
                     if (navigator.clipboard) {
                       navigator.clipboard.writeText(receiptMsg);
                       setCopiedReceipt(true);
@@ -694,7 +807,7 @@ export function CartDrawer({
                           Bank Transfer / Raast
                         </div>
                         <div className="text-[10px] text-slate-500">
-                          Instant IBFT (Meezan, HBL, Bank Alfalah)
+                          Instant IBFT (Meezan Bank, Raast, Bank Alfalah)
                         </div>
                       </div>
                     </div>
@@ -706,6 +819,134 @@ export function CartDrawer({
                       className="accent-[#0b3c68]"
                     />
                   </label>
+
+                  {/* Bank & Raast Details Card (Shown when Bank Transfer is selected) */}
+                  {paymentMethod === 'bank' && (
+                    <div className="p-3.5 rounded-2xl bg-gradient-to-br from-blue-50/90 via-sky-50/40 to-indigo-50/70 border border-blue-200 shadow-xs space-y-3 animate-in fade-in duration-200 text-xs">
+                      <div className="flex items-center justify-between border-b border-blue-200/70 pb-2">
+                        <div className="flex items-center gap-2">
+                          <Building className="w-4 h-4 text-[#0b3c68]" />
+                          <span className="font-extrabold text-[#0b3c68]">Official Store Bank & Raast Details</span>
+                        </div>
+                        <span className="text-[10px] font-bold text-blue-700 bg-blue-100/80 px-2 py-0.5 rounded-full">
+                          Direct IBFT
+                        </span>
+                      </div>
+
+                      {/* Raast Instant Transfer (Zero Fee) */}
+                      <div className="p-2.5 rounded-xl bg-white border border-blue-100 space-y-1 shadow-2xs">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1">
+                            <Sparkles className="w-3 h-3 text-[#48afff]" />
+                            Raast Instant ID (Any Banking App):
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => copyToClipboard(STORE_BANK_DETAILS.raastId, 'raast')}
+                            className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-sky-50 text-[#0b3c68] hover:bg-sky-100 transition-colors flex items-center gap-1 cursor-pointer"
+                          >
+                            {copiedBankField === 'raast' ? (
+                              <>
+                                <Check className="w-3 h-3 text-emerald-600" />
+                                <span className="text-emerald-700">Copied!</span>
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="w-3 h-3 text-slate-500" />
+                                <span>Copy Raast</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
+                        <div className="flex items-baseline justify-between pt-0.5">
+                          <span className="font-mono text-sm font-black text-slate-900 tracking-wider">
+                            {STORE_BANK_DETAILS.raastId}
+                          </span>
+                          <span className="text-[10px] font-medium text-slate-600 truncate max-w-[50%]">
+                            Title: <strong>{STORE_BANK_DETAILS.raastTitle}</strong>
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Primary Bank: Meezan Bank Ltd */}
+                      <div className="p-2.5 rounded-xl bg-white border border-blue-100 space-y-2 shadow-2xs">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[11px] font-extrabold text-[#0b3c68]">
+                            {STORE_BANK_DETAILS.primaryBank.bankName}
+                          </span>
+                          <span className="text-[10px] text-slate-400 font-medium">{STORE_BANK_DETAILS.primaryBank.branch}</span>
+                        </div>
+
+                        <div className="space-y-1.5 text-[11px]">
+                          <div className="flex items-center justify-between">
+                            <span className="text-slate-500">Account Title:</span>
+                            <span className="font-bold text-slate-900">{STORE_BANK_DETAILS.primaryBank.accountTitle}</span>
+                          </div>
+
+                          <div className="flex items-center justify-between">
+                            <span className="text-slate-500">Account Number:</span>
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-mono font-bold text-slate-900">{STORE_BANK_DETAILS.primaryBank.accountNumber}</span>
+                              <button
+                                type="button"
+                                onClick={() => copyToClipboard(STORE_BANK_DETAILS.primaryBank.cleanAccountNumber, 'acc')}
+                                className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center gap-1 cursor-pointer"
+                                title="Copy Account Number"
+                              >
+                                {copiedBankField === 'acc' ? (
+                                  <Check className="w-3 h-3 text-emerald-600" />
+                                ) : (
+                                  <Copy className="w-3 h-3 text-slate-500" />
+                                )}
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between pt-1 border-t border-slate-100">
+                            <span className="text-slate-500">IBAN:</span>
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-mono font-bold text-slate-900 text-[10px]">{STORE_BANK_DETAILS.primaryBank.iban}</span>
+                              <button
+                                type="button"
+                                onClick={() => copyToClipboard(STORE_BANK_DETAILS.primaryBank.iban, 'iban')}
+                                className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center gap-1 cursor-pointer"
+                                title="Copy IBAN"
+                              >
+                                {copiedBankField === 'iban' ? (
+                                  <Check className="w-3 h-3 text-emerald-600" />
+                                ) : (
+                                  <Copy className="w-3 h-3 text-slate-500" />
+                                )}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Optional Sender Reference Input */}
+                      <div className="space-y-1">
+                        <label className="text-[11px] font-bold text-slate-700 flex items-center justify-between">
+                          <span>Sender Account / Transaction Ref (Optional):</span>
+                          <span className="text-[10px] text-slate-400 font-normal">e.g. Meezan / HBL TID</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={bankTxRef}
+                          onChange={(e) => setBankTxRef(e.target.value)}
+                          placeholder="e.g. Meezan Bank / Ali Khan (TID 847291)"
+                          className="w-full px-3 py-1.5 text-xs rounded-xl bg-white border border-blue-200 focus:outline-none focus:ring-2 focus:ring-[#48afff] text-slate-900 font-medium"
+                        />
+                      </div>
+
+                      {/* Instructions */}
+                      <div className="p-2 rounded-xl bg-amber-50 border border-amber-200/80 text-amber-900 text-[11px] flex items-start gap-1.5 leading-snug">
+                        <span className="text-xs shrink-0">📲</span>
+                        <span>
+                          Transfer the exact payable amount and send screenshot to WhatsApp <strong>+92 313 5221200</strong> for instant consignment dispatch.
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 

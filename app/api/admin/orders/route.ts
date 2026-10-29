@@ -18,6 +18,7 @@ export interface AdminOrder {
   customerName: string;
   phone: string;
   email?: string;
+  bankTxRef?: string;
   city: string;
   address: string;
   items: Array<{
@@ -120,6 +121,7 @@ export async function POST(request: Request) {
       customerName: orderData.customerName,
       phone: orderData.phone,
       email: orderData.email || '',
+      bankTxRef: orderData.bankTxRef || '',
       city: orderData.city || 'Pakistan',
       address: orderData.address || '',
       items: orderData.items || [],
