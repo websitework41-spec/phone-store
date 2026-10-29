@@ -62,7 +62,7 @@ const HERO_SLIDES: SlideItem[] = [
     pricePKR: 316999,
     originalPricePKR: 469999,
     discountPercent: 33,
-    image: 'https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-d4s6b-500x500.webp',
+    image: '/images/samsung-s24-ultra-transparent.png',
     link: '/product/samsung-galaxy-s24-ultra',
     ctaText: 'Shop S24 Ultra Deal',
     gradient: 'from-[#0b2b4a] via-[#0f497a] to-[#136ab5]',
@@ -80,7 +80,7 @@ const HERO_SLIDES: SlideItem[] = [
     pricePKR: 434999,
     originalPricePKR: 491100,
     discountPercent: 11,
-    image: 'https://images.priceoye.pk/apple-iphone-17-pro-pakistan-priceoye-wflsi-500x500.webp',
+    image: '/images/apple-iphone-17-pro-transparent.png',
     link: '/product/apple-iphone-17-pro',
     ctaText: 'View iPhone 17 Pro',
     gradient: 'from-[#08182b] via-[#103254] to-[#1c5d99]',
@@ -98,7 +98,7 @@ const HERO_SLIDES: SlideItem[] = [
     pricePKR: 42999,
     originalPricePKR: 46999,
     discountPercent: 9,
-    image: 'https://images.priceoye.pk/xiaomi-redmi-15c-pakistan-priceoye-92xh3-500x500.webp',
+    image: '/images/xiaomi-redmi-15c-transparent.png',
     link: '/product/xiaomi-redmi-15c',
     ctaText: 'Grab Redmi Deal',
     gradient: 'from-[#0c2e4e] via-[#145388] to-[#1a6bb0]',
@@ -238,14 +238,14 @@ export function HeroBanner({
 
             {/* Right Visual Image with Gentle Floating Animation & Zoom */}
             <div className="sm:col-span-5 flex items-center justify-center relative">
-              <div className="relative w-40 h-40 sm:w-60 sm:h-60 group/img my-1 sm:my-0">
+              <div className="relative w-48 h-48 sm:w-64 sm:h-64 group/img my-1 sm:my-0">
                 <Link href={slide.link} className="relative block w-full h-full animate-float">
-                  <div className="w-full h-full bg-white rounded-3xl p-3 sm:p-5 shadow-2xl border border-white/30 flex items-center justify-center overflow-hidden">
+                  <div className="w-full h-full flex items-center justify-center">
                     <PhoneImageWithFallback
                       src={slide.image}
                       alt={slide.phoneName}
                       brand={slide.brand}
-                      className="w-full h-full object-contain group-hover/img:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.55)] group-hover/img:scale-110 transition-transform duration-500"
                       priority={currentSlideIndex === 0}
                     />
                   </div>

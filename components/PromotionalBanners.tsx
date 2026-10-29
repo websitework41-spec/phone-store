@@ -102,14 +102,14 @@ export function CatalogBannerS24Ultra({ onSelectBrand }: BannerProps) {
 
         {/* Right Phone Visual Column with Showcase Card */}
         <div className="md:col-span-5 flex items-center justify-center relative">
-          <div className="relative w-48 h-48 sm:w-56 sm:h-56 group/img">
-            <div className="absolute -inset-2 bg-gradient-to-tr from-[#48afff]/30 to-blue-400/20 rounded-3xl blur-xl group-hover:scale-110 transition-transform duration-700" />
-            <div className="relative z-10 w-full h-full bg-white rounded-3xl p-4 sm:p-5 shadow-2xl border border-white/30 flex items-center justify-center overflow-hidden">
+          <div className="relative w-52 h-52 sm:w-64 sm:h-64 group/img">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-[#48afff]/40 to-blue-400/25 rounded-full blur-2xl group-hover:scale-115 transition-transform duration-700 pointer-events-none" />
+            <div className="relative z-10 w-full h-full flex items-center justify-center">
               <PhoneImageWithFallback
-                src="https://images.priceoye.pk/samsung-galaxy-s24-ultra-pakistan-priceoye-d4s6b-500x500.webp"
+                src="/images/samsung-s24-ultra-transparent.png"
                 alt="Samsung Galaxy S24 Ultra"
                 brand="Samsung"
-                className="w-full h-full object-contain group-hover/img:scale-105 transition-transform duration-500"
+                className="w-full h-full object-contain filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.55)] group-hover/img:scale-110 transition-transform duration-500"
               />
             </div>
           </div>
