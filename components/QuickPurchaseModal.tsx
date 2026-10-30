@@ -113,18 +113,35 @@ export function QuickPurchaseModal({
         }
       }
     }
-  }, [user, profile, isOpen]);
+  }, [user, profile, isOpen, fullName, phoneNumber, customerEmail, deliveryAddress]);
 
-  if (!isOpen || !phone) return null;
+  // Derived active variant and color with robust safe fallbacks (calculated unconditionally)
+  const currentVariant = phone
+    ? (selectedVariant || phone.variants?.find((v) => v.inStock) || phone.variants?.[0] || {
+        id: 'default',
+        ram: 'Standard',
+        storage: 'Standard',
+        pricePKR: phone.basePricePKR,
+        originalPricePKR: phone.originalPricePKR || phone.basePricePKR,
+        inStock: true,
+      })
+    : null;
 
-  const currentVariant = selectedVariant || phone.variants.find((v) => v.inStock) || phone.variants[0];
-  const currentColor = selectedColor || phone.colors.find((c) => c.inStock) || phone.colors[0];
-  const price = currentVariant ? currentVariant.pricePKR : phone.basePricePKR;
+  const currentColor = phone
+    ? (selectedColor || phone.colors?.find((c) => c.inStock) || phone.colors?.[0] || {
+        name: 'Standard',
+        hex: '#0b3c68',
+        image: phone.colors?.[0]?.image || '',
+        inStock: true,
+      })
+    : null;
+
+  const price = currentVariant ? currentVariant.pricePKR : (phone ? phone.basePricePKR : 0);
   const finalPrice = Math.max(0, price - discountAmount);
 
-  // Recalculate discount if device price changes
+  // Recalculate discount if device price changes (called unconditionally on every render)
   useEffect(() => {
-    if (appliedCoupon) {
+    if (appliedCoupon && price > 0) {
       if (appliedCoupon.minOrderAmount && price < appliedCoupon.minOrderAmount) {
         setAppliedCoupon(null);
         setDiscountAmount(0);
@@ -142,6 +159,18 @@ export function QuickPurchaseModal({
       }
     }
   }, [price, appliedCoupon]);
+
+  // Escape key handler to close modal
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleResetAndClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
 
   const handleApplyCoupon = async (codeToApply?: string) => {
     const code = (codeToApply || couponCodeInput).trim();
@@ -371,8 +400,15 @@ export function QuickPurchaseModal({
     onClose();
   };
 
+  if (!isOpen || !phone || !currentColor || !currentVariant) return null;
+
   return (
-    <div className="fixed inset-0 z-50 flex flex-col justify-end sm:justify-center sm:items-center p-0 sm:p-4 bg-slate-950/70 backdrop-blur-xs overflow-y-auto animate-in fade-in duration-200">
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) handleResetAndClose();
+      }}
+      className="fixed inset-0 z-[100] flex flex-col justify-end sm:justify-center sm:items-center p-0 sm:p-4 bg-slate-950/70 backdrop-blur-xs overflow-y-auto animate-in fade-in duration-200"
+    >
       <div className="relative w-full max-w-2xl bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl border border-slate-200 flex flex-col max-h-[92vh] sm:max-h-[88vh] overflow-hidden">
         {/* Mobile Drag Indicator Bar */}
         <div className="sm:hidden w-12 h-1.5 rounded-full bg-slate-300 mx-auto mt-2.5 mb-1 shrink-0" />
@@ -409,7 +445,7 @@ export function QuickPurchaseModal({
             <div className="p-3 sm:p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center gap-3 sm:gap-4">
               <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-xl bg-white p-1.5 border border-slate-200 flex items-center justify-center shrink-0">
                 <PhoneImageWithFallback
-                  src={currentColor.image}
+                  src={currentColor.image || phone.colors?.[0]?.image || ''}
                   alt={phone.name}
                   brand={phone.brand}
                   className="w-full h-full object-contain"

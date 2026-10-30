@@ -194,6 +194,30 @@ export default function ProductDetailPage() {
     }
   }, [phone?.id]);
 
+  const basePrice = selectedVariant?.pricePKR || phone?.basePricePKR || 0;
+  const addonCost = (addGiftWrap ? 199 : 0) + (addScreenProtection ? 999 : 0);
+  const currentPrice = basePrice + addonCost;
+  const currentOriginalPrice =
+    (selectedVariant?.originalPricePKR || phone?.originalPricePKR || phone?.basePricePKR || 0) + addonCost;
+  const savings = currentOriginalPrice - currentPrice;
+  const monthlyInstallment = Math.round(currentPrice / selectedTenure);
+
+  // Track product view in real-time analytics (called unconditionally)
+  useEffect(() => {
+    if (phone && phone.id) {
+      try {
+        trackProductView({
+          phoneId: phone.id,
+          name: phone.name,
+          brand: phone.brand,
+          slug: phone.slug,
+          image: selectedColor?.image || phone.colors?.[0]?.image || '',
+          pricePKR: currentPrice || phone.basePricePKR,
+        });
+      } catch {}
+    }
+  }, [phone?.id, selectedColor?.name, selectedVariant?.id, currentPrice]);
+
   if (!phone) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-[#f1f3f6]">
@@ -216,29 +240,6 @@ export default function ProductDetailPage() {
   const isPhoneInStock = phone.inStock;
   const isSelectionInStock = Boolean(isPhoneInStock && isColorInStock && isVariantInStock);
   const currentStockQty = selectedColor?.stockQty || selectedVariant?.stockQty || phone.stockQty || 0;
-
-  const basePrice = selectedVariant?.pricePKR || phone.basePricePKR;
-  const addonCost = (addGiftWrap ? 199 : 0) + (addScreenProtection ? 999 : 0);
-  const currentPrice = basePrice + addonCost;
-
-  const currentOriginalPrice =
-    (selectedVariant?.originalPricePKR || phone.originalPricePKR) + addonCost;
-  const savings = currentOriginalPrice - currentPrice;
-  const monthlyInstallment = Math.round(currentPrice / selectedTenure);
-
-  // Track product view in real-time analytics
-  useEffect(() => {
-    if (phone && phone.id) {
-      trackProductView({
-        phoneId: phone.id,
-        name: phone.name,
-        brand: phone.brand,
-        slug: phone.slug,
-        image: selectedColor?.image || phone.colors[0]?.image,
-        pricePKR: currentPrice || phone.basePricePKR,
-      });
-    }
-  }, [phone?.id, selectedColor?.name, selectedVariant?.id, currentPrice]);
 
   const handleAddToCart = () => {
     if (!isSelectionInStock) {
@@ -867,16 +868,19 @@ export default function ProductDetailPage() {
 
                   {/* Buy Now (Open-Parcel COD) CTA */}
                   <button
+                    type="button"
                     onClick={() => {
                       if (isSelectionInStock) {
-                        trackCheckoutStart({
-                          phoneId: phone.id,
-                          name: phone.name,
-                          brand: phone.brand,
-                          slug: phone.slug,
-                          image: selectedColor?.image || phone.colors[0]?.image,
-                          pricePKR: currentPrice,
-                        });
+                        try {
+                          trackCheckoutStart({
+                            phoneId: phone.id,
+                            name: phone.name,
+                            brand: phone.brand,
+                            slug: phone.slug,
+                            image: selectedColor?.image || phone.colors?.[0]?.image || '',
+                            pricePKR: currentPrice,
+                          });
+                        } catch {}
                         setIsQuickBuyOpen(true);
                       }
                     }}
@@ -1548,16 +1552,19 @@ export default function ProductDetailPage() {
             Add to Cart
           </button>
           <button
+            type="button"
             onClick={() => {
               if (isSelectionInStock) {
-                trackCheckoutStart({
-                  phoneId: phone.id,
-                  name: phone.name,
-                  brand: phone.brand,
-                  slug: phone.slug,
-                  image: selectedColor?.image || phone.colors[0]?.image,
-                  pricePKR: currentPrice,
-                });
+                try {
+                  trackCheckoutStart({
+                    phoneId: phone.id,
+                    name: phone.name,
+                    brand: phone.brand,
+                    slug: phone.slug,
+                    image: selectedColor?.image || phone.colors?.[0]?.image || '',
+                    pricePKR: currentPrice,
+                  });
+                } catch {}
                 setIsQuickBuyOpen(true);
               }
             }}
