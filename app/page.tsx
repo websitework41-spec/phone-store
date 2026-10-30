@@ -60,6 +60,7 @@ import {
   Smartphone as PhoneIcon,
   Clock,
   MessageSquare,
+  SlidersHorizontal,
 } from 'lucide-react';
 
 function HomeContent() {
@@ -765,17 +766,32 @@ function HomeContent() {
               </p>
             </div>
 
-            {/* Controls: Mobile Filters Trigger & Sort By */}
-            <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+            {/* Controls: Universal Filters Trigger & Sort By */}
+            <div className="flex items-center gap-2.5 w-full sm:w-auto justify-between sm:justify-end">
               <button
-                onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
-                className="lg:hidden flex items-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold bg-[#136ab5] text-white cursor-pointer shadow-sm"
+                onClick={() => setIsMobileFiltersOpen(true)}
+                className="btn-press flex items-center gap-2 px-4 py-2 sm:py-2.5 rounded-full text-xs font-bold bg-[#0b3c68] hover:bg-[#072847] text-white cursor-pointer shadow-sm hover:shadow-md transition-all shrink-0"
               >
-                <Filter className="w-3.5 h-3.5 text-sky-200" />
-                <span>Filters ({filters.selectedBrands.length + (filters.ptaApprovedOnly ? 1 : 0)})</span>
+                <SlidersHorizontal className="w-3.5 h-3.5 text-sky-300" />
+                <span>Filters</span>
+                {(filters.selectedBrands.length +
+                  (filters.ptaApprovedOnly ? 1 : 0) +
+                  (filters.inStockOnly ? 1 : 0) +
+                  filters.selectedRam.length +
+                  filters.selectedStorage.length +
+                  (filters.priceRange[0] > 0 || filters.priceRange[1] < 700000 ? 1 : 0)) > 0 && (
+                  <span className="w-5 h-5 rounded-full bg-[#f88b2a] text-white text-[10px] font-black flex items-center justify-center shadow-xs">
+                    {filters.selectedBrands.length +
+                      (filters.ptaApprovedOnly ? 1 : 0) +
+                      (filters.inStockOnly ? 1 : 0) +
+                      filters.selectedRam.length +
+                      filters.selectedStorage.length +
+                      (filters.priceRange[0] > 0 || filters.priceRange[1] < 700000 ? 1 : 0)}
+                  </span>
+                )}
               </button>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 <span className="text-xs text-slate-400 font-bold hidden sm:inline">
                   Sort By:
                 </span>
@@ -797,6 +813,122 @@ function HomeContent() {
                 </select>
               </div>
             </div>
+          </div>
+
+          {/* Quick Filter Horizontal Rail */}
+          <div className="flex items-center gap-2 overflow-x-auto py-3 scrollbar-none border-b border-slate-200/80">
+            <button
+              onClick={() => {
+                setFilters((prev) => ({
+                  ...prev,
+                  selectedBrands: [],
+                  ptaApprovedOnly: false,
+                  inStockOnly: false,
+                  priceRange: [0, 700000],
+                  specFilter: undefined,
+                  searchQuery: '',
+                }));
+              }}
+              className={`btn-press whitespace-nowrap text-xs font-bold px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
+                filters.selectedBrands.length === 0 &&
+                !filters.ptaApprovedOnly &&
+                !filters.inStockOnly &&
+                !filters.specFilter &&
+                !filters.searchQuery
+                  ? 'bg-[#0b3c68] text-white shadow-xs'
+                  : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200'
+              }`}
+            >
+              All Mobiles ({catalog.length})
+            </button>
+
+            <button
+              onClick={() => {
+                setFilters((prev) => ({
+                  ...prev,
+                  ptaApprovedOnly: !prev.ptaApprovedOnly,
+                }));
+              }}
+              className={`btn-press whitespace-nowrap text-xs font-bold px-3.5 py-1.5 rounded-full transition-all cursor-pointer flex items-center gap-1.5 ${
+                filters.ptaApprovedOnly
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : 'bg-white hover:bg-emerald-50 text-emerald-700 border border-emerald-200'
+              }`}
+            >
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>100% PTA Approved</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setFilters((prev) => ({
+                  ...prev,
+                  inStockOnly: !prev.inStockOnly,
+                }));
+              }}
+              className={`btn-press whitespace-nowrap text-xs font-bold px-3.5 py-1.5 rounded-full transition-all cursor-pointer flex items-center gap-1.5 ${
+                filters.inStockOnly
+                  ? 'bg-[#136ab5] text-white shadow-xs'
+                  : 'bg-white hover:bg-sky-50 text-[#136ab5] border border-sky-200'
+              }`}
+            >
+              <CheckCircle className="w-3.5 h-3.5" />
+              <span>In Stock Only ({inStockCount})</span>
+            </button>
+
+            <button
+              onClick={handleFilterKeypad}
+              className={`btn-press whitespace-nowrap text-xs font-bold px-3.5 py-1.5 rounded-full transition-all cursor-pointer flex items-center gap-1.5 ${
+                filters.selectedBrands.includes('Nokia') && filters.selectedBrands.includes('Itel')
+                  ? 'bg-[#136ab5] text-white shadow-xs'
+                  : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200'
+              }`}
+            >
+              <PhoneIcon className="w-3.5 h-3.5 text-slate-500" />
+              <span>Keypad Phones (22)</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setFilters((prev) => ({
+                  ...prev,
+                  searchQuery: prev.searchQuery === '5G' ? '' : '5G',
+                }));
+              }}
+              className={`btn-press whitespace-nowrap text-xs font-bold px-3.5 py-1.5 rounded-full transition-all cursor-pointer flex items-center gap-1.5 ${
+                filters.searchQuery === '5G'
+                  ? 'bg-purple-600 text-white shadow-xs'
+                  : 'bg-white hover:bg-purple-50 text-purple-700 border border-purple-200'
+              }`}
+            >
+              <Zap className="w-3.5 h-3.5" />
+              <span>5G Mobiles</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setFilters((prev) => ({
+                  ...prev,
+                  specFilter: prev.specFilter === '120hz-amoled' ? undefined : '120hz-amoled',
+                }));
+              }}
+              className={`btn-press whitespace-nowrap text-xs font-bold px-3.5 py-1.5 rounded-full transition-all cursor-pointer flex items-center gap-1.5 ${
+                filters.specFilter === '120hz-amoled'
+                  ? 'bg-amber-600 text-white shadow-xs'
+                  : 'bg-white hover:bg-amber-50 text-amber-700 border border-amber-200'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>120Hz AMOLED</span>
+            </button>
+
+            <button
+              onClick={() => setIsMobileFiltersOpen(true)}
+              className="btn-press whitespace-nowrap text-xs font-bold px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 flex items-center gap-1 ml-auto cursor-pointer shrink-0"
+            >
+              <SlidersHorizontal className="w-3.5 h-3.5 text-[#0b3c68]" />
+              <span>More Filters...</span>
+            </button>
           </div>
 
           {/* Active Filter Chips Bar */}
@@ -889,23 +1021,11 @@ function HomeContent() {
             </div>
           )}
 
-          {/* Catalog Layout: Sidebar + Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-6">
-            {/* Filter Sidebar Desktop */}
-            <div className="lg:col-span-3 hidden lg:block">
-              <FilterSidebar
-                filters={filters}
-                setFilters={setFilters}
-                totalCount={catalog.length}
-                filteredCount={filteredPhones.length}
-              />
-            </div>
-
-            {/* Products Grid */}
-            <div className="lg:col-span-9">
-              {filteredPhones.length > 0 ? (
-                <>
-                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-5">
+          {/* Catalog Layout: Full-Width 4-Column Balanced Grid (No empty left space) */}
+          <div className="w-full mt-6">
+            {filteredPhones.length > 0 ? (
+              <>
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-5">
                     {displayedPhones.map((phone, index) => (
                       <React.Fragment key={phone.id}>
                         {/* Section Divider when list transitions to out-of-stock items */}
@@ -1027,7 +1147,6 @@ function HomeContent() {
                   </button>
                 </div>
               )}
-            </div>
           </div>
         </section>
 
@@ -1393,28 +1512,28 @@ function HomeContent() {
         </div>
       )}
 
-      {/* Mobile Filter Slide-over Drawer */}
+      {/* Universal Filter Slide-over Drawer (Mobile & Desktop) */}
       {isMobileFiltersOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex justify-end animate-in fade-in duration-200">
-          <div className="w-full max-w-sm bg-white h-full flex flex-col shadow-2xl animate-in slide-in-from-right duration-200">
+        <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex justify-end animate-in fade-in duration-200">
+          <div className="w-full max-w-md bg-white dark:bg-slate-900 h-full flex flex-col shadow-2xl animate-in slide-in-from-right duration-200">
             {/* Header */}
-            <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/70 shrink-0">
+            <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/80 dark:bg-slate-950/80 shrink-0">
               <div className="flex items-center gap-2">
-                <Filter className="w-4 h-4 text-[#0b3c68]" />
-                <h3 className="text-sm font-black text-slate-900">
+                <SlidersHorizontal className="w-4 h-4 text-[#0b3c68] dark:text-[#48afff]" />
+                <h3 className="text-sm font-black text-slate-900 dark:text-white">
                   Filter Smartphones ({filteredPhones.length})
                 </h3>
               </div>
               <button
                 onClick={() => setIsMobileFiltersOpen(false)}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 flex items-center justify-center transition-colors cursor-pointer"
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Scrollable Filter Options */}
-            <div className="flex-1 overflow-y-auto p-4">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-5">
               <FilterSidebar
                 filters={filters}
                 setFilters={setFilters}
@@ -1424,12 +1543,12 @@ function HomeContent() {
             </div>
 
             {/* Sticky Action Footer */}
-            <div className="p-4 border-t border-slate-100 bg-white/95 backdrop-blur-md shrink-0">
+            <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shrink-0">
               <button
                 onClick={() => setIsMobileFiltersOpen(false)}
                 className="w-full py-3.5 rounded-2xl bg-[#0b3c68] hover:bg-[#072847] text-white text-xs font-black shadow-md btn-press cursor-pointer flex items-center justify-center gap-2"
               >
-                <span>Show {filteredPhones.length} Smartphones</span>
+                <span>View {filteredPhones.length} Filtered Mobiles</span>
               </button>
             </div>
           </div>
