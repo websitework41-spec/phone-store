@@ -360,7 +360,7 @@ export default function ProductDetailPage() {
   useEffect(() => {
     if (!slug) return;
     try {
-      const stored = localStorage.getItem(`navira_reviews_${slug}`);
+      const stored = localStorage.getItem(`hamzastore_reviews_${slug}`) || localStorage.getItem(`navira_reviews_${slug}`);
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -388,8 +388,8 @@ export default function ProductDetailPage() {
     setReviewsList((prev: CustomerReview[]) => [newRev, ...prev]);
 
     try {
-      const existing = JSON.parse(localStorage.getItem(`navira_reviews_${slug}`) || '[]');
-      localStorage.setItem(`navira_reviews_${slug}`, JSON.stringify([newRev, ...existing]));
+      const existing = JSON.parse(localStorage.getItem(`hamzastore_reviews_${slug}`) || localStorage.getItem(`navira_reviews_${slug}`) || '[]');
+      localStorage.setItem(`hamzastore_reviews_${slug}`, JSON.stringify([newRev, ...existing]));
     } catch {}
 
     setReviewAuthor('');

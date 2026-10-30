@@ -169,7 +169,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 : '';
               const newProfile: UserProfile = {
                 uid: currentUser.uid,
-                name: currentUser.displayName || 'Navira Traders Customer',
+                name: currentUser.displayName || 'Hamza Phone Store Customer',
                 phone: phoneFromEmail,
                 email: currentUser.email || `${phoneFromEmail}@hamzaphonestore.pk`,
                 addresses: [],
@@ -198,7 +198,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 : '';
               const fallback: UserProfile = {
                 uid: currentUser.uid,
-                name: currentUser.displayName || 'Navira Traders Customer',
+                name: currentUser.displayName || 'Hamza Phone Store Customer',
                 phone: phoneFromEmail,
                 email: currentUser.email || '',
                 addresses: [],
@@ -313,7 +313,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
 
       setAuthToast({
-        message: `Welcome, ${trimmedName}! Your Navira Traders account was created successfully.`,
+        message: `Welcome, ${trimmedName}! Your Hamza Phone Store account was created successfully.`,
         type: 'success',
       });
 
@@ -377,7 +377,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } catch {}
 
       setAuthToast({
-        message: 'Signed in successfully! Welcome to Navira Traders.',
+        message: 'Signed in successfully! Welcome to Hamza Phone Store.',
         type: 'success',
       });
 
@@ -397,7 +397,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             5000
           );
           setAuthToast({
-            message: 'Signed in successfully! Welcome to Navira Traders.',
+            message: 'Signed in successfully! Welcome to Hamza Phone Store.',
             type: 'success',
           });
           return { success: true };

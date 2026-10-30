@@ -13,19 +13,6 @@
     "createdAt": "2026-10-01T00:00:00.000Z"
   },
   {
-    "id": "coup-navira500",
-    "code": "NAVIRA500",
-    "discountType": "fixed",
-    "discountValue": 500,
-    "minOrderAmount": 10000,
-    "maxDiscountAmount": 500,
-    "timesUsed": 42,
-    "usageLimit": 500,
-    "isActive": true,
-    "description": "Flat Rs. 500 OFF storewide instant voucher",
-    "createdAt": "2026-10-01T00:00:00.000Z"
-  },
-  {
     "id": "coup-hamza500",
     "code": "HAMZA500",
     "discountType": "fixed",
