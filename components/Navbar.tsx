@@ -88,7 +88,15 @@ export function Navbar({
   const userMenuRef = useRef<HTMLDivElement>(null);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
-  const { user, profile, loading: authLoading, openAuthModal, logout } = useAuth();
+  const { user, profile, loading: authLoading, openAuthModal, logout, authToast, setAuthToast } = useAuth();
+
+  useEffect(() => {
+    if (!authToast) return;
+    const timer = setTimeout(() => {
+      setAuthToast(null);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [authToast, setAuthToast]);
 
   // Active synced catalog for Navbar
   const [activeCatalog, setActiveCatalog] = useState<Smartphone[]>(() => getActiveCatalog(SMARTPHONES));
@@ -286,7 +294,22 @@ export function Navbar({
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full transition-all shadow-md overflow-hidden">
+      <header className="sticky top-0 z-40 w-full transition-all shadow-md">
+        {/* Floating Notification Toast */}
+        {authToast && (
+          <div className="fixed top-20 sm:top-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2.5 px-4 py-3 sm:px-6 sm:py-3.5 rounded-2xl bg-emerald-600 text-white shadow-2xl border border-emerald-400/40 text-xs sm:text-sm font-bold animate-in fade-in slide-in-from-top-4 duration-200 max-w-[90vw] sm:max-w-md">
+            <CheckCircle2 className="w-5 h-5 text-emerald-100 shrink-0" />
+            <span className="flex-1">{authToast.message}</span>
+            <button
+              onClick={() => setAuthToast(null)}
+              className="ml-2 text-white/80 hover:text-white p-1 rounded-full hover:bg-white/20 transition-colors cursor-pointer shrink-0"
+              aria-label="Dismiss notification"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
         {/* 1. PriceOye Signature Deep Blue Top Utility Bar */}
         <div className="bg-[#0b3c68] text-white text-[10px] sm:text-xs py-1.5 sm:py-2 px-2.5 sm:px-4 font-semibold border-b border-[#082e50] overflow-hidden">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-1.5 sm:gap-4">
@@ -325,7 +348,7 @@ export function Navbar({
               </a>
               <span className="text-white/40 hidden sm:inline">•</span>
               <a
-                href="https://wa.me/923135221200?text=Hi%20Hamza%20Phone%20Store!%20I%20have%20an%20inquiry%20regarding%20mobile%20phones."
+                href="https://wa.me/923135221200?text=Hi%20Navira%20Traders!%20I%20have%20an%20inquiry%20regarding%20mobile%20phones."
                 target="_blank"
                 rel="noreferrer"
                 className="hover:bg-white/20 flex items-center gap-1 sm:gap-1.5 transition-all text-white font-bold hover:scale-105 active:scale-95 bg-white/10 px-2 sm:px-2.5 py-0.5 rounded-full border border-white/20"
@@ -340,10 +363,10 @@ export function Navbar({
         </div>
 
         {/* 2. PriceOye Signature Electric Sky Blue Navigation Bar */}
-        <div className="bg-[#48afff] text-white overflow-hidden">
+        <div className="bg-[#48afff] text-white relative">
           <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-14 sm:h-20 gap-1.5 sm:gap-4">
-              {/* Hamza Phone Store Brand Logo */}
+              {/* Navira Traders Brand Logo */}
               <Link href="/" className="flex items-center gap-1 sm:gap-3 shrink min-w-0 group">
                 <div className="w-7 h-7 sm:w-11 sm:h-11 rounded-lg sm:rounded-2xl bg-white text-[#0b3c68] flex items-center justify-center shadow-md group-hover:scale-105 transition-all shrink-0">
                   <Zap className="w-3.5 h-3.5 sm:w-6 sm:h-6 fill-[#0b3c68] stroke-[#0b3c68]" />
@@ -351,9 +374,9 @@ export function Navbar({
                 <div className="min-w-0">
                   <div className="flex items-center gap-1 sm:gap-1.5">
                     <span className="text-xs sm:text-2xl font-black tracking-tight text-white font-sans flex items-center gap-0.5 sm:gap-1">
-                      <span>HAMZA</span>
+                      <span>NAVIRA</span>
                       <span className="bg-white text-[#0b3c68] px-1 sm:px-2 py-0.5 rounded sm:rounded-lg text-[9px] sm:text-lg font-black shadow-xs tracking-normal">
-                        PHONE STORE
+                        TRADERS
                       </span>
                     </span>
                     <span className="text-[7px] sm:text-[10px] font-black px-1 sm:px-2 py-0.5 rounded-full bg-[#f88b2a] text-white shadow-xs tracking-wider shrink-0">
@@ -563,12 +586,12 @@ export function Navbar({
                     </button>
 
                     {isUserMenuOpen && (
-                      <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-slate-200/90 py-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150 text-slate-900">
-                        <div className="px-4 py-2 border-b border-slate-100">
-                          <p className="text-xs font-bold text-slate-900 truncate">
-                            {profile?.name || user.displayName || 'Customer'}
+                      <div className="absolute right-0 top-full mt-2 w-60 sm:w-64 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150 text-slate-900 ring-1 ring-slate-900/10">
+                        <div className="px-4 py-2.5 border-b border-slate-100 bg-slate-50/60 rounded-t-2xl">
+                          <p className="text-xs font-black text-slate-900 truncate">
+                            {profile?.name || user.displayName || 'Navira Customer'}
                           </p>
-                          <p className="text-[11px] text-slate-500 truncate">
+                          <p className="text-[11px] font-medium text-slate-500 truncate">
                             {profile?.phone || (user.email ? user.email.replace(/@(hamzaphonestore\.pk|voltphone\.pk)/, '') : '')}
                           </p>
                         </div>

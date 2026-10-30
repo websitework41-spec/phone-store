@@ -53,6 +53,8 @@ interface AuthContextType {
   loading: boolean;
   isAuthModalOpen: boolean;
   authModalMode: 'login' | 'signup' | 'forgot';
+  authToast: { message: string; type: 'success' | 'info' | 'error' } | null;
+  setAuthToast: (toast: { message: string; type: 'success' | 'info' | 'error' } | null) => void;
   openAuthModal: (mode?: 'login' | 'signup' | 'forgot') => void;
   closeAuthModal: () => void;
   signup: (
@@ -113,6 +115,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Modal State
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'signup' | 'forgot'>('login');
+  const [authToast, setAuthToast] = useState<{ message: string; type: 'success' | 'info' | 'error' } | null>(null);
 
   const openAuthModal = (mode: 'login' | 'signup' | 'forgot' = 'login') => {
     setAuthModalMode(mode);
@@ -309,6 +312,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.warn('Background Firestore profile sync warning:', err);
       });
 
+      setAuthToast({
+        message: `Welcome, ${trimmedName}! Your Navira Traders account was created successfully.`,
+        type: 'success',
+      });
+
       return { success: true };
     } catch (err: any) {
       console.error('Signup error:', err);
@@ -368,6 +376,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       } catch {}
 
+      setAuthToast({
+        message: 'Signed in successfully! Welcome to Navira Traders.',
+        type: 'success',
+      });
+
       return { success: true };
     } catch (err: any) {
       // Legacy fallback: check if account was originally created with @voltphone.pk
@@ -383,6 +396,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             signInWithEmailAndPassword(auth, legacyEmail, password),
             5000
           );
+          setAuthToast({
+            message: 'Signed in successfully! Welcome to Navira Traders.',
+            type: 'success',
+          });
           return { success: true };
         } catch {
           // Continue to standard error reporting
@@ -424,6 +441,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       await signOut(auth);
       setProfile(null);
+      setAuthToast({
+        message: 'Logged out successfully.',
+        type: 'info',
+      });
     } catch (err) {
       console.error('Logout error:', err);
     }
@@ -580,6 +601,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         loading,
         isAuthModalOpen,
         authModalMode,
+        authToast,
+        setAuthToast,
         openAuthModal,
         closeAuthModal,
         signup,
