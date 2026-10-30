@@ -25,6 +25,7 @@ import {
   Zap,
   CreditCard,
   ChevronRight,
+  ChevronLeft,
   Clock,
   ExternalLink,
   User,
@@ -112,6 +113,58 @@ export function Navbar({
     });
     return counts;
   }, [activeCatalog]);
+
+  // Brand navigation bar horizontal scroll handling
+  const brandScrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkBrandScrollability = () => {
+    const el = brandScrollRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 6);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 6);
+  };
+
+  useEffect(() => {
+    const el = brandScrollRef.current;
+    if (!el) return;
+    checkBrandScrollability();
+    el.addEventListener('scroll', checkBrandScrollability, { passive: true });
+    window.addEventListener('resize', checkBrandScrollability);
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => {
+        checkBrandScrollability();
+      });
+      resizeObserver.observe(el);
+    }
+    return () => {
+      el.removeEventListener('scroll', checkBrandScrollability);
+      window.removeEventListener('resize', checkBrandScrollability);
+      if (resizeObserver) resizeObserver.disconnect();
+    };
+  }, [brandCounts]);
+
+  const scrollBrands = (direction: 'left' | 'right') => {
+    const el = brandScrollRef.current;
+    if (!el) return;
+    const distance = Math.max(260, Math.floor(el.clientWidth * 0.65));
+    el.scrollBy({
+      left: direction === 'left' ? -distance : distance,
+      behavior: 'smooth',
+    });
+  };
+
+  // Keep active brand pill visible on initial render or when active brand changes
+  useEffect(() => {
+    if (!brandScrollRef.current || !activeBrand) return;
+    const activeEl = brandScrollRef.current.querySelector<HTMLElement>(`[data-brand="${activeBrand}"]`);
+    if (activeEl) {
+      activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }, [activeBrand]);
 
   // Search filtering on active catalog using smart multi-token engine
   const searchResults = useMemo(() => {
@@ -695,21 +748,40 @@ export function Navbar({
           </div>
         </div>
 
-        {/* 3. PriceOye Clean White Brand & Quick-Category Navigation Bar */}
-        <div className="bg-white border-b border-slate-200/90 shadow-xs overflow-hidden w-full max-w-full">
-          <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8">
-            <div className="flex items-center gap-2 py-2 sm:py-2.5 overflow-x-auto scrollbar-none">
+        {/* 3. PriceOye Clean Brand & Quick-Category Navigation Bar */}
+        <div className="bg-white dark:bg-slate-900 border-b border-slate-200/90 dark:border-slate-800 shadow-xs w-full max-w-full relative select-none">
+          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 relative flex items-center">
+            {/* Left Scroll Button & Soft Gradient Fade */}
+            {canScrollLeft && (
+              <div className="absolute left-0 top-0 bottom-0 z-20 flex items-center pl-1 sm:pl-3 pr-8 bg-gradient-to-r from-white via-white/95 to-transparent dark:from-slate-900 dark:via-slate-900/95 pointer-events-none">
+                <button
+                  type="button"
+                  onClick={() => scrollBrands('left')}
+                  aria-label="Scroll brands left"
+                  className="pointer-events-auto w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-md hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#0b3c68] dark:hover:text-white transition-all cursor-pointer hover:scale-105 active:scale-95"
+                >
+                  <ChevronLeft className="w-4 h-4 stroke-[2.4]" />
+                </button>
+              </div>
+            )}
+
+            {/* Scrollable Brands Rail */}
+            <div
+              ref={brandScrollRef}
+              className="flex items-center gap-2 py-2 sm:py-2.5 overflow-x-auto scrollbar-none scroll-smooth w-full px-1"
+            >
               {BRANDS.map((brand) => {
                 const isActive = activeBrand === brand;
                 const count = brandCounts[brand] || 0;
                 return (
                   <button
                     key={brand}
+                    data-brand={brand}
                     onClick={() => handleBrandClick(brand)}
-                    className={`btn-press px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
+                    className={`btn-press shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
                       isActive
-                        ? 'bg-[#0b3c68] text-white shadow-sm ring-2 ring-[#0b3c68]/30 scale-102'
-                        : 'bg-[#f1f3f6] hover:bg-[#e4e7eb] text-slate-800 hover:text-slate-950 border border-slate-200/80'
+                        ? 'bg-[#0b3c68] text-white shadow-sm ring-2 ring-[#0b3c68]/30 scale-102 dark:bg-[#136ab5] dark:ring-[#136ab5]/40'
+                        : 'bg-[#f1f3f6] hover:bg-[#e4e7eb] text-slate-800 hover:text-slate-950 border border-slate-200/80 dark:bg-slate-800/90 dark:hover:bg-slate-800 dark:text-slate-200 dark:border-slate-700/80'
                     }`}
                   >
                     <span>{brand}</span>
@@ -717,7 +789,7 @@ export function Navbar({
                       className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold transition-colors ${
                         isActive
                           ? 'bg-white text-[#0b3c68]'
-                          : 'bg-white text-slate-700 border border-slate-200/70'
+                          : 'bg-white text-slate-700 border border-slate-200/70 dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600'
                       }`}
                     >
                       {count}
@@ -725,7 +797,24 @@ export function Navbar({
                   </button>
                 );
               })}
+
+              {/* Trailing spacer so the last pill is never clipped or flush against the right edge */}
+              <div className="shrink-0 w-8 sm:w-14 pointer-events-none" aria-hidden="true" />
             </div>
+
+            {/* Right Scroll Button & Soft Gradient Fade */}
+            {canScrollRight && (
+              <div className="absolute right-0 top-0 bottom-0 z-20 flex items-center pr-1 sm:pr-3 pl-8 bg-gradient-to-l from-white via-white/95 to-transparent dark:from-slate-900 dark:via-slate-900/95 pointer-events-none">
+                <button
+                  type="button"
+                  onClick={() => scrollBrands('right')}
+                  aria-label="Scroll brands right"
+                  className="pointer-events-auto w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-md hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#0b3c68] dark:hover:text-white transition-all cursor-pointer hover:scale-105 active:scale-95"
+                >
+                  <ChevronRight className="w-4 h-4 stroke-[2.4]" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </header>
