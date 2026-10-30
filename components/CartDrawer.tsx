@@ -25,6 +25,7 @@ import {
   Mail,
   Copy,
   Check,
+  ChevronDown,
 } from 'lucide-react';
 
 import {
@@ -84,6 +85,7 @@ export function CartDrawer({
   };
 
   // Promo Code / Coupon state
+  const [isPromoOpen, setIsPromoOpen] = useState(false);
   const [couponCodeInput, setCouponCodeInput] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
   const [discountAmount, setDiscountAmount] = useState(0);
@@ -1092,29 +1094,17 @@ export function CartDrawer({
               {/* Cart Footer Summary */}
               {items.length > 0 && (
                 <div className="p-4 sm:p-5 border-t border-slate-100 space-y-3 bg-slate-50/80 shrink-0">
-                  {/* Promo Code Entry Widget */}
-                  <div className="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-2xs space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
-                        <Tag className="w-3.5 h-3.5 text-[#0b3c68]" />
-                        Have a Promo / Discount Code?
-                      </span>
-                      {appliedCoupon && (
-                        <span className="text-[10px] font-extrabold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                          Applied
-                        </span>
-                      )}
-                    </div>
-
+                  {/* Promo Code Entry Widget (Clean Collapsible Accordion without public cheat-sheet) */}
+                  <div className="bg-white rounded-2xl border border-slate-200/80 shadow-2xs overflow-hidden transition-all">
                     {appliedCoupon ? (
-                      <div className="flex items-center justify-between p-2 rounded-xl bg-emerald-50/70 border border-emerald-200 text-xs">
+                      <div className="p-3 flex items-center justify-between bg-emerald-50/70 border-b border-emerald-100 text-xs">
                         <div className="flex items-center gap-2">
                           <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                           <div>
                             <span className="font-extrabold text-emerald-800 tracking-wider">
                               {appliedCoupon.code}
                             </span>
-                            <span className="text-[11px] text-emerald-700 ml-1.5">
+                            <span className="text-[11px] text-emerald-700 ml-1.5 font-bold">
                               (-{formatPKR(discountAmount)})
                             </span>
                           </div>
@@ -1128,55 +1118,59 @@ export function CartDrawer({
                         </button>
                       </div>
                     ) : (
-                      <div className="space-y-1.5">
-                        <div className="flex gap-1.5">
-                          <input
-                            type="text"
-                            value={couponCodeInput}
-                            onChange={(e) => setCouponCodeInput(e.target.value.toUpperCase())}
-                            placeholder="Enter Code (e.g. WELCOME1000)"
-                            className="flex-1 px-3 py-1.5 text-xs font-mono font-bold uppercase rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] text-slate-900"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => handleApplyCoupon()}
-                            disabled={isApplyingCoupon || !couponCodeInput.trim()}
-                            className="px-3.5 py-1.5 bg-[#0b3c68] hover:bg-[#072847] disabled:bg-slate-200 text-white disabled:text-slate-400 text-xs font-black rounded-xl transition-all cursor-pointer shadow-xs disabled:cursor-not-allowed"
-                          >
-                            {isApplyingCoupon ? '...' : 'Apply'}
-                          </button>
-                        </div>
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => setIsPromoOpen(!isPromoOpen)}
+                          className="w-full px-3.5 py-2.5 flex items-center justify-between text-left hover:bg-slate-50 transition-colors cursor-pointer"
+                        >
+                          <span className="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
+                            <Tag className="w-3.5 h-3.5 text-[#0b3c68]" />
+                            Have a promo or voucher code?
+                          </span>
+                          <span className="text-xs text-slate-400 font-bold flex items-center gap-1">
+                            {isPromoOpen ? 'Close' : 'Add Code'}
+                            <ChevronDown
+                              className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                                isPromoOpen ? 'rotate-180' : ''
+                              }`}
+                            />
+                          </span>
+                        </button>
 
-                        {/* Quick Suggestion Chips */}
-                        <div className="flex items-center gap-1.5 pt-0.5">
-                          <span className="text-[10px] text-slate-400 font-medium">Try:</span>
-                          <button
-                            type="button"
-                            onClick={() => handleApplyCoupon('WELCOME1000')}
-                            className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-sky-50 text-[#0b3c68] border border-sky-100 hover:bg-sky-100 transition-colors cursor-pointer"
-                          >
-                            WELCOME1000
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => handleApplyCoupon('NAVIRA500')}
-                            className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-sky-50 text-[#0b3c68] border border-sky-100 hover:bg-sky-100 transition-colors cursor-pointer"
-                          >
-                            NAVIRA500
-                          </button>
-                        </div>
-                      </div>
-                    )}
+                        {isPromoOpen && (
+                          <div className="px-3.5 pb-3.5 pt-1 space-y-2 border-t border-slate-100 animate-in fade-in slide-in-from-top-1 duration-150">
+                            <div className="flex gap-1.5">
+                              <input
+                                type="text"
+                                value={couponCodeInput}
+                                onChange={(e) => setCouponCodeInput(e.target.value.toUpperCase())}
+                                placeholder="Enter voucher code"
+                                className="flex-1 px-3 py-1.5 text-xs font-mono font-bold uppercase rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#48afff] text-slate-900 font-medium"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => handleApplyCoupon()}
+                                disabled={isApplyingCoupon || !couponCodeInput.trim()}
+                                className="px-3.5 py-1.5 bg-[#0b3c68] hover:bg-[#072847] disabled:bg-slate-200 text-white disabled:text-slate-400 text-xs font-black rounded-xl transition-all cursor-pointer shadow-xs disabled:cursor-not-allowed"
+                              >
+                                {isApplyingCoupon ? '...' : 'Apply'}
+                              </button>
+                            </div>
 
-                    {couponError && (
-                      <p className="text-[11px] font-medium text-rose-600">
-                        {couponError}
-                      </p>
-                    )}
-                    {couponSuccess && !appliedCoupon && (
-                      <p className="text-[11px] font-medium text-emerald-600">
-                        {couponSuccess}
-                      </p>
+                            {couponError && (
+                              <p className="text-[11px] font-medium text-rose-600">
+                                {couponError}
+                              </p>
+                            )}
+                            {couponSuccess && !appliedCoupon && (
+                              <p className="text-[11px] font-medium text-emerald-600">
+                                {couponSuccess}
+                              </p>
+                            )}
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
 
