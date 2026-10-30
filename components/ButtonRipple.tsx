@@ -24,12 +24,16 @@ export function ButtonRipple() {
 
       if (!target) return;
 
-      // Don't animate disabled buttons
+      // Don't animate disabled buttons or exempted elements
       if (
         target.hasAttribute('disabled') ||
         target.getAttribute('aria-disabled') === 'true' ||
         target.classList.contains('disabled') ||
-        target.classList.contains('cursor-not-allowed')
+        target.classList.contains('cursor-not-allowed') ||
+        target.classList.contains('brand-nav-pill') ||
+        target.classList.contains('no-ripple') ||
+        target.classList.contains('no-press') ||
+        target.closest('.no-ripple')
       ) {
         return;
       }
@@ -84,7 +88,8 @@ export function ButtonRipple() {
         target.style.position = 'relative';
       }
 
-      if (!target.classList.contains('overflow-visible')) {
+      const hadOverflowHidden = target.classList.contains('overflow-hidden');
+      if (!target.classList.contains('overflow-visible') && !hadOverflowHidden) {
         target.classList.add('overflow-hidden');
       }
 
@@ -93,6 +98,9 @@ export function ButtonRipple() {
       setTimeout(() => {
         try {
           ripple.remove();
+          if (!hadOverflowHidden) {
+            target.classList.remove('overflow-hidden');
+          }
         } catch {}
       }, 560);
 
@@ -116,11 +124,13 @@ export function ButtonRipple() {
     }
 
     function handlePointerUp() {
+      // Clean up all stray pressed elements in document to prevent any button staying stuck/squished
+      document.querySelectorAll('.btn-pressed').forEach((p) => p.classList.remove('btn-pressed'));
+
       if (!currentPressedEl) return;
       const el = currentPressedEl;
       currentPressedEl = null;
 
-      el.classList.remove('btn-pressed');
       // Trigger elastic spring-pop rebound
       el.classList.remove('btn-spring-active');
       void el.offsetWidth; // Force DOM reflow to retrigger animation
@@ -212,6 +222,8 @@ export function ButtonRipple() {
     window.addEventListener('pointercancel', handlePointerUp, { passive: true });
     window.addEventListener('keydown', handleKeyDown, { passive: true });
     window.addEventListener('keyup', handleKeyUp, { passive: true });
+    window.addEventListener('blur', handlePointerUp, { passive: true });
+    document.addEventListener('visibilitychange', handlePointerUp, { passive: true });
 
     return () => {
       window.removeEventListener('pointerdown', handlePointerDown);
@@ -219,6 +231,8 @@ export function ButtonRipple() {
       window.removeEventListener('pointercancel', handlePointerUp);
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener('blur', handlePointerUp);
+      document.removeEventListener('visibilitychange', handlePointerUp);
     };
   }, []);
 

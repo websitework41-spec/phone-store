@@ -425,15 +425,37 @@ function HomeContent() {
   }, []);
 
   const handleSelectBrand = useCallback((brand: string) => {
-    if (brand === 'All Brands') {
-      setFilters((prev) => ({ ...prev, selectedBrands: [] }));
-    } else {
-      setFilters((prev) => ({ ...prev, selectedBrands: [brand] }));
+    setFilters((prev) => {
+      const isSameBrandAlreadyActive =
+        prev.selectedBrands.length === 1 && prev.selectedBrands[0] === brand;
+      return {
+        ...prev,
+        selectedBrands:
+          brand === 'All Brands' || isSameBrandAlreadyActive ? [] : [brand],
+        searchQuery: '', // Clear conflicting search query so brand products are instantly visible
+        specFilter: undefined, // Clear spec filter
+      };
+    });
+
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      if (brand === 'All Brands') {
+        url.searchParams.delete('brand');
+      } else {
+        url.searchParams.set('brand', brand);
+      }
+      url.searchParams.delete('search');
+      url.searchParams.delete('q');
+      url.searchParams.delete('query');
+      window.history.replaceState(null, '', url.pathname + (url.searchParams.toString() ? '?' + url.searchParams.toString() : ''));
     }
-    const catalogEl = document.getElementById('catalog');
-    if (catalogEl) {
-      catalogEl.scrollIntoView({ behavior: 'smooth' });
-    }
+
+    setTimeout(() => {
+      const catalogEl = document.getElementById('catalog');
+      if (catalogEl) {
+        catalogEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 60);
   }, []);
 
   const handleFilterBudget = useCallback(() => {

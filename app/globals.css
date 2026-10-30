@@ -335,24 +335,38 @@ button.fixed, [role="button"].fixed, .btn-press.fixed {
 }
 
 /* Hover Elevation & Soft Dynamic Micro-Lift */
-button:hover:not(:disabled):not([aria-disabled="true"]),
-[role="button"]:hover:not(:disabled):not([aria-disabled="true"]),
-.btn-press:hover:not(:disabled):not([aria-disabled="true"]),
-.btn-interactive:hover:not(:disabled):not([aria-disabled="true"]) {
+button:hover:not(:disabled):not([aria-disabled="true"]):not(.brand-nav-pill):not(.no-press),
+[role="button"]:hover:not(:disabled):not([aria-disabled="true"]):not(.brand-nav-pill):not(.no-press),
+.btn-press:hover:not(:disabled):not([aria-disabled="true"]):not(.brand-nav-pill):not(.no-press),
+.btn-interactive:hover:not(:disabled):not([aria-disabled="true"]):not(.brand-nav-pill):not(.no-press) {
   transform: translateY(-2.5px) scale(1.025);
   box-shadow: 0 8px 20px -4px rgba(6, 182, 212, 0.22), 0 4px 6px -2px rgba(15, 23, 42, 0.06);
 }
 
 /* Tactile Spring Press / Click Feedback (Immediate physical depression) */
-button:active:not(:disabled):not([aria-disabled="true"]),
-[role="button"]:active:not(:disabled):not([aria-disabled="true"]),
-.btn-press:active:not(:disabled):not([aria-disabled="true"]),
-.btn-interactive:active:not(:disabled):not([aria-disabled="true"]),
-.btn-pressed {
+button:active:not(:disabled):not([aria-disabled="true"]):not(.brand-nav-pill):not(.no-press),
+[role="button"]:active:not(:disabled):not([aria-disabled="true"]):not(.brand-nav-pill):not(.no-press),
+.btn-press:active:not(:disabled):not([aria-disabled="true"]):not(.brand-nav-pill):not(.no-press),
+.btn-interactive:active:not(:disabled):not([aria-disabled="true"]):not(.brand-nav-pill):not(.no-press),
+.btn-pressed:not(.brand-nav-pill):not(.no-press) {
   transform: translateY(2px) scale(0.93) !important;
   box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.24), 0 1px 2px rgba(0, 0, 0, 0.08) !important;
   filter: brightness(0.93) contrast(1.04) !important;
   transition: transform 0.06s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.06s ease, filter 0.06s ease !important;
+}
+
+/* Brand Navigation Rail Pills - Stable, non-collapsible chip buttons */
+.brand-nav-pill {
+  flex-shrink: 0 !important;
+  min-width: max-content !important;
+  width: max-content !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+  transform: none !important;
+}
+
+.brand-nav-pill:active {
+  transform: scale(0.97) !important;
 }
 
 /* Elastic Spring Rebound Animation (The tactile "pop" when clicked & released) */

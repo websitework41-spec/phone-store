@@ -157,12 +157,17 @@ export function Navbar({
     });
   };
 
-  // Keep active brand pill visible on initial render or when active brand changes
+  // Keep active brand pill centered inside the brand navigation rail without causing window scroll jumps
   useEffect(() => {
     if (!brandScrollRef.current || !activeBrand) return;
-    const activeEl = brandScrollRef.current.querySelector<HTMLElement>(`[data-brand="${activeBrand}"]`);
+    const container = brandScrollRef.current;
+    const activeEl = container.querySelector<HTMLElement>(`[data-brand="${activeBrand}"]`);
     if (activeEl) {
-      activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      const scrollLeft =
+        activeEl.offsetLeft -
+        container.offsetWidth / 2 +
+        activeEl.offsetWidth / 2;
+      container.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
     }
   }, [activeBrand]);
 
@@ -197,7 +202,11 @@ export function Navbar({
     if (onSelectBrand) {
       onSelectBrand(brand);
     } else {
-      router.push(`/?brand=${encodeURIComponent(brand)}#catalog`);
+      if (brand === 'All Brands') {
+        router.push('/#catalog');
+      } else {
+        router.push(`/?brand=${encodeURIComponent(brand)}#catalog`);
+      }
     }
   };
 
@@ -778,15 +787,15 @@ export function Navbar({
                     key={brand}
                     data-brand={brand}
                     onClick={() => handleBrandClick(brand)}
-                    className={`btn-press shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
+                    className={`brand-nav-pill shrink-0 min-w-max flex-nowrap px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap select-none cursor-pointer flex items-center gap-1.5 transition-all duration-150 ${
                       isActive
-                        ? 'bg-[#0b3c68] text-white shadow-sm ring-2 ring-[#0b3c68]/30 scale-102 dark:bg-[#136ab5] dark:ring-[#136ab5]/40'
-                        : 'bg-[#f1f3f6] hover:bg-[#e4e7eb] text-slate-800 hover:text-slate-950 border border-slate-200/80 dark:bg-slate-800/90 dark:hover:bg-slate-800 dark:text-slate-200 dark:border-slate-700/80'
+                        ? 'bg-[#0b3c68] text-white shadow-sm ring-2 ring-[#0b3c68]/30 dark:bg-[#136ab5] dark:ring-[#136ab5]/40'
+                        : 'bg-[#f1f3f6] hover:bg-[#e4e7eb] text-slate-800 hover:text-slate-950 border border-slate-200/80 dark:bg-slate-800/90 dark:hover:bg-slate-800 dark:text-slate-200 dark:border-slate-700/80 active:bg-slate-200'
                     }`}
                   >
-                    <span>{brand}</span>
+                    <span className="shrink-0 min-w-max whitespace-nowrap select-none">{brand}</span>
                     <span
-                      className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold transition-colors ${
+                      className={`shrink-0 min-w-max whitespace-nowrap select-none text-[10px] px-1.5 py-0.5 rounded-full font-bold transition-colors ${
                         isActive
                           ? 'bg-white text-[#0b3c68]'
                           : 'bg-white text-slate-700 border border-slate-200/70 dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600'
