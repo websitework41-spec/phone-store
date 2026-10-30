@@ -76,13 +76,23 @@ export function AuthModal() {
     }
 
     setIsLoading(true);
-    const res = await login(phoneCheck.cleanPhone, password);
-    setIsLoading(false);
+    const safetyTimer = setTimeout(() => {
+      setIsLoading(false);
+      setErrorMessage('Login is taking longer than expected. Please check your internet connection.');
+    }, 10000);
 
-    if (res.success) {
-      closeAuthModal();
-    } else {
-      setErrorMessage(res.error || 'Login failed.');
+    try {
+      const res = await login(phoneCheck.cleanPhone, password);
+      if (res.success) {
+        closeAuthModal();
+      } else {
+        setErrorMessage(res.error || 'Login failed.');
+      }
+    } catch (err: any) {
+      setErrorMessage(err.message || 'Login failed. Please verify your credentials.');
+    } finally {
+      clearTimeout(safetyTimer);
+      setIsLoading(false);
     }
   };
 
@@ -113,16 +123,26 @@ export function AuthModal() {
     }
 
     setIsLoading(true);
-    const res = await signup(name.trim(), phoneCheck.cleanPhone, password);
-    setIsLoading(false);
+    const safetyTimer = setTimeout(() => {
+      setIsLoading(false);
+      setErrorMessage('Account creation is taking longer than expected. Please check your internet connection and try again.');
+    }, 10000);
 
-    if (res.success) {
-      setSuccessMessage('Account created successfully! Welcome to Hamza Phone Store.');
-      setTimeout(() => {
-        closeAuthModal();
-      }, 1000);
-    } else {
-      setErrorMessage(res.error || 'Failed to create account.');
+    try {
+      const res = await signup(name.trim(), phoneCheck.cleanPhone, password);
+      if (res.success) {
+        setSuccessMessage('Account created successfully! Welcome to Navira Traders.');
+        setTimeout(() => {
+          closeAuthModal();
+        }, 800);
+      } else {
+        setErrorMessage(res.error || 'Failed to create account.');
+      }
+    } catch (err: any) {
+      setErrorMessage(err.message || 'Failed to create account. Please try again.');
+    } finally {
+      clearTimeout(safetyTimer);
+      setIsLoading(false);
     }
   };
 
@@ -145,7 +165,7 @@ export function AuthModal() {
 
           <h2 className="text-xl sm:text-2xl font-black tracking-tight">
             {authModalMode === 'login' && 'Welcome Back'}
-            {authModalMode === 'signup' && 'Create Hamza Phone Store Account'}
+            {authModalMode === 'signup' && 'Create Navira Traders Account'}
             {authModalMode === 'forgot' && 'Account Recovery'}
           </h2>
           <p className="text-xs text-slate-400 mt-1 max-w-xs mx-auto">
@@ -270,7 +290,7 @@ export function AuthModal() {
 
               <div className="text-center pt-2 border-t border-slate-100">
                 <p className="text-xs text-slate-500">
-                  New to Hamza Phone Store?{' '}
+                  New to Navira Traders?{' '}
                   <button
                     type="button"
                     onClick={() => openAuthModal('signup')}
@@ -429,7 +449,7 @@ export function AuthModal() {
                   Mobile Account Password Assistance
                 </p>
                 <p>
-                  Hamza Phone Store accounts use secure mobile credentials. If you are already logged in, you can update your password directly from the <strong>My Account &gt; Security</strong> tab.
+                  Navira Traders accounts use secure mobile credentials. If you are already logged in, you can update your password directly from the <strong>My Account &gt; Security</strong> tab.
                 </p>
                 <p>
                   If you are locked out or forgot your password, contact our verified support helpline on WhatsApp from your registered SIM. Our team will verify your account and help you regain instant access.
@@ -438,7 +458,7 @@ export function AuthModal() {
 
               <a
                 href={`https://wa.me/923135221200?text=${encodeURIComponent(
-                  `Hi Hamza Phone Store! I forgot my account password. My registered mobile number is: ${phone || '03XXXXXXXXX'}. Please assist me with account recovery.`
+                  `Hi Navira Traders! I forgot my account password. My registered mobile number is: ${phone || '03XXXXXXXXX'}. Please assist me with account recovery.`
                 )}`}
                 target="_blank"
                 rel="noreferrer"

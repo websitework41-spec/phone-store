@@ -85,9 +85,29 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Helper to prevent hanging Firebase network requests on unstable or throttled connections
+function withTimeout<T>(promise: Promise<T>, ms: number, errorMessage = 'Operation timed out. Please try again.'): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => {
+      setTimeout(() => reject(new Error(errorMessage)), ms);
+    }),
+  ]);
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const cached = localStorage.getItem('hamzastore_profile');
+        return cached ? JSON.parse(cached) : null;
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  });
   const [loading, setLoading] = useState(true);
 
   // Modal State
@@ -115,53 +135,84 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       if (currentUser) {
+        // Fast-load existing profile from localStorage if present
+        try {
+          const cached = localStorage.getItem('hamzastore_profile');
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (parsed && (parsed.uid === currentUser.uid || !profile)) {
+              setProfile(parsed);
+              setLoading(false);
+            }
+          }
+        } catch {}
+
         const userDocRef = doc(db, 'users', currentUser.uid);
 
-        // Listen for realtime changes to the user document
+        // Listen for realtime changes to the user document with resilient fallback
         unsubscribeFirestore = onSnapshot(
           userDocRef,
           async (snapshot) => {
             if (snapshot.exists()) {
-              setProfile(snapshot.data() as UserProfile);
+              const data = snapshot.data() as UserProfile;
+              setProfile(data);
+              try {
+                localStorage.setItem('hamzastore_profile', JSON.stringify(data));
+              } catch {}
               setLoading(false);
             } else {
-              // Create user doc if not yet existing
               const phoneFromEmail = currentUser.email
                 ? currentUser.email.replace(/@(hamzaphonestore\.pk|voltphone\.pk)/, '')
                 : '';
               const newProfile: UserProfile = {
                 uid: currentUser.uid,
-                name: currentUser.displayName || 'Hamza Phone Store Customer',
+                name: currentUser.displayName || 'Navira Traders Customer',
                 phone: phoneFromEmail,
                 email: currentUser.email || `${phoneFromEmail}@hamzaphonestore.pk`,
                 addresses: [],
-                createdAt: serverTimestamp(),
+                createdAt: new Date().toISOString(),
               };
+              setProfile(newProfile);
               try {
-                await setDoc(userDocRef, newProfile);
-                setProfile(newProfile);
-              } catch (err) {
-                console.error('Error creating user profile in Firestore:', err);
-                setProfile(newProfile);
-              }
+                localStorage.setItem('hamzastore_profile', JSON.stringify(newProfile));
+              } catch {}
               setLoading(false);
+
+              // Non-blocking background sync to Firestore
+              withTimeout(
+                setDoc(userDocRef, { ...newProfile, createdAt: serverTimestamp() }),
+                5000
+              ).catch(() => {});
             }
           },
           (err) => {
             console.warn('Firestore snapshot listener warning:', err);
             // Fallback profile if Firestore is restricted
-            setProfile({
-              uid: currentUser.uid,
-              name: currentUser.displayName || 'Hamza Phone Store Customer',
-              phone: currentUser.email ? currentUser.email.replace(/@(hamzaphonestore\.pk|voltphone\.pk)/, '') : '',
-              email: currentUser.email || '',
-              addresses: [],
+            setProfile((prev) => {
+              if (prev) return prev;
+              const phoneFromEmail = currentUser.email
+                ? currentUser.email.replace(/@(hamzaphonestore\.pk|voltphone\.pk)/, '')
+                : '';
+              const fallback: UserProfile = {
+                uid: currentUser.uid,
+                name: currentUser.displayName || 'Navira Traders Customer',
+                phone: phoneFromEmail,
+                email: currentUser.email || '',
+                addresses: [],
+              };
+              try {
+                localStorage.setItem('hamzastore_profile', JSON.stringify(fallback));
+              } catch {}
+              return fallback;
             });
             setLoading(false);
           }
         );
       } else {
         setProfile(null);
+        try {
+          localStorage.removeItem('hamzastore_profile');
+        } catch {}
         setLoading(false);
       }
     });
@@ -174,7 +225,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  // 1. Signup Flow
+  // 1. Signup Flow - Fast, Non-blocking, and Network-Resilient
   const signup = async (name: string, phone: string, password: string) => {
     const trimmedName = name.trim();
     if (!trimmedName || trimmedName.length < 2) {
@@ -193,30 +244,71 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const syntheticEmail = phoneToSyntheticEmail(phoneCheck.cleanPhone);
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        syntheticEmail,
-        password
-      );
+      let activeUser: User | null = null;
 
-      // Update Firebase Auth profile display name
-      await updateFirebaseProfile(userCredential.user, {
-        displayName: trimmedName,
-      });
+      try {
+        // Create user with 8s network timeout
+        const userCredential = await withTimeout(
+          createUserWithEmailAndPassword(auth, syntheticEmail, password),
+          8000,
+          'Account creation connection timed out. Please check your network and try again.'
+        );
+        activeUser = userCredential.user;
+      } catch (createErr: any) {
+        // If mobile/email is already registered (e.g. from an earlier interrupted signup), auto sign in seamlessly!
+        if (createErr.code === 'auth/email-already-in-use') {
+          try {
+            const loginRes = await withTimeout(
+              signInWithEmailAndPassword(auth, syntheticEmail, password),
+              6000
+            );
+            activeUser = loginRes.user;
+          } catch {
+            return {
+              success: false,
+              error: `Mobile number ${phoneCheck.cleanPhone} is already registered. Please log in with your password.`,
+            };
+          }
+        } else {
+          throw createErr;
+        }
+      }
 
-      // Write user profile to Firestore
-      const userDocRef = doc(db, 'users', userCredential.user.uid);
+      if (!activeUser) {
+        return { success: false, error: 'Failed to initialize account session.' };
+      }
+
+      // Update Firebase Auth profile display name (non-blocking)
+      withTimeout(
+        updateFirebaseProfile(activeUser, { displayName: trimmedName }),
+        4000
+      ).catch(() => {});
+
+      // Build profile data
       const userDocData: UserProfile = {
-        uid: userCredential.user.uid,
+        uid: activeUser.uid,
         name: trimmedName,
         phone: phoneCheck.cleanPhone,
         email: syntheticEmail,
         addresses: [],
-        createdAt: serverTimestamp(),
+        createdAt: new Date().toISOString(),
       };
 
-      await setDoc(userDocRef, userDocData);
+      // Immediately cache locally and update state so UI responds instantly!
       setProfile(userDocData);
+      try {
+        localStorage.setItem('hamzastore_profile', JSON.stringify(userDocData));
+      } catch {}
+
+      // Write to Firestore in background without blocking modal close or UI progress
+      const userDocRef = doc(db, 'users', activeUser.uid);
+      withTimeout(
+        setDoc(userDocRef, { ...userDocData, createdAt: serverTimestamp() }),
+        6000
+      ).catch((err) => {
+        console.warn('Background Firestore profile sync warning:', err);
+      });
+
       return { success: true };
     } catch (err: any) {
       console.error('Signup error:', err);
@@ -230,6 +322,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return {
           success: false,
           error: 'Password is too weak. Please use at least 6 characters.',
+        };
+      }
+      if (err.code === 'auth/network-request-failed') {
+        return {
+          success: false,
+          error: 'Network connection issue. Please check your internet and try again.',
         };
       }
       return {
@@ -253,7 +351,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const syntheticEmail = phoneToSyntheticEmail(phoneCheck.cleanPhone);
 
     try {
-      await signInWithEmailAndPassword(auth, syntheticEmail, password);
+      const userCred = await withTimeout(
+        signInWithEmailAndPassword(auth, syntheticEmail, password),
+        8000,
+        'Login connection timed out. Please check your connection and try again.'
+      );
+
+      // Check for cached profile
+      try {
+        const cached = localStorage.getItem('hamzastore_profile');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (parsed && (parsed.uid === userCred.user.uid || parsed.phone === phoneCheck.cleanPhone)) {
+            setProfile(parsed);
+          }
+        }
+      } catch {}
+
       return { success: true };
     } catch (err: any) {
       // Legacy fallback: check if account was originally created with @voltphone.pk
@@ -265,7 +379,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       ) {
         try {
           const legacyEmail = `${phoneCheck.cleanPhone}@voltphone.pk`;
-          await signInWithEmailAndPassword(auth, legacyEmail, password);
+          await withTimeout(
+            signInWithEmailAndPassword(auth, legacyEmail, password),
+            5000
+          );
           return { success: true };
         } catch {
           // Continue to standard error reporting
@@ -287,6 +404,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return {
           success: false,
           error: 'Too many failed login attempts. Please wait a few minutes before trying again.',
+        };
+      }
+      if (err.code === 'auth/network-request-failed') {
+        return {
+          success: false,
+          error: 'Network connection issue. Please check your internet and try again.',
         };
       }
       return {
