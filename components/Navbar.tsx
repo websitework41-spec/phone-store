@@ -37,6 +37,7 @@ import { sanitizeText } from '@/lib/security';
 import { useAuth } from '@/context/AuthContext';
 import { searchSmartphones } from '@/lib/search';
 import { ThemeToggle } from './ThemeToggle';
+import { CategoryNavSlider } from './CategoryNavSlider';
 
 interface NavbarProps {
   compareCount?: number;
@@ -45,6 +46,8 @@ interface NavbarProps {
   onOpenCart?: () => void;
   onSelectBrand?: (brand: string) => void;
   activeBrand?: string;
+  onSelectCategory?: (category: string) => void;
+  selectedCategory?: string;
   onSearch?: (query: string) => void;
   initialSearchQuery?: string;
 }
@@ -56,6 +59,8 @@ export function Navbar({
   onOpenCart,
   onSelectBrand,
   activeBrand = 'All Brands',
+  onSelectCategory,
+  selectedCategory,
   onSearch,
   initialSearchQuery,
 }: NavbarProps) {
@@ -780,75 +785,17 @@ export function Navbar({
           </div>
         </div>
 
-        {/* 3. PriceOye Clean Brand & Quick-Category Navigation Bar */}
-        <div className="bg-white dark:bg-slate-900 border-b border-slate-200/90 dark:border-slate-800 shadow-xs w-full max-w-full relative select-none">
-          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 relative flex items-center">
-            {/* Left Scroll Button & Soft Gradient Fade */}
-            {canScrollLeft && (
-              <div className="absolute left-0 top-0 bottom-0 z-20 flex items-center pl-1 sm:pl-3 pr-8 bg-gradient-to-r from-white via-white/95 to-transparent dark:from-slate-900 dark:via-slate-900/95 pointer-events-none">
-                <button
-                  type="button"
-                  onClick={() => scrollBrands('left')}
-                  aria-label="Scroll brands left"
-                  className="pointer-events-auto w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-md hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#0b3c68] dark:hover:text-white transition-all cursor-pointer hover:scale-105 active:scale-95"
-                >
-                  <ChevronLeft className="w-4 h-4 stroke-[2.4]" />
-                </button>
-              </div>
-            )}
-
-            {/* Scrollable Brands Rail */}
-            <div
-              ref={brandScrollRef}
-              className="flex items-center gap-2 py-2 sm:py-2.5 overflow-x-auto scrollbar-none scroll-smooth w-full px-1"
-            >
-              {BRANDS.map((brand) => {
-                const isActive = activeBrand === brand;
-                const count = brandCounts[brand] || 0;
-                return (
-                  <button
-                    key={brand}
-                    data-brand={brand}
-                    onClick={() => handleBrandClick(brand)}
-                    className={`brand-nav-pill shrink-0 min-w-max flex-nowrap px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap select-none cursor-pointer flex items-center gap-1.5 transition-all duration-150 ${
-                      isActive
-                        ? 'bg-[#0b3c68] text-white shadow-sm ring-2 ring-[#0b3c68]/30 dark:bg-[#136ab5] dark:ring-[#136ab5]/40'
-                        : 'bg-[#f1f3f6] hover:bg-[#e4e7eb] text-slate-800 hover:text-slate-950 border border-slate-200/80 dark:bg-slate-800/90 dark:hover:bg-slate-800 dark:text-slate-200 dark:border-slate-700/80 active:bg-slate-200'
-                    }`}
-                  >
-                    <span className="shrink-0 min-w-max whitespace-nowrap select-none">{brand}</span>
-                    <span
-                      className={`shrink-0 min-w-max whitespace-nowrap select-none text-[10px] px-1.5 py-0.5 rounded-full font-bold transition-colors ${
-                        isActive
-                          ? 'bg-white text-[#0b3c68]'
-                          : 'bg-white text-slate-700 border border-slate-200/70 dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600'
-                      }`}
-                    >
-                      {count}
-                    </span>
-                  </button>
-                );
-              })}
-
-              {/* Trailing spacer so the last pill is never clipped or flush against the right edge */}
-              <div className="shrink-0 w-8 sm:w-14 pointer-events-none" aria-hidden="true" />
-            </div>
-
-            {/* Right Scroll Button & Soft Gradient Fade */}
-            {canScrollRight && (
-              <div className="absolute right-0 top-0 bottom-0 z-20 flex items-center pr-1 sm:pr-3 pl-8 bg-gradient-to-l from-white via-white/95 to-transparent dark:from-slate-900 dark:via-slate-900/95 pointer-events-none">
-                <button
-                  type="button"
-                  onClick={() => scrollBrands('right')}
-                  aria-label="Scroll brands right"
-                  className="pointer-events-auto w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-md hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-[#0b3c68] dark:hover:text-white transition-all cursor-pointer hover:scale-105 active:scale-95"
-                >
-                  <ChevronRight className="w-4 h-4 stroke-[2.4]" />
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
+        {/* 3. PriceOye Category & Accessories Navigation Bar */}
+        <CategoryNavSlider
+          selectedCategory={selectedCategory}
+          onSelectCategory={(categoryId) => {
+            if (onSelectCategory) {
+              onSelectCategory(categoryId);
+            } else {
+              router.push(`/?category=${encodeURIComponent(categoryId)}#catalog`);
+            }
+          }}
+        />
       </header>
 
       {/* Track Order Modal */}

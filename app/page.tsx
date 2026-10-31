@@ -651,6 +651,8 @@ function HomeContent() {
         onOpenCompare={() => setIsCompareModalOpen(true)}
         onOpenCart={() => setIsCartOpen(true)}
         onSelectBrand={handleSelectBrand}
+        onSelectCategory={handleSelectCategory}
+        selectedCategory={filters.selectedCategory}
         onSearch={handleSearch}
         initialSearchQuery={filters.searchQuery}
         activeBrand={
@@ -658,12 +660,6 @@ function HomeContent() {
             ? filters.selectedBrands[0]
             : 'All Brands'
         }
-      />
-
-      {/* PriceOye Style Category Navigation Bar */}
-      <CategoryNavSlider
-        selectedCategory={filters.selectedCategory}
-        onSelectCategory={handleSelectCategory}
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-5">
