@@ -1,0 +1,1039 @@
+[
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5973",
+    "_score": 1643.995,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 5973,
+      "category": 9,
+      "product_title": "Oraimo Toast 10 Power Bank PD-111D(10000mAh)",
+      "product_title_match": "Oraimo Toast 10 Power Bank PD-111D(10000mAh)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-toast-10-power-bank-pd-111d-10000mah-pakistan-priceoye-ixpc2.jpg\",\"1\":\"oraimo-toast-10-power-bank-pd-111d-10000mah-pakistan-priceoye-r3zpk.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-toast-10-power-bank-pd-111d-10000mah-pakistan-priceoye-serjv.jpg\",\"1\":\"oraimo-toast-10-power-bank-pd-111d-10000mah-pakistan-priceoye-j3gw8.jpg\"}}}",
+      "product_slug": "oraimo-toast-10-power-bank-pd-111d-10000mah",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "2000",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 244,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "power-banks",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 9,
+      "product_category_name": "Power Banks",
+      "product_filters": {
+        "Capacity": 10000,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 1999,
+      "lowest_price_storelink_id": 12358,
+      "lowest_price_store_id": 9999,
+      "highest_price": 1999,
+      "price_crawled_date": "2022-12-02 00:36:36",
+      "color": [
+        "black"
+      ],
+      "size": [
+        ""
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "2999",
+      "saving_price": 1000,
+      "po_order_status": 3,
+      "po_date_create": "2022-12-02",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Dimensions 148 x 62.5 x 22.53mm Model PD-111D Capacity 10000mAh Battery Type Lithium Polymer Input Port DC 5.0V 2A Output Port 5.0V 2.1A Max"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1643.995
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5309",
+    "_score": 1641.6288,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 5309,
+      "category": 9,
+      "product_title": "Oraimo Toast 10 Lite Power Bank P113D (10000mAh)",
+      "product_title_match": "Oraimo Toast 10 Lite Power Bank P113D (10000mAh)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-toast-10-lite-power-bank-opb-p113d-10000mah-pakistan-priceoye-3zryu.jpg\",\"1\":\"oraimo-toast-10-lite-power-bank-opb-p113d-10000mah-pakistan-priceoye-3rlga.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-toast-10-lite-power-bank-opb-p113d-10000mah-pakistan-priceoye-8add8.jpg\"},\"white\":{\"0\":\"oraimo-toast-10-lite-power-bank-opb-p113d-10000mah-pakistan-priceoye-yl58e.jpg\"}}}",
+      "product_slug": "oraimo-toast-10-lite-power-bank-p113d-10000mah",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "4000",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 1,
+      "product_brand_id": 244,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "power-banks",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 9,
+      "product_category_name": "Power Banks",
+      "product_filters": {
+        "Capacity": 10000,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 2999,
+      "lowest_price_storelink_id": 11110,
+      "lowest_price_store_id": 9999,
+      "highest_price": 2999,
+      "price_crawled_date": "2022-03-13 20:40:13",
+      "color": [
+        "black",
+        "white"
+      ],
+      "size": [
+        "",
+        "4895180766572"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "4000",
+      "saving_price": 1001,
+      "po_order_status": 3,
+      "po_date_create": "2022-03-13",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Dimensions 139 x 73 x 14.5 mm Model OPB-P113D Capacity 10000mAh Battery Type Lithium Battery Input Port Type-C + Micro USB Output Port USB-A + USB-A"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1641.6288
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5311",
+    "_score": 1641.6288,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 5311,
+      "category": 9,
+      "product_title": "Oraimo Traveler 3 Byte Power Bank P271D (27000mAh)",
+      "product_title_match": "Oraimo Traveler 3 Byte Power Bank P271D (27000mAh)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-traveler-3-byte-power-bank-p271d-27000mah-pakistan-priceoye-v1zn4.jpg\",\"1\":\"oraimo-traveler-3-byte-power-bank-p271d-27000mah-pakistan-priceoye-4iuve.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-traveler-3-byte-power-bank-p271d-27000mah-pakistan-priceoye-ja1ta.jpg\",\"1\":\"oraimo-traveler-3-byte-power-bank-p271d-27000mah-pakistan-priceoye-9890c.jpg\"}}}",
+      "product_slug": "oraimo-traveler-3-byte-power-bank-p271d-27000mah",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "6500",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 1,
+      "product_brand_id": 244,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "power-banks",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 9,
+      "product_category_name": "Power Banks",
+      "product_filters": {
+        "Capacity": 27000,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 6499,
+      "lowest_price_storelink_id": 11115,
+      "lowest_price_store_id": 9999,
+      "highest_price": 6499,
+      "price_crawled_date": "2022-03-13 20:46:19",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4895180761492"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "8000",
+      "saving_price": 1501,
+      "po_order_status": 3,
+      "po_date_create": "2022-03-13",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Dimensions 159 x 81 x 32mm Model OPB-P271D Display Yes Capacity 27000 mAh Battery Type Polymer lithium battery Input Port Lightning + USB-C Output Port USB-A + USB-A"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1641.6288
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5312",
+    "_score": 1641.6288,
+    "_source": {
+      "product_id": 5312,
+      "category": 11,
+      "product_title": "Oraimo USB Charger E65S (Micro-USB Cable 2A)",
+      "product_title_match": "Oraimo USB Charger E65S (Micro-USB Cable 2A)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-usb-cahrger-e65s-2a-pakistan-priceoye-e069h.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-usb-cahrger-e65s-2a-pakistan-priceoye-dxn62.jpg\"}}}",
+      "product_slug": "oraimo-usb-charger-e65s-micro-usb-cable-2a",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 2,
+      "product_brand_id": 245,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "mobile-chargers",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 11,
+      "product_category_name": "Wall Chargers",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 499,
+      "lowest_price_storelink_id": 11116,
+      "lowest_price_store_id": 9999,
+      "highest_price": 499,
+      "price_crawled_date": "2022-03-13 21:17:17",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4895180751127,4895180764349"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "700",
+      "saving_price": 201,
+      "po_order_status": 3,
+      "po_date_create": "2022-03-13",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model OCW-E65S Charging Type Fast Charger Input 100-240V~ 50/60Hz 350mA Output 5.0V 2A Max"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1641.6288
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5319",
+    "_score": 1636.944,
+    "_source": {
+      "product_id": 5319,
+      "category": 11,
+      "product_title": "Oraimo Usb Charger E65S+L53 (Lightning Cable 2A)",
+      "product_title_match": "Oraimo Usb Charger E65S+L53 (Lightning Cable 2A)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-usb-charger-ocw-e65s-l53-lightning-cable-2a-pakistan-priceoye-syvzh.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-usb-charger-ocw-e65s-l53-lightning-cable-2a-pakistan-priceoye-s8dl0.jpg\"}}}",
+      "product_slug": "oraimo-usb-charger-e65s-l53-lightning-cable-2a",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 1,
+      "product_brand_id": 245,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "mobile-chargers",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 11,
+      "product_category_name": "Wall Chargers",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 499,
+      "lowest_price_storelink_id": 11124,
+      "lowest_price_store_id": 9999,
+      "highest_price": 499,
+      "price_crawled_date": "2022-03-14 00:25:11",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4895180765186"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "700",
+      "saving_price": 201,
+      "po_order_status": 3,
+      "po_date_create": "2022-03-13",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model OCW-E65S+L53 Charging Type Fast Charger Input 100-240V~ 50/60Hz 350mA Output 5.0V 2A Max"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1636.944
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5318",
+    "_score": 1548.8984,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 5318,
+      "category": 11,
+      "product_title": "Oraimo USB Charger E65S+C53 (Type-C Cable 2A)",
+      "product_title_match": "Oraimo USB Charger E65S+C53 (Type-C Cable 2A)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-usb-charger-e65s-c53-type-c-cable-2a-pakistan-priceoye-pc8md.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-usb-charger-e65s-c53-type-c-cable-2a-pakistan-priceoye-4rb9n.jpg\"},\"white\":{\"0\":\"oraimo-usb-charger-e65s-c53-type-c-cable-2a-pakistan-priceoye-v9zhi.jpg\"}}}",
+      "product_slug": "oraimo-usb-charger-e65s-c53-type-c-cable-2a",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 7,
+      "product_brand_id": 245,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "mobile-chargers",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 11,
+      "product_category_name": "Wall Chargers",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 699,
+      "lowest_price_storelink_id": 11122,
+      "lowest_price_store_id": 9999,
+      "highest_price": 699,
+      "price_crawled_date": "2022-12-19 23:58:01",
+      "color": [
+        "black",
+        "white"
+      ],
+      "size": [
+        "4895180765179",
+        "4895180769573"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "900",
+      "saving_price": 201,
+      "po_order_status": 3,
+      "po_date_create": "2022-03-13",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model E65S+C53 Charging Type Fast Charger Input 100-240V~ 50/60Hz 350mA Output 5.0V 2A"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1548.8984
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "13384",
+    "_score": 1548.6578,
+    "_source": {
+      "product_id": 13384,
+      "category": 9,
+      "product_title": "Oraimo OPB-7270Q PowerNova QF1 27000mAh 22.5W Power Bank",
+      "product_title_match": "Oraimo OPB-7270Q PowerNova QF1 27000mAh 22.5W Power Bank",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-opb-7270q-powernova-qf1-27000mah-22-5w-power-bank-pakistan-priceoye-0ed6j.jpeg\",\"colors\":{\"black\":{\"0\":\"oraimo-opb-7270q-powernova-qf1-27000mah-22-5w-power-bank-pakistan-priceoye-xf6jv.jpeg\"}}}",
+      "product_slug": "oraimo-opb-7270q-powernova-qf1-27000mah-22-5w-power-bank",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "5999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 1,
+      "product_brand_id": 244,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "power-banks",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 9,
+      "product_category_name": "Power Banks",
+      "product_filters": {
+        "Capacity": 27000,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 5049,
+      "lowest_price_storelink_id": 25758,
+      "lowest_price_store_id": 9999,
+      "highest_price": 5049,
+      "price_crawled_date": "2025-10-21 15:39:45",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4894947071409"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 7,
+      "retail_price": "5999",
+      "saving_price": 950,
+      "po_order_status": 3,
+      "po_date_create": "2025-10-21",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Weight Light Weight Model OPB-7270Q Display LED Display Capacity 27000mAh Battery Type Li-Polymer Input Port 1 x USB-C (Type-C) Port Output Port 2 × USB-A Ports, 1 × USB-C (Type-C)"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1548.6578
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "10625",
+    "_score": 1546.9392,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 10625,
+      "category": 9,
+      "product_title": "Oraimo Traveler 22.5W PD 20000mAh Power Bank (OPB-7204Q)",
+      "product_title_match": "Oraimo Traveler 22.5W PD 20000mAh Power Bank (OPB-7204Q)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-traveler-22-5w-pd-20000mah-power-bank-opb-7204q-pakistan-priceoye-o7m8e.jpeg\",\"colors\":{\"black\":{\"0\":\"oraimo-traveler-22-5w-pd-20000mah-power-bank-opb-7204q-pakistan-priceoye-9gvel.jpeg\",\"1\":\"oraimo-traveler-22-5w-pd-20000mah-power-bank-opb-7204q-pakistan-priceoye-gobe1.jpeg\"}}}",
+      "product_slug": "oraimo-traveler-22-5w-pd-20000mah-power-bank-opb-7204q",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "5999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 244,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "power-banks",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 9,
+      "product_category_name": "Power Banks",
+      "product_filters": {
+        "Capacity": 20000,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 4349,
+      "lowest_price_storelink_id": 22416,
+      "lowest_price_store_id": 9999,
+      "highest_price": 4349,
+      "price_crawled_date": "2025-04-03 12:36:29",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4894947018749"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 10,
+      "retail_price": "5999",
+      "saving_price": 1650,
+      "po_order_status": 3,
+      "po_date_create": "2025-04-03",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Dimensions 142 x 68 x 16 mm Weight 420g Model OPB-7204Q Capacity 20000mAh Battery Type Lithium-Polymer Input Port 1x Micro USB, 1x USB-C Ports Output Port 2x USB-A, 1x USB-C Ports"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1546.9392
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "10626",
+    "_score": 1546.7351,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 10626,
+      "category": 9,
+      "product_title": "Oraimo Toast 22.5W Byte 10000mAh Power Bank (OPB-7100Q)",
+      "product_title_match": "Oraimo Toast 22.5W Byte 10000mAh Power Bank (OPB-7100Q)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-toast-22-5w-byte-10000mah-power-bank-pakistan-priceoye-r8opx.jpeg\",\"colors\":{\"black\":{\"0\":\"oraimo-toast-22-5w-byte-10000mah-power-bank-opb-7100q-pakistan-priceoye-y650l.jpeg\",\"1\":\"oraimo-toast-22-5w-byte-10000mah-power-bank-opb-7100q-pakistan-priceoye-hd2uw.jpeg\"}}}",
+      "product_slug": "oraimo-toast-22-5w-byte-10000mah-power-bank-opb-7100q",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "4499",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 244,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "power-banks",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 9,
+      "product_category_name": "Power Banks",
+      "product_filters": {
+        "Capacity": 10000,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 2899,
+      "lowest_price_storelink_id": 22417,
+      "lowest_price_store_id": 9999,
+      "highest_price": 2899,
+      "price_crawled_date": "2025-04-03 12:53:53",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "oraimo toast 22.5w byte 10000mah power bank (opb-7100q) (black)"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 5,
+      "retail_price": "4499",
+      "saving_price": 1600,
+      "po_order_status": 3,
+      "po_date_create": "2025-04-03",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Weight Light Weight Model OPB-7100Q Display Digital LED Capacity 10000mAh Battery Type Lithium-Polymer Input Port 1x Micro-USB, 1x USB-C Ports Output Port 2x USB-A, 1x USB-C Ports"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1546.7351
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "13383",
+    "_score": 1546.3417,
+    "_source": {
+      "product_id": 13383,
+      "category": 9,
+      "product_title": "Oraimo OPB-7200Q PowerNova Q21 20000mAh 22.5W Power Bank",
+      "product_title_match": "Oraimo OPB-7200Q PowerNova Q21 20000mAh 22.5W Power Bank",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-opb-7200q-powernova-q21-20000mah-22-5w-power-bank-pakistan-priceoye-9u60a.jpeg\",\"colors\":{\"black\":{\"0\":\"oraimo-opb-7200q-powernova-q21-20000mah-22-5w-power-bank-pakistan-priceoye-85pwl.jpeg\"}}}",
+      "product_slug": "oraimo-opb-7200q-powernova-q21-20000mah-22-5w-power-bank",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "7999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 244,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "power-banks",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 9,
+      "product_category_name": "Power Banks",
+      "product_filters": {
+        "Capacity": 20000,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 4199,
+      "lowest_price_storelink_id": 25757,
+      "lowest_price_store_id": 9999,
+      "highest_price": 4199,
+      "price_crawled_date": "2025-10-21 15:33:58",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4894947071393"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 24,
+      "retail_price": "7999",
+      "saving_price": 3800,
+      "po_order_status": 3,
+      "po_date_create": "2025-10-21",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Weight Light Weight Model OPB-7200Q Display LED Display Capacity 20000mAh Battery Type Li-Polymer Input Port 1 x USB-C (Type-C) Port Output Port 2 × USB-A Ports, 1 × USB-C (Type-C)"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1546.3417
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "13382",
+    "_score": 1474.7561,
+    "_source": {
+      "product_id": 13382,
+      "category": 9,
+      "product_title": "Oraimo OPB-727SQ PowerJet 130W 27600mAh Fast Charging Power Bank",
+      "product_title_match": "Oraimo OPB-727SQ PowerJet 130W 27600mAh Fast Charging Power Bank",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-opb-727sq-powerjet-130w-27600mah-fast-charging-power-bank-pakistan-priceoye-di1f8.jpeg\",\"colors\":{\"black\":{\"0\":\"oraimo-opb-727sq-powerjet-130w-27600mah-fast-charging-power-bank-pakistan-priceoye-a7sgx.jpeg\"}}}",
+      "product_slug": "oraimo-opb-727sq-powerjet-130w-27600mah-fast-charging-power-bank",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "14999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 1,
+      "product_brand_id": 244,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "power-banks",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 9,
+      "product_category_name": "Power Banks",
+      "product_filters": {
+        "Capacity": 27600,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 11699,
+      "lowest_price_storelink_id": 25756,
+      "lowest_price_store_id": 9999,
+      "highest_price": 11699,
+      "price_crawled_date": "2025-10-21 15:20:56",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "oraimo opb-727sq powerjet 130w 27600mah fast charging power bank (black)"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 3,
+      "retail_price": "14999",
+      "saving_price": 3300,
+      "po_order_status": 3,
+      "po_date_create": "2025-10-21",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Weight 597g Model OPB-727SQ Display LED Display Capacity 27600mAh Battery Type Li-Polymer Input Port USB-C Type-C Output Port USB-C Type-C, USB-C Type-C, and USB-A"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1474.7561
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5320",
+    "_score": 1473.9418,
+    "_source": {
+      "product_id": 5320,
+      "category": 11,
+      "product_title": "Oraimo Tank 2 Usb Charger E36S (Micro-Usb Cable 2A)",
+      "product_title_match": "Oraimo Tank 2 Usb Charger E36S (Micro-Usb Cable 2A)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-tank-2-usb-charger-e36s-micro-usb-cable-2a-pakistan-priceoye-s10sp.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-tank-2-usb-charger-e36s-micro-usb-cable-2a-pakistan-priceoye-ypw5m.jpg\"}}}",
+      "product_slug": "oraimo-tank-2-usb-charger-e36s-micro-usb-cable-2a",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "799",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 4.8,
+      "total_reviews": 6,
+      "product_brand_id": 245,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "mobile-chargers",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 11,
+      "product_category_name": "Wall Chargers",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 599,
+      "lowest_price_storelink_id": 11126,
+      "lowest_price_store_id": 9999,
+      "highest_price": 599,
+      "price_crawled_date": "2022-03-14 00:39:08",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4895180757730"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "1000",
+      "saving_price": 401,
+      "po_order_status": 3,
+      "po_date_create": "2022-03-13",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model OCW-E36S Charging Type Fast Charger Input 100-240V~ 50/60Hz 350mA Output 5.0V 2A"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1473.9418
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "12041",
+    "_score": 1471.6747,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 12041,
+      "category": 7,
+      "product_title": "ORAIMO SilkLine 1M 3A Type-C Data Cable OCD-115C",
+      "product_title_match": "ORAIMO SilkLine 1M 3A Type-C Data Cable OCD-115C",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-silkline-1m-3a-type-c-data-cable-ocd-115c-pakistan-priceoye-j1ix4.jpeg\",\"colors\":{\"white\":{\"0\":\"oraimo-silkline-1m-3a-type-c-data-cable-ocd-115c-pakistan-priceoye-heb6d.jpeg\"},\"black\":{\"0\":\"oraimo-silkline-1m-3a-type-c-data-cable-ocd-115c-pakistan-priceoye-h1l8r.jpeg\"},\"light_purple\":{\"0\":\"oraimo-silkline-1m-3a-type-c-data-cable-ocd-115c-pakistan-priceoye-9gfy8.jpeg\"},\"haze_green\":{\"0\":\"oraimo-silkline-1m-3a-type-c-data-cable-ocd-115c-pakistan-priceoye-m1wb0.jpeg\"},\"light_gold\":{\"0\":\"oraimo-silkline-1m-3a-type-c-data-cable-ocd-115c-pakistan-priceoye-ydf56.jpeg\"}}}",
+      "product_slug": "oraimo-silkline-1m-3a-type-c-data-cable-ocd-115c",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "1200",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 258,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "mobile-cables",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 7,
+      "product_category_name": "Charging Cables",
+      "product_filters": {
+        "STORAGE": [
+          1
+        ],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 899,
+      "lowest_price_storelink_id": 24893,
+      "lowest_price_store_id": 9999,
+      "highest_price": 899,
+      "price_crawled_date": "2025-09-16 16:01:05",
+      "color": [
+        "black",
+        "white",
+        "light_purple",
+        "haze_green",
+        "light_gold"
+      ],
+      "size": [
+        "1 meter"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "1200",
+      "saving_price": 301,
+      "po_order_status": 3,
+      "po_date_create": "2025-09-16",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model OCD-115C Material Liquid Silicon Length 1m Input Port USB-A Output Port Type C USB Type Transmission Speed 3A"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1471.6747
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "11402",
+    "_score": 1404.1516,
+    "_ignored": [
+      "product_description.keyword",
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 11402,
+      "category": 9,
+      "product_title": "Oraimo MagPower 15 OPB-7102W 10000mAh Wireless and Wired Power Bank",
+      "product_title_match": "Oraimo MagPower 15 OPB-7102W 10000mAh Wireless and Wired Power Bank",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-magpower-15-opb-7102w-10000mah-wireless-and-wired-power-bank-pakistan-priceoye-8j9cn.jpeg\",\"colors\":{\"black\":{\"0\":\"oraimo-magpower-15-opb-7102w-10000mah-wireless-and-wired-power-bank-pakistan-priceoye-rjjuq.jpeg\",\"1\":\"oraimo-magpower-15-opb-7102w-10000mah-wireless-and-wired-power-bank-pakistan-priceoye-yyq9u.jpeg\"}}}",
+      "product_slug": "oraimo-magpower-15-opb-7102w-10000mah-wireless-and-wired-power-bank",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "9999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 244,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "power-banks",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 9,
+      "product_category_name": "Power Banks",
+      "product_filters": {
+        "Capacity": 10000,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 5449,
+      "lowest_price_storelink_id": 23678,
+      "lowest_price_store_id": 9999,
+      "highest_price": 5449,
+      "price_crawled_date": "2025-07-02 13:15:06",
+      "color": [
+        "black"
+      ],
+      "size": [
+        ""
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "9999",
+      "saving_price": 4550,
+      "po_order_status": 3,
+      "po_date_create": "2025-07-02",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Weight Light Weight Model OPB-7102W Display LED Indicator Capacity 10000mAh Battery Type Li-polymer Input Port USB-C Output Port USB-C Cable, USB-C Port, Wireless"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1404.1516
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5321",
+    "_score": 1288.9989,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 5321,
+      "category": 12,
+      "product_title": "Oraimo Highway Dual Port Car Charger 21DML (Lightning and Micro USB Cable 2A)",
+      "product_title_match": "Oraimo Highway Dual Port Car Charger 21DML (Lightning and Micro USB Cable 2A)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-highway-dual-port-car-charger-21dml-lightning-and-micro-usb-cable-2a-pakistan-priceoye-qvt41.jpg\",\"1\":\"oraimo-highway-dual-port-car-charger-21dml-lightning-and-micro-usb-cable-2a-pakistan-priceoye-5jwty.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-highway-dual-port-car-charger-21dml-lightning-and-micro-usb-cable-2a-pakistan-priceoye-gc7i6.jpg\",\"1\":\"oraimo-highway-dual-port-car-charger-21dml-lightning-and-micro-usb-cable-2a-pakistan-priceoye-cbyz3.jpg\"}}}",
+      "product_slug": "oraimo-highway-dual-port-car-charger-21dml-lightning-and-micro-usb-cable-2a",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "1299",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 1,
+      "product_brand_id": 246,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "mobile-car-chargers",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 12,
+      "product_category_name": "Car Chargers",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 1099,
+      "lowest_price_storelink_id": 11127,
+      "lowest_price_store_id": 9999,
+      "highest_price": 1099,
+      "price_crawled_date": "2022-03-14 00:45:17",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4895180744501"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "1800",
+      "saving_price": 701,
+      "po_order_status": 3,
+      "po_date_create": "2022-03-14",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model OCC-21DML Material PVC Type Fast Charging Input 12-24V Output DC5V 2.1A MAX"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1288.9989
+    ]
+  }
+]

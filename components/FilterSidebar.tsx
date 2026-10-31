@@ -274,6 +274,57 @@ export function FilterSidebar({
           >
             Smart Watches
           </button>
+          <button
+            type="button"
+            onClick={() => {
+              setFilters((prev) => ({
+                ...prev,
+                selectedCategory: 'power-banks',
+                selectedBrands: [],
+              }));
+            }}
+            className={`btn-press py-2 px-2.5 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+              filters.selectedCategory === 'power-banks'
+                ? 'bg-[#136ab5] text-white shadow-md ring-2 ring-[#48afff]'
+                : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-950'
+            }`}
+          >
+            Power Banks
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setFilters((prev) => ({
+                ...prev,
+                selectedCategory: 'wall-chargers',
+                selectedBrands: [],
+              }));
+            }}
+            className={`btn-press py-2 px-2.5 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+              filters.selectedCategory === 'wall-chargers'
+                ? 'bg-[#136ab5] text-white shadow-md ring-2 ring-[#48afff]'
+                : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-950'
+            }`}
+          >
+            Chargers
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setFilters((prev) => ({
+                ...prev,
+                selectedCategory: 'charging-cables',
+                selectedBrands: [],
+              }));
+            }}
+            className={`btn-press py-2 px-2.5 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+              filters.selectedCategory === 'charging-cables'
+                ? 'bg-[#136ab5] text-white shadow-md ring-2 ring-[#48afff]'
+                : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-950'
+            }`}
+          >
+            Cables
+          </button>
         </div>
       </div>
 

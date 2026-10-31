@@ -58,6 +58,7 @@ export type ProductCategory =
   | 'trimmers-shaver'
   | 'power-banks'
   | 'wall-chargers'
+  | 'charging-cables'
   | 'bluetooth-speakers'
   | 'tablets'
   | 'laptops';

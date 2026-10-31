@@ -42,6 +42,11 @@ export const STORE_CATEGORIES: CategoryItem[] = [
     image: '/images/categories/wall-chargers.webp',
   },
   {
+    id: 'charging-cables',
+    name: 'Charging Cables',
+    image: '/images/categories/charging-cables.webp',
+  },
+  {
     id: 'bluetooth-speakers',
     name: 'Bluetooth Speakers',
     image: '/images/categories/bluetooth-speakers.webp',

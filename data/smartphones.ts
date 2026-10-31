@@ -30,6 +30,7 @@ export const BRANDS = [
   'JBL',
   'Soundpeats',
   'Dizo',
+  'Oraimo',
 ];
 
 export const RAM_OPTIONS = ['3GB', '4GB', '6GB', '8GB', '12GB', '16GB'];

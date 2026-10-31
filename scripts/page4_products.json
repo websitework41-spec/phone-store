@@ -1,0 +1,1705 @@
+[
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5455",
+    "_score": 1863.7179,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 5455,
+      "category": 7,
+      "product_title": "Oraimo Fast Type-C Cable (C71)",
+      "product_title_match": "Oraimo Fast Type-C Cable (C71)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-fast-type-c-cable-c71-pakistan-priceoye-44fq9.jpg\",\"1\":\"oraimo-fast-type-c-cable-c71-pakistan-priceoye-36rj4.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-fast-type-c-cable-c71-pakistan-priceoye-uenvu.jpg\",\"1\":\"oraimo-fast-type-c-cable-c71-pakistan-priceoye-9fpux.jpg\"}}}",
+      "product_slug": "oraimo-fast-type-c-cable-c71",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "645",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 258,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "mobile-cables",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 7,
+      "product_category_name": "Charging Cables",
+      "product_filters": {
+        "STORAGE": [
+          1
+        ],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 749,
+      "lowest_price_storelink_id": 11354,
+      "lowest_price_store_id": 9999,
+      "highest_price": 749,
+      "price_crawled_date": "2022-03-29 19:45:46",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "1 meter"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 2,
+      "retail_price": "850",
+      "saving_price": 101,
+      "po_order_status": 3,
+      "po_date_create": "2022-03-29",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model OCD-C71 Material Nylon braided wire Length 1 Meter Input Port USB-Type A Output Port Type-C USB Type Transmission Speed 480 Mbps"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1863.7179
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5454",
+    "_score": 1863.5138,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 5454,
+      "category": 7,
+      "product_title": "Oraimo Braid 2 Lightning Cable (L71)",
+      "product_title_match": "Oraimo Braid 2 Lightning Cable (L71)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-braid-2-lightning-cable-l71-pakistan-priceoye-9kfhd.jpg\",\"1\":\"oraimo-braid-2-lightning-cable-l71-pakistan-priceoye-8ijke.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-braid-2-lightning-cable-l71-pakistan-priceoye-z81lr.jpg\",\"1\":\"oraimo-braid-2-lightning-cable-l71-pakistan-priceoye-akn9m.jpg\"}}}",
+      "product_slug": "oraimo-braid-2-lightning-cable-l71",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "685",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 258,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "mobile-cables",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 7,
+      "product_category_name": "Charging Cables",
+      "product_filters": {
+        "STORAGE": [
+          1
+        ],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 799,
+      "lowest_price_storelink_id": 11353,
+      "lowest_price_store_id": 9999,
+      "highest_price": 799,
+      "price_crawled_date": "2022-03-29 19:44:13",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "1 meter"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "900",
+      "saving_price": 101,
+      "po_order_status": 3,
+      "po_date_create": "2022-03-29",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model OCD-L71 Material Nylon braided wire Length 1 Meter Input Port USB-Type A Output Port Lightning USB Type Transmission Speed 480 Mbps"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1863.5138
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "11387",
+    "_score": 1851.4675,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 11387,
+      "category": 6,
+      "product_title": "Oraimo BoomPop2S OHP-610S Wireless Headphones",
+      "product_title_match": "Oraimo BoomPop2S OHP-610S Wireless Headphones",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-boompop2s-ohp-610s-wireless-headphones-pakistan-priceoye-0u3wo.jpeg\",\"colors\":{\"blue\":{\"0\":\"oraimo-boompop2s-ohp-610s-wireless-headphones-pakistan-priceoye-iovvr.jpeg\",\"1\":\"oraimo-boompop2s-ohp-610s-wireless-headphones-pakistan-priceoye-g0s31.jpg\",\"2\":\"oraimo-boompop2s-ohp-610s-wireless-headphones-pakistan-priceoye-09sof.jpeg\",\"3\":\"oraimo-boompop2s-ohp-610s-wireless-headphones-pakistan-priceoye-c7ioy.jpeg\"}}}",
+      "product_slug": "oraimo-boompop2s-ohp-610s-wireless-headphones",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "9999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 5599,
+      "lowest_price_storelink_id": 23660,
+      "lowest_price_store_id": 9999,
+      "highest_price": 5599,
+      "price_crawled_date": "2025-07-01 17:23:52",
+      "color": [
+        "blue"
+      ],
+      "size": [
+        "oraimo boompop2s ohp-610s wireless headphones (blue)"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 9,
+      "retail_price": "9999",
+      "saving_price": 4400,
+      "po_order_status": 3,
+      "po_date_create": "2025-07-01",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Noise Cancellation ENC Charging Interface USB-C Compatibility Android, IOS &amp; Windows Mic Yes Driver Size 40mm Bluetooth Version V5.3 Bluetooth Range 10M Microphone Capacity for buds 500mAh Playtime 50 Hours Charging Time 2-3 Hours"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1851.4675
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "10610",
+    "_score": 1760.1426,
+    "_ignored": [
+      "product_description.keyword",
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 10610,
+      "category": 6,
+      "product_title": "Oraimo SpaceBuds True Wireless Earbuds (OTW-630)",
+      "product_title_match": "Oraimo SpaceBuds True Wireless Earbuds (OTW-630)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-spacebuds-true-wireless-earbuds-otw-630-pakistan-priceoye-lchs0.jpeg\",\"1\":\"videos\\/oraimo-spacebuds-true-wireless-earbuds-otw-630-pakistan-priceoye-u55rg.mp4\",\"colors\":{\"space_grey\":{\"0\":\"oraimo-spacebuds-true-wireless-earbuds-otw-630-pakistan-priceoye-qzlkk.jpeg\",\"1\":\"oraimo-spacebuds-true-wireless-earbuds-otw-630-pakistan-priceoye-fiuzr.jpg\",\"2\":\"oraimo-spacebuds-true-wireless-earbuds-otw-630-pakistan-priceoye-3mn1x.jpeg\"}}}",
+      "product_slug": "oraimo-spacebuds-true-wireless-earbuds-otw-630",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "9999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 2,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 7349,
+      "lowest_price_storelink_id": 22381,
+      "lowest_price_store_id": 9999,
+      "highest_price": 7349,
+      "price_crawled_date": "2025-03-26 11:20:05",
+      "color": [
+        "space_grey"
+      ],
+      "size": [
+        "oraimo spacebuds true wireless earbuds (otw-630) (space grey)"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [
+        "ear-tips",
+        "charging-cable"
+      ],
+      "product_clicks": 8,
+      "retail_price": "9599",
+      "saving_price": 2250,
+      "po_order_status": 3,
+      "po_date_create": "2025-03-26",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Noise Cancellation Hybrid ANC Water Resistant IPX4 Charging Interface C-Type Auto Pairing Yes Compatibility Android / IOS Mic Driver Size 11mm Bluetooth Version V5.4 Bluetooth Range 10M / 30FT Microphone Playtime 6-8 Hours Charging Time 2 Hours"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1760.1426
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "13327",
+    "_score": 1760.0343,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 13327,
+      "category": 6,
+      "product_title": "Oraimo OPN-675 Open-Ear Wireless Earphones",
+      "product_title_match": "Oraimo OPN-675 Open-Ear Wireless Earphones",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-opn-675-open-ear-wireless-earphones-pakistan-priceoye-ube7m.jpeg\",\"colors\":{\"graphite_gray\":{\"0\":\"oraimo-opn-675-open-ear-wireless-earphones-pakistan-priceoye-tkzjr.jpeg\",\"1\":\"oraimo-opn-675-open-ear-wireless-earphones-pakistan-priceoye-wpdmk.jpg\",\"2\":\"oraimo-opn-675-open-ear-wireless-earphones-pakistan-priceoye-k4177.jpg\"}}}",
+      "product_slug": "oraimo-opn-675-open-ear-wireless-earphones",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "13000",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 3,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 9499,
+      "lowest_price_storelink_id": 25744,
+      "lowest_price_store_id": 9999,
+      "highest_price": 9499,
+      "price_crawled_date": "2025-10-20 18:24:38",
+      "color": [
+        "graphite_gray"
+      ],
+      "size": [
+        "4894947065736"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 1,
+      "retail_price": "13000",
+      "saving_price": 3501,
+      "po_order_status": 3,
+      "po_date_create": "2025-10-20",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Noise Cancellation ENC Water Resistant IPX5 Charging Interface Type-C Auto Pairing Yes Compatibility Android / IOS Mic Bluetooth Version V5.4 Bluetooth Range 10M / 30FT Microphone Playtime 8 Hours Charging Time 2 Hours"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1760.0343
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "11385",
+    "_score": 1759.9366,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 11385,
+      "category": 6,
+      "product_title": "Oraimo Boom Pop OHP-317 Wireless Headphones",
+      "product_title_match": "Oraimo Boom Pop OHP-317 Wireless Headphones",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-boom-pop-ohp-317-wireless-headphones-pakistan-priceoye-pdj5l.jpeg\",\"colors\":{\"black\":{\"0\":\"oraimo-boom-pop-ohp-317-wireless-headphones-pakistan-priceoye-uvbtf.jpeg\",\"1\":\"oraimo-boom-pop-ohp-317-wireless-headphones-pakistan-priceoye-1b9vq.jpg\",\"2\":\"oraimo-boom-pop-ohp-317-wireless-headphones-pakistan-priceoye-edzbb.jpeg\"}}}",
+      "product_slug": "oraimo-boom-pop-ohp-317-wireless-headphones",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "7999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 1,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 4349,
+      "lowest_price_storelink_id": 23654,
+      "lowest_price_store_id": 9999,
+      "highest_price": 4349,
+      "price_crawled_date": "2025-07-01 16:48:05",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4894947054334"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 2,
+      "retail_price": "7999",
+      "saving_price": 3650,
+      "po_order_status": 3,
+      "po_date_create": "2025-07-01",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Noise Cancellation ENC Charging Interface USB-C Compatibility Android, IOS &amp; Windows Mic Yes Driver Size 40mm Bluetooth Version V5.3 Bluetooth Range 10M Microphone Playtime 65 Hours Charging Time 2-3 Hours"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1759.9366
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "11388",
+    "_score": 1757.198,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 11388,
+      "category": 6,
+      "product_title": "Oraimo BoomPop Pro OHP-917 Wireless Headphones",
+      "product_title_match": "Oraimo BoomPop Pro OHP-917 Wireless Headphones",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-boompop-pro-ohp-617-wireless-headphones-pakistan-priceoye-4b2nn.jpeg\",\"colors\":{\"grey\":{\"0\":\"oraimo-boompop-pro-ohp-917-wireless-headphones-pakistan-priceoye-dx8ri.jpeg\",\"1\":\"oraimo-boompop-pro-ohp-917-wireless-headphones-pakistan-priceoye-j7729.jpg\",\"2\":\"oraimo-boompop-pro-ohp-917-wireless-headphones-pakistan-priceoye-by8un.jpeg\"},\"gold\":{\"0\":\"oraimo-boompop-pro-ohp-917-wireless-headphones-pakistan-priceoye-hrhw0.jpeg\",\"1\":\"oraimo-boompop-pro-ohp-917-wireless-headphones-pakistan-priceoye-cvc4p.jpg\",\"2\":\"oraimo-boompop-pro-ohp-917-wireless-headphones-pakistan-priceoye-zl0yh.jpeg\"}}}",
+      "product_slug": "oraimo-boompop-pro-ohp-917-wireless-headphones",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "13999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 9499,
+      "lowest_price_storelink_id": 23661,
+      "lowest_price_store_id": 9999,
+      "highest_price": 9499,
+      "price_crawled_date": "2025-07-01 17:48:50",
+      "color": [
+        "grey",
+        "gold"
+      ],
+      "size": [
+        "4894947069345",
+        ""
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 2,
+      "retail_price": "13999",
+      "saving_price": 4500,
+      "po_order_status": 3,
+      "po_date_create": "2025-07-01",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Noise Cancellation ANC Charging Interface USB-C Auto Pairing Yes Compatibility Android, IOS &amp; Windows Mic Bluetooth Version V5.4 Bluetooth Range 10M Microphone Playtime 53 Hours Charging Time 2-3 Hours"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1757.198
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "10629",
+    "_score": 1757.0851,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 10629,
+      "category": 6,
+      "product_title": "Oraimo Necklace Lite Wireless Headphones (OEB-311)",
+      "product_title_match": "Oraimo Necklace Lite Wireless Headphones (OEB-311)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-5xryp.jpeg\",\"colors\":{\"black\":{\"0\":\"oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-dblo5.jpeg\",\"1\":\"oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-tjm5a.jpg\",\"2\":\"oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-tx972.jpeg\",\"3\":\"oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-jmigb.jpeg\",\"4\":\"oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-n5qfa.jpeg\",\"5\":\"oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-s6gsn.jpeg\"},\"nebula_blue\":{\"0\":\"oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-vtck1.jpeg\",\"1\":\"oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-clkvf.jpg\",\"2\":\"oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-hv2oq.jpeg\",\"3\":\"oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-lmzgy.jpeg\",\"4\":\"oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-ww73i.jpeg\",\"5\":\"oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-i0o08.jpeg\"}}}",
+      "product_slug": "oraimo-necklace-lite-wireless-headphones-oeb-311",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "3999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 2549,
+      "lowest_price_storelink_id": 22421,
+      "lowest_price_store_id": 9999,
+      "highest_price": 2549,
+      "price_crawled_date": "2025-04-03 16:24:28",
+      "color": [
+        "black",
+        "nebula_blue"
+      ],
+      "size": [
+        "4894947020087",
+        ""
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [
+        "charging-cable"
+      ],
+      "product_clicks": 2,
+      "retail_price": "3999",
+      "saving_price": 1450,
+      "po_order_status": 3,
+      "po_date_create": "2025-04-03",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Noise Cancellation ENC Water Resistant IPX4 Charging Interface C-Type Auto Pairing Yes Compatibility Android / IOS Mic Driver Size 10mm Bluetooth Version V5.3 Bluetooth Range 10M / 30FT Microphone Capacity for buds 220mAh Playtime 25-30 Hours Charging Time 3 Hours"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1757.0851
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5960",
+    "_score": 1756.7035,
+    "_source": {
+      "product_id": 5960,
+      "category": 5,
+      "product_title": "Oraimo Tempo S Smart Watch (OSW-11)",
+      "product_title_match": "Oraimo Tempo S Smart Watch (OSW-11)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-tempo-s-smart-watch-osw-11-pakistan-priceoye-u597l.jpg\",\"1\":\"oraimo-tempo-s-smart-watch-osw-11-pakistan-priceoye-eqhsk.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-tempo-s-smart-watch-osw-11-pakistan-priceoye-6nzla.jpg\"}}}",
+      "product_slug": "oraimo-tempo-s-smart-watch-osw-11",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "6499",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 248,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "smart-watches",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 5,
+      "product_category_name": "Smart Watches",
+      "product_filters": {
+        "Screen Size": 1.3,
+        "Capacity": 200,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 4499,
+      "lowest_price_storelink_id": 12341,
+      "lowest_price_store_id": 9999,
+      "highest_price": 4499,
+      "price_crawled_date": "2022-12-07 00:24:27",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4895180752650"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "6499",
+      "saving_price": 2000,
+      "po_order_status": 3,
+      "po_date_create": "2022-11-25",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Dimensions 42*20*9.5mm Strap Material ABS/PC/TPU Water Resistant IP67 Operating System Proprietary OS Screen Size 1.3 Inches Screen Type IPS True Colour Screen Capacity 200mAh Battery Life Upto 20 Days Standby Time"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1756.7035
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5456",
+    "_score": 1752.6719,
+    "_source": {
+      "product_id": 5456,
+      "category": 7,
+      "product_title": "Oraimo Udon 2 Micro Usb Cable (M56)",
+      "product_title_match": "Oraimo Udon 2 Micro Usb Cable (M56)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-udon-2-micro-usb-cable-m56-pakistan-priceoye-41ni9.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-udon-2-micro-usb-cable-m56-pakistan-priceoye-wun1s.jpg\"}}}",
+      "product_slug": "oraimo-udon-2-micro-usb-cable-m56",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "485",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 6,
+      "product_brand_id": 258,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "mobile-cables",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 7,
+      "product_category_name": "Charging Cables",
+      "product_filters": {
+        "STORAGE": [
+          2
+        ],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 599,
+      "lowest_price_storelink_id": 11355,
+      "lowest_price_store_id": 9999,
+      "highest_price": 599,
+      "price_crawled_date": "2022-03-29 21:55:27",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "2 meter"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "800",
+      "saving_price": 201,
+      "po_order_status": 3,
+      "po_date_create": "2022-03-29",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model Udon 2 Material Copper Core Length 2 Meter Input Port USB-Type A Output Port Micro USB Type Transmission Speed 480 Mbps"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1752.6719
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5457",
+    "_score": 1752.6719,
+    "_source": {
+      "product_id": 5457,
+      "category": 7,
+      "product_title": "Oraimo DuraLine 2 Micro Usb Cable (M53)",
+      "product_title_match": "Oraimo DuraLine 2 Micro Usb Cable (M53)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-duraline-2-micro-usb-cable-m53-pakistan-priceoye-g0q5k.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-duraline-2-micro-usb-cable-m53-pakistan-priceoye-gkdzg.jpg\"}}}",
+      "product_slug": "oraimo-duraline-2-micro-usb-cable-m53",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "299",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 3,
+      "product_brand_id": 258,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "mobile-cables",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 7,
+      "product_category_name": "Charging Cables",
+      "product_filters": {
+        "STORAGE": [
+          1
+        ],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 299,
+      "lowest_price_storelink_id": 11356,
+      "lowest_price_store_id": 9999,
+      "highest_price": 299,
+      "price_crawled_date": "2022-03-29 21:58:09",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "1 meter"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "500",
+      "saving_price": 201,
+      "po_order_status": 3,
+      "po_date_create": "2022-03-29",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model DuraLine 2 Length 1 Meter Input Port USB-Type A Output Port Micro USB Type Transmission Speed 480Mbps"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1752.6719
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "13386",
+    "_score": 1751.6334,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 13386,
+      "category": 5,
+      "product_title": "Oraimo Watch 6 Pro OSW-807S SmartWatch",
+      "product_title_match": "Oraimo Watch 6 Pro OSW-807S SmartWatch",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-watch-6-pro-osw-807s-smartwatch-pakistan-priceoye-kgwd3.jpeg\",\"1\":\"videos\\/oraimo-watch-6-pro-osw-807s-smartwatch-pakistan-priceoye-6dqc9.mp4\",\"colors\":{\"black\":{\"0\":\"oraimo-watch-6-pro-osw-807s-smartwatch-pakistan-priceoye-ki0lu.jpeg\",\"1\":\"oraimo-watch-6-pro-osw-807s-smartwatch-pakistan-priceoye-rko8u.jpg\"}}}",
+      "product_slug": "oraimo-watch-6-pro-osw-807s-smartwatch",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "7999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 248,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "smart-watches",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 5,
+      "product_category_name": "Smart Watches",
+      "product_filters": {
+        "Screen Size": 42,
+        "Capacity": 220,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 5349,
+      "lowest_price_storelink_id": 25760,
+      "lowest_price_store_id": 9999,
+      "highest_price": 5349,
+      "price_crawled_date": "2025-10-21 16:36:44",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "oraimo watch 6 pro osw-807s smartwatch (black)"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [
+        "type-c-cable"
+      ],
+      "product_clicks": 52,
+      "retail_price": "7999",
+      "saving_price": 2650,
+      "po_order_status": 3,
+      "po_date_create": "2025-10-21",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Bluetooth Calling Yes Voice Assistant Strap/Band Water Resistant IP68 Modes Multiple Sport Modes Speaker Compatibility Android / IOS Heart Rate Monitor Calories Burned Sleep Quality Monitor Step Tracker Oxygen Level Monitoring Bluetooth Version V5.3 Screen Type TFT Screen Size 42mm Resolution 240 × 286 Pixels Capacity 220mAh Battery Life 5 Days"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1751.6334
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5327",
+    "_score": 1749.9332,
+    "_source": {
+      "product_id": 5327,
+      "category": 8,
+      "product_title": "Oraimo SoundGo 4 Bluetooth Speaker (OBS-02S)",
+      "product_title_match": "Oraimo SoundGo 4 Bluetooth Speaker (OBS-02S)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-soundgo-4-bluetooth-speaker-obs-02s-pakistan-priceoye-qvq67.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-soundgo-4-bluetooth-speaker-obs-02s-pakistan-priceoye-cnb4p.jpg\"}}}",
+      "product_slug": "oraimo-soundgo-4-bluetooth-speaker-obs-02s",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "2199",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 249,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "bluetooth-speakers",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 8,
+      "product_category_name": "Bluetooth Speakers",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 2799,
+      "lowest_price_storelink_id": 11138,
+      "lowest_price_store_id": 9999,
+      "highest_price": 2799,
+      "price_crawled_date": "2022-03-14 03:36:41",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4895180769542"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "2895",
+      "saving_price": 96,
+      "po_order_status": 3,
+      "po_date_create": "2022-03-14",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Dimensions 110 x 78 x 37 mm Model OBS-02S Type 1200 mAh Charging Time null Bluetooth Type V5.0 Bluetooth Range 10 m Frequency Range 75Hz-20KHz USB Compatibility Yes SD Card Compatibility"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1749.9332
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5600",
+    "_score": 1746.5372,
+    "_ignored": [
+      "product_description.keyword",
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 5600,
+      "category": 6,
+      "product_title": "Oraimo Shark 2 Wireless Neckband (OEB-E59D)",
+      "product_title_match": "Oraimo Shark 2 Wireless Neckband (OEB-E59D)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-shark-2-wireless-neckband-pakistan-priceoye-54zcs.jpg\",\"1\":\"oraimo-shark-2-wireless-bluetooth-neckband-pakistan-priceoye-bhk3l.jpg\",\"2\":\"oraimo-shark-2-wireless-bluetooth-neckband-pakistan-priceoye-brngk.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-shark-2-wireless-neckband-pakistan-priceoye-h5g3f.jpg\"},\"blue\":{\"0\":\"oraimo-shark-2-wireless-bluetooth-neckband-pakistan-priceoye-0dk02.jpg\"},\"red\":{\"0\":\"oraimo-shark-2-wireless-bluetooth-neckband-pakistan-priceoye-yx9mt.jpg\"}}}",
+      "product_slug": "oraimo-shark-2-wireless-bluetooth-neckband",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "3299",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 1,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 2999,
+      "lowest_price_storelink_id": 11631,
+      "lowest_price_store_id": 9999,
+      "highest_price": 3099,
+      "price_crawled_date": "2023-02-10 07:22:57",
+      "color": [
+        "black",
+        "blue",
+        "red"
+      ],
+      "size": [
+        "4895180756450",
+        ""
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "3299",
+      "saving_price": 300,
+      "po_order_status": 3,
+      "po_date_create": "2022-05-25",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model OEB-E59D Wearing Type In ear Volume Control Yes Charging Time 1-2 hours Playtime 3-4 hours Battery Capacity for Buds 100mAh Bluetooth Version V5.0 Bluetooth Range 10 m Microphone"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1746.5372
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5601",
+    "_score": 1746.5372,
+    "_ignored": [
+      "product_description.keyword"
+    ],
+    "_source": {
+      "product_id": 5601,
+      "category": 6,
+      "product_title": "Oraimo Shark 3 Wireless Neckband (OEB-E49D)",
+      "product_title_match": "Oraimo Shark 3 Wireless Neckband (OEB-E49D)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-shark-3-wireless-bluetooth-neckband-e49d-pakistan-priceoye-zyni1.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-shark-3-wireless-bluetooth-neckband-e49d-pakistan-priceoye-kidsq.jpg\"}}}",
+      "product_slug": "oraimo-shark-3-wireless-bluetooth-neckband-e49d",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "2949",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 1,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 2699,
+      "lowest_price_storelink_id": 11632,
+      "lowest_price_store_id": 9999,
+      "highest_price": 2699,
+      "price_crawled_date": "2022-05-26 20:04:04",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4895180769078"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "2949",
+      "saving_price": 250,
+      "po_order_status": 3,
+      "po_date_create": "2022-05-25",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model OEB-E49D Wearing Type In ear Volume Control Yes Charging Time 1-2 hours Playtime 3-4 hours Battery Capacity for Buds 135mAh Bluetooth Version V5.0 Bluetooth Range 10 m Microphone"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1746.5372
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5602",
+    "_score": 1746.5372,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 5602,
+      "category": 6,
+      "product_title": "Oraimo Wireless Neckband 3 Lite (OEB-E75D)",
+      "product_title_match": "Oraimo Wireless Neckband 3 Lite (OEB-E75D)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-wireless-neckband-3-lite-pakistan-priceoye-bm70p.jpg\",\"1\":\"oraimo-wireless-neckband-3-lite-pakistan-priceoye-kgtbr.jpg\",\"2\":\"oraimo-wireless-neckband-3-lite-pakistan-priceoye-j92uj.jpg\",\"3\":\"oraimo-wireless-neckband-3-lite-pakistan-priceoye-w7mj7.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-wireless-neckband-3-lite-pakistan-priceoye-rym4k.jpg\"},\"red\":{\"0\":\"oraimo-wireless-neckband-3-lite-pakistan-priceoye-pz0c1.jpg\"},\"gold\":{\"0\":\"oraimo-wireless-neckband-3-lite-pakistan-priceoye-73i8u.jpg\"},\"blue\":{\"0\":\"oraimo-wireless-neckband-3-lite-pakistan-priceoye-6laid.jpg\"}}}",
+      "product_slug": "oraimo-wireless-neckband-3-lite",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "4999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 3,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 3799,
+      "lowest_price_storelink_id": 11636,
+      "lowest_price_store_id": 9999,
+      "highest_price": 3799,
+      "price_crawled_date": "2022-05-26 20:17:17",
+      "color": [
+        "black",
+        "red",
+        "gold",
+        "blue"
+      ],
+      "size": [
+        "4895180763717",
+        "4895180771781",
+        "4895180770753",
+        "4895180770746"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "4999",
+      "saving_price": 1200,
+      "po_order_status": 3,
+      "po_date_create": "2022-05-25",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model OEB-E75D Waterproof Sweat Proof Wearing Type In ear Volume Control Yes Charging Time 1-2 hours Playtime 3-4 hours Battery Capacity for Buds 185mAh Bluetooth Version V5.0 Bluetooth Range 10 m Microphone"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1746.5372
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "7971",
+    "_score": 1743.8055,
+    "_source": {
+      "product_id": 7971,
+      "category": 6,
+      "product_title": "Oraimo OEB-E74D Necklace 2 Wireless Earphone",
+      "product_title_match": "Oraimo OEB-E74D Necklace 2 Wireless Earphone",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-oeb-e74d-necklace-2-wireless-earphone-pakistan-priceoye-2sslh.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-oeb-e74d-necklace-2-wireless-earphone-pakistan-priceoye-e15zk.jpg\"}}}",
+      "product_slug": "oraimo-oeb-e74d-necklace-2-wireless-earphone",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "5000",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 3999,
+      "lowest_price_storelink_id": 16868,
+      "lowest_price_store_id": 9999,
+      "highest_price": 3999,
+      "price_crawled_date": "2024-02-28 18:11:43",
+      "color": [
+        "black"
+      ],
+      "size": [
+        ""
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "6000",
+      "saving_price": 2001,
+      "po_order_status": 3,
+      "po_date_create": "2024-02-28",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Noise Cancellation null Water Resistant Charging Interface Auto Pairing Compatibility Mic Driver Size Bluetooth Version 5.0 Bluetooth Range 10m Microphone Yes Capacity for buds Capacity for Case Playtime 2-3 Hrs Charging Time 1.5 Hrs"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1743.8055
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5310",
+    "_score": 1740.9529,
+    "_source": {
+      "product_id": 5310,
+      "category": 9,
+      "product_title": "Oraimo Traveler 4 Power Bank P204D (20000mAh)",
+      "product_title_match": "Oraimo Traveler 4 Power Bank P204D (20000mAh)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-traveler-4-power-bank-p204d-20000mah-pakistan-priceoye-migr0.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-traveler-4-power-bank-p204d-20000mah-pakistan-priceoye-m9jwx.jpg\"}}}",
+      "product_slug": "oraimo-traveler-4-power-bank-p204d-20000mah",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "4999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 1,
+      "product_brand_id": 244,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "power-banks",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 9,
+      "product_category_name": "Power Banks",
+      "product_filters": {
+        "Capacity": 20000,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 3999,
+      "lowest_price_storelink_id": 11112,
+      "lowest_price_store_id": 9999,
+      "highest_price": 3999,
+      "price_crawled_date": "2022-03-13 20:42:30",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4895180770777"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "5400",
+      "saving_price": 1401,
+      "po_order_status": 3,
+      "po_date_create": "2022-03-13",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Model OPB-P204D Capacity 20000mAh Battery Type Polymer lithium battery Input Port Micro-USB + USB-C Output Port USB-A + USB-A"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1740.9529
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "10614",
+    "_score": 1659.5303,
+    "_ignored": [
+      "product_description.keyword",
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 10614,
+      "category": 6,
+      "product_title": "Oraimo SpaceBuds Neo True Wireless Earbuds (OTW-323)",
+      "product_title_match": "Oraimo SpaceBuds Neo True Wireless Earbuds (OTW-323)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-gufke.jpeg\",\"1\":\"videos\\/oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-1gzu7.mp4\",\"colors\":{\"speed_black\":{\"0\":\"oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-slcuk.jpeg\",\"1\":\"oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-jmtrb.jpg\",\"2\":\"oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-h2nso.jpeg\"},\"mystery_blue\":{\"0\":\"oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-c5xlw.jpeg\",\"1\":\"oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-la8md.jpg\"},\"green\":{\"0\":\"oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-fscgw.jpeg\",\"1\":\"oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-hr2m3.jpg\"},\"light_gold\":{\"0\":\"oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-xife3.jpeg\",\"1\":\"oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-ufe2q.jpg\"}}}",
+      "product_slug": "oraimo-spacebuds-neo-true-wireless-earbuds-otw-323",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "3599",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 4.5,
+      "total_reviews": 2,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 2599,
+      "lowest_price_storelink_id": 22389,
+      "lowest_price_store_id": 9999,
+      "highest_price": 2599,
+      "price_crawled_date": "2025-03-26 13:04:04",
+      "color": [
+        "speed_black",
+        "mystery_blue",
+        "green",
+        "light_gold"
+      ],
+      "size": [
+        "4894947053689",
+        "4894947053696",
+        ""
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 34,
+      "retail_price": "3599",
+      "saving_price": 1000,
+      "po_order_status": 3,
+      "po_date_create": "2025-03-26",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Noise Cancellation ENC Water Resistant IPX4 Charging Interface C-Type Auto Pairing Yes Compatibility Android / IOS Mic Driver Size 10mm Bluetooth Version V5.4 Bluetooth Range 10M / 30FT Microphone Playtime 4-5 Hours Charging Time 2 Hours"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1659.5303
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "10611",
+    "_score": 1656.0872,
+    "_ignored": [
+      "product_description.keyword",
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 10611,
+      "category": 6,
+      "product_title": "Oraimo SpaceBuds Z True Wireless Earbuds (OTW-625)",
+      "product_title_match": "Oraimo SpaceBuds Z True Wireless Earbuds (OTW-625)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-spacebuds-z-true-wireless-earbuds-otw-625-pakistan-priceoye-qtsjp.jpeg\",\"colors\":{\"obsidian_black\":{\"0\":\"oraimo-spacebuds-z-true-wireless-earbuds-otw-625-pakistan-priceoye-ztup3.jpeg\",\"1\":\"oraimo-spacebuds-z-true-wireless-earbuds-otw-625-pakistan-priceoye-5gzpb.jpg\"},\"light_gold\":{\"0\":\"oraimo-spacebuds-z-true-wireless-earbuds-otw-625-pakistan-priceoye-kgvhq.jpeg\",\"1\":\"oraimo-spacebuds-z-true-wireless-earbuds-otw-625-pakistan-priceoye-ybawb.jpg\"},\"elemental_blue\":{\"0\":\"oraimo-spacebuds-z-true-wireless-earbuds-otw-625-pakistan-priceoye-bcysw.jpeg\",\"1\":\"oraimo-spacebuds-z-true-wireless-earbuds-otw-625-pakistan-priceoye-zxwhk.jpg\"},\"mystery_blue\":{\"0\":\"oraimo-spacebuds-z-true-wireless-earbuds-otw-625-pakistan-priceoye-eh2zu.jpeg\",\"1\":\"oraimo-spacebuds-z-true-wireless-earbuds-otw-625-pakistan-priceoye-3g8c9.jpg\"}}}",
+      "product_slug": "oraimo-spacebuds-z-true-wireless-earbuds-otw-625",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "6999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 4799,
+      "lowest_price_storelink_id": 22382,
+      "lowest_price_store_id": 9999,
+      "highest_price": 4799,
+      "price_crawled_date": "2025-03-26 11:46:17",
+      "color": [
+        "obsidian_black",
+        "light_gold",
+        "elemental_blue",
+        "mystery_blue"
+      ],
+      "size": [
+        "4894947050831",
+        "",
+        "4894947050848"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [
+        "ear-tips",
+        "charging-cable"
+      ],
+      "product_clicks": 2,
+      "retail_price": "5999",
+      "saving_price": 1200,
+      "po_order_status": 3,
+      "po_date_create": "2025-03-26",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Noise Cancellation ANC Water Resistant IPX5 Charging Interface C-Type Auto Pairing Yes Compatibility Android / IOS Mic Driver Size 10mm Bluetooth Version V5.4 Bluetooth Range 10M / 30FT Microphone Playtime 6-8 Hours Charging Time 2 Hours"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1656.0872
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "10613",
+    "_score": 1655.883,
+    "_ignored": [
+      "product_description.keyword",
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 10613,
+      "category": 6,
+      "product_title": "Oraimo FreePods Lite True Wireless Earbuds (OTW-330)",
+      "product_title_match": "Oraimo FreePods Lite True Wireless Earbuds (OTW-330)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-freepods-lite-true-wireless-earbuds-otw-330-pakistan-priceoye-jev0m.jpeg\",\"colors\":{\"obsidian_black\":{\"0\":\"oraimo-freepods-lite-true-wireless-earbuds-otw-330-pakistan-priceoye-2c3fp.jpeg\",\"1\":\"oraimo-freepods-lite-true-wireless-earbuds-otw-330-pakistan-priceoye-ybxa3.jpg\",\"2\":\"oraimo-freepods-lite-true-wireless-earbuds-otw-330-pakistan-priceoye-tza0z.jpeg\"},\"mystery_blue\":{\"0\":\"oraimo-freepods-lite-true-wireless-earbuds-otw-330-pakistan-priceoye-etr4u.jpeg\",\"1\":\"oraimo-freepods-lite-true-wireless-earbuds-otw-330-pakistan-priceoye-kc09z.jpg\",\"2\":\"oraimo-freepods-lite-true-wireless-earbuds-otw-330-pakistan-priceoye-5l4fn.jpeg\"},\"ice_lake_blue\":{\"0\":\"oraimo-freepods-lite-true-wireless-earbuds-otw-330-pakistan-priceoye-qyvio.jpeg\",\"1\":\"oraimo-freepods-lite-true-wireless-earbuds-otw-330-pakistan-priceoye-z81n4.jpeg\",\"2\":\"oraimo-freepods-lite-true-wireless-earbuds-otw-330-pakistan-priceoye-80m3n.jpeg\"}}}",
+      "product_slug": "oraimo-freepods-lite-true-wireless-earbuds-otw-330",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "3999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 3349,
+      "lowest_price_storelink_id": 22387,
+      "lowest_price_store_id": 9999,
+      "highest_price": 3349,
+      "price_crawled_date": "2025-08-12 11:46:15",
+      "color": [
+        "obsidian_black",
+        "mystery_blue",
+        "ice_lake_blue"
+      ],
+      "size": [
+        "4895180799976",
+        "4895180799983",
+        "4895180799990"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [
+        "charging-cable"
+      ],
+      "product_clicks": 0,
+      "retail_price": "3999",
+      "saving_price": 650,
+      "po_order_status": 3,
+      "po_date_create": "2025-03-26",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Noise Cancellation ENC Water Resistant IPX4 Charging Interface C-Type Auto Pairing Yes Compatibility Android / IOS Mic Bluetooth Version V5.3 Bluetooth Range 10M / 30FT Microphone Playtime 5-6 Hours Charging Time 2 Hours"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1655.883
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "11139",
+    "_score": 1653.8013,
+    "_ignored": [
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 11139,
+      "category": 5,
+      "product_title": "Oraimo Watch 5R Pro Smart Watch OSW-830",
+      "product_title_match": "Oraimo Watch 5R Pro Smart Watch OSW-830",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-watch-5r-pro-smart-watch-osw-830-pakistan-priceoye-i2la0.jpeg\",\"1\":\"videos\\/oraimo-watch-5r-pro-smart-watch-osw-830-pakistan-priceoye-qprfg.mp4\",\"colors\":{\"black\":{\"0\":\"oraimo-watch-5r-pro-smart-watch-osw-830-pakistan-priceoye-1w6ne.jpg\",\"1\":\"oraimo-watch-5r-pro-smart-watch-osw-830-pakistan-priceoye-kgr8q.jpg\",\"2\":\"oraimo-watch-5r-pro-smart-watch-osw-830-pakistan-priceoye-e8wns.jpeg\",\"3\":\"oraimo-watch-5r-pro-smart-watch-osw-830-pakistan-priceoye-xlk0a.jpeg\"}}}",
+      "product_slug": "oraimo-watch-5r-pro-smart-watch-osw-830",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "14999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 5,
+      "total_reviews": 1,
+      "product_brand_id": 248,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "smart-watches",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 5,
+      "product_category_name": "Smart Watches",
+      "product_filters": {
+        "Screen Size": 36,
+        "Capacity": 300,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 9449,
+      "lowest_price_storelink_id": 23249,
+      "lowest_price_store_id": 9999,
+      "highest_price": 9449,
+      "price_crawled_date": "2025-06-12 16:56:44",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4894947061790"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [
+        "type-c-cable"
+      ],
+      "product_clicks": 52,
+      "retail_price": "14999",
+      "saving_price": 5550,
+      "po_order_status": 3,
+      "po_date_create": "2025-06-12",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Bluetooth Calling Yes Voice Assistant Water Resistant IP68 Modes Multiple Sport Modes Speaker Compatibility Andriod / IOS Heart Rate Monitor Calories Burned Sleep Quality Monitor Step Tracker Oxygen Level Monitoring Bluetooth Version V5.3 Screen Type AMOLED Display Screen Size 36mm Capacity 300mAh Battery Life 9-11 Days"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1653.8013
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "10612",
+    "_score": 1653.0612,
+    "_ignored": [
+      "product_description.keyword",
+      "product_image.keyword"
+    ],
+    "_source": {
+      "product_id": 10612,
+      "category": 6,
+      "product_title": "Oraimo FreePods Neo True Wireless Earbuds (OTW-330S)",
+      "product_title_match": "Oraimo FreePods Neo True Wireless Earbuds (OTW-330S)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-freepods-neo-true-wireless-earbuds-otw-330s-pakistan-priceoye-4oskz.jpeg\",\"colors\":{\"black\":{\"0\":\"oraimo-freepods-neo-true-wireless-earbuds-otw-330s-pakistan-priceoye-uwx1p.jpeg\",\"1\":\"oraimo-freepods-neo-true-wireless-earbuds-otw-330s-pakistan-priceoye-jp0e9.jpg\",\"2\":\"oraimo-freepods-neo-true-wireless-earbuds-otw-330s-pakistan-priceoye-uwcs2.jpeg\"},\"mysteriousblue\":{\"0\":\"oraimo-freepods-neo-true-wireless-earbuds-otw-330s-pakistan-priceoye-zlwid.jpeg\",\"1\":\"oraimo-freepods-neo-true-wireless-earbuds-otw-330s-pakistan-priceoye-0n348.jpeg\",\"2\":\"oraimo-freepods-neo-true-wireless-earbuds-otw-330s-pakistan-priceoye-f4lci.jpeg\"}}}",
+      "product_slug": "oraimo-freepods-neo-true-wireless-earbuds-otw-330s",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "3999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 4,
+      "total_reviews": 2,
+      "product_brand_id": 247,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "wireless-earbuds",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 6,
+      "product_category_name": "Wireless Earbuds",
+      "product_filters": {
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 3199,
+      "lowest_price_storelink_id": 22386,
+      "lowest_price_store_id": 9999,
+      "highest_price": 3199,
+      "price_crawled_date": "2025-11-27 18:43:22",
+      "color": [
+        "black",
+        "mysteriousblue"
+      ],
+      "size": [
+        "4894947023668",
+        "4894947023675"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [
+        "charging-cable"
+      ],
+      "product_clicks": 21,
+      "retail_price": "3999",
+      "saving_price": 800,
+      "po_order_status": 3,
+      "po_date_create": "2025-03-26",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Noise Cancellation ANC Water Resistant IPX4 Charging Interface C-Type Auto Pairing Yes Compatibility Android / IOS Mic Driver Size 12.4mm Bluetooth Version V5.3 Bluetooth Range 10M / 30FT Microphone Playtime 5-6 Hours Charging Time 2 Hours"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1653.0612
+    ]
+  },
+  {
+    "_index": "priceoye_v20261031063008",
+    "_id": "5961",
+    "_score": 1649.5793,
+    "_source": {
+      "product_id": 5961,
+      "category": 5,
+      "product_title": "Oraimo Tempo 2C Smart Fit Band (OFB-12)",
+      "product_title_match": "Oraimo Tempo 2C Smart Fit Band (OFB-12)",
+      "product_featured": 9999,
+      "product_home_featured": 0,
+      "product_title_secondary": [],
+      "product_image": "{\"0\":\"oraimo-tempo-2c-ofb-12-pakistan-priceoye-kn090.jpg\",\"1\":\"oraimo-tempo-2c-ofb-12-pakistan-priceoye-30sog.jpg\",\"colors\":{\"black\":{\"0\":\"oraimo-tempo-2c-ofb-12-pakistan-priceoye-3fa0y.jpg\"}}}",
+      "product_slug": "oraimo-tempo-2c-smart-fit-band-ofb-12",
+      "product_status": "discontinued",
+      "expected_date": "2026-10-31",
+      "expected_price": "4999",
+      "product_status_order": 4,
+      "rating_stars": 5,
+      "average_rating": 0,
+      "total_reviews": 0,
+      "product_brand_id": 248,
+      "product_brand_name": "oraimo",
+      "product_category_slug": "smart-watches",
+      "product_brand_slug": "oraimo",
+      "product_brand_name_match": "oraimo",
+      "product_category_id": 5,
+      "product_category_name": "Smart Watches",
+      "product_filters": {
+        "Screen Size": 0.96,
+        "Capacity": 85,
+        "STORAGE": [],
+        "RAM": [],
+        "PORAM": []
+      },
+      "lowest_price": 2999,
+      "lowest_price_storelink_id": 12342,
+      "lowest_price_store_id": 9999,
+      "highest_price": 2999,
+      "price_crawled_date": "2023-02-10 06:12:05",
+      "color": [
+        "black"
+      ],
+      "size": [
+        "4895180757624"
+      ],
+      "badge": [
+        "null"
+      ],
+      "accessories": [],
+      "product_clicks": 0,
+      "retail_price": "4999",
+      "saving_price": 2000,
+      "po_order_status": 3,
+      "po_date_create": "2022-11-25",
+      "stock_status": 0,
+      "stock_qty": 0,
+      "product_coupon": null,
+      "sort_product_ordering": 3,
+      "spec_text": "Dimensions 42*20*9.5mm Strap Material PC/TPU Water Resistant IP67 Operating System Proprietary OS Screen Size 0.96 Inches Screen Type IPS True Color Screen Capacity 85mAh Battery Life Upto 30 Days Standby Time"
+    },
+    "sort": [
+      0,
+      1,
+      -9223372036854776000,
+      1649.5793
+    ]
+  }
+]

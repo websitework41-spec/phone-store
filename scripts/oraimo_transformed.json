@@ -1,0 +1,2300 @@
+[
+  {
+    "id": "oraimo-fast-type-c-cable-c71",
+    "slug": "oraimo-fast-type-c-cable-c71",
+    "name": "Oraimo Fast Type-C Cable (C71)",
+    "brand": "Oraimo",
+    "category": "charging-cables",
+    "tagline": "High-Speed Fast Charging & Heavy-Duty Data Cable",
+    "basePricePKR": 749,
+    "originalPricePKR": 850,
+    "discountPercent": 12,
+    "rating": 5,
+    "reviewCount": 12,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": true,
+    "isBestSeller": true,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-fast-type-c-cable-c71-pakistan-priceoye-44fq9-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-fast-type-c-cable-c71-std",
+        "storage": "Standard",
+        "ram": "1m",
+        "pricePKR": 749,
+        "originalPricePKR": 850,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 599
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Reinforced Tangle-Free Braided Jacket",
+      "processor": "Oraimo Smart Current Regulation Chip",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "High-Durability Pure Copper Wire Core",
+      "charging": "Fast Charging & High-Speed Data Sync (480 Mbps)"
+    },
+    "specs": {
+      "screen": "Reinforced Tangle-Free Braided Jacket",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Oraimo Smart Current Regulation Chip",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "High-Durability Pure Copper Wire Core",
+      "charging": "Fast Charging & High-Speed Data Sync (480 Mbps)",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "High-Speed Copper Bus",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "35 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 599
+  },
+  {
+    "id": "oraimo-braid-2-lightning-cable-l71",
+    "slug": "oraimo-braid-2-lightning-cable-l71",
+    "name": "Oraimo Braid 2 Lightning Cable (L71)",
+    "brand": "Oraimo",
+    "category": "charging-cables",
+    "tagline": "High-Speed Fast Charging & Heavy-Duty Data Cable",
+    "basePricePKR": 799,
+    "originalPricePKR": 900,
+    "discountPercent": 11,
+    "rating": 5,
+    "reviewCount": 20,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": true,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-braid-2-lightning-cable-l71-pakistan-priceoye-9kfhd-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-braid-2-lightning-cable-l71-std",
+        "storage": "Standard",
+        "ram": "1m",
+        "pricePKR": 799,
+        "originalPricePKR": 900,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 639
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Reinforced Tangle-Free Braided Jacket",
+      "processor": "Oraimo Smart Current Regulation Chip",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "High-Durability Pure Copper Wire Core",
+      "charging": "Fast Charging & High-Speed Data Sync (480 Mbps)"
+    },
+    "specs": {
+      "screen": "Reinforced Tangle-Free Braided Jacket",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Oraimo Smart Current Regulation Chip",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "High-Durability Pure Copper Wire Core",
+      "charging": "Fast Charging & High-Speed Data Sync (480 Mbps)",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "High-Speed Copper Bus",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "35 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 639
+  },
+  {
+    "id": "oraimo-boompop2s-ohp-610s-wireless-headphones",
+    "slug": "oraimo-boompop2s-ohp-610s-wireless-headphones",
+    "name": "Oraimo BoomPop2S OHP-610S Wireless Headphones",
+    "brand": "Oraimo",
+    "category": "wireless-earbuds",
+    "tagline": "Heavy Bass Sound, Clear Voice Calls & Long Playtime",
+    "basePricePKR": 5599,
+    "originalPricePKR": 9999,
+    "discountPercent": 44,
+    "rating": 5,
+    "reviewCount": 31,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": true,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Blue",
+        "hex": "#2563eb",
+        "image": "https://images.priceoye.pk/oraimo-boompop2s-ohp-610s-wireless-headphones-pakistan-priceoye-0u3wo-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-boompop2s-ohp-610s-wireless-headphones-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 5599,
+        "originalPricePKR": 9999,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 4479
+      }
+    ],
+    "colorStockMap": {
+      "Blue": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Capacitive Smart Touch Controls",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge"
+    },
+    "specs": {
+      "screen": "Capacitive Smart Touch Controls",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "IPX4 Water & Sweat Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 4479
+  },
+  {
+    "id": "oraimo-spacebuds-true-wireless-earbuds-otw-630",
+    "slug": "oraimo-spacebuds-true-wireless-earbuds-otw-630",
+    "name": "Oraimo SpaceBuds True Wireless Earbuds (OTW-630)",
+    "brand": "Oraimo",
+    "category": "wireless-earbuds",
+    "tagline": "Heavy Bass Sound, Clear Voice Calls & Long Playtime",
+    "basePricePKR": 7349,
+    "originalPricePKR": 9599,
+    "discountPercent": 23,
+    "rating": 5,
+    "reviewCount": 2,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": true,
+    "isBestSeller": true,
+    "colors": [
+      {
+        "name": "Space_grey",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-spacebuds-true-wireless-earbuds-otw-630-pakistan-priceoye-lchs0-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-spacebuds-true-wireless-earbuds-otw-630-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 7349,
+        "originalPricePKR": 9599,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 5879
+      }
+    ],
+    "colorStockMap": {
+      "Space_grey": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Capacitive Smart Touch Controls",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge"
+    },
+    "specs": {
+      "screen": "Capacitive Smart Touch Controls",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "IPX4 Water & Sweat Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 5879
+  },
+  {
+    "id": "oraimo-opn-675-open-ear-wireless-earphones",
+    "slug": "oraimo-opn-675-open-ear-wireless-earphones",
+    "name": "Oraimo OPN-675 Open-Ear Wireless Earphones",
+    "brand": "Oraimo",
+    "category": "wireless-earbuds",
+    "tagline": "Heavy Bass Sound, Clear Voice Calls & Long Playtime",
+    "basePricePKR": 9499,
+    "originalPricePKR": 13000,
+    "discountPercent": 27,
+    "rating": 5,
+    "reviewCount": 3,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": true,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Graphite_gray",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-opn-675-open-ear-wireless-earphones-pakistan-priceoye-ube7m-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-opn-675-open-ear-wireless-earphones-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 9499,
+        "originalPricePKR": 13000,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 7599
+      }
+    ],
+    "colorStockMap": {
+      "Graphite_gray": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Capacitive Smart Touch Controls",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge"
+    },
+    "specs": {
+      "screen": "Capacitive Smart Touch Controls",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "IPX4 Water & Sweat Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 7599
+  },
+  {
+    "id": "oraimo-boom-pop-ohp-317-wireless-headphones",
+    "slug": "oraimo-boom-pop-ohp-317-wireless-headphones",
+    "name": "Oraimo Boom Pop OHP-317 Wireless Headphones",
+    "brand": "Oraimo",
+    "category": "wireless-earbuds",
+    "tagline": "Heavy Bass Sound, Clear Voice Calls & Long Playtime",
+    "basePricePKR": 4349,
+    "originalPricePKR": 7999,
+    "discountPercent": 46,
+    "rating": 5,
+    "reviewCount": 1,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": true,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-boom-pop-ohp-317-wireless-headphones-pakistan-priceoye-pdj5l-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-boom-pop-ohp-317-wireless-headphones-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 4349,
+        "originalPricePKR": 7999,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 3479
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Capacitive Smart Touch Controls",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge"
+    },
+    "specs": {
+      "screen": "Capacitive Smart Touch Controls",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "IPX4 Water & Sweat Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 3479
+  },
+  {
+    "id": "oraimo-boompop-pro-ohp-917-wireless-headphones",
+    "slug": "oraimo-boompop-pro-ohp-917-wireless-headphones",
+    "name": "Oraimo BoomPop Pro OHP-917 Wireless Headphones",
+    "brand": "Oraimo",
+    "category": "wireless-earbuds",
+    "tagline": "Heavy Bass Sound, Clear Voice Calls & Long Playtime",
+    "basePricePKR": 9499,
+    "originalPricePKR": 13999,
+    "discountPercent": 32,
+    "rating": 5,
+    "reviewCount": 30,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": true,
+    "colors": [
+      {
+        "name": "Grey",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-boompop-pro-ohp-617-wireless-headphones-pakistan-priceoye-4b2nn-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Gold",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-boompop-pro-ohp-617-wireless-headphones-pakistan-priceoye-4b2nn-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-boompop-pro-ohp-917-wireless-headphones-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 9499,
+        "originalPricePKR": 13999,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 7599
+      }
+    ],
+    "colorStockMap": {
+      "Grey": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Gold": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Capacitive Smart Touch Controls",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge"
+    },
+    "specs": {
+      "screen": "Capacitive Smart Touch Controls",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "IPX4 Water & Sweat Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 7599
+  },
+  {
+    "id": "oraimo-necklace-lite-wireless-headphones-oeb-311",
+    "slug": "oraimo-necklace-lite-wireless-headphones-oeb-311",
+    "name": "Oraimo Necklace Lite Wireless Headphones (OEB-311)",
+    "brand": "Oraimo",
+    "category": "wireless-earbuds",
+    "tagline": "Heavy Bass Sound, Clear Voice Calls & Long Playtime",
+    "basePricePKR": 2549,
+    "originalPricePKR": 3999,
+    "discountPercent": 36,
+    "rating": 5,
+    "reviewCount": 37,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-5xryp-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Nebula_blue",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-necklace-lite-wireless-headphones-oeb-311-pakistan-priceoye-5xryp-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-necklace-lite-wireless-headphones-oeb-311-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 2549,
+        "originalPricePKR": 3999,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 2039
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Nebula_blue": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Capacitive Smart Touch Controls",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge"
+    },
+    "specs": {
+      "screen": "Capacitive Smart Touch Controls",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "IPX4 Water & Sweat Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 2039
+  },
+  {
+    "id": "oraimo-tempo-s-smart-watch-osw-11",
+    "slug": "oraimo-tempo-s-smart-watch-osw-11",
+    "name": "Oraimo Tempo S Smart Watch (OSW-11)",
+    "brand": "Oraimo",
+    "category": "smart-watches",
+    "tagline": "Heart Rate, Sleep Monitoring & Smart Fitness Tracker",
+    "basePricePKR": 4499,
+    "originalPricePKR": 6499,
+    "discountPercent": 31,
+    "rating": 5,
+    "reviewCount": 28,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-tempo-s-smart-watch-osw-11-pakistan-priceoye-u597l-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-tempo-s-smart-watch-osw-11-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 4499,
+        "originalPricePKR": 6499,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 3599
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "1.39-inch HD Full Touch Color Screen",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable"
+    },
+    "specs": {
+      "screen": "1.39-inch HD Full Touch Color Screen",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 3599
+  },
+  {
+    "id": "oraimo-udon-2-micro-usb-cable-m56",
+    "slug": "oraimo-udon-2-micro-usb-cable-m56",
+    "name": "Oraimo Udon 2 Micro Usb Cable (M56)",
+    "brand": "Oraimo",
+    "category": "charging-cables",
+    "tagline": "High-Speed Fast Charging & Heavy-Duty Data Cable",
+    "basePricePKR": 599,
+    "originalPricePKR": 800,
+    "discountPercent": 25,
+    "rating": 5,
+    "reviewCount": 6,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": true,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-udon-2-micro-usb-cable-m56-pakistan-priceoye-41ni9-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-udon-2-micro-usb-cable-m56-std",
+        "storage": "Standard",
+        "ram": "1m",
+        "pricePKR": 599,
+        "originalPricePKR": 800,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 479
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Reinforced Tangle-Free Braided Jacket",
+      "processor": "Oraimo Smart Current Regulation Chip",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "High-Durability Pure Copper Wire Core",
+      "charging": "Fast Charging & High-Speed Data Sync (480 Mbps)"
+    },
+    "specs": {
+      "screen": "Reinforced Tangle-Free Braided Jacket",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Oraimo Smart Current Regulation Chip",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "High-Durability Pure Copper Wire Core",
+      "charging": "Fast Charging & High-Speed Data Sync (480 Mbps)",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "High-Speed Copper Bus",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "35 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 479
+  },
+  {
+    "id": "oraimo-duraline-2-micro-usb-cable-m53",
+    "slug": "oraimo-duraline-2-micro-usb-cable-m53",
+    "name": "Oraimo DuraLine 2 Micro Usb Cable (M53)",
+    "brand": "Oraimo",
+    "category": "charging-cables",
+    "tagline": "High-Speed Fast Charging & Heavy-Duty Data Cable",
+    "basePricePKR": 299,
+    "originalPricePKR": 500,
+    "discountPercent": 40,
+    "rating": 5,
+    "reviewCount": 3,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-duraline-2-micro-usb-cable-m53-pakistan-priceoye-g0q5k-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-duraline-2-micro-usb-cable-m53-std",
+        "storage": "Standard",
+        "ram": "1m",
+        "pricePKR": 299,
+        "originalPricePKR": 500,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 239
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Reinforced Tangle-Free Braided Jacket",
+      "processor": "Oraimo Smart Current Regulation Chip",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "High-Durability Pure Copper Wire Core",
+      "charging": "Fast Charging & High-Speed Data Sync (480 Mbps)"
+    },
+    "specs": {
+      "screen": "Reinforced Tangle-Free Braided Jacket",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Oraimo Smart Current Regulation Chip",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "High-Durability Pure Copper Wire Core",
+      "charging": "Fast Charging & High-Speed Data Sync (480 Mbps)",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "High-Speed Copper Bus",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "35 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 239
+  },
+  {
+    "id": "oraimo-watch-6-pro-osw-807s-smartwatch",
+    "slug": "oraimo-watch-6-pro-osw-807s-smartwatch",
+    "name": "Oraimo Watch 6 Pro OSW-807S SmartWatch",
+    "brand": "Oraimo",
+    "category": "smart-watches",
+    "tagline": "Heart Rate, Sleep Monitoring & Smart Fitness Tracker",
+    "basePricePKR": 5349,
+    "originalPricePKR": 7999,
+    "discountPercent": 33,
+    "rating": 5,
+    "reviewCount": 37,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-watch-6-pro-osw-807s-smartwatch-pakistan-priceoye-kgwd3-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-watch-6-pro-osw-807s-smartwatch-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 5349,
+        "originalPricePKR": 7999,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 4279
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "1.39-inch HD Full Touch Color Screen",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable"
+    },
+    "specs": {
+      "screen": "1.39-inch HD Full Touch Color Screen",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 4279
+  },
+  {
+    "id": "oraimo-soundgo-4-bluetooth-speaker-obs-02s",
+    "slug": "oraimo-soundgo-4-bluetooth-speaker-obs-02s",
+    "name": "Oraimo SoundGo 4 Bluetooth Speaker (OBS-02S)",
+    "brand": "Oraimo",
+    "category": "bluetooth-speakers",
+    "tagline": "Portable Rich Sound & Deep Punchy Bass",
+    "basePricePKR": 2799,
+    "originalPricePKR": 2895,
+    "discountPercent": 3,
+    "rating": 5,
+    "reviewCount": 34,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": true,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-soundgo-4-bluetooth-speaker-obs-02s-pakistan-priceoye-qvq67-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-soundgo-4-bluetooth-speaker-obs-02s-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 2799,
+        "originalPricePKR": 2895,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 2239
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Rugged Water-Resistant Design",
+      "processor": "Mega Sound Driver with Deep Bass",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Rechargeable Li-ion Battery (up to 8 Hours Playtime)",
+      "charging": "Type-C USB Charging"
+    },
+    "specs": {
+      "screen": "Rugged Water-Resistant Design",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Mega Sound Driver with Deep Bass",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Rechargeable Li-ion Battery (up to 8 Hours Playtime)",
+      "charging": "Type-C USB Charging",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 2239
+  },
+  {
+    "id": "oraimo-shark-2-wireless-bluetooth-neckband",
+    "slug": "oraimo-shark-2-wireless-bluetooth-neckband",
+    "name": "Oraimo Shark 2 Wireless Neckband (OEB-E59D)",
+    "brand": "Oraimo",
+    "category": "smart-watches",
+    "tagline": "Heart Rate, Sleep Monitoring & Smart Fitness Tracker",
+    "basePricePKR": 2999,
+    "originalPricePKR": 3299,
+    "discountPercent": 9,
+    "rating": 5,
+    "reviewCount": 1,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-shark-2-wireless-neckband-pakistan-priceoye-54zcs-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Blue",
+        "hex": "#2563eb",
+        "image": "https://images.priceoye.pk/oraimo-shark-2-wireless-neckband-pakistan-priceoye-54zcs-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Red",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-shark-2-wireless-neckband-pakistan-priceoye-54zcs-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-shark-2-wireless-bluetooth-neckband-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 2999,
+        "originalPricePKR": 3299,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 2399
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Blue": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Red": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "0.96-inch Vivid Color Display",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable"
+    },
+    "specs": {
+      "screen": "0.96-inch Vivid Color Display",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 2399
+  },
+  {
+    "id": "oraimo-shark-3-wireless-bluetooth-neckband-e49d",
+    "slug": "oraimo-shark-3-wireless-bluetooth-neckband-e49d",
+    "name": "Oraimo Shark 3 Wireless Neckband (OEB-E49D)",
+    "brand": "Oraimo",
+    "category": "smart-watches",
+    "tagline": "Heart Rate, Sleep Monitoring & Smart Fitness Tracker",
+    "basePricePKR": 2699,
+    "originalPricePKR": 2949,
+    "discountPercent": 8,
+    "rating": 5,
+    "reviewCount": 1,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-shark-3-wireless-bluetooth-neckband-e49d-pakistan-priceoye-zyni1-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-shark-3-wireless-bluetooth-neckband-e49d-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 2699,
+        "originalPricePKR": 2949,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 2159
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "0.96-inch Vivid Color Display",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable"
+    },
+    "specs": {
+      "screen": "0.96-inch Vivid Color Display",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 2159
+  },
+  {
+    "id": "oraimo-wireless-neckband-3-lite",
+    "slug": "oraimo-wireless-neckband-3-lite",
+    "name": "Oraimo Wireless Neckband 3 Lite (OEB-E75D)",
+    "brand": "Oraimo",
+    "category": "smart-watches",
+    "tagline": "Heart Rate, Sleep Monitoring & Smart Fitness Tracker",
+    "basePricePKR": 3799,
+    "originalPricePKR": 4999,
+    "discountPercent": 24,
+    "rating": 5,
+    "reviewCount": 3,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": true,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-wireless-neckband-3-lite-pakistan-priceoye-bm70p-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Red",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-wireless-neckband-3-lite-pakistan-priceoye-bm70p-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Gold",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-wireless-neckband-3-lite-pakistan-priceoye-bm70p-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Blue",
+        "hex": "#2563eb",
+        "image": "https://images.priceoye.pk/oraimo-wireless-neckband-3-lite-pakistan-priceoye-bm70p-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-wireless-neckband-3-lite-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 3799,
+        "originalPricePKR": 4999,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 3039
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Red": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Gold": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Blue": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "0.96-inch Vivid Color Display",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable"
+    },
+    "specs": {
+      "screen": "0.96-inch Vivid Color Display",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 3039
+  },
+  {
+    "id": "oraimo-oeb-e74d-necklace-2-wireless-earphone",
+    "slug": "oraimo-oeb-e74d-necklace-2-wireless-earphone",
+    "name": "Oraimo OEB-E74D Necklace 2 Wireless Earphone",
+    "brand": "Oraimo",
+    "category": "wireless-earbuds",
+    "tagline": "Heavy Bass Sound, Clear Voice Calls & Long Playtime",
+    "basePricePKR": 3999,
+    "originalPricePKR": 6000,
+    "discountPercent": 33,
+    "rating": 5,
+    "reviewCount": 14,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-oeb-e74d-necklace-2-wireless-earphone-pakistan-priceoye-2sslh-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-oeb-e74d-necklace-2-wireless-earphone-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 3999,
+        "originalPricePKR": 6000,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 3199
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Capacitive Smart Touch Controls",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge"
+    },
+    "specs": {
+      "screen": "Capacitive Smart Touch Controls",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "IPX4 Water & Sweat Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 3199
+  },
+  {
+    "id": "oraimo-traveler-4-power-bank-p204d-20000mah",
+    "slug": "oraimo-traveler-4-power-bank-p204d-20000mah",
+    "name": "Oraimo Traveler 4 Power Bank P204D (20000mAh)",
+    "brand": "Oraimo",
+    "category": "power-banks",
+    "tagline": "Massive Battery Backup with AniFast Smart Charging",
+    "basePricePKR": 3999,
+    "originalPricePKR": 5400,
+    "discountPercent": 26,
+    "rating": 5,
+    "reviewCount": 1,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-traveler-4-power-bank-p204d-20000mah-pakistan-priceoye-migr0-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-traveler-4-power-bank-p204d-20000mah-std",
+        "storage": "20,000mAh",
+        "ram": "Official",
+        "pricePKR": 3999,
+        "originalPricePKR": 5400,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 3199
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Multi-Segment LED Battery Level Indicator",
+      "processor": "Oraimo AniFast Smart Voltage Regulation",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "20,000mAh High-Capacity Battery",
+      "charging": "Two-Way Fast Charge with Dual USB Outputs"
+    },
+    "specs": {
+      "screen": "Multi-Segment LED Battery Level Indicator",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Oraimo AniFast Smart Voltage Regulation",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "20,000mAh High-Capacity Battery",
+      "charging": "Two-Way Fast Charge with Dual USB Outputs",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "380 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 3199
+  },
+  {
+    "id": "oraimo-spacebuds-neo-true-wireless-earbuds-otw-323",
+    "slug": "oraimo-spacebuds-neo-true-wireless-earbuds-otw-323",
+    "name": "Oraimo SpaceBuds Neo True Wireless Earbuds (OTW-323)",
+    "brand": "Oraimo",
+    "category": "wireless-earbuds",
+    "tagline": "Heavy Bass Sound, Clear Voice Calls & Long Playtime",
+    "basePricePKR": 2599,
+    "originalPricePKR": 3599,
+    "discountPercent": 28,
+    "rating": 5,
+    "reviewCount": 2,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": true,
+    "colors": [
+      {
+        "name": "Speed_black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-gufke-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Mystery_blue",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-gufke-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Green",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-gufke-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Light_gold",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-pakistan-priceoye-gufke-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-spacebuds-neo-true-wireless-earbuds-otw-323-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 2599,
+        "originalPricePKR": 3599,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 2079
+      }
+    ],
+    "colorStockMap": {
+      "Speed_black": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Mystery_blue": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Green": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Light_gold": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Capacitive Smart Touch Controls",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge"
+    },
+    "specs": {
+      "screen": "Capacitive Smart Touch Controls",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "IPX4 Water & Sweat Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 2079
+  },
+  {
+    "id": "oraimo-spacebuds-z-true-wireless-earbuds-otw-625",
+    "slug": "oraimo-spacebuds-z-true-wireless-earbuds-otw-625",
+    "name": "Oraimo SpaceBuds Z True Wireless Earbuds (OTW-625)",
+    "brand": "Oraimo",
+    "category": "wireless-earbuds",
+    "tagline": "Heavy Bass Sound, Clear Voice Calls & Long Playtime",
+    "basePricePKR": 4799,
+    "originalPricePKR": 5999,
+    "discountPercent": 20,
+    "rating": 5,
+    "reviewCount": 27,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Obsidian_black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-spacebuds-z-true-wireless-earbuds-otw-625-pakistan-priceoye-qtsjp-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Light_gold",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-spacebuds-z-true-wireless-earbuds-otw-625-pakistan-priceoye-qtsjp-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Elemental_blue",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-spacebuds-z-true-wireless-earbuds-otw-625-pakistan-priceoye-qtsjp-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Mystery_blue",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-spacebuds-z-true-wireless-earbuds-otw-625-pakistan-priceoye-qtsjp-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-spacebuds-z-true-wireless-earbuds-otw-625-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 4799,
+        "originalPricePKR": 5999,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 3839
+      }
+    ],
+    "colorStockMap": {
+      "Obsidian_black": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Light_gold": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Elemental_blue": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Mystery_blue": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Capacitive Smart Touch Controls",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge"
+    },
+    "specs": {
+      "screen": "Capacitive Smart Touch Controls",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "IPX4 Water & Sweat Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 3839
+  },
+  {
+    "id": "oraimo-freepods-lite-true-wireless-earbuds-otw-330",
+    "slug": "oraimo-freepods-lite-true-wireless-earbuds-otw-330",
+    "name": "Oraimo FreePods Lite True Wireless Earbuds (OTW-330)",
+    "brand": "Oraimo",
+    "category": "wireless-earbuds",
+    "tagline": "Heavy Bass Sound, Clear Voice Calls & Long Playtime",
+    "basePricePKR": 3349,
+    "originalPricePKR": 3999,
+    "discountPercent": 16,
+    "rating": 5,
+    "reviewCount": 28,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Obsidian_black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-freepods-lite-true-wireless-earbuds-otw-330-pakistan-priceoye-jev0m-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Mystery_blue",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-freepods-lite-true-wireless-earbuds-otw-330-pakistan-priceoye-jev0m-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Ice_lake_blue",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-freepods-lite-true-wireless-earbuds-otw-330-pakistan-priceoye-jev0m-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-freepods-lite-true-wireless-earbuds-otw-330-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 3349,
+        "originalPricePKR": 3999,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 2679
+      }
+    ],
+    "colorStockMap": {
+      "Obsidian_black": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Mystery_blue": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Ice_lake_blue": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Capacitive Smart Touch Controls",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge"
+    },
+    "specs": {
+      "screen": "Capacitive Smart Touch Controls",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "IPX4 Water & Sweat Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 2679
+  },
+  {
+    "id": "oraimo-watch-5r-pro-smart-watch-osw-830",
+    "slug": "oraimo-watch-5r-pro-smart-watch-osw-830",
+    "name": "Oraimo Watch 5R Pro Smart Watch OSW-830",
+    "brand": "Oraimo",
+    "category": "smart-watches",
+    "tagline": "Heart Rate, Sleep Monitoring & Smart Fitness Tracker",
+    "basePricePKR": 9449,
+    "originalPricePKR": 14999,
+    "discountPercent": 37,
+    "rating": 5,
+    "reviewCount": 1,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": true,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-watch-5r-pro-smart-watch-osw-830-pakistan-priceoye-i2la0-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-watch-5r-pro-smart-watch-osw-830-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 9449,
+        "originalPricePKR": 14999,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 7559
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "1.39-inch HD Full Touch Color Screen",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable"
+    },
+    "specs": {
+      "screen": "1.39-inch HD Full Touch Color Screen",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 7559
+  },
+  {
+    "id": "oraimo-freepods-neo-true-wireless-earbuds-otw-330s",
+    "slug": "oraimo-freepods-neo-true-wireless-earbuds-otw-330s",
+    "name": "Oraimo FreePods Neo True Wireless Earbuds (OTW-330S)",
+    "brand": "Oraimo",
+    "category": "wireless-earbuds",
+    "tagline": "Heavy Bass Sound, Clear Voice Calls & Long Playtime",
+    "basePricePKR": 3199,
+    "originalPricePKR": 3999,
+    "discountPercent": 20,
+    "rating": 5,
+    "reviewCount": 2,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-freepods-neo-true-wireless-earbuds-otw-330s-pakistan-priceoye-4oskz-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "Mysteriousblue",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-freepods-neo-true-wireless-earbuds-otw-330s-pakistan-priceoye-4oskz-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-freepods-neo-true-wireless-earbuds-otw-330s-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 3199,
+        "originalPricePKR": 3999,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 2559
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "Mysteriousblue": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Capacitive Smart Touch Controls",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge"
+    },
+    "specs": {
+      "screen": "Capacitive Smart Touch Controls",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Bluetooth V5.3 Low-Latency Audio Driver",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 30 Hours Extended Playtime with Case",
+      "charging": "Type-C AniFast Rapid Charge",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "IPX4 Water & Sweat Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 2559
+  },
+  {
+    "id": "oraimo-tempo-2c-smart-fit-band-ofb-12",
+    "slug": "oraimo-tempo-2c-smart-fit-band-ofb-12",
+    "name": "Oraimo Tempo 2C Smart Fit Band (OFB-12)",
+    "brand": "Oraimo",
+    "category": "smart-watches",
+    "tagline": "Heart Rate, Sleep Monitoring & Smart Fitness Tracker",
+    "basePricePKR": 2999,
+    "originalPricePKR": 4999,
+    "discountPercent": 40,
+    "rating": 5,
+    "reviewCount": 30,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-tempo-2c-ofb-12-pakistan-priceoye-kn090-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-tempo-2c-smart-fit-band-ofb-12-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 2999,
+        "originalPricePKR": 4999,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 2399
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "0.96-inch Vivid Color Display",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable"
+    },
+    "specs": {
+      "screen": "0.96-inch Vivid Color Display",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "High-Precision Health & Biometric Sensor",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Up to 7 Days Battery Life on Normal Use",
+      "charging": "Magnetic Fast Charging Cable",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 2399
+  },
+  {
+    "id": "oraimo-usb-charger-e65s-micro-usb-cable-2a",
+    "slug": "oraimo-usb-charger-e65s-micro-usb-cable-2a",
+    "name": "Oraimo USB Charger E65S (Micro-USB Cable 2A)",
+    "brand": "Oraimo",
+    "category": "wall-chargers",
+    "tagline": "High-Speed Multi-Protection Fast Wall Charger",
+    "basePricePKR": 499,
+    "originalPricePKR": 700,
+    "discountPercent": 29,
+    "rating": 5,
+    "reviewCount": 2,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": true,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-usb-cahrger-e65s-2a-pakistan-priceoye-e069h-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-usb-charger-e65s-micro-usb-cable-2a-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 499,
+        "originalPricePKR": 700,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 399
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Compact Ergonomic Flame-Retardant Casing",
+      "processor": "Oraimo Multi-Protect Smart Power IC",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Universal Wall AC Input (100-240V ~ 50/60Hz)",
+      "charging": "Ultra-Fast Safe Multi-Device Power Delivery"
+    },
+    "specs": {
+      "screen": "Compact Ergonomic Flame-Retardant Casing",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Oraimo Multi-Protect Smart Power IC",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Universal Wall AC Input (100-240V ~ 50/60Hz)",
+      "charging": "Ultra-Fast Safe Multi-Device Power Delivery",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 399
+  },
+  {
+    "id": "oraimo-usb-charger-e65s-l53-lightning-cable-2a",
+    "slug": "oraimo-usb-charger-e65s-l53-lightning-cable-2a",
+    "name": "Oraimo Usb Charger E65S+L53 (Lightning Cable 2A)",
+    "brand": "Oraimo",
+    "category": "wall-chargers",
+    "tagline": "High-Speed Multi-Protection Fast Wall Charger",
+    "basePricePKR": 499,
+    "originalPricePKR": 700,
+    "discountPercent": 29,
+    "rating": 5,
+    "reviewCount": 1,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-usb-charger-ocw-e65s-l53-lightning-cable-2a-pakistan-priceoye-syvzh-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-usb-charger-e65s-l53-lightning-cable-2a-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 499,
+        "originalPricePKR": 700,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 399
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Compact Ergonomic Flame-Retardant Casing",
+      "processor": "Oraimo Multi-Protect Smart Power IC",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Universal Wall AC Input (100-240V ~ 50/60Hz)",
+      "charging": "Ultra-Fast Safe Multi-Device Power Delivery"
+    },
+    "specs": {
+      "screen": "Compact Ergonomic Flame-Retardant Casing",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Oraimo Multi-Protect Smart Power IC",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Universal Wall AC Input (100-240V ~ 50/60Hz)",
+      "charging": "Ultra-Fast Safe Multi-Device Power Delivery",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 399
+  },
+  {
+    "id": "oraimo-usb-charger-e65s-c53-type-c-cable-2a",
+    "slug": "oraimo-usb-charger-e65s-c53-type-c-cable-2a",
+    "name": "Oraimo USB Charger E65S+C53 (Type-C Cable 2A)",
+    "brand": "Oraimo",
+    "category": "wall-chargers",
+    "tagline": "High-Speed Multi-Protection Fast Wall Charger",
+    "basePricePKR": 699,
+    "originalPricePKR": 900,
+    "discountPercent": 22,
+    "rating": 5,
+    "reviewCount": 7,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-usb-charger-e65s-c53-type-c-cable-2a-pakistan-priceoye-pc8md-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "White",
+        "hex": "#f8fafc",
+        "image": "https://images.priceoye.pk/oraimo-usb-charger-e65s-c53-type-c-cable-2a-pakistan-priceoye-pc8md-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-usb-charger-e65s-c53-type-c-cable-2a-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 699,
+        "originalPricePKR": 900,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 559
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "White": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Compact Ergonomic Flame-Retardant Casing",
+      "processor": "Oraimo Multi-Protect Smart Power IC",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Universal Wall AC Input (100-240V ~ 50/60Hz)",
+      "charging": "Ultra-Fast Safe Multi-Device Power Delivery"
+    },
+    "specs": {
+      "screen": "Compact Ergonomic Flame-Retardant Casing",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Oraimo Multi-Protect Smart Power IC",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Universal Wall AC Input (100-240V ~ 50/60Hz)",
+      "charging": "Ultra-Fast Safe Multi-Device Power Delivery",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 559
+  },
+  {
+    "id": "oraimo-tank-2-usb-charger-e36s-micro-usb-cable-2a",
+    "slug": "oraimo-tank-2-usb-charger-e36s-micro-usb-cable-2a",
+    "name": "Oraimo Tank 2 Usb Charger E36S (Micro-Usb Cable 2A)",
+    "brand": "Oraimo",
+    "category": "wall-chargers",
+    "tagline": "High-Speed Multi-Protection Fast Wall Charger",
+    "basePricePKR": 599,
+    "originalPricePKR": 1000,
+    "discountPercent": 40,
+    "rating": 5,
+    "reviewCount": 6,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": true,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-tank-2-usb-charger-e36s-micro-usb-cable-2a-pakistan-priceoye-s10sp-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-tank-2-usb-charger-e36s-micro-usb-cable-2a-std",
+        "storage": "Standard",
+        "ram": "Official",
+        "pricePKR": 599,
+        "originalPricePKR": 1000,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 479
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Compact Ergonomic Flame-Retardant Casing",
+      "processor": "Oraimo Multi-Protect Smart Power IC",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "Universal Wall AC Input (100-240V ~ 50/60Hz)",
+      "charging": "Ultra-Fast Safe Multi-Device Power Delivery"
+    },
+    "specs": {
+      "screen": "Compact Ergonomic Flame-Retardant Casing",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Oraimo Multi-Protect Smart Power IC",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "Universal Wall AC Input (100-240V ~ 50/60Hz)",
+      "charging": "Ultra-Fast Safe Multi-Device Power Delivery",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "150 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 479
+  },
+  {
+    "id": "oraimo-toast-10-lite-power-bank-p113d-10000mah",
+    "slug": "oraimo-toast-10-lite-power-bank-p113d-10000mah",
+    "name": "Oraimo Toast 10 Lite Power Bank P113D (10000mAh)",
+    "brand": "Oraimo",
+    "category": "power-banks",
+    "tagline": "Massive Battery Backup with AniFast Smart Charging",
+    "basePricePKR": 2999,
+    "originalPricePKR": 4000,
+    "discountPercent": 25,
+    "rating": 5,
+    "reviewCount": 1,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-toast-10-lite-power-bank-opb-p113d-10000mah-pakistan-priceoye-3zryu-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      },
+      {
+        "name": "White",
+        "hex": "#f8fafc",
+        "image": "https://images.priceoye.pk/oraimo-toast-10-lite-power-bank-opb-p113d-10000mah-pakistan-priceoye-3zryu-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-toast-10-lite-power-bank-p113d-10000mah-std",
+        "storage": "10,000mAh",
+        "ram": "Official",
+        "pricePKR": 2999,
+        "originalPricePKR": 4000,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 2399
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      },
+      "White": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Multi-Segment LED Battery Level Indicator",
+      "processor": "Oraimo AniFast Smart Voltage Regulation",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "10,000mAh Compact Battery",
+      "charging": "Two-Way Fast Charge with Dual USB Outputs"
+    },
+    "specs": {
+      "screen": "Multi-Segment LED Battery Level Indicator",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Oraimo AniFast Smart Voltage Regulation",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "10,000mAh Compact Battery",
+      "charging": "Two-Way Fast Charge with Dual USB Outputs",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "380 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 2399
+  },
+  {
+    "id": "oraimo-traveler-3-byte-power-bank-p271d-27000mah",
+    "slug": "oraimo-traveler-3-byte-power-bank-p271d-27000mah",
+    "name": "Oraimo Traveler 3 Byte Power Bank P271D (27000mAh)",
+    "brand": "Oraimo",
+    "category": "power-banks",
+    "tagline": "Massive Battery Backup with AniFast Smart Charging",
+    "basePricePKR": 6499,
+    "originalPricePKR": 8000,
+    "discountPercent": 19,
+    "rating": 5,
+    "reviewCount": 1,
+    "inStock": true,
+    "stockQty": 25,
+    "isTrending": false,
+    "isBestSeller": false,
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#18181b",
+        "image": "https://images.priceoye.pk/oraimo-traveler-3-byte-power-bank-p271d-27000mah-pakistan-priceoye-v1zn4-500x500.webp",
+        "inStock": true,
+        "stockQty": 10
+      }
+    ],
+    "variants": [
+      {
+        "id": "oraimo-traveler-3-byte-power-bank-p271d-27000mah-std",
+        "storage": "27,000mAh",
+        "ram": "Official",
+        "pricePKR": 6499,
+        "originalPricePKR": 8000,
+        "inStock": true,
+        "stockQty": 25,
+        "costPricePKR": 5199
+      }
+    ],
+    "colorStockMap": {
+      "Black": {
+        "inStock": true,
+        "stockQty": 10
+      }
+    },
+    "keyHighlights": {
+      "display": "Multi-Segment LED Battery Level Indicator",
+      "processor": "Oraimo AniFast Smart Voltage Regulation",
+      "camera": "Official Oraimo Pakistan Warranty",
+      "battery": "27,000mAh High-Density Battery",
+      "charging": "Two-Way Fast Charge with Dual USB Outputs"
+    },
+    "specs": {
+      "screen": "Multi-Segment LED Battery Level Indicator",
+      "refreshRate": "AniFast High Efficiency",
+      "displayType": "Durable Premium Polymer Build",
+      "processor": "Oraimo AniFast Smart Voltage Regulation",
+      "chipsetBrand": "Oraimo Technology",
+      "mainCamera": "Official Quality Certified",
+      "selfieCamera": "Built-in Mic & Voice Enhancement",
+      "battery": "27,000mAh High-Density Battery",
+      "charging": "Two-Way Fast Charge with Dual USB Outputs",
+      "os": "Universal Compatibility (Android, iOS & USB Devices)",
+      "network": "Bluetooth / Fast Sync",
+      "security": "Overvoltage & Short Circuit Surge Protection",
+      "weight": "380 g",
+      "waterResistance": "Splash Resistant",
+      "ptaStatus": "PTA Approved",
+      "warranty": "1 Year Official Oraimo Pakistan Warranty"
+    },
+    "costPricePKR": 5199
+  }
+]
