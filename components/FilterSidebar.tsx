@@ -125,6 +125,7 @@ export function FilterSidebar({
   const resetFilters = () => {
     setFilters({
       searchQuery: '',
+      selectedCategory: undefined,
       selectedBrands: [],
       priceRange: [0, 700000],
       selectedRam: [],
@@ -199,10 +200,10 @@ export function FilterSidebar({
         </button>
       </div>
 
-      {/* 2. Phone Category Quick Select Chips (Smartphones vs Keypad Phones) */}
+      {/* 2. Product Category Quick Select Chips */}
       <div className="space-y-2">
         <label className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">
-          Mobile Category
+          Product Category
         </label>
         <div className="grid grid-cols-2 gap-2">
           <button
@@ -210,33 +211,68 @@ export function FilterSidebar({
             onClick={() => {
               setFilters((prev) => ({
                 ...prev,
+                selectedCategory: undefined,
                 selectedBrands: [],
               }));
             }}
-            className={`btn-press py-2.5 px-3 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
-              filters.selectedBrands.length === 0
+            className={`btn-press py-2 px-2.5 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+              !filters.selectedCategory && filters.selectedBrands.length === 0
                 ? 'bg-[#136ab5] text-white shadow-md ring-2 ring-[#48afff]/50'
                 : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-950'
             }`}
           >
-            All Mobiles
+            All Products
           </button>
           <button
             type="button"
             onClick={() => {
               setFilters((prev) => ({
                 ...prev,
-                selectedBrands: ['Nokia', 'Itel'],
+                selectedCategory: 'mobiles',
+                selectedBrands: [],
               }));
             }}
-            className={`btn-press py-2.5 px-3 rounded-xl text-xs font-bold transition-all text-center cursor-pointer flex items-center justify-center gap-1.5 ${
-              isKeypadSelected
+            className={`btn-press py-2 px-2.5 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+              filters.selectedCategory === 'mobiles'
                 ? 'bg-[#136ab5] text-white shadow-md ring-2 ring-[#48afff]'
-                : 'bg-sky-50 hover:bg-sky-100 text-[#136ab5] border border-sky-200 hover:shadow-xs'
+                : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-950'
             }`}
           >
-            <PhoneIcon className="w-3.5 h-3.5" />
-            <span>Keypad (22)</span>
+            Mobiles
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setFilters((prev) => ({
+                ...prev,
+                selectedCategory: 'wireless-earbuds',
+                selectedBrands: [],
+              }));
+            }}
+            className={`btn-press py-2 px-2.5 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+              filters.selectedCategory === 'wireless-earbuds'
+                ? 'bg-[#136ab5] text-white shadow-md ring-2 ring-[#48afff]'
+                : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-950'
+            }`}
+          >
+            Earbuds
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setFilters((prev) => ({
+                ...prev,
+                selectedCategory: 'smart-watches',
+                selectedBrands: [],
+              }));
+            }}
+            className={`btn-press py-2 px-2.5 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+              filters.selectedCategory === 'smart-watches'
+                ? 'bg-[#136ab5] text-white shadow-md ring-2 ring-[#48afff]'
+                : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-950'
+            }`}
+          >
+            Smart Watches
           </button>
         </div>
       </div>

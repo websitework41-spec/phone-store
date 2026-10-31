@@ -8,6 +8,7 @@ import { getActiveCatalog } from '@/lib/catalog';
 import { matchesSearchQuery } from '@/lib/search';
 import { Smartphone, FilterState, CartItem, SmartphoneVariant, SmartphoneColor } from '@/types';
 import { Navbar } from '@/components/Navbar';
+import { CategoryNavSlider, STORE_CATEGORIES } from '@/components/CategoryNavSlider';
 import { HeroBanner } from '@/components/HeroBanner';
 import { FilterSidebar } from '@/components/FilterSidebar';
 import { PhoneCard } from '@/components/PhoneCard';
@@ -69,6 +70,7 @@ function HomeContent() {
   // Master Filters State
   const [filters, setFilters] = useState<FilterState>({
     searchQuery: '',
+    selectedCategory: undefined,
     selectedBrands: [],
     priceRange: [0, 700000],
     selectedRam: [],
@@ -219,9 +221,14 @@ function HomeContent() {
           updated.selectedBrands = [];
         }
       }
-      if (categoryParam === 'keypad') {
-        updated.selectedBrands = ['Nokia', 'Itel'];
-        updated.priceRange = [0, 700000];
+      if (categoryParam) {
+        if (categoryParam === 'keypad') {
+          updated.selectedBrands = ['Nokia', 'Itel'];
+          updated.priceRange = [0, 700000];
+          updated.selectedCategory = 'mobiles';
+        } else {
+          updated.selectedCategory = categoryParam;
+        }
       }
       if (specParam) {
         updated.specFilter = specParam;
@@ -244,6 +251,7 @@ function HomeContent() {
     setVisibleCount(24);
   }, [
     filters.searchQuery,
+    filters.selectedCategory,
     filters.selectedBrands,
     filters.priceRange,
     filters.selectedRam,
@@ -276,6 +284,15 @@ function HomeContent() {
           /amoled|oled/i.test(phone.specs.screen || '') ||
           /amoled|oled/i.test(phone.keyHighlights?.display || '');
         if (!is120Hz || !isAmoled) return false;
+      }
+
+      // Category Filter (Mobiles vs Earbuds vs Watches vs Accessories)
+      if (filters.selectedCategory) {
+        if (filters.selectedCategory === 'mobiles') {
+          if (phone.category && phone.category !== 'mobiles') return false;
+        } else {
+          if (phone.category !== filters.selectedCategory) return false;
+        }
       }
 
       const phonePrice = getPhonePrice(phone);
@@ -458,6 +475,37 @@ function HomeContent() {
     }, 60);
   }, []);
 
+  const handleSelectCategory = useCallback((categoryId: string) => {
+    setFilters((prev) => {
+      const isAlreadyActive = prev.selectedCategory === categoryId;
+      const nextCategory = isAlreadyActive ? undefined : categoryId;
+      return {
+        ...prev,
+        selectedCategory: nextCategory,
+        selectedBrands: [], // Clear locked brands so products for the new category display
+        searchQuery: '',
+      };
+    });
+
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      if (categoryId) {
+        url.searchParams.set('category', categoryId);
+      } else {
+        url.searchParams.delete('category');
+      }
+      url.searchParams.delete('search');
+      window.history.replaceState(null, '', url.pathname + (url.searchParams.toString() ? '?' + url.searchParams.toString() : ''));
+    }
+
+    setTimeout(() => {
+      const catalogEl = document.getElementById('catalog');
+      if (catalogEl) {
+        catalogEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 60);
+  }, []);
+
   const handleFilterBudget = useCallback(() => {
     setFilters((prev) => ({
       ...prev,
@@ -522,6 +570,7 @@ function HomeContent() {
   const handleResetAllFilters = useCallback(() => {
     setFilters({
       searchQuery: '',
+      selectedCategory: undefined,
       selectedBrands: [],
       priceRange: [0, 700000],
       selectedRam: [],
@@ -553,6 +602,13 @@ function HomeContent() {
         url.searchParams.delete('query');
         window.history.replaceState({}, '', url.toString());
       }
+    } else if (key === 'category') {
+      setFilters((prev) => ({ ...prev, selectedCategory: undefined }));
+      if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('category');
+        window.history.replaceState({}, '', url.toString());
+      }
     } else if (key === 'ram' && val) {
       setFilters((prev) => ({
         ...prev,
@@ -575,6 +631,7 @@ function HomeContent() {
   };
 
   const hasActiveFilters =
+    Boolean(filters.selectedCategory) ||
     filters.searchQuery.trim() !== '' ||
     filters.selectedBrands.length > 0 ||
     filters.selectedRam.length > 0 ||
@@ -601,6 +658,12 @@ function HomeContent() {
             ? filters.selectedBrands[0]
             : 'All Brands'
         }
+      />
+
+      {/* PriceOye Style Category Navigation Bar */}
+      <CategoryNavSlider
+        selectedCategory={filters.selectedCategory}
+        onSelectCategory={handleSelectCategory}
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-5">
@@ -770,10 +833,12 @@ function HomeContent() {
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
                 <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-950 font-sans">
-                  Mobile Phones Catalog
+                  {filters.selectedCategory
+                    ? `${STORE_CATEGORIES.find((c) => c.id === filters.selectedCategory)?.name || 'Products'} Catalog`
+                    : 'Mobile Phones & Accessories Catalog'}
                 </h2>
                 <span className="px-3 py-1 rounded-full text-xs font-black bg-sky-100 text-[#136ab5] border border-sky-200">
-                  {filteredPhones.length} Verified Mobiles
+                  {filteredPhones.length} {filters.selectedCategory ? 'Items' : 'Verified Products'}
                 </span>
                 <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5 shadow-xs">
                   <span className="relative flex h-2 w-2">
@@ -784,7 +849,7 @@ function HomeContent() {
                 </span>
               </div>
               <p className="text-xs text-slate-500 mt-1">
-                PTA DIRBS approved phones with brand warranties, 0% EMI installments, and Open-Parcel COD.
+                Official stock with brand warranties, 0% EMI installments, and Open-Parcel delivery across Pakistan.
               </p>
             </div>
 
@@ -957,6 +1022,15 @@ function HomeContent() {
           {hasActiveFilters && (
             <div className="flex flex-wrap items-center gap-2 py-3.5 border-b border-slate-200">
               <span className="text-xs text-slate-400 font-bold mr-1">Active:</span>
+
+              {filters.selectedCategory && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-100 text-[#136ab5] border border-sky-200 shadow-2xs">
+                  Category: {STORE_CATEGORIES.find((c) => c.id === filters.selectedCategory)?.name || filters.selectedCategory}
+                  <button onClick={() => handleClearFilter('category')} aria-label="Remove category filter" className="hover:text-rose-600 p-0.5 cursor-pointer">
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              )}
 
               {filters.searchQuery.trim() && (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-[#136ab5] border border-sky-200">

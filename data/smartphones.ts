@@ -22,6 +22,14 @@ export const BRANDS = [
   'Nothing',
   'Huawei',
   'Sony',
+  'Audionic',
+  'Ronin',
+  'Anker',
+  'Faster',
+  'Philips',
+  'JBL',
+  'Soundpeats',
+  'Dizo',
 ];
 
 export const RAM_OPTIONS = ['3GB', '4GB', '6GB', '8GB', '12GB', '16GB'];
@@ -66,4 +74,3 @@ export function getPhonePrice(phone: Smartphone): number {
   }
   return phone.basePricePKR;
 }
-

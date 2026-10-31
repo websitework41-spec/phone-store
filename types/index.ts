@@ -51,12 +51,24 @@ export interface SmartphoneSpecs {
   warranty: string;
 }
 
+export type ProductCategory =
+  | 'mobiles'
+  | 'wireless-earbuds'
+  | 'smart-watches'
+  | 'trimmers-shaver'
+  | 'power-banks'
+  | 'wall-chargers'
+  | 'bluetooth-speakers'
+  | 'tablets'
+  | 'laptops';
+
 export interface Smartphone {
   id: string;
   slug: string;
   name: string;
   brand: string;
   tagline: string;
+  category?: ProductCategory | string;
   basePricePKR: number;
   originalPricePKR: number;
   costPricePKR?: number;
@@ -83,6 +95,7 @@ export interface Smartphone {
 
 export interface FilterState {
   searchQuery: string;
+  selectedCategory?: string;
   selectedBrands: string[];
   priceRange: [number, number];
   selectedRam: string[];
